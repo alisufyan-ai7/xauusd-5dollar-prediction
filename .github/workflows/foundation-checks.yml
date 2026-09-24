@@ -121,3 +121,16 @@ jobs:
         with:
           name: exp001-2016-2025-partition-summary
           path: data/reports/exp001/partition-summary.json
+
+  locked-2020-repro-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reproduce locked 2020 chunk
+        run: bash scripts/acquire_locked_year.sh 2020 data 3
