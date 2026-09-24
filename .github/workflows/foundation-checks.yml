@@ -19,6 +19,8 @@ jobs:
         run: python tests/test_validate_m1_smoke.py
       - name: Run EXP-001 barrier-label unit tests
         run: python tests/test_label_exp001.py
+      - name: Run diagnostic smoke test
+        run: python tests/test_diagnose_exp001_smoke.py
 
   public-data-smoke:
     runs-on: ubuntu-latest
@@ -50,3 +52,16 @@ jobs:
           }
           print(json.dumps(out, indent=2, sort_keys=True))
           PY
+
+  multi-period-diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run one-month XAUUSD diagnostic
+        run: bash scripts/run_exp001_diagnostic.sh 2026-08-01 2026-09-01 data
