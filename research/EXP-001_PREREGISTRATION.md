@@ -187,14 +187,13 @@ Each prediction record should include:
 
 EXP-001 must not run until the following are documented:
 
-1. admitted historical source;
-2. usage/licensing basis;
-3. timestamp/timezone convention;
-4. raw-data integrity checks;
-5. derivation rules for any bars/features;
-6. target/adverse touch-order handling;
-7. chronological partition plan;
-8. immutable experiment/config identifier.
+1. admitted free public historical source;
+2. timestamp/timezone convention;
+3. raw-data integrity checks;
+4. derivation rules for any bars/features;
+5. target/adverse touch-order handling;
+6. chronological partition plan;
+7. immutable experiment/config identifier.
 
 ## 17. Failure is an admissible result
 
