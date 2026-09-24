@@ -19,7 +19,6 @@ jobs:
         run: python tests/test_validate_m1_smoke.py
 
   public-data-smoke:
-    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -31,3 +30,21 @@ jobs:
           python-version: "3.12"
       - name: Download one public XAUUSD M1 day and validate
         run: bash scripts/download_xauusd_m1.sh 2026-09-01 2026-09-02 data/raw/dukascopy/xauusd/m1/smoke.csv
+      - name: Label the validated smoke sample
+        run: python scripts/label_exp001.py data/raw/dukascopy/xauusd/m1/smoke.csv data/results/exp001-smoke-labels.csv
+      - name: Summarize label distribution
+        run: |
+          python - <<'PY'
+          import csv, json
+          from collections import Counter
+          p='data/results/exp001-smoke-labels.csv'
+          rows=list(csv.DictReader(open(p, encoding='utf-8')))
+          out={
+            'rows': len(rows),
+            'buy': dict(Counter(r['buy_label'] for r in rows)),
+            'sell': dict(Counter(r['sell_label'] for r in rows)),
+            'coverage_complete': sum(r['coverage_complete']=='True' for r in rows),
+            'coverage_incomplete': sum(r['coverage_complete']!='True' for r in rows),
+          }
+          print(json.dumps(out, indent=2, sort_keys=True))
+          PY
