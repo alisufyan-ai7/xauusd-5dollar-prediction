@@ -47,7 +47,7 @@ class Exp001LabelTests(unittest.TestCase):
     def test_same_bar_dual_touch_is_ambiguous(self):
         bars = [
             bar(0, 100, 101, 99, 100),
-            bar(1, 100, 105.1, 96.9, 101),
+            bar(1, 100, 105.1, 94.9, 101),
         ]
         r = list(label_rows(bars, horizon_minutes=1))[0]
         self.assertEqual(r["buy_label"], "AMBIGUOUS")
