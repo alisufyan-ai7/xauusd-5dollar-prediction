@@ -17,6 +17,8 @@ jobs:
           python-version: "3.12"
       - name: Run deterministic validator smoke test
         run: python tests/test_validate_m1_smoke.py
+      - name: Run EXP-001 barrier-label unit tests
+        run: python tests/test_label_exp001.py
 
   public-data-smoke:
     runs-on: ubuntu-latest
