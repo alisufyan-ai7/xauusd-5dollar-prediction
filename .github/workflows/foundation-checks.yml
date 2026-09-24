@@ -87,3 +87,24 @@ jobs:
         with:
           name: exp001-2025-acquisition-manifest
           path: data/manifests/exp001-history-manifest.json
+
+  full-history-acquisition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Acquire XAUUSD 2016-2025 yearly chunks
+        run: bash scripts/acquire_exp001_history.sh 2016 2025 data
+      - name: Print consolidated acquisition manifest
+        run: cat data/manifests/exp001-history-manifest.json
+      - name: Upload compact acquisition manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-2016-2025-acquisition-manifest
+          path: data/manifests/exp001-history-manifest.json
