@@ -180,3 +180,19 @@ Each full-history run now:
 5. continues research using the exact files from that acquisition.
 
 The manifest for the run is the durable source-of-truth record for that run.
+
+
+## Initial baseline milestone completed
+
+Successful run: 36156744481
+
+The first non-sealed baseline analysis completed over 2,860,357 eligible complete-feature rows.
+
+Main findings:
+- volatility is the dominant first-order determinant of $5 target attainability;
+- Europe/US sessions are materially more favorable than Asia/LATE;
+- directional momentum contains useful structure, while flat momentum is consistently weak;
+- unresolved outcomes remain common, reinforcing NO TRADE as a core system behavior.
+
+Next milestone:
+Implement the frozen expert feature V2 specification in research/EXP-001_EXPERT_FEATURE_MILESTONE_V2.md, then evaluate simple models before any complex model.
