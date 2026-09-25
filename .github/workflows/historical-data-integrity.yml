@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/exp001-foundation
+    paths:
+      - ".github/full-history-trigger-2"
   workflow_dispatch:
     inputs:
       mode:
@@ -103,7 +108,7 @@ jobs:
           retention-days: 90
 
   full-history:
-    if: ${{ inputs.mode == 'full-history' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'full-history' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
