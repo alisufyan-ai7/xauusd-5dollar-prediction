@@ -157,3 +157,12 @@ The project therefore promoted the current snapshot to canonical:
 - SHA-256: 2efbfb87324fec2810f47833d2f9659a9c26da9037b5f639718058882dc40378
 
 This supersedes the prior 2017 lock. The change is explicit and recorded in the dataset lock and decision log.
+
+
+## 2020 canonical snapshot update
+
+The project promoted the repeatedly reproduced current Dukascopy 2020 M1 BID snapshot to canonical:
+- rows: 354,115
+- SHA-256: 5616aafca39a2d3689911288c08fd5da8b2f3c3ea4a2bbdb8ca0cfbf690e9289
+
+This supersedes the older 2020 lock of 355,495 rows / SHA-256 63892a47fec471a8bb4bbdd25ace162764fc56a1d6da02d458a535478fe6c6d3.
