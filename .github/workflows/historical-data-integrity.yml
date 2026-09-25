@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/exp001-foundation
-    paths:
-      - ".github/full-history-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -85,7 +80,7 @@ jobs:
         run: bash scripts/acquire_locked_year.sh 2020 data 3
 
   full-history:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'full-history' }}
+    if: ${{ inputs.mode == 'full-history' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
