@@ -139,3 +139,10 @@ Whenever a material project decision is made, update:
 - the relevant technical specification
 
 Do not rely on chat history as the sole record of a project decision.
+
+
+## Automatic CI policy
+
+Automatic push/PR CI is deterministic-only. Network-dependent public-data acquisition and historical integrity checks are manually dispatched from `.github/workflows/historical-data-integrity.yml`.
+
+This separation prevents transient public-feed differences from making ordinary code/documentation commits appear broken.
