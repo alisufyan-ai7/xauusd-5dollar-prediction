@@ -146,3 +146,19 @@ Future chats must be able to continue the project without depending on account-l
 
 Operational rule:
 After material decisions, update the decision log, relevant specification, and continuity summary.
+
+
+---
+
+## D-014 — Separate deterministic CI from historical reacquisition
+
+Decision:
+Automatic push/pull-request CI runs only deterministic repository tests. Public-data downloads, full-history reacquisition, dataset-lock reproduction checks, and long diagnostics are moved to a manually dispatched historical-data-integrity workflow.
+
+Reason:
+The public Dukascopy feed can return transient or changed historical snapshots that fail the pinned dataset lock even when repository code is correct. Re-running expensive network-dependent acquisition on every documentation or code commit created misleading red workflow runs and consumed unnecessary Actions capacity.
+
+Operational rule:
+- `.github/workflows/foundation-checks.yml` is automatic and deterministic.
+- `.github/workflows/historical-data-integrity.yml` is manual and network/data dependent.
+- A historical reacquisition mismatch is treated as a data-integrity event, not a code-regression failure.
