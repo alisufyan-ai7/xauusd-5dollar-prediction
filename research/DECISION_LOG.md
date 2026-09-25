@@ -198,3 +198,24 @@ Superseded 2020:
 
 Reason:
 The previous 2020 snapshot is no longer consistently reproducible from the public feed, while the current snapshot reproduced identically across repeated independent full-year acquisitions. This follows D-015.
+
+
+---
+
+## D-017 — Fresh full snapshot is run source of truth
+
+Decision:
+For full-history research runs, acquire the entire 2016-2025 Dukascopy snapshot once and treat that exact acquired set of files and its manifest as the source of truth for that run.
+
+The workflow still compares the fresh manifest to the prior lock and records every changed year, but differences do not block the run and do not trigger per-year retry loops.
+
+Reason:
+The public historical feed has shown that older yearly byte snapshots can change over time, and even repeated requests for the same year can differ. Discovering mismatches one year at a time created unnecessary friction without improving the research objective.
+
+Operational rule:
+- acquire the full snapshot once;
+- validate each file structurally;
+- record one consolidated manifest;
+- audit all years against the prior lock in one report;
+- continue labeling/features/baselines using the exact files from that same acquisition;
+- preserve the fresh manifest with the results so the run remains reproducible as a recorded snapshot.
