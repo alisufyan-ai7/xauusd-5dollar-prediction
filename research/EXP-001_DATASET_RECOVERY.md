@@ -34,3 +34,15 @@ If chunked reconstruction cannot reproduce a locked hash:
 - do not silently replace the locked dataset;
 - do not build features/models from the changed snapshot;
 - record the mismatch and investigate the missing intervals separately.
+
+
+## Resolution policy
+
+If an older pinned snapshot is no longer retrievable but a newer public snapshot is stable across repeated independent acquisitions, the owner may approve promotion of the current snapshot to canonical.
+
+Such a promotion must:
+- record the superseded row count and hash;
+- record the new row count and hash;
+- explain why the prior snapshot was unavailable;
+- update the total locked row count;
+- trigger a fresh full-history research run from the revised canonical lock.
