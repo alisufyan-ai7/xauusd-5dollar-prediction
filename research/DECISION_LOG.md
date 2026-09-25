@@ -219,3 +219,29 @@ Operational rule:
 - audit all years against the prior lock in one report;
 - continue labeling/features/baselines using the exact files from that same acquisition;
 - preserve the fresh manifest with the results so the run remains reproducible as a recorded snapshot.
+
+
+---
+
+## D-018 — Prioritize volatility, session, and multi-timeframe structure
+
+Decision:
+The next expert-feature milestone prioritizes:
+1. richer volatility/attainability features;
+2. multi-timeframe trend and structure;
+3. price location;
+4. impulse/pullback/candle-sequence behavior;
+5. session-transition context.
+
+Reason:
+The first non-sealed baseline run showed stable structure across TRAIN, VALIDATION, and DEVELOPMENT_TEST:
+- high-volatility states had many-fold higher $5-target success rates than low-volatility states;
+- Europe and US sessions materially outperformed Asia/LATE for target attainability;
+- flat 60-minute momentum was consistently weaker than directional momentum;
+- BUY performed best in UP states and SELL best in DOWN states, while opposite-direction states remained non-trivial.
+
+Therefore the next feature work should refine those demonstrated contextual dimensions rather than add arbitrary indicators.
+
+Evidence:
+research/EXP-001_BASELINE_FINDINGS.md
+research/EXP-001_EXPERT_FEATURE_MILESTONE_V2.md
