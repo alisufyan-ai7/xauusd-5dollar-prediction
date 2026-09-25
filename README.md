@@ -34,3 +34,15 @@ at a probability materially above the unconditional baseline and with adequate o
 11. Live capability only after separate evidence-based approval
 
 See `PROJECT_CONTEXT_POLICY.md` for the mandatory clean-room rules.
+
+
+## Project continuity
+
+For any new chat or contributor continuing this research, start with:
+
+- `research/PROJECT_CONTINUITY.md` — current project state and immediate next work
+- `research/DECISION_LOG.md` — material decisions and rationale
+- `research/NEW_CHAT_HANDOFF.md` — continuation rules
+- `research/EXPERT_TRADER_OBSERVATION_MODEL.md` — expert-trader observation architecture
+
+The repository is the durable source of truth. Material decisions should not exist only in chat history.
