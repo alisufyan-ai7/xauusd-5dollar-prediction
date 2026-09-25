@@ -166,3 +166,17 @@ The project promoted the repeatedly reproduced current Dukascopy 2020 M1 BID sna
 - SHA-256: 5616aafca39a2d3689911288c08fd5da8b2f3c3ea4a2bbdb8ca0cfbf690e9289
 
 This supersedes the older 2020 lock of 355,495 rows / SHA-256 63892a47fec471a8bb4bbdd25ace162764fc56a1d6da02d458a535478fe6c6d3.
+
+
+## Fresh-snapshot research policy
+
+Full-history research no longer fails because a fresh Dukascopy year differs from an older byte-level lock.
+
+Each full-history run now:
+1. downloads the complete 2016-2025 snapshot once;
+2. validates every file;
+3. records a consolidated manifest;
+4. audits all years against the previous canonical lock in one report;
+5. continues research using the exact files from that acquisition.
+
+The manifest for the run is the durable source-of-truth record for that run.
