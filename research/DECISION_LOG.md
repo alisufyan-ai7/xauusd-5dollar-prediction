@@ -179,3 +179,22 @@ The research objective is a reproducible and stable source of truth, not preserv
 
 Rule:
 A lock change must be explicit, documented, and based on repeated stable reproduction. Never silently mutate a pinned year.
+
+
+---
+
+## D-016 — Promote current 2020 snapshot
+
+Decision:
+Promote the repeatedly reproduced current Dukascopy 2020 M1 BID snapshot to canonical.
+
+New canonical 2020:
+- rows: 354,115
+- SHA-256: 5616aafca39a2d3689911288c08fd5da8b2f3c3ea4a2bbdb8ca0cfbf690e9289
+
+Superseded 2020:
+- rows: 355,495
+- SHA-256: 63892a47fec471a8bb4bbdd25ace162764fc56a1d6da02d458a535478fe6c6d3
+
+Reason:
+The previous 2020 snapshot is no longer consistently reproducible from the public feed, while the current snapshot reproduced identically across repeated independent full-year acquisitions. This follows D-015.
