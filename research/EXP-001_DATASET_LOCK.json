@@ -1,11 +1,11 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "instrument": "XAUUSD",
   "timeframe": "M1",
   "price_side": "BID",
   "source": "Dukascopy public historical feed",
   "admitted_run_id": 36029810579,
-  "total_rows": 3532162,
+  "total_rows": 3530782,
   "chunks": [
     {
       "year": 2016,
@@ -29,8 +29,8 @@
     },
     {
       "year": 2020,
-      "rows": 355495,
-      "sha256": "63892a47fec471a8bb4bbdd25ace162764fc56a1d6da02d458a535478fe6c6d3"
+      "rows": 354115,
+      "sha256": "5616aafca39a2d3689911288c08fd5da8b2f3c3ea4a2bbdb8ca0cfbf690e9289"
     },
     {
       "year": 2021,
@@ -65,6 +65,12 @@
       "previous_rows": 352788,
       "previous_sha256": "8d6a8a2969536cf205ece4f1013003249ba794655deccdbe4bb5167d9f24347b",
       "reason": "Prior snapshot no longer reproducible; current snapshot reproduced consistently by yearly and monthly-chunk acquisition."
+    },
+    {
+      "year": 2020,
+      "previous_rows": 355495,
+      "previous_sha256": "63892a47fec471a8bb4bbdd25ace162764fc56a1d6da02d458a535478fe6c6d3",
+      "reason": "Prior snapshot no longer reproducible; current snapshot reproduced consistently across repeated full-year acquisitions."
     }
   ]
 }
