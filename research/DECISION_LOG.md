@@ -162,3 +162,20 @@ Operational rule:
 - `.github/workflows/foundation-checks.yml` is automatic and deterministic.
 - `.github/workflows/historical-data-integrity.yml` is manual and network/data dependent.
 - A historical reacquisition mismatch is treated as a data-integrity event, not a code-regression failure.
+
+
+---
+
+## D-015 — Canonicalize current reproducible public snapshot
+
+Decision:
+If a previously locked Dukascopy yearly snapshot is no longer obtainable, and the current public snapshot is reproduced consistently across repeated independent downloads (including chunked reconstruction where practical), promote that current snapshot to the canonical dataset lock rather than blocking research indefinitely.
+
+Applied:
+2017 was changed from the unavailable prior snapshot (352,788 rows; SHA-256 8d6a8a2969536cf205ece4f1013003249ba794655deccdbe4bb5167d9f24347b) to the repeatedly reproduced current snapshot (342,895 rows; SHA-256 2efbfb87324fec2810f47833d2f9659a9c26da9037b5f639718058882dc40378).
+
+Reason:
+The research objective is a reproducible and stable source of truth, not preservation of an inaccessible historical byte snapshot at the cost of halting the project.
+
+Rule:
+A lock change must be explicit, documented, and based on repeated stable reproduction. Never silently mutate a pinned year.
