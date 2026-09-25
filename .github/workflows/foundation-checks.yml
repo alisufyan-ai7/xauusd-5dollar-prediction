@@ -31,3 +31,5 @@ jobs:
         run: python tests/test_features_smoke.py
       - name: Run baseline smoke test
         run: python tests/test_baseline_smoke.py
+      - name: Run reconstruction boundary test
+        run: python tests/test_reconstruct_locked_year.py
