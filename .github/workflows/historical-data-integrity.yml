@@ -13,6 +13,7 @@ on:
           - month-diagnostic
           - year-2025-pilot
           - locked-2020
+          - reconstruct-2017
           - full-history
 
 jobs:
@@ -78,6 +79,28 @@ jobs:
           python-version: "3.12"
       - name: Reproduce locked 2020 chunk
         run: bash scripts/acquire_locked_year.sh 2020 data 3
+
+  reconstruct-2017:
+    if: ${{ inputs.mode == 'reconstruct-2017' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reconstruct locked 2017 from monthly chunks
+        run: bash scripts/reconstruct_locked_year.sh 2017 data
+      - name: Compress reconstructed locked 2017
+        run: gzip -9 -c data/raw/dukascopy/xauusd/m1/xauusd-2017-01-01-2018-01-01-m1.csv > xauusd-2017-locked.csv.gz
+      - name: Upload reconstructed locked 2017
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-locked-2017-reconstructed
+          path: xauusd-2017-locked.csv.gz
+          retention-days: 90
 
   full-history:
     if: ${{ inputs.mode == 'full-history' }}
