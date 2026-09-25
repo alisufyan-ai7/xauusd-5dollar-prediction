@@ -146,3 +146,14 @@ Do not rely on chat history as the sole record of a project decision.
 Automatic push/PR CI is deterministic-only. Network-dependent public-data acquisition and historical integrity checks are manually dispatched from `.github/workflows/historical-data-integrity.yml`.
 
 This separation prevents transient public-feed differences from making ordinary code/documentation commits appear broken.
+
+
+## 2017 canonical snapshot update
+
+The original 2017 Dukascopy snapshot became unavailable from the public feed. The current 2017 snapshot was reproduced consistently through repeated yearly downloads and independent monthly-chunk reconstruction.
+
+The project therefore promoted the current snapshot to canonical:
+- rows: 342,895
+- SHA-256: 2efbfb87324fec2810f47833d2f9659a9c26da9037b5f639718058882dc40378
+
+This supersedes the prior 2017 lock. The change is explicit and recorded in the dataset lock and decision log.
