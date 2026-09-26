@@ -1,35 +1,52 @@
 #!/usr/bin/env python3
-"""EXP-001 descriptive baselines. FINAL_OOS inputs are forbidden."""
-import csv,json,math,sys
+"""Memory-bounded EXP-001 descriptive baselines.
+
+FINAL_OOS inputs are forbidden. Partition and feature CSVs are streamed in
+lockstep by timestamp. TRAIN rv_60m values are stored in a temporary SQLite
+file only long enough to calculate exact tertiles without retaining millions
+of joined rows in RAM.
+"""
+import csv,json,math,sqlite3,sys,tempfile
 from collections import defaultdict
 from pathlib import Path
 
 ALLOWED={"TRAIN","VALIDATION","DEVELOPMENT_TEST"}
 
-def qtile(xs,q):
-    s=sorted(xs)
-    if not s:return None
-    pos=(len(s)-1)*q
+def iter_join(partitioned,features):
+    with Path(partitioned).open(encoding="utf-8",newline="") as pf, Path(features).open(encoding="utf-8",newline="") as ff:
+        pr=csv.DictReader(pf); fr=csv.DictReader(ff)
+        while True:
+            try: p=next(pr)
+            except StopIteration: p=None
+            try: f=next(fr)
+            except StopIteration: f=None
+            if p is None and f is None: break
+            if p is None or f is None:
+                raise SystemExit(f"ROW_COUNT_MISMATCH partitioned={partitioned} features={features}")
+            if p["timestamp"]!=f["timestamp"]:
+                raise SystemExit(f"TIMESTAMP_MISMATCH partitioned={p['timestamp']} features={f['timestamp']}")
+            yield p,f
+
+def eligible(p,f):
+    if p["partition"]=="FINAL_OOS":
+        raise SystemExit("FINAL_OOS_ACCESS_FORBIDDEN")
+    if p["partition"] not in ALLOWED: return False
+    return p["partition_boundary_eligible"]=="True" and p["coverage_complete"]=="True" and f["feature_complete"]=="True"
+
+def exact_quantile(conn,q):
+    n=conn.execute("select count(*) from rv").fetchone()[0]
+    if not n: return None
+    pos=(n-1)*q
     lo=int(math.floor(pos)); hi=int(math.ceil(pos))
-    if lo==hi:return s[lo]
-    return s[lo]*(hi-pos)+s[hi]*(pos-lo)
+    vlo=conn.execute("select v from rv order by v limit 1 offset ?",(lo,)).fetchone()[0]
+    if lo==hi: return vlo
+    vhi=conn.execute("select v from rv order by v limit 1 offset ?",(hi,)).fetchone()[0]
+    return vlo*(hi-pos)+vhi*(pos-lo)
 
-def load_join(partitioned,features):
-    frows={r["timestamp"]:r for r in csv.DictReader(Path(features).open(encoding="utf-8"))}
-    out=[]
-    with Path(partitioned).open(encoding="utf-8") as f:
-        for r in csv.DictReader(f):
-            if r["partition"] not in ALLOWED: continue
-            fr=frows.get(r["timestamp"])
-            if not fr: continue
-            if r["partition_boundary_eligible"]!="True" or r["coverage_complete"]!="True" or fr["feature_complete"]!="True":
-                continue
-            x=dict(r); x.update({f"f_{k}":v for k,v in fr.items()})
-            out.append(x)
-    return out
-
-def add(bucket, direction, label):
-    if label=="AMBIGUOUS": bucket["ambiguous"]+=1; return
+def add(bucket,label):
+    if label=="AMBIGUOUS":
+        bucket["ambiguous"]+=1
+        return
     bucket["n"]+=1
     if label=="SUCCESS": bucket["success"]+=1
     elif label=="FAILURE": bucket["failure"]+=1
@@ -48,39 +65,59 @@ def finish(d):
 def main(argv):
     if len(argv)<4 or (len(argv)-2)%2:
         raise SystemExit("usage: baseline_exp001.py <out.json> <partitioned.csv> <features.csv> [...]")
-    outp=Path(argv[1])
-    pairs=list(zip(argv[2::2],argv[3::2]))
-    allrows=[]
-    for p,f in pairs: allrows.extend(load_join(p,f))
-    if any(r["partition"]=="FINAL_OOS" for r in allrows):
-        raise SystemExit("FINAL_OOS_ACCESS_FORBIDDEN")
+    outp=Path(argv[1]); pairs=list(zip(argv[2::2],argv[3::2]))
 
-    train_rv=[float(r["f_rv_60m"]) for r in allrows if r["partition"]=="TRAIN"]
-    q1,q2=qtile(train_rv,1/3),qtile(train_rv,2/3)
+    # Pass 1: disk-backed exact TRAIN rv60 distribution.
+    with tempfile.TemporaryDirectory() as td:
+        db=Path(td)/"rv.sqlite"
+        conn=sqlite3.connect(db)
+        conn.execute("create table rv(v real not null)")
+        batch=[]
+        for pth,fth in pairs:
+            for p,f in iter_join(pth,fth):
+                if not eligible(p,f): continue
+                if p["partition"]=="TRAIN":
+                    batch.append((float(f["rv_60m"]),))
+                    if len(batch)>=10000:
+                        conn.executemany("insert into rv(v) values (?)",batch); batch.clear()
+        if batch: conn.executemany("insert into rv(v) values (?)",batch)
+        conn.commit()
+        q1,q2=exact_quantile(conn,1/3),exact_quantile(conn,2/3)
+        conn.close()
+
+    if q1 is None or q2 is None:
+        raise SystemExit("NO_TRAIN_ROWS")
 
     def volbin(v):
         v=float(v)
         return "LOW" if v<=q1 else ("MID" if v<=q2 else "HIGH")
 
-    unconditional=defaultdict(lambda:{"n":0,"success":0,"failure":0,"unresolved":0,"ambiguous":0})
-    by_session=defaultdict(lambda:{"n":0,"success":0,"failure":0,"unresolved":0,"ambiguous":0})
-    by_vol=defaultdict(lambda:{"n":0,"success":0,"failure":0,"unresolved":0,"ambiguous":0})
-    by_momentum=defaultdict(lambda:{"n":0,"success":0,"failure":0,"unresolved":0,"ambiguous":0})
+    empty=lambda:{"n":0,"success":0,"failure":0,"unresolved":0,"ambiguous":0}
+    unconditional=defaultdict(empty)
+    by_session=defaultdict(empty)
+    by_vol=defaultdict(empty)
+    by_momentum=defaultdict(empty)
+    eligible_count=0
 
-    for r in allrows:
-        p=r["partition"]; sess=r["f_session_utc"]; vb=volbin(r["f_rv_60m"])
-        mom=float(r["f_ret_60m"]); mb="UP" if mom>1 else ("DOWN" if mom<-1 else "FLAT")
-        for direction,col in [("BUY","buy_label"),("SELL","sell_label")]:
-            lab=r[col]
-            add(unconditional[f"{p}:{direction}"],direction,lab)
-            add(by_session[f"{p}:{direction}:{sess}"],direction,lab)
-            add(by_vol[f"{p}:{direction}:{vb}"],direction,lab)
-            add(by_momentum[f"{p}:{direction}:{mb}"],direction,lab)
+    # Pass 2: streaming aggregation only; no joined-row retention.
+    for pth,fth in pairs:
+        for p,f in iter_join(pth,fth):
+            if not eligible(p,f): continue
+            eligible_count+=1
+            part=p["partition"]; sess=f["session_utc"]; vb=volbin(f["rv_60m"])
+            mom=float(f["ret_60m"]); mb="UP" if mom>1 else ("DOWN" if mom<-1 else "FLAT")
+            for direction,col in (("BUY","buy_label"),("SELL","sell_label")):
+                lab=p[col]
+                add(unconditional[f"{part}:{direction}"],lab)
+                add(by_session[f"{part}:{direction}:{sess}"],lab)
+                add(by_vol[f"{part}:{direction}:{vb}"],lab)
+                add(by_momentum[f"{part}:{direction}:{mb}"],lab)
 
     report={
       "status":"PASS",
+      "implementation":"STREAMING_SQLITE_QUANTILES_V1",
       "final_oos":"NOT_ACCESSED",
-      "eligible_complete_feature_rows":len(allrows),
+      "eligible_complete_feature_rows":eligible_count,
       "train_rv60_tertiles":{"q33":q1,"q67":q2},
       "unconditional":finish(unconditional),
       "by_session":finish(by_session),
