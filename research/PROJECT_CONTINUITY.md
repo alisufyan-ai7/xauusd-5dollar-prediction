@@ -216,3 +216,18 @@ The historical workflow is now split:
 - `full-history-analysis`: downloads that checkpoint and performs non-sealed baseline/model analysis.
 
 This prevents late runner interruptions from forcing expensive feature recomputation.
+
+
+## Logistic V1 milestone
+
+The first predictive model is preregistered in research/EXP-001_LOGISTIC_V1.md.
+
+Implementation:
+- script: scripts/logistic_exp001_v1.py
+- memory-bounded chunked training/evaluation;
+- TRAIN-only preprocessing and fitting;
+- separate BUY and SELL models;
+- VALIDATION and DEVELOPMENT_TEST evaluated chronologically;
+- 2025 FINAL_OOS not accessed.
+
+The workflow mode `v2-logistic-existing-checkpoint` reuses the preserved V2 checkpoint rather than rebuilding historical data or features.
