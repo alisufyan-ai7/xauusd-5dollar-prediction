@@ -205,3 +205,14 @@ The timestamp-safe V2 price-context engine is implemented and deterministic CI i
 It now includes richer volatility/attainability, M5/M15/H1/H4 directional context, rolling structure/location, candle conviction, impulse/pullback, session-transition, and trailing session-volatility features.
 
 Before model fitting, the next required step is a full-history scale run on the fresh-snapshot pipeline to verify runtime and artifact generation across 2016-2024 without accessing FINAL_OOS for model selection.
+
+
+## V2 workflow checkpointing
+
+Run 36264651058 verified that V2 feature generation completes for every non-sealed year 2016-2024, but the GitHub runner shut down afterward during the baseline stage.
+
+The historical workflow is now split:
+- `full-history-prep`: acquisition, audit, labels, partitions, V2 features, then upload `exp001-v2-research-checkpoint`;
+- `full-history-analysis`: downloads that checkpoint and performs non-sealed baseline/model analysis.
+
+This prevents late runner interruptions from forcing expensive feature recomputation.
