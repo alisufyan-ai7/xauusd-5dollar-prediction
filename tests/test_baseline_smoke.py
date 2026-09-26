@@ -18,4 +18,5 @@ with tempfile.TemporaryDirectory() as td:
  x=json.loads(o.read_text()); b=x["unconditional"]["TRAIN:BUY"]
  assert b["n"]==3 and b["success"]==1 and b["success_rate_all_nonambiguous"]==round(1/3,6)
  assert x["final_oos"]=="NOT_ACCESSED"
+ assert x["implementation"]=="STREAMING_SQLITE_QUANTILES_V1"
 print("baseline smoke test passed")
