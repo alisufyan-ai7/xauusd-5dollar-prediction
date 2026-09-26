@@ -33,3 +33,5 @@ jobs:
         run: python tests/test_baseline_smoke.py
       - name: Run reconstruction boundary test
         run: python tests/test_reconstruct_locked_year.py
+      - name: Compile logistic V1 script
+        run: python -m py_compile scripts/logistic_exp001_v1.py
