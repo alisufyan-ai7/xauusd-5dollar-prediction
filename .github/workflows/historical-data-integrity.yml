@@ -15,6 +15,11 @@ on:
           - locked-2020
           - reconstruct-2017
           - full-history
+          - v2-analysis-existing-checkpoint
+      checkpoint_run_id:
+        description: "Workflow run ID containing exp001-v2-research-checkpoint"
+        required: false
+        type: string
 
 jobs:
   public-day-smoke:
@@ -166,4 +171,34 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: exp001-v2-initial-baselines
+          path: data/reports/exp001/initial-baselines.json
+
+  v2-analysis-existing-checkpoint:
+    if: ${{ inputs.mode == 'v2-analysis-existing-checkpoint' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download existing V2 checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: data
+          run-id: ${{ inputs.checkpoint_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run streaming non-sealed baseline analysis
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/baseline_exp001.py data/reports/exp001/initial-baselines.json "${args[@]}"
+      - name: Upload streaming baseline report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-v2-streaming-baselines
           path: data/reports/exp001/initial-baselines.json
