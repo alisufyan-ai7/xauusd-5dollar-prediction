@@ -196,3 +196,12 @@ Main findings:
 
 Next milestone:
 Implement the frozen expert feature V2 specification in research/EXP-001_EXPERT_FEATURE_MILESTONE_V2.md, then evaluate simple models before any complex model.
+
+
+## Expert feature V2 implementation
+
+The timestamp-safe V2 price-context engine is implemented and deterministic CI is green.
+
+It now includes richer volatility/attainability, M5/M15/H1/H4 directional context, rolling structure/location, candle conviction, impulse/pullback, session-transition, and trailing session-volatility features.
+
+Before model fitting, the next required step is a full-history scale run on the fresh-snapshot pipeline to verify runtime and artifact generation across 2016-2024 without accessing FINAL_OOS for model selection.
