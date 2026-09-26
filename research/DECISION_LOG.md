@@ -263,3 +263,24 @@ Operational rule:
 - upload V2 features, partitioned labels, manifest, audit, and partition summary as a durable workflow artifact immediately after feature generation;
 - downstream analysis downloads that checkpoint;
 - later baseline/model failures must not require reacquiring or rebuilding V2 features.
+
+
+---
+
+## D-020 — First predictive model is logistic V1
+
+Decision:
+Run a deliberately simple logistic-regression milestone before gradient-boosted trees or neural models.
+
+Frozen specification:
+research/EXP-001_LOGISTIC_V1.md
+
+Reason:
+The research question is whether V2 expert-context features contain stable chronological predictive information. Logistic regression provides a transparent first test of discrimination, calibration, and probability monotonicity without introducing complex model capacity.
+
+Operational rule:
+- TRAIN only for fitting and preprocessing statistics;
+- VALIDATION and DEVELOPMENT_TEST evaluated separately;
+- FINAL_OOS 2025 remains inaccessible;
+- BUY and SELL models are separate;
+- weak or negative results are admissible and must not trigger silent feature or hyperparameter changes.
