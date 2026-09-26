@@ -245,3 +245,21 @@ Therefore the next feature work should refine those demonstrated contextual dime
 Evidence:
 research/EXP-001_BASELINE_FINDINGS.md
 research/EXP-001_EXPERT_FEATURE_MILESTONE_V2.md
+
+
+---
+
+## D-019 — Checkpoint expensive V2 features before analysis
+
+Decision:
+Split the long full-history workflow into two jobs:
+1. acquisition / labeling / partitioning / V2 feature generation;
+2. downstream baseline and model analysis from an uploaded checkpoint artifact.
+
+Reason:
+Run 36264651058 successfully generated every 2016-2024 V2 feature file, then the runner received a shutdown signal before the baseline stage completed. Recomputing all features after an unrelated late runner interruption is unnecessary and wasteful.
+
+Operational rule:
+- upload V2 features, partitioned labels, manifest, audit, and partition summary as a durable workflow artifact immediately after feature generation;
+- downstream analysis downloads that checkpoint;
+- later baseline/model failures must not require reacquiring or rebuilding V2 features.
