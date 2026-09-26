@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/exp001-foundation
-    paths:
-      - ".github/logistic-v1-trigger-2"
   workflow_dispatch:
     inputs:
       mode:
@@ -214,7 +209,7 @@ jobs:
           path: data/reports/exp001/initial-baselines.json
 
   v2-logistic-existing-checkpoint:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'v2-logistic-existing-checkpoint' }}
+    if: ${{ inputs.mode == 'v2-logistic-existing-checkpoint' }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -229,7 +224,7 @@ jobs:
         with:
           name: exp001-v2-research-checkpoint
           path: data
-          run-id: ${{ github.event_name == 'push' && '36266060141' || inputs.logistic_checkpoint_run_id }}
+          run-id: ${{ inputs.logistic_checkpoint_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run EXP-001 logistic regression V1
         run: |
