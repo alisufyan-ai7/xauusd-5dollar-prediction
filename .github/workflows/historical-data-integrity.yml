@@ -102,7 +102,7 @@ jobs:
           path: xauusd-2017-locked.csv.gz
           retention-days: 90
 
-  full-history:
+  full-history-prep:
     if: ${{ inputs.mode == 'full-history' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
@@ -120,25 +120,50 @@ jobs:
         run: python3 scripts/audit_snapshot_manifest.py research/EXP-001_DATASET_LOCK.json data/manifests/exp001-history-manifest.json data/reports/exp001/snapshot-audit.json
       - name: Label and partition full admitted history
         run: bash scripts/run_full_history_labeling.sh data
-      - name: Run non-sealed features and baselines
-        run: bash scripts/run_features_baselines.sh data
-      - name: Upload acquisition manifest
+      - name: Build V2 features for 2016-2024
+        run: |
+          mkdir -p data/features/exp001
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            python3 scripts/build_features.py               "data/raw/dukascopy/xauusd/m1/xauusd-${year}-01-01-${next}-01-01-m1.csv"               "data/features/exp001/features-${year}.csv"
+          done
+      - name: Upload V2 research checkpoint
         uses: actions/upload-artifact@v4
         with:
-          name: exp001-2016-2025-acquisition-manifest
-          path: data/manifests/exp001-history-manifest.json
-      - name: Upload fresh snapshot audit
-        uses: actions/upload-artifact@v4
+          name: exp001-v2-research-checkpoint
+          path: |
+            data/features/exp001
+            data/partitioned/exp001
+            data/manifests/exp001-history-manifest.json
+            data/reports/exp001/snapshot-audit.json
+            data/reports/exp001/partition-summary.json
+          retention-days: 30
+
+  full-history-analysis:
+    if: ${{ inputs.mode == 'full-history' }}
+    needs: full-history-prep
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          name: exp001-fresh-snapshot-audit
-          path: data/reports/exp001/snapshot-audit.json
-      - name: Upload sealed partition summary
-        uses: actions/upload-artifact@v4
+          python-version: "3.12"
+      - name: Download V2 research checkpoint
+        uses: actions/download-artifact@v4
         with:
-          name: exp001-2016-2025-partition-summary
-          path: data/reports/exp001/partition-summary.json
+          name: exp001-v2-research-checkpoint
+          path: data
+      - name: Run non-sealed baseline analysis from checkpoint
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/baseline_exp001.py data/reports/exp001/initial-baselines.json "${args[@]}"
       - name: Upload initial non-sealed baseline report
         uses: actions/upload-artifact@v4
         with:
-          name: exp001-initial-baselines
+          name: exp001-v2-initial-baselines
           path: data/reports/exp001/initial-baselines.json
