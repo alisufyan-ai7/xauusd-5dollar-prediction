@@ -1,6 +1,6 @@
 # EXP-001 Expert Feature Milestone V2
 
-Status: FROZEN DESIGN BEFORE IMPLEMENTATION
+Status: IMPLEMENTED — AWAITING FULL-HISTORY SCALE RUN
 
 ## Objective
 
@@ -149,3 +149,16 @@ Because M1 observations overlap heavily, do not treat rows as independent for un
 - model calibration choices.
 
 Open 2025 only after a candidate configuration is frozen and hashed.
+
+
+## Implementation record
+
+Implemented in `scripts/build_features.py` as feature version `V2`.
+
+Deterministic safeguards:
+- all decision-row features use only rows at or before the decision bar;
+- feature completeness now requires 240 minutes of exact contiguous M1 history;
+- an explicit future-mutation test verifies that changing future prices cannot change prior features;
+- an explicit internal-gap test verifies that missing M1 bars invalidate feature completeness.
+
+Deterministic CI passed after implementation.
