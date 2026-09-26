@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/exp001-foundation
-    paths:
-      - ".github/full-history-checkpoint-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -108,7 +103,7 @@ jobs:
           retention-days: 90
 
   full-history-prep:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'full-history' }}
+    if: ${{ inputs.mode == 'full-history' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
@@ -145,7 +140,7 @@ jobs:
           retention-days: 30
 
   full-history-analysis:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'full-history' }}
+    if: ${{ inputs.mode == 'full-history' }}
     needs: full-history-prep
     runs-on: ubuntu-latest
     timeout-minutes: 120
