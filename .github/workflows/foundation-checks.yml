@@ -19,6 +19,8 @@ jobs:
         run: python tests/test_validate_m1_smoke.py
       - name: Run EXP-001 barrier-label unit tests
         run: python tests/test_label_exp001.py
+      - name: Run year-context labeler smoke test
+        run: python tests/test_label_year_context.py
       - name: Run diagnostic smoke test
         run: python tests/test_diagnose_exp001_smoke.py
       - name: Run manifest builder smoke test
@@ -33,6 +35,8 @@ jobs:
         run: python tests/test_baseline_smoke.py
       - name: Run reconstruction boundary test
         run: python tests/test_reconstruct_locked_year.py
+      - name: Compile year-context labeler
+        run: python -m py_compile scripts/label_exp001_year_context.py
       - name: Compile logistic V1 script
         run: python -m py_compile scripts/logistic_exp001_v1.py
       - name: Compile GBT V1 script
