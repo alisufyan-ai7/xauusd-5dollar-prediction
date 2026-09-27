@@ -450,3 +450,32 @@ Next step:
 historical side-aware BID/ASK execution reconstruction using Dukascopy, then a newly preregistered execution-economics V2.
 
 2025 remains sealed.
+
+
+---
+
+## D-029 — Advance to Dukascopy BID/ASK Execution Economics V2
+
+Decision:
+Run a newly preregistered side-aware execution milestone before any FINAL_OOS opening.
+
+Evidence and rationale:
+- Execution Economics V1 did not pass the combined C20 advancement gate.
+- Exness MT5 historical tick availability on the current demo server begins only in sampled 2026 history, so it cannot reconstruct 2023-2024.
+- Dukascopy historical tick data provides timestamped BID and ASK together.
+- A one-day XAUUSD BID/ASK smoke download for 2024-06-05 passed validation with the pinned dukascopy-node@1.50.0 path.
+
+V2 rules:
+- predictive model remains frozen;
+- operational score cutoffs do not condition on future coverage_complete;
+- top 10/5/2.5/1% policies only;
+- BUY_ONLY, SELL_ONLY, COMBINED are preregistered;
+- executable BUY uses ASK entry / BID exit;
+- executable SELL uses BID entry / ASK exit;
+- barriers are measured from executable entry;
+- raw tick files are acquired only for required DEVELOPMENT_TEST UTC dates;
+- additional friction stress is F0/F05/F10/F20;
+- 2025 remains sealed.
+
+Source specification:
+research/EXP-001_EXECUTION_ECONOMICS_V2.md
