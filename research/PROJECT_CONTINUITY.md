@@ -516,3 +516,26 @@ Therefore:
 - next work should diagnose why strong classifier ranking does not translate into positive sequential expectancy using only 2016-2024.
 
 See research/EXP-002_EXECUTION_ECONOMICS_V1_FINDINGS.md.
+
+
+## EXP-002 economic failure diagnosis
+
+After EXP-002 sequential economics failed, the project moved to a diagnostic-only milestone before any EXP-003 design.
+
+Frozen specification:
+research/EXP-002_ECONOMIC_FAILURE_DIAGNOSIS_V1.md
+
+Questions:
+- are losses dominated by FAILURE or UNRESOLVED expiry P&L?
+- does score improve economic value monotonically?
+- is the failure concentrated by year/quarter, session, volatility, or spread?
+- do high scores cluster into repeated observations of the same episode?
+- how much sequential position filtering suppresses raw signals?
+- which term of the empirical EV identity causes negative expectancy?
+
+No new model or threshold will be selected from this diagnosis.
+
+Current workflow:
+36328166429
+
+2025 FINAL_OOS remains sealed.
