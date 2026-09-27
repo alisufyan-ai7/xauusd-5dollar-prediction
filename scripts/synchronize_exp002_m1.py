@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 """Synchronize sparse Dukascopy BID/ASK M1 candles for EXP-002.
 
-Dukascopy may omit a flat M1 candle independently on one price side. This
-module uses the union of observed timestamps. If one side has a real bar and
-the other side is missing at that same minute, the missing side is represented
-as a zero-volume flat candle at its immediately prior close.
+Use the union of observed timestamps. If exactly one side is missing, it may be
+represented as a zero-volume flat candle at that side's immediately prior
+observed close, but only when the resulting paired OHLC remains executable-side
+consistent. Invalid stale-quote reconstructions are dropped conservatively.
 
-Minutes absent on BOTH sides are not created, so weekends/session closures and
-true common gaps remain gaps and are still rejected by downstream exact
-contiguity checks.
+Timestamps absent on both sides are never created.
 """
 
 import csv,json,sys
@@ -28,6 +26,14 @@ def flat(ts,close):
     s=f"{close:.10f}".rstrip("0").rstrip(".")
     return {"timestamp":str(ts),"open":s,"high":s,"low":s,"close":s,"volume":"0"}
 
+def pair_valid(b,a):
+    return (
+        float(a["open"]) >= float(b["open"]) and
+        float(a["high"]) >= float(b["high"]) and
+        float(a["low"]) >= float(b["low"]) and
+        float(a["close"]) >= float(b["close"])
+    )
+
 def write(path,rows):
     Path(path).parent.mkdir(parents=True,exist_ok=True)
     with Path(path).open("w",encoding="utf-8",newline="") as f:
@@ -38,32 +44,54 @@ def main(argv):
         raise SystemExit("usage: synchronize_exp002_m1.py <bid.csv> <ask.csv> <out_bid.csv> <out_ask.csv>")
     bid=load(argv[1]);ask=load(argv[2])
     times=sorted(set(bid)|set(ask))
-    outb=[];outa=[];lastb=None;lasta=None
+    outb=[];outa=[]
+    lastb=None;lasta=None
     fillb=filla=0
-    dropped=0
+    leading_dropped=0
+    invalid_fill_dropped=0
+
     for ts in times:
-        b=bid.get(ts);a=ask.get(ts)
-        if b is None:
+        rb=bid.get(ts);ra=ask.get(ts)
+
+        # Update last actually observed closes independently, even if this
+        # timestamp later cannot be emitted as a synchronized pair.
+        if rb is not None:
+            lastb=float(rb["close"])
+        if ra is not None:
+            lasta=float(ra["close"])
+
+        if rb is None:
             if lastb is None:
-                dropped+=1
+                leading_dropped+=1
                 continue
-            b=flat(ts,lastb);fillb+=1
-        if a is None:
+            b=flat(ts,lastb)
+        else:
+            b=rb
+
+        if ra is None:
             if lasta is None:
-                dropped+=1
+                leading_dropped+=1
                 continue
-            a=flat(ts,lasta);filla+=1
-        # Preserve executable-side ordering sanity.
-        if float(a["close"]) < float(b["close"]):
-            raise SystemExit(f"NEGATIVE_CLOSE_SPREAD:{ts}")
+            a=flat(ts,lasta)
+        else:
+            a=ra
+
+        if not pair_valid(b,a):
+            if rb is not None and ra is not None:
+                raise SystemExit(f"OBSERVED_PAIR_OHLC_INVERSION:{ts}")
+            invalid_fill_dropped+=1
+            continue
+
+        if rb is None: fillb+=1
+        if ra is None: filla+=1
         outb.append(b);outa.append(a)
-        lastb=float(b["close"]);lasta=float(a["close"])
 
     write(argv[3],outb);write(argv[4],outa)
     print(json.dumps({
         "status":"PASS","rows":len(outb),
         "bid_flat_fills":fillb,"ask_flat_fills":filla,
-        "leading_unpaired_dropped":dropped
+        "leading_unpaired_dropped":leading_dropped,
+        "invalid_flat_fill_dropped":invalid_fill_dropped
     },indent=2,sort_keys=True))
 
 if __name__=="__main__":
