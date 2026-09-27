@@ -697,3 +697,32 @@ Next:
 diagnose EV calibration/failure mechanisms before considering a new preregistered experiment.
 
 2025 remains sealed.
+
+
+---
+
+## D-037 — Diagnose EXP-003 EV miscalibration before EXP-004
+
+Decision:
+Do not design EXP-004 yet.
+
+First complete a frozen component-level diagnosis of why EXP-003 predicted EV_F10 is more optimistic than realized executable NET_F10.
+
+Diagnostic scope:
+- predicted versus realized SUCCESS / FAILURE / UNRESOLVED probabilities;
+- unresolved-expiry-P&L regression error;
+- counterfactual EV decomposition;
+- class-probability calibration drift in 2022 / 2023 / 2024;
+- EV error distribution and error by realized outcome;
+- sequential opportunity-level calibration;
+- frozen-feature distribution shift;
+- positive-EV tail support relative to TRAIN.
+
+TRAIN feature-distribution reference uses the same deterministic every-5th eligible TRAIN-row sampling rule frozen before results.
+
+No recalibration, threshold tuning, feature selection, or new model fitting is permitted.
+
+Workflow:
+36348182305
+
+2025 remains sealed.
