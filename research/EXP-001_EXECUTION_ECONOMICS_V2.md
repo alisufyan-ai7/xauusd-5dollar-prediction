@@ -112,6 +112,8 @@ If neither barrier has fired:
 BUY expiry exit = BID.
 SELL expiry exit = ASK.
 
+Barrier exits use the first executable tick that crosses the corresponding level. Gross P&L uses that tick's actual executable quote, so historical gaps beyond the nominal +5/-3 barrier are preserved rather than clipped.
+
 Gross P&L in XAUUSD price units:
 
 BUY:
