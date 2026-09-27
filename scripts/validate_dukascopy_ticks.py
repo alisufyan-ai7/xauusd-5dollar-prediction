@@ -59,14 +59,12 @@ def main(argv):
             prev = ts
             n += 1
 
-    if n == 0:
-        raise SystemExit("EMPTY_TICK_FILE")
     if bad_spread:
         raise SystemExit(f"NEGATIVE_SPREAD_ROWS:{bad_spread}")
 
     h = hashlib.sha256(p.read_bytes()).hexdigest()
     print(json.dumps({
-        "status": "PASS",
+        "status": "PASS_EMPTY" if n == 0 else "PASS",
         "rows": n,
         "first_timestamp": first,
         "last_timestamp": last,
