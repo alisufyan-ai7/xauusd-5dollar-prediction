@@ -20,6 +20,7 @@ on:
           - v2-gbt-existing-checkpoint
           - v2-calibration-existing-checkpoint
           - v2-abstention-robustness-existing-checkpoint
+          - pre-oos-corrected-revalidation
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -338,3 +339,62 @@ jobs:
         with:
           name: exp001-abstention-robustness-v1
           path: data/reports/exp001/abstention-robustness-v1.json
+
+  pre-oos-corrected-revalidation:
+    if: ${{ inputs.mode == 'pre-oos-corrected-revalidation' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Acquire non-sealed XAUUSD 2016-2024
+        run: bash scripts/acquire_exp001_history.sh 2016 2024 data
+      - name: Build corrected non-sealed labels and partitions
+        run: bash scripts/run_pre_oos_corrected_labeling.sh data
+      - name: Build V2 features for 2016-2024
+        run: |
+          mkdir -p data/features/exp001
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            python3 scripts/build_features.py               "data/raw/dukascopy/xauusd/m1/xauusd-${year}-01-01-${next}-01-01-m1.csv"               "data/features/exp001/features-${year}.csv"
+          done
+      - name: Run corrected GBT V1
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/gbt_exp001_v1.py data/reports/exp001/corrected-gbt-v1.json "${args[@]}"
+      - name: Run corrected calibration and abstention V1
+        run: |
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/calibration_exp001_v1.py data/reports/exp001/corrected-calibration-abstention-v1.json "${args[@]}"
+      - name: Run corrected abstention robustness V1
+        run: |
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/abstention_robustness_exp001_v1.py data/reports/exp001/corrected-abstention-robustness-v1.json "${args[@]}"
+      - name: Upload corrected pre-OOS revalidation package
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-pre-oos-corrected-revalidation
+          path: |
+            data/manifests/exp001-history-manifest.json
+            data/reports/exp001/pre-oos-partition-summary.json
+            data/reports/exp001/corrected-gbt-v1.json
+            data/reports/exp001/corrected-calibration-abstention-v1.json
+            data/reports/exp001/corrected-abstention-robustness-v1.json
+          retention-days: 90
