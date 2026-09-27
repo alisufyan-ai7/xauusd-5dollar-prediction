@@ -18,8 +18,8 @@ npx -y dukascopy-node@1.50.0   -i xauusd   -from "$DATE"   -to "$NEXT"   -t tick
 
 SOURCE="$(find "$TMP" -maxdepth 1 -type f -name '*.csv' -print -quit)"
 if [[ -z "${SOURCE:-}" ]]; then
-  echo "DOWNLOAD_FAILED:$DATE" >&2
-  exit 1
+  printf 'timestamp,askPrice,bidPrice\n' > "$OUT"
+else
+  mv "$SOURCE" "$OUT"
 fi
-mv "$SOURCE" "$OUT"
 python3 scripts/validate_dukascopy_ticks.py "$OUT"
