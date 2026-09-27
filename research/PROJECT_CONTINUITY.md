@@ -434,3 +434,108 @@ Therefore:
 - the next milestone must redesign labels/objective around executable BID/ASK economics and retrain under a new experiment version.
 
 See research/EXP-001_EXECUTION_ECONOMICS_V2_FINDINGS.md.
+
+
+## EXP-002 executable-side target
+
+EXP-001 stopped before FINAL_OOS because side-aware BID/ASK execution economics were negative.
+
+A new experiment is now active on:
+research/exp002-executable-target-v1
+
+Frozen specification:
+research/EXP-002_PREREGISTRATION.md
+
+Core change:
+the target itself now uses executable-side mechanics.
+
+BUY:
+- entry next M1 ASK open;
+- +5 / -3 evaluated using BID path.
+
+SELL:
+- entry next M1 BID open;
+- +5 / -3 evaluated using ASK path.
+
+The existing timestamp-safe market-context feature set is retained and augmented with causal spread features available by the decision close.
+
+Initial workflow:
+36320442383
+
+Data:
+paired Dukascopy BID/ASK M1 for 2016-2024 only.
+
+2025 FINAL_OOS remains sealed.
+
+
+## EXP-002 initial model findings
+
+Run 36321788362 completed successfully.
+
+DEVELOPMENT_TEST:
+- BUY ROC-AUC 0.7392, PR-AUC 0.2315;
+- SELL ROC-AUC 0.7482, PR-AUC 0.2454.
+
+Fixed VALIDATION-derived top-1% success:
+- BUY 29.05%;
+- SELL 33.07%.
+
+The executable-side target preserves substantial predictive ranking signal.
+
+AMBIGUOUS rows are rare relative to complete-path rows, so later tick adjudication should be a small correction rather than the main source of the result.
+
+Next milestone:
+sequential EXP-002 execution economics on 2023-2024 using frozen score bands and executable-side P&L semantics.
+
+2025 FINAL_OOS remains sealed.
+
+See research/EXP-002_INITIAL_MODEL_FINDINGS.md.
+
+
+## EXP-002 sequential economics findings
+
+Run 36324128764 completed successfully.
+
+No preregistered policy passed the F10 advancement gate.
+
+Least-negative:
+SELL_ONLY top 1% at F10:
+- trades 1,348;
+- mean net -0.3252;
+- PF 0.8360;
+- 2023 -0.0895;
+- 2024 -0.3967;
+- bootstrap 95% CI [-0.5159, -0.1290].
+
+Even F0 remained negative overall.
+
+Therefore:
+- no EXP-002 V1 policy advances;
+- 2025 remains sealed;
+- no Exness demo trading is justified from this milestone;
+- next work should diagnose why strong classifier ranking does not translate into positive sequential expectancy using only 2016-2024.
+
+See research/EXP-002_EXECUTION_ECONOMICS_V1_FINDINGS.md.
+
+
+## EXP-002 economic failure diagnosis
+
+After EXP-002 sequential economics failed, the project moved to a diagnostic-only milestone before any EXP-003 design.
+
+Frozen specification:
+research/EXP-002_ECONOMIC_FAILURE_DIAGNOSIS_V1.md
+
+Questions:
+- are losses dominated by FAILURE or UNRESOLVED expiry P&L?
+- does score improve economic value monotonically?
+- is the failure concentrated by year/quarter, session, volatility, or spread?
+- do high scores cluster into repeated observations of the same episode?
+- how much sequential position filtering suppresses raw signals?
+- which term of the empirical EV identity causes negative expectancy?
+
+No new model or threshold will be selected from this diagnosis.
+
+Current workflow:
+36328166429
+
+2025 FINAL_OOS remains sealed.

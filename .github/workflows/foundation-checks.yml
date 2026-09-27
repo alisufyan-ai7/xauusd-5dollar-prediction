@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - research/exp001-foundation
+      - research/exp002-executable-target-v1
   pull_request:
   workflow_dispatch:
 
@@ -21,6 +22,10 @@ jobs:
         run: python tests/test_label_exp001.py
       - name: Run year-context labeler smoke test
         run: python tests/test_label_year_context.py
+      - name: Run EXP-002 executable-label tests
+        run: python tests/test_label_exp002.py
+      - name: Run EXP-002 synchronization tests
+        run: python tests/test_synchronize_exp002_m1.py
       - name: Run diagnostic smoke test
         run: python tests/test_diagnose_exp001_smoke.py
       - name: Run manifest builder smoke test
@@ -53,5 +58,17 @@ jobs:
         run: python -m py_compile scripts/validate_dukascopy_ticks.py
       - name: Compile execution economics V2 script
         run: python -m py_compile scripts/execution_economics_exp001_v2.py
+      - name: Compile EXP-002 synchronizer
+        run: python -m py_compile scripts/synchronize_exp002_m1.py
+      - name: Compile EXP-002 executable labeler
+        run: python -m py_compile scripts/label_exp002.py
+      - name: Compile EXP-002 spread feature augmenter
+        run: python -m py_compile scripts/augment_features_exp002.py
+      - name: Compile EXP-002 GBT V1
+        run: python -m py_compile scripts/gbt_exp002_v1.py
+      - name: Compile EXP-002 execution economics V1
+        run: python -m py_compile scripts/execution_economics_exp002_v1.py
+      - name: Compile EXP-002 economic failure diagnosis V1
+        run: python -m py_compile scripts/diagnose_exp002_economic_failure_v1.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py

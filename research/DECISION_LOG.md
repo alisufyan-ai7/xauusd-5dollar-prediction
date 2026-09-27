@@ -510,3 +510,119 @@ Next:
 start a new experiment version whose labels/objective are defined directly from executable ASK/BID entry and exit mechanics before retraining.
 
 2025 remains sealed.
+
+
+---
+
+## D-031 — Start EXP-002 with executable-side labels
+
+Decision:
+Stop modifying the EXP-001 target and start a new experiment version on a clean descendant branch.
+
+Branch:
+research/exp002-executable-target-v1
+
+Reason:
+EXP-001 demonstrated predictive ranking signal but failed side-aware historical execution economics. The failure showed that the BID-referenced target was misaligned with executable BUY/SELL mechanics.
+
+EXP-002 freezes a new target before empirical results:
+- decision after the current M1 close;
+- entry at next M1 executable open;
+- BUY enters ASK and evaluates target/adverse on BID;
+- SELL enters BID and evaluates target/adverse on ASK;
+- 60-minute horizon;
+- +5 target / -3 adverse measured from executable entry;
+- unresolved exits retain executable expiry P&L;
+- paired Dukascopy M1 BID+ASK is primary data;
+- tick data is reserved only for same-minute ordering ambiguity;
+- spread-aware causal features are added;
+- fixed EXP-001 GBT hyperparameters are reused without model search;
+- 2025 remains sealed.
+
+Initial non-sealed EXP-002 run:
+36320442383
+
+
+---
+
+## D-032 — Advance EXP-002 to sequential execution economics
+
+Decision:
+Advance EXP-002 from initial predictive validation to sequential execution-economics testing without changing the model, target, features, or score bands.
+
+Evidence:
+Corrected run 36321788362 completed successfully.
+
+DEVELOPMENT_TEST discrimination:
+- BUY ROC-AUC 0.7392, PR-AUC 0.2315;
+- SELL ROC-AUC 0.7482, PR-AUC 0.2454.
+
+Fixed VALIDATION-derived top-1% realized success:
+- BUY 29.05%;
+- SELL 33.07%.
+
+The executable-side target therefore retains meaningful chronological ranking signal.
+
+Next:
+run sequential BUY_ONLY / SELL_ONLY / COMBINED economics using the frozen executable entry, barrier, expiry, one-position-at-a-time, and friction semantics.
+
+2025 remains sealed.
+
+
+---
+
+## D-033 — EXP-002 V1 fails sequential economics
+
+Decision:
+Do not open FINAL_OOS 2025 and do not promote any EXP-002 V1 policy.
+
+Evidence:
+Run 36324128764 completed successfully.
+
+No preregistered top 10/5/2.5/1% BUY_ONLY, SELL_ONLY, or COMBINED policy passed F10.
+
+Least-negative policy:
+SELL_ONLY top 1% at F10:
+- mean net -0.3252 price units/trade;
+- PF 0.8360;
+- 2023 -0.0895;
+- 2024 -0.3967;
+- bootstrap 95% CI [-0.5159, -0.1290].
+
+Even at F0, SELL_ONLY top 1% remained negative overall.
+
+Conclusion:
+predictive ranking quality alone is insufficient; the current score-to-trade policy does not create positive sequential expectancy.
+
+Next:
+diagnose non-sealed 2016-2024 failure modes before any new experiment design.
+
+2025 remains sealed.
+
+
+---
+
+## D-034 — Diagnose EXP-002 economic failure before designing EXP-003
+
+Decision:
+Do not design or train an economic-value model yet.
+
+First run a frozen descriptive diagnosis of why EXP-002 preserves classifier ranking but loses money sequentially.
+
+Diagnostic scope:
+- outcome decomposition;
+- unresolved expiry P&L;
+- score deciles and top-10% tail slices;
+- year/quarter drift;
+- session and volatility regime decomposition;
+- spread decomposition;
+- holding-time behavior;
+- raw-signal clustering and sequential suppression;
+- explicit expected-value identity.
+
+No new thresholds, direction promotion, or model tuning are allowed from this milestone.
+
+Workflow:
+36328166429
+
+2025 remains sealed.
