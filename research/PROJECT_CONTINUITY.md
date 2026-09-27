@@ -231,3 +231,19 @@ Implementation:
 - 2025 FINAL_OOS not accessed.
 
 The workflow mode `v2-logistic-existing-checkpoint` reuses the preserved V2 checkpoint rather than rebuilding historical data or features.
+
+
+## Logistic V1 results
+
+Run 36268335102 completed successfully.
+
+Key chronological evidence:
+- BUY ROC-AUC: TRAIN 0.6826 / VALIDATION 0.6359 / DEVELOPMENT_TEST 0.6194.
+- SELL ROC-AUC: TRAIN 0.5787 / VALIDATION 0.5816 / DEVELOPMENT_TEST 0.5549.
+- High-score tails showed monotonic realized-success improvements for both BUY and SELL.
+- Calibration drifted materially because later-period base rates increased.
+
+Conclusion:
+V2 features contain predictive information, especially for BUY, but the linear model is insufficient. Proceed to a frozen gradient-boosted-tree milestone while keeping 2025 sealed.
+
+See research/EXP-001_LOGISTIC_V1_FINDINGS.md.
