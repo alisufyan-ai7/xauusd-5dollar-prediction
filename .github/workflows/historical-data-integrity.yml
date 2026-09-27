@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/exp001-foundation
-    paths:
-      - ".github/execution-economics-v2-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -474,7 +469,7 @@ jobs:
           retention-days: 3
 
   execution-economics-v2:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'execution-economics-v2' }}
+    if: ${{ inputs.mode == 'execution-economics-v2' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
