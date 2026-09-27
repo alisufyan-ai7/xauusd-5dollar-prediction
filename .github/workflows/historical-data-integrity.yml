@@ -27,6 +27,7 @@ on:
           - exp002-initial-model
           - exp002-execution-economics-v1
           - exp002-economic-failure-diagnosis-v1
+          - exp003-initial-model
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -666,4 +667,52 @@ jobs:
           path: |
             data/manifests/exp002-bidask-m1-manifest.json
             data/reports/exp002/economic-failure-diagnosis-v1.json
+          retention-days: 90
+
+
+  exp003-initial-model:
+    if: ${{ inputs.mode == 'exp003-initial-model' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Acquire paired BID ASK M1 2016-2024
+        run: bash scripts/acquire_exp002_history.sh 2016 2024 data
+      - name: Build executable EXP-002 labels and partitions
+        run: bash scripts/run_exp002_labeling.sh data
+      - name: Build frozen BID context plus causal spread features
+        run: |
+          mkdir -p data/features/exp003 data/features/exp003-base
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            base="data/features/exp003-base/features-${year}.csv"
+            out="data/features/exp003/features-${year}.csv"
+            python3 scripts/build_features.py "$bid" "$base"
+            python3 scripts/augment_features_exp002.py "$bid" "$ask" "$base" "$out"
+          done
+      - name: Run frozen EXP-003 economic value model V1
+        run: |
+          mkdir -p data/reports/exp003
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp002/partitioned-${year}.csv" "data/features/exp003/features-${year}.csv")
+          done
+          python3 scripts/economic_value_exp003_v1.py data/reports/exp003/economic-value-v1.json "${args[@]}"
+      - name: Upload compact EXP-003 initial-model evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp003-initial-model
+          path: |
+            data/manifests/exp002-bidask-m1-manifest.json
+            data/reports/exp003/economic-value-v1.json
           retention-days: 90
