@@ -180,10 +180,17 @@ def label_rows(
             future.append(bars[j])
             j += 1
 
-        # Complete coverage means the source reaches the final eligible M1 bar
-        # at horizon_end - 1 minute. Weekend/session gaps correctly fail this.
-        expected_last_start = horizon_end - ONE_MINUTE_MS
-        coverage_complete = bool(future) and future[-1].timestamp == expected_last_start
+        # Complete coverage requires every expected M1 bar in the full
+        # calendar-time horizon, not merely the final expected timestamp.
+        # This rejects internal data gaps even when a later bar happens to
+        # land exactly on the final expected minute.
+        coverage_complete = (
+            len(future) == horizon_minutes
+            and all(
+                bar.timestamp == decision_time + k * ONE_MINUTE_MS
+                for k, bar in enumerate(future)
+            )
+        )
 
         buy = _direction_label(
             future, current.close, "BUY", target_distance, adverse_distance
