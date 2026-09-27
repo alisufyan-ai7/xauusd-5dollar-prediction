@@ -40,14 +40,16 @@ Unchanged from corrected GBT V1:
 - every 5th eligible TRAIN row, chronological
 - same frozen V2 feature set and GBT hyperparameters
 
-Operational cutoffs are derived from ALL eligible feature-complete VALIDATION decision rows, regardless of future label, at:
+Operational cutoffs are derived from ALL partition-boundary-eligible, feature-complete VALIDATION decision rows, regardless of future label or future coverage_complete flag, at:
 
 - top 10%
 - top 5%
 - top 2.5%
 - top 1%
 
-The raw-score cutoffs are applied unchanged to DEVELOPMENT_TEST.
+The raw-score cutoffs are applied unchanged to all partition-boundary-eligible, feature-complete DEVELOPMENT_TEST decision rows.
+
+Operational scoring MUST NOT require coverage_complete because that flag depends on the future 60-minute path. Training labels still require complete forward coverage. Tick reconstruction separately determines whether a scored historical signal has executable tick coverage.
 
 ## Tick acquisition minimization
 
