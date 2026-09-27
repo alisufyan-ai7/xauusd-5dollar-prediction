@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/exp002-executable-target-v1
+    paths:
+      - ".github/exp002-initial-model-trigger-2"
   workflow_dispatch:
     inputs:
       mode:
@@ -524,7 +529,7 @@ jobs:
 
 
   exp002-initial-model:
-    if: ${{ inputs.mode == 'exp002-initial-model' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'exp002-initial-model' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
