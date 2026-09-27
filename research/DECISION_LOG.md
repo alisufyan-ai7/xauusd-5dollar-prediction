@@ -669,3 +669,31 @@ Operational evaluation remains one global position at a time so clustered minute
 No new features or hyperparameter search are permitted in EXP-003 V1.
 
 2025 remains sealed.
+
+
+---
+
+## D-036 — EXP-003 V1 fails sequential threshold economics
+
+Decision:
+Do not nominate any EXP-003 V1 policy for pre-OOS candidate freeze.
+
+Evidence:
+Run 36337595939 completed successfully.
+
+No preregistered T0/T25/T50/T75 policy in BUY_ONLY, SELL_ONLY, or COMBINED passed the frozen advancement gates.
+
+Representative T0:
+- BUY_ONLY mean NET_F10 -0.4151, PF 0.7583;
+- SELL_ONLY -0.4040, PF 0.7703;
+- COMBINED -0.4142, PF 0.7616.
+
+Higher EV thresholds did not rescue economics and often worsened expectancy or reduced trade counts below the preregistered minimum.
+
+Conclusion:
+explicit EV scoring over the unchanged EXP-002 feature set is still misaligned with realized executable P&L.
+
+Next:
+diagnose EV calibration/failure mechanisms before considering a new preregistered experiment.
+
+2025 remains sealed.
