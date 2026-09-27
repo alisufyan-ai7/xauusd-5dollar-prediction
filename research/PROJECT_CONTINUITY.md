@@ -466,3 +466,27 @@ Data:
 paired Dukascopy BID/ASK M1 for 2016-2024 only.
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-002 initial model findings
+
+Run 36321788362 completed successfully.
+
+DEVELOPMENT_TEST:
+- BUY ROC-AUC 0.7392, PR-AUC 0.2315;
+- SELL ROC-AUC 0.7482, PR-AUC 0.2454.
+
+Fixed VALIDATION-derived top-1% success:
+- BUY 29.05%;
+- SELL 33.07%.
+
+The executable-side target preserves substantial predictive ranking signal.
+
+AMBIGUOUS rows are rare relative to complete-path rows, so later tick adjudication should be a small correction rather than the main source of the result.
+
+Next milestone:
+sequential EXP-002 execution economics on 2023-2024 using frozen score bands and executable-side P&L semantics.
+
+2025 FINAL_OOS remains sealed.
+
+See research/EXP-002_INITIAL_MODEL_FINDINGS.md.
