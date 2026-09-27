@@ -490,3 +490,29 @@ sequential EXP-002 execution economics on 2023-2024 using frozen score bands and
 2025 FINAL_OOS remains sealed.
 
 See research/EXP-002_INITIAL_MODEL_FINDINGS.md.
+
+
+## EXP-002 sequential economics findings
+
+Run 36324128764 completed successfully.
+
+No preregistered policy passed the F10 advancement gate.
+
+Least-negative:
+SELL_ONLY top 1% at F10:
+- trades 1,348;
+- mean net -0.3252;
+- PF 0.8360;
+- 2023 -0.0895;
+- 2024 -0.3967;
+- bootstrap 95% CI [-0.5159, -0.1290].
+
+Even F0 remained negative overall.
+
+Therefore:
+- no EXP-002 V1 policy advances;
+- 2025 remains sealed;
+- no Exness demo trading is justified from this milestone;
+- next work should diagnose why strong classifier ranking does not translate into positive sequential expectancy using only 2016-2024.
+
+See research/EXP-002_EXECUTION_ECONOMICS_V1_FINDINGS.md.
