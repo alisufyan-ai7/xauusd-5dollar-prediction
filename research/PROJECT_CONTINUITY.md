@@ -434,3 +434,35 @@ Therefore:
 - the next milestone must redesign labels/objective around executable BID/ASK economics and retrain under a new experiment version.
 
 See research/EXP-001_EXECUTION_ECONOMICS_V2_FINDINGS.md.
+
+
+## EXP-002 executable-side target
+
+EXP-001 stopped before FINAL_OOS because side-aware BID/ASK execution economics were negative.
+
+A new experiment is now active on:
+research/exp002-executable-target-v1
+
+Frozen specification:
+research/EXP-002_PREREGISTRATION.md
+
+Core change:
+the target itself now uses executable-side mechanics.
+
+BUY:
+- entry next M1 ASK open;
+- +5 / -3 evaluated using BID path.
+
+SELL:
+- entry next M1 BID open;
+- +5 / -3 evaluated using ASK path.
+
+The existing timestamp-safe market-context feature set is retained and augmented with causal spread features available by the decision close.
+
+Initial workflow:
+36320442383
+
+Data:
+paired Dukascopy BID/ASK M1 for 2016-2024 only.
+
+2025 FINAL_OOS remains sealed.
