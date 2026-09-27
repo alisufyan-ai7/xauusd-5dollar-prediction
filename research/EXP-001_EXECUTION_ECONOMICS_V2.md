@@ -20,13 +20,13 @@ Dukascopy historical ticks expose both ASK and BID in each tick. The pinned down
 - UTC
 - CSV
 
-Expected tick columns:
+Required tick columns:
 
 - timestamp
 - askPrice
 - bidPrice
-- askVolume
-- bidVolume
+
+askVolume and bidVolume may also be present, but they are not required or used by the execution model.
 
 ## Predictive model and partitions
 
