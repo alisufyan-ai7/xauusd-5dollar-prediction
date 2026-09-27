@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/exp001-foundation
+    paths:
+      - ".github/tick-bidask-smoke-trigger-2"
   workflow_dispatch:
     inputs:
       mode:
@@ -446,7 +451,7 @@ jobs:
 
 
   tick-bidask-smoke:
-    if: ${{ inputs.mode == 'tick-bidask-smoke' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'tick-bidask-smoke' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
