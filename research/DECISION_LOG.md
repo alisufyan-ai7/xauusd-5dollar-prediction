@@ -359,3 +359,24 @@ Next step:
 freeze one candidate policy, document exact execution semantics and all remaining correctness/audit issues, hash the frozen specification, and only then decide whether the FINAL_OOS gate is ready.
 
 2025 remains sealed.
+
+
+---
+
+## D-025 — Keep FINAL_OOS closed pending corrected revalidation and economics
+
+Decision:
+Do not freeze a final operating policy or open 2025 yet.
+
+Audit findings:
+1. the original label engine could mark a horizon complete despite an internal M1 gap;
+2. same-partition Dec-31 decisions could lose next-year forward context;
+3. predictive success rate alone is not enough to establish trading profitability because UNRESOLVED expiry P&L and execution costs are not yet modeled.
+
+Actions:
+- label coverage now requires exact contiguous M1 timestamps;
+- same-partition year-boundary forward context is implemented without crossing partition boundaries;
+- corrected 2016-2024 revalidation is running with no 2025 input;
+- execution-economics semantics must be frozen and tested before the final OOS gate.
+
+FINAL_OOS 2025 remains sealed.
