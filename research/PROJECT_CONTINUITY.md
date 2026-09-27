@@ -271,3 +271,28 @@ Next milestone:
 calibration and abstention/score-band research on VALIDATION and DEVELOPMENT_TEST only, with 2025 still sealed.
 
 See research/EXP-001_GBT_V1_FINDINGS.md.
+
+
+## Calibration and abstention V1 results
+
+Run 36308557202 completed successfully.
+
+BUY validation-derived raw-score bands transferred very strongly into DEVELOPMENT_TEST:
+- top 10%: 30.96% -> 30.84%;
+- top 5%: 33.42% -> 33.40%;
+- top 2.5%: 34.54% -> 34.37%;
+- top 1%: 36.38% -> 35.81%.
+
+SELL bands also improved strongly with selectivity, but the VALIDATION extreme tail was not perfectly monotonic.
+
+Platt calibration:
+- modestly improved BUY Brier/log loss out-of-time;
+- slightly worsened SELL out-of-time calibration.
+
+Conclusion:
+GBT ranking/selectivity is currently more reliable than interpreting the raw probability as literal confidence.
+
+Next milestone:
+freeze candidate abstention policies and test robustness across time blocks, volatility/session regimes, and overlapping-observation-aware uncertainty before any final OOS opening.
+
+See research/EXP-001_CALIBRATION_ABSTENTION_V1_FINDINGS.md.
