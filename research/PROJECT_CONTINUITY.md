@@ -356,3 +356,31 @@ Key rules:
 - 2025 remains sealed.
 
 This is a BID-path economic proxy because historical Exness ASK/spread/slippage is not available in the admitted dataset.
+
+
+## Execution Economics V1 findings
+
+Run 36314782089 completed successfully.
+
+No combined policy passed the frozen C20 advancement rule.
+
+Top-1% combined:
+- C0 mean +0.1765, PF 1.100, bootstrap 95% CI [0.0110, 0.3620];
+- C10 mean +0.0765, PF 1.042, bootstrap CI crossed zero;
+- C20 mean -0.0235, PF 0.988, 2024 negative, bootstrap CI crossed zero.
+
+SELL-only top 1% was positive at C20, but no post-hoc direction-specific policy is being promoted.
+
+Exness MT5 boundary probe:
+- this demo server returned BID+ASK monthly samples from Jan-Sep 2026;
+- sampled 2025-2023 months returned zero ticks;
+- Exness is therefore reserved for 2026 broker-specific spread/shadow validation.
+
+Next:
+preregister and implement Dukascopy BID+ASK side-aware historical execution reconstruction before any FINAL_OOS opening.
+
+See:
+- research/EXP-001_EXECUTION_ECONOMICS_V1_FINDINGS.md
+- research/EXNESS_MT5_TICK_BOUNDARY_FINDINGS.md
+
+2025 remains sealed.
