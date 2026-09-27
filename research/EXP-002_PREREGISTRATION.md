@@ -23,6 +23,20 @@ Primary historical source:
 
 BID and ASK files must be structurally validated and synchronized by timestamp.
 
+## BID/ASK M1 synchronization
+
+Dukascopy may omit a flat M1 candle independently on BID or ASK.
+
+Before labeling/features:
+
+- take the union of timestamps observed on BID and ASK;
+- when exactly one side has a bar at a timestamp, represent the missing side as a zero-volume flat candle at that side's immediately prior close;
+- do not create timestamps absent on both sides;
+- if no prior quote exists for the missing side, drop that leading unpaired timestamp;
+- downstream exact-contiguity checks still reject true common gaps, weekends, and market closures.
+
+This synchronization rule is frozen before EXP-002 empirical results.
+
 Tick data is NOT required for every minute. It is reserved only for later adjudication of M1 bars where target and adverse barriers are both touched in the same minute and ordering is unknowable from OHLC.
 
 ## Partitions
