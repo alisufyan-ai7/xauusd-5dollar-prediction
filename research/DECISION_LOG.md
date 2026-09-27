@@ -567,3 +567,34 @@ Next:
 run sequential BUY_ONLY / SELL_ONLY / COMBINED economics using the frozen executable entry, barrier, expiry, one-position-at-a-time, and friction semantics.
 
 2025 remains sealed.
+
+
+---
+
+## D-033 — EXP-002 V1 fails sequential economics
+
+Decision:
+Do not open FINAL_OOS 2025 and do not promote any EXP-002 V1 policy.
+
+Evidence:
+Run 36324128764 completed successfully.
+
+No preregistered top 10/5/2.5/1% BUY_ONLY, SELL_ONLY, or COMBINED policy passed F10.
+
+Least-negative policy:
+SELL_ONLY top 1% at F10:
+- mean net -0.3252 price units/trade;
+- PF 0.8360;
+- 2023 -0.0895;
+- 2024 -0.3967;
+- bootstrap 95% CI [-0.5159, -0.1290].
+
+Even at F0, SELL_ONLY top 1% remained negative overall.
+
+Conclusion:
+predictive ranking quality alone is insufficient; the current score-to-trade policy does not create positive sequential expectancy.
+
+Next:
+diagnose non-sealed 2016-2024 failure modes before any new experiment design.
+
+2025 remains sealed.
