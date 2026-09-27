@@ -19,7 +19,22 @@ for year in $(seq 2016 2025); do
     exit 1
   fi
 
-  python3 scripts/label_exp001.py "$raw" "$labels"
+  # Use next-year forward context only when the next year remains inside the
+  # same frozen partition. This repairs artificial Dec-31 incompleteness
+  # without crossing TRAIN/VALIDATION/DEVELOPMENT_TEST/FINAL_OOS boundaries.
+  case "$year" in
+    2016|2017|2018|2019|2020|2023)
+      next_raw="$RAW_DIR/xauusd-${next}-01-01-$((next+1))-01-01-m1.csv"
+      if [[ ! -f "$next_raw" ]]; then
+        echo "MISSING_REQUIRED_CONTEXT_YEAR: $next_raw" >&2
+        exit 1
+      fi
+      python3 scripts/label_exp001_year_context.py "$raw" "$labels" "$next_raw"
+      ;;
+    *)
+      python3 scripts/label_exp001_year_context.py "$raw" "$labels"
+      ;;
+  esac
   python3 scripts/partition_exp001.py "$labels" "$partitioned"
 done
 
