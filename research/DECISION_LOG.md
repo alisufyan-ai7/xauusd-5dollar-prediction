@@ -380,3 +380,29 @@ Actions:
 - execution-economics semantics must be frozen and tested before the final OOS gate.
 
 FINAL_OOS 2025 remains sealed.
+
+
+---
+
+## D-026 — Execution economics uses a BID-path cost-stress proxy
+
+Decision:
+Run Execution Economics V1 before any FINAL_OOS opening using the corrected Dukascopy BID-only history and frozen all-in round-trip cost stress scenarios.
+
+Reason:
+The admitted historical dataset does not contain Exness historical ASK quotes, spread, commission, or slippage. Therefore broker-exact fills cannot be reconstructed honestly.
+
+Frozen operational rules:
+- one global XAUUSD position at a time;
+- no pyramiding or reversal while a trade is open;
+- simultaneous BUY+SELL qualification => NO TRADE;
+- SUCCESS gross +5;
+- FAILURE gross -3;
+- AMBIGUOUS conservatively -3;
+- UNRESOLVED closes at exact 60-minute expiry BID close;
+- all-in round-trip cost scenarios: 0.00, 0.10, 0.20, 0.30, 0.50 XAUUSD price units per trade;
+- validation cutoffs derived from all eligible feature-complete decision rows, regardless of future ambiguity.
+
+This is an economic screening proxy, not a broker-exact backtest.
+
+2025 remains sealed.
