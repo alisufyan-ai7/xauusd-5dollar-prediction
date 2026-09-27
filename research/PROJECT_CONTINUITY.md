@@ -412,3 +412,25 @@ V2:
 Current workflow run: 36316779171.
 
 See research/EXP-001_EXECUTION_ECONOMICS_V2.md.
+
+
+## Execution Economics V2 findings
+
+Run 36316779171 completed successfully.
+
+The side-aware historical execution screen failed.
+
+Even at F0:
+- top-1% COMBINED mean -0.3662, PF 0.8183, bootstrap 95% CI [-0.5563, -0.1817];
+- top-1% BUY_ONLY mean -0.4961, PF 0.7602;
+- top-1% SELL_ONLY mean -0.1828, PF 0.9066, bootstrap 95% CI [-0.3921, +0.0068].
+
+All broader bands were also negative at F0 and worsened under F05/F10/F20.
+
+Therefore:
+- no current candidate advances;
+- FINAL_OOS 2025 remains sealed;
+- no Exness demo trading is justified from EXP-001;
+- the next milestone must redesign labels/objective around executable BID/ASK economics and retrain under a new experiment version.
+
+See research/EXP-001_EXECUTION_ECONOMICS_V2_FINDINGS.md.
