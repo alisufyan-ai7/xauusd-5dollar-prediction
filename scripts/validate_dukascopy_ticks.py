@@ -4,7 +4,7 @@
 import csv,hashlib,json,math,sys
 from pathlib import Path
 
-COLS=["timestamp","askPrice","bidPrice","askVolume","bidVolume"]
+REQUIRED=["timestamp","askPrice","bidPrice"]\nOPTIONAL=["askVolume","bidVolume"]
 
 def main(argv):
     if len(argv)!=2:raise SystemExit("usage: validate_dukascopy_ticks.py <ticks.csv>")
@@ -12,13 +12,19 @@ def main(argv):
     first=last=None
     with p.open(encoding="utf-8-sig",newline="") as f:
         r=csv.DictReader(f)
-        if r.fieldnames!=COLS:raise SystemExit(f"UNEXPECTED_COLUMNS:{r.fieldnames}")
+        fields=r.fieldnames or []
+        if fields[:3]!=REQUIRED or any(x not in REQUIRED+OPTIONAL for x in fields):
+            raise SystemExit(f"UNEXPECTED_COLUMNS:{fields}")
         for row in r:
             ts=int(row["timestamp"]);ask=float(row["askPrice"]);bid=float(row["bidPrice"])
-            av=float(row["askVolume"]);bv=float(row["bidVolume"])
+            vals=[ask,bid]
+            if "askVolume" in fields: vals.append(float(row["askVolume"]))
+            if "bidVolume" in fields: vals.append(float(row["bidVolume"]))
             if prev is not None and ts<prev:raise SystemExit("NONMONOTONIC_TIMESTAMP")
-            if not all(math.isfinite(x) for x in (ask,bid,av,bv)):raise SystemExit("NONFINITE")
-            if ask<=0 or bid<=0 or av<0 or bv<0:raise SystemExit("INVALID_VALUE")
+            if not all(math.isfinite(x) for x in vals):raise SystemExit("NONFINITE")
+            if ask<=0 or bid<=0:raise SystemExit("INVALID_PRICE")
+            if "askVolume" in fields and float(row["askVolume"])<0:raise SystemExit("INVALID_ASK_VOLUME")
+            if "bidVolume" in fields and float(row["bidVolume"])<0:raise SystemExit("INVALID_BID_VOLUME")
             if ask<bid:bad_spread+=1
             if first is None:first=ts
             last=ts;prev=ts;n+=1
