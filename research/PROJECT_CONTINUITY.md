@@ -337,3 +337,22 @@ Therefore:
 - after corrected revalidation, freeze expiry/cost semantics and test non-sealed economics before any OOS opening.
 
 See research/EXP-001_PRE_OOS_AUDIT_V1.md.
+
+
+## Execution Economics V1
+
+The next non-sealed milestone is preregistered in research/EXP-001_EXECUTION_ECONOMICS_V1.md.
+
+It converts the corrected GBT score policies into sequential trade-level economics on DEVELOPMENT_TEST only.
+
+Key rules:
+- one global position at a time;
+- simultaneous BUY/SELL signal => NO TRADE;
+- SUCCESS +5 / FAILURE -3;
+- AMBIGUOUS treated conservatively as -3;
+- UNRESOLVED exits at exact 60-minute expiry close;
+- all-in round-trip cost stress grid: 0.00 / 0.10 / 0.20 / 0.30 / 0.50 price units;
+- top 10%, 5%, 2.5%, 1% policies only;
+- 2025 remains sealed.
+
+This is a BID-path economic proxy because historical Exness ASK/spread/slippage is not available in the admitted dataset.
