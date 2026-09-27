@@ -302,3 +302,20 @@ Logistic V1 demonstrated real chronological signal:
 This supports testing nonlinear feature interactions while preserving the same labels, partitions, and sealed FINAL_OOS.
 
 No live threshold is selected from Logistic V1.
+
+
+---
+
+## D-022 — Advance to calibration and abstention research
+
+Decision:
+Advance from GBT V1 to a dedicated calibration and abstention milestone while keeping the GBT feature/model configuration fixed and 2025 sealed.
+
+Reason:
+GBT V1 materially improved chronological discrimination over Logistic V1:
+- BUY ROC-AUC: 0.7452 VALIDATION / 0.7378 DEVELOPMENT_TEST;
+- SELL ROC-AUC: 0.7407 VALIDATION / 0.7452 DEVELOPMENT_TEST.
+
+However, raw GBT probabilities are compressed and did not reach the descriptive 0.60 cutoff. Therefore the next question is not model complexity but whether the scores can be calibrated and converted into robust abstention bands without overfitting.
+
+No live threshold is selected from GBT V1.
