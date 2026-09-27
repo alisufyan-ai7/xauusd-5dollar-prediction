@@ -196,7 +196,12 @@ verify whether raw-row miscalibration survives at actual executed opportunity le
 
 ## D8 — Feature-distribution shift summary
 
-Using only the frozen EXP-003 feature vector, compare TRAIN versus:
+TRAIN feature-distribution reference:
+- use the same deterministic every-5th eligible chronological TRAIN-row thinning already frozen for EXP-003 classifier fitting;
+- require feature_complete and a finite frozen feature vector;
+- this sampling rule is fixed before diagnostic results and is used for D8 and D9 only.
+
+Using only the frozen EXP-003 feature vector, compare the TRAIN reference versus:
 
 - VALIDATION 2022;
 - DEVELOPMENT_TEST 2023;
@@ -218,7 +223,7 @@ identify whether large causal market-state distribution shifts plausibly accompa
 
 ## D9 — Tail support / extrapolation
 
-For T0/T25/T50/T75 rows report, for each frozen feature:
+Using the same frozen TRAIN reference from D8, for T0/T25/T50/T75 rows report, for each frozen feature:
 
 - share below TRAIN 1st percentile;
 - share above TRAIN 99th percentile.
