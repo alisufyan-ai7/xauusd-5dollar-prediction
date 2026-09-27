@@ -479,3 +479,34 @@ V2 rules:
 
 Source specification:
 research/EXP-001_EXECUTION_ECONOMICS_V2.md
+
+
+---
+
+## D-030 — Stop EXP-001 before FINAL_OOS; redesign executable target
+
+Decision:
+Do not open 2025 and do not promote any current policy.
+
+Reason:
+Execution Economics V2 modeled historical Dukascopy BID/ASK directly and found all preregistered policy/mode combinations negative overall, including at F0 before extra commission/slippage stress.
+
+Top-1% COMBINED at F0:
+- mean -0.3662 price units/trade;
+- PF 0.8183;
+- 2023 -0.1038;
+- 2024 -0.4331;
+- bootstrap 95% CI [-0.5563, -0.1817].
+
+Top-1% SELL_ONLY at F0 was strongest but still negative overall:
+- mean -0.1828;
+- PF 0.9066;
+- bootstrap 95% CI [-0.3921, +0.0068].
+
+Conclusion:
+The current predictive target is not sufficiently aligned with executable BID/ASK economics.
+
+Next:
+start a new experiment version whose labels/objective are defined directly from executable ASK/BID entry and exit mechanics before retraining.
+
+2025 remains sealed.
