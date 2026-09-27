@@ -73,5 +73,7 @@ jobs:
         run: python -m py_compile scripts/diagnose_exp002_economic_failure_v1.py
       - name: Compile EXP-003 economic value model V1
         run: python -m py_compile scripts/economic_value_exp003_v1.py
+      - name: Compile EXP-003 threshold economics V1
+        run: python -m py_compile scripts/threshold_economics_exp003_v1.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
