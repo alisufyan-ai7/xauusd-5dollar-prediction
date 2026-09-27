@@ -284,3 +284,21 @@ Operational rule:
 - FINAL_OOS 2025 remains inaccessible;
 - BUY and SELL models are separate;
 - weak or negative results are admissible and must not trigger silent feature or hyperparameter changes.
+
+
+---
+
+## D-021 — Advance to gradient-boosted trees after logistic V1
+
+Decision:
+Proceed to the preregistered next model class, gradient-boosted trees, without changing the V2 feature set or opening 2025.
+
+Reason:
+Logistic V1 demonstrated real chronological signal:
+- BUY ROC-AUC remained 0.6359 on VALIDATION and 0.6194 on DEVELOPMENT_TEST;
+- SELL discrimination was weaker, but higher-score tails still showed monotonic realized-success improvement;
+- both directions exhibited substantial calibration drift across later regimes.
+
+This supports testing nonlinear feature interactions while preserving the same labels, partitions, and sealed FINAL_OOS.
+
+No live threshold is selected from Logistic V1.
