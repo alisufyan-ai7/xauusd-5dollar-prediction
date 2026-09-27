@@ -22,6 +22,8 @@ on:
           - v2-abstention-robustness-existing-checkpoint
           - pre-oos-corrected-revalidation
           - execution-economics-v1
+          - tick-bidask-smoke
+          - execution-economics-v2
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -440,4 +442,81 @@ jobs:
           path: |
             data/manifests/exp001-history-manifest.json
             data/reports/exp001/execution-economics-v1.json
+          retention-days: 90
+
+
+  tick-bidask-smoke:
+    if: ${{ inputs.mode == 'tick-bidask-smoke' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download one Dukascopy XAUUSD BID ASK tick day
+        run: |
+          mkdir -p data/raw/dukascopy/xauusd/tick
+          bash scripts/download_xauusd_ticks_day.sh 2024-06-05 data/raw/dukascopy/xauusd/tick/xauusd-ticks-2024-06-05.csv
+      - name: Upload compact tick smoke sample
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-xauusd-tick-bidask-smoke
+          path: data/raw/dukascopy/xauusd/tick/xauusd-ticks-2024-06-05.csv
+          retention-days: 3
+
+  execution-economics-v2:
+    if: ${{ inputs.mode == 'execution-economics-v2' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Acquire non-sealed XAUUSD M1 2016-2024
+        run: bash scripts/acquire_exp001_history.sh 2016 2024 data
+      - name: Build corrected non-sealed labels and partitions
+        run: bash scripts/run_pre_oos_corrected_labeling.sh data
+      - name: Build V2 features for 2016-2024
+        run: |
+          mkdir -p data/features/exp001
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            python3 scripts/build_features.py               "data/raw/dukascopy/xauusd/m1/xauusd-${year}-01-01-${next}-01-01-m1.csv"               "data/features/exp001/features-${year}.csv"
+          done
+      - name: Export V2 operational candidate signals
+        run: |
+          mkdir -p data/reports/exp001 data/execution/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/export_execution_candidates_exp001_v2.py             data/execution/exp001/candidates.csv             data/execution/exp001/cutoffs.json             data/execution/exp001/required-tick-dates.txt             "${args[@]}"
+      - name: Acquire only required Dukascopy BID ASK tick days
+        run: |
+          mkdir -p data/raw/dukascopy/xauusd/tick
+          while IFS= read -r day; do
+            [[ -z "$day" ]] && continue
+            bash scripts/download_xauusd_ticks_day.sh               "$day" "data/raw/dukascopy/xauusd/tick/xauusd-ticks-${day}.csv"
+          done < data/execution/exp001/required-tick-dates.txt
+      - name: Run side-aware Execution Economics V2
+        run: |
+          python3 scripts/execution_economics_exp001_v2.py             data/execution/exp001/candidates.csv             data/execution/exp001/cutoffs.json             data/raw/dukascopy/xauusd/tick             data/reports/exp001/execution-economics-v2.json
+      - name: Upload compact V2 evidence only
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-execution-economics-v2
+          path: |
+            data/execution/exp001/cutoffs.json
+            data/execution/exp001/required-tick-dates.txt
+            data/reports/exp001/execution-economics-v2.json
           retention-days: 90
