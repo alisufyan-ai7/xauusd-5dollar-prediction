@@ -319,3 +319,24 @@ GBT V1 materially improved chronological discrimination over Logistic V1:
 However, raw GBT probabilities are compressed and did not reach the descriptive 0.60 cutoff. Therefore the next question is not model complexity but whether the scores can be calibrated and converted into robust abstention bands without overfitting.
 
 No live threshold is selected from GBT V1.
+
+
+---
+
+## D-023 — Freeze candidate abstention policies for robustness testing
+
+Decision:
+Stop model tuning after Calibration/Abstention V1 and move to robustness testing of fixed GBT score-band policies.
+
+Reason:
+Validation-derived BUY score bands transferred unusually well into DEVELOPMENT_TEST:
+- top 10%: 30.96% -> 30.84%;
+- top 5%: 33.42% -> 33.40%;
+- top 2.5%: 34.54% -> 34.37%;
+- top 1%: 36.38% -> 35.81%.
+
+SELL also transferred usefully, although the validation extreme tail was not perfectly monotonic.
+
+Platt calibration provided only small BUY improvements and slightly worsened SELL out-of-time calibration. Therefore the robust object for the next milestone is the fixed raw-score ranking / abstention policy, not further probability-map tuning.
+
+2025 remains sealed.
