@@ -10,7 +10,9 @@ import importlib.util
 
 ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location("label_exp001",ROOT/"scripts"/"label_exp001.py")
-m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+m=importlib.util.module_from_spec(spec)
+sys.modules["label_exp001"]=m
+spec.loader.exec_module(m)
 
 def main(argv):
     if len(argv) not in (3,4):
