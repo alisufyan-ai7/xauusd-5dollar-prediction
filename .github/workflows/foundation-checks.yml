@@ -24,6 +24,8 @@ jobs:
         run: python tests/test_label_year_context.py
       - name: Run EXP-002 executable-label tests
         run: python tests/test_label_exp002.py
+      - name: Run EXP-002 synchronization tests
+        run: python tests/test_synchronize_exp002_m1.py
       - name: Run diagnostic smoke test
         run: python tests/test_diagnose_exp001_smoke.py
       - name: Run manifest builder smoke test
@@ -56,6 +58,8 @@ jobs:
         run: python -m py_compile scripts/validate_dukascopy_ticks.py
       - name: Compile execution economics V2 script
         run: python -m py_compile scripts/execution_economics_exp001_v2.py
+      - name: Compile EXP-002 synchronizer
+        run: python -m py_compile scripts/synchronize_exp002_m1.py
       - name: Compile EXP-002 executable labeler
         run: python -m py_compile scripts/label_exp002.py
       - name: Compile EXP-002 spread feature augmenter
