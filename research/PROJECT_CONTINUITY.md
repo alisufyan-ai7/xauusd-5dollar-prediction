@@ -384,3 +384,31 @@ See:
 - research/EXNESS_MT5_TICK_BOUNDARY_FINDINGS.md
 
 2025 remains sealed.
+
+
+## Execution Economics V2 — side-aware historical reconstruction
+
+Execution Economics V2 is preregistered and running.
+
+Why:
+- V1's BID-only proxy did not pass the combined C20 gate.
+- Exness MT5 historical BID/ASK on the current demo server is useful from sampled Jan 2026 onward, not for 2023-2024 reconstruction.
+- Dukascopy tick history exposes both BID and ASK.
+
+Verified smoke:
+- pinned dukascopy-node@1.50.0;
+- XAUUSD tick day 2024-06-05 downloaded successfully;
+- required schema timestamp / askPrice / bidPrice validated.
+
+V2:
+- keeps the corrected frozen GBT;
+- derives operational cutoffs without future coverage conditioning;
+- downloads only UTC tick days needed by top-10% candidate signals;
+- evaluates BUY_ONLY / SELL_ONLY / COMBINED for top 10/5/2.5/1%;
+- embeds historical Dukascopy spread through side-aware entry/exit quotes;
+- applies extra F0/F05/F10/F20 friction stress;
+- keeps FINAL_OOS 2025 sealed.
+
+Current workflow run: 36316779171.
+
+See research/EXP-001_EXECUTION_ECONOMICS_V2.md.
