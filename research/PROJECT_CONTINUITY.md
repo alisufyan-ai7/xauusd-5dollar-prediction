@@ -296,3 +296,23 @@ Next milestone:
 freeze candidate abstention policies and test robustness across time blocks, volatility/session regimes, and overlapping-observation-aware uncertainty before any final OOS opening.
 
 See research/EXP-001_CALIBRATION_ABSTENTION_V1_FINDINGS.md.
+
+
+## Abstention robustness V1 results
+
+Run 36310814632 completed successfully.
+
+DEVELOPMENT_TEST overall:
+- BUY top 10/5/2.5/1% success: 30.84% / 33.40% / 34.37% / 35.81%.
+- SELL top 10/5/2.5/1% success: 32.77% / 34.58% / 35.72% / 36.97%.
+- paired UTC-day bootstrap lift 95% CI lower bounds were >2.23 for every candidate policy.
+
+All policies were above unconditional performance in both 2023 and 2024 and every populated quarter.
+
+Coverage caveat:
+The candidate policies fire almost entirely in the HIGH-volatility regime. LOW/MID-volatility and LATE-session robustness are not established because selected counts are zero or negligible there.
+
+Next milestone:
+pre-OOS candidate-policy freeze and specification audit before any 2025 access.
+
+See research/EXP-001_ABSTENTION_ROBUSTNESS_V1_FINDINGS.md.
