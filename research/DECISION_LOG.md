@@ -598,3 +598,31 @@ Next:
 diagnose non-sealed 2016-2024 failure modes before any new experiment design.
 
 2025 remains sealed.
+
+
+---
+
+## D-034 — Diagnose EXP-002 economic failure before designing EXP-003
+
+Decision:
+Do not design or train an economic-value model yet.
+
+First run a frozen descriptive diagnosis of why EXP-002 preserves classifier ranking but loses money sequentially.
+
+Diagnostic scope:
+- outcome decomposition;
+- unresolved expiry P&L;
+- score deciles and top-10% tail slices;
+- year/quarter drift;
+- session and volatility regime decomposition;
+- spread decomposition;
+- holding-time behavior;
+- raw-signal clustering and sequential suppression;
+- explicit expected-value identity.
+
+No new thresholds, direction promotion, or model tuning are allowed from this milestone.
+
+Workflow:
+36328166429
+
+2025 remains sealed.
