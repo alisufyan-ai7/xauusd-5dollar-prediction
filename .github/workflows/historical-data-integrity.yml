@@ -1,0 +1,522 @@
+name: historical-data-integrity
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Integrity task"
+        required: true
+        default: "full-history"
+        type: choice
+        options:
+          - public-day-smoke
+          - month-diagnostic
+          - year-2025-pilot
+          - locked-2020
+          - reconstruct-2017
+          - full-history
+          - v2-analysis-existing-checkpoint
+          - v2-logistic-existing-checkpoint
+          - v2-gbt-existing-checkpoint
+          - v2-calibration-existing-checkpoint
+          - v2-abstention-robustness-existing-checkpoint
+          - pre-oos-corrected-revalidation
+          - execution-economics-v1
+          - tick-bidask-smoke
+          - execution-economics-v2
+      checkpoint_run_id:
+        description: "Workflow run ID containing exp001-v2-research-checkpoint"
+        required: false
+        type: string
+      logistic_checkpoint_run_id:
+        description: "Checkpoint run ID for logistic V1"
+        required: false
+        type: string
+
+jobs:
+  public-day-smoke:
+    if: ${{ inputs.mode == 'public-day-smoke' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download one public XAUUSD M1 day and validate
+        run: bash scripts/download_xauusd_m1.sh 2026-09-01 2026-09-02 data/raw/dukascopy/xauusd/m1/smoke.csv
+      - name: Label the validated smoke sample
+        run: python scripts/label_exp001.py data/raw/dukascopy/xauusd/m1/smoke.csv data/results/exp001-smoke-labels.csv
+
+  month-diagnostic:
+    if: ${{ inputs.mode == 'month-diagnostic' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run one-month XAUUSD diagnostic
+        run: bash scripts/run_exp001_diagnostic.sh 2026-08-01 2026-09-01 data
+
+  year-2025-pilot:
+    if: ${{ inputs.mode == 'year-2025-pilot' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Acquire and manifest XAUUSD 2025
+        run: bash scripts/acquire_exp001_history.sh 2025 2025 data
+      - name: Upload compact manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-2025-acquisition-manifest
+          path: data/manifests/exp001-history-manifest.json
+
+  locked-2020:
+    if: ${{ inputs.mode == 'locked-2020' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reproduce locked 2020 chunk
+        run: bash scripts/acquire_locked_year.sh 2020 data 3
+
+  reconstruct-2017:
+    if: ${{ inputs.mode == 'reconstruct-2017' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Reconstruct locked 2017 from monthly chunks
+        run: bash scripts/reconstruct_locked_year.sh 2017 data
+      - name: Compress reconstructed locked 2017
+        run: gzip -9 -c data/raw/dukascopy/xauusd/m1/xauusd-2017-01-01-2018-01-01-m1.csv > xauusd-2017-locked.csv.gz
+      - name: Upload reconstructed locked 2017
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-locked-2017-reconstructed
+          path: xauusd-2017-locked.csv.gz
+          retention-days: 90
+
+  full-history-prep:
+    if: ${{ inputs.mode == 'full-history' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Acquire XAUUSD 2016-2025 yearly chunks
+        run: bash scripts/acquire_exp001_history.sh 2016 2025 data
+      - name: Audit fresh snapshot against prior lock
+        run: python3 scripts/audit_snapshot_manifest.py research/EXP-001_DATASET_LOCK.json data/manifests/exp001-history-manifest.json data/reports/exp001/snapshot-audit.json
+      - name: Label and partition full admitted history
+        run: bash scripts/run_full_history_labeling.sh data
+      - name: Build V2 features for 2016-2024
+        run: |
+          mkdir -p data/features/exp001
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            python3 scripts/build_features.py               "data/raw/dukascopy/xauusd/m1/xauusd-${year}-01-01-${next}-01-01-m1.csv"               "data/features/exp001/features-${year}.csv"
+          done
+      - name: Upload V2 research checkpoint
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: |
+            data/features/exp001
+            data/partitioned/exp001
+            data/manifests/exp001-history-manifest.json
+            data/reports/exp001/snapshot-audit.json
+            data/reports/exp001/partition-summary.json
+          retention-days: 30
+
+  full-history-analysis:
+    if: ${{ inputs.mode == 'full-history' }}
+    needs: full-history-prep
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download V2 research checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: data
+      - name: Run non-sealed baseline analysis from checkpoint
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/baseline_exp001.py data/reports/exp001/initial-baselines.json "${args[@]}"
+      - name: Upload initial non-sealed baseline report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-v2-initial-baselines
+          path: data/reports/exp001/initial-baselines.json
+
+  v2-analysis-existing-checkpoint:
+    if: ${{ inputs.mode == 'v2-analysis-existing-checkpoint' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download existing V2 checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: data
+          run-id: ${{ inputs.checkpoint_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run streaming non-sealed baseline analysis
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/baseline_exp001.py data/reports/exp001/initial-baselines.json "${args[@]}"
+      - name: Upload streaming baseline report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-v2-streaming-baselines
+          path: data/reports/exp001/initial-baselines.json
+
+  v2-logistic-existing-checkpoint:
+    if: ${{ inputs.mode == 'v2-logistic-existing-checkpoint' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Download existing V2 checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: data
+          run-id: ${{ inputs.logistic_checkpoint_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run EXP-001 logistic regression V1
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/logistic_exp001_v1.py data/reports/exp001/logistic-v1.json "${args[@]}"
+      - name: Upload logistic V1 report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-logistic-v1
+          path: data/reports/exp001/logistic-v1.json
+
+  v2-gbt-existing-checkpoint:
+    if: ${{ inputs.mode == 'v2-gbt-existing-checkpoint' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Download existing V2 checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: data
+          run-id: ${{ inputs.logistic_checkpoint_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run EXP-001 GBT V1
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/gbt_exp001_v1.py data/reports/exp001/gbt-v1.json "${args[@]}"
+      - name: Upload GBT V1 report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-gbt-v1
+          path: data/reports/exp001/gbt-v1.json
+
+  v2-calibration-existing-checkpoint:
+    if: ${{ inputs.mode == 'v2-calibration-existing-checkpoint' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Download existing V2 checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: data
+          run-id: ${{ inputs.logistic_checkpoint_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run EXP-001 calibration and abstention V1
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/calibration_exp001_v1.py data/reports/exp001/calibration-abstention-v1.json "${args[@]}"
+      - name: Upload calibration and abstention V1 report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-calibration-abstention-v1
+          path: data/reports/exp001/calibration-abstention-v1.json
+
+  v2-abstention-robustness-existing-checkpoint:
+    if: ${{ inputs.mode == 'v2-abstention-robustness-existing-checkpoint' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Download existing V2 checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: data
+          run-id: ${{ inputs.logistic_checkpoint_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run EXP-001 abstention robustness V1
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/abstention_robustness_exp001_v1.py data/reports/exp001/abstention-robustness-v1.json "${args[@]}"
+      - name: Upload abstention robustness V1 report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-abstention-robustness-v1
+          path: data/reports/exp001/abstention-robustness-v1.json
+
+  pre-oos-corrected-revalidation:
+    if: ${{ inputs.mode == 'pre-oos-corrected-revalidation' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Acquire non-sealed XAUUSD 2016-2024
+        run: bash scripts/acquire_exp001_history.sh 2016 2024 data
+      - name: Build corrected non-sealed labels and partitions
+        run: bash scripts/run_pre_oos_corrected_labeling.sh data
+      - name: Build V2 features for 2016-2024
+        run: |
+          mkdir -p data/features/exp001
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            python3 scripts/build_features.py               "data/raw/dukascopy/xauusd/m1/xauusd-${year}-01-01-${next}-01-01-m1.csv"               "data/features/exp001/features-${year}.csv"
+          done
+      - name: Run corrected GBT V1
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/gbt_exp001_v1.py data/reports/exp001/corrected-gbt-v1.json "${args[@]}"
+      - name: Run corrected calibration and abstention V1
+        run: |
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/calibration_exp001_v1.py data/reports/exp001/corrected-calibration-abstention-v1.json "${args[@]}"
+      - name: Run corrected abstention robustness V1
+        run: |
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/abstention_robustness_exp001_v1.py data/reports/exp001/corrected-abstention-robustness-v1.json "${args[@]}"
+      - name: Upload corrected pre-OOS revalidation package
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-pre-oos-corrected-revalidation
+          path: |
+            data/manifests/exp001-history-manifest.json
+            data/reports/exp001/pre-oos-partition-summary.json
+            data/reports/exp001/corrected-gbt-v1.json
+            data/reports/exp001/corrected-calibration-abstention-v1.json
+            data/reports/exp001/corrected-abstention-robustness-v1.json
+          retention-days: 90
+
+  execution-economics-v1:
+    if: ${{ inputs.mode == 'execution-economics-v1' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Acquire non-sealed XAUUSD 2016-2024
+        run: bash scripts/acquire_exp001_history.sh 2016 2024 data
+      - name: Build corrected non-sealed labels and partitions
+        run: bash scripts/run_pre_oos_corrected_labeling.sh data
+      - name: Build V2 features for 2016-2024
+        run: |
+          mkdir -p data/features/exp001
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            python3 scripts/build_features.py               "data/raw/dukascopy/xauusd/m1/xauusd-${year}-01-01-${next}-01-01-m1.csv"               "data/features/exp001/features-${year}.csv"
+          done
+      - name: Run EXP-001 execution economics V1
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/execution_economics_exp001_v1.py             data/reports/exp001/execution-economics-v1.json             "${args[@]}"             --raw             data/raw/dukascopy/xauusd/m1/xauusd-2023-01-01-2024-01-01-m1.csv             data/raw/dukascopy/xauusd/m1/xauusd-2024-01-01-2025-01-01-m1.csv
+      - name: Upload execution economics V1 report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-execution-economics-v1
+          path: |
+            data/manifests/exp001-history-manifest.json
+            data/reports/exp001/execution-economics-v1.json
+          retention-days: 90
+
+
+  tick-bidask-smoke:
+    if: ${{ inputs.mode == 'tick-bidask-smoke' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download one Dukascopy XAUUSD BID ASK tick day
+        run: |
+          mkdir -p data/raw/dukascopy/xauusd/tick
+          bash scripts/download_xauusd_ticks_day.sh 2024-06-05 data/raw/dukascopy/xauusd/tick/xauusd-ticks-2024-06-05.csv
+      - name: Upload compact tick smoke sample
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-xauusd-tick-bidask-smoke
+          path: data/raw/dukascopy/xauusd/tick/xauusd-ticks-2024-06-05.csv
+          retention-days: 3
+
+  execution-economics-v2:
+    if: ${{ inputs.mode == 'execution-economics-v2' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Acquire non-sealed XAUUSD M1 2016-2024
+        run: bash scripts/acquire_exp001_history.sh 2016 2024 data
+      - name: Build corrected non-sealed labels and partitions
+        run: bash scripts/run_pre_oos_corrected_labeling.sh data
+      - name: Build V2 features for 2016-2024
+        run: |
+          mkdir -p data/features/exp001
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            python3 scripts/build_features.py               "data/raw/dukascopy/xauusd/m1/xauusd-${year}-01-01-${next}-01-01-m1.csv"               "data/features/exp001/features-${year}.csv"
+          done
+      - name: Export V2 operational candidate signals
+        run: |
+          mkdir -p data/reports/exp001 data/execution/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/export_execution_candidates_exp001_v2.py             data/execution/exp001/candidates.csv             data/execution/exp001/cutoffs.json             data/execution/exp001/required-tick-dates.txt             "${args[@]}"
+      - name: Acquire only required Dukascopy BID ASK tick days
+        run: |
+          mkdir -p data/raw/dukascopy/xauusd/tick
+          while IFS= read -r day; do
+            [[ -z "$day" ]] && continue
+            bash scripts/download_xauusd_ticks_day.sh               "$day" "data/raw/dukascopy/xauusd/tick/xauusd-ticks-${day}.csv"
+          done < data/execution/exp001/required-tick-dates.txt
+      - name: Run side-aware Execution Economics V2
+        run: |
+          python3 scripts/execution_economics_exp001_v2.py             data/execution/exp001/candidates.csv             data/execution/exp001/cutoffs.json             data/raw/dukascopy/xauusd/tick             data/reports/exp001/execution-economics-v2.json
+      - name: Upload compact V2 evidence only
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-execution-economics-v2
+          path: |
+            data/execution/exp001/cutoffs.json
+            data/execution/exp001/required-tick-dates.txt
+            data/reports/exp001/execution-economics-v2.json
+          retention-days: 90

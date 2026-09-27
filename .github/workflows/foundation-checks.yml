@@ -1,0 +1,57 @@
+name: foundation-checks
+
+on:
+  push:
+    branches:
+      - research/exp001-foundation
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-foundation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run deterministic validator smoke test
+        run: python tests/test_validate_m1_smoke.py
+      - name: Run EXP-001 barrier-label unit tests
+        run: python tests/test_label_exp001.py
+      - name: Run year-context labeler smoke test
+        run: python tests/test_label_year_context.py
+      - name: Run diagnostic smoke test
+        run: python tests/test_diagnose_exp001_smoke.py
+      - name: Run manifest builder smoke test
+        run: python tests/test_build_manifest_smoke.py
+      - name: Run partition boundary tests
+        run: python tests/test_partition_exp001.py
+      - name: Run final-OOS sealing test
+        run: python tests/test_partition_summary_seal.py
+      - name: Run feature engine smoke test
+        run: python tests/test_features_smoke.py
+      - name: Run baseline smoke test
+        run: python tests/test_baseline_smoke.py
+      - name: Run reconstruction boundary test
+        run: python tests/test_reconstruct_locked_year.py
+      - name: Compile year-context labeler
+        run: python -m py_compile scripts/label_exp001_year_context.py
+      - name: Compile logistic V1 script
+        run: python -m py_compile scripts/logistic_exp001_v1.py
+      - name: Compile GBT V1 script
+        run: python -m py_compile scripts/gbt_exp001_v1.py
+      - name: Compile calibration V1 script
+        run: python -m py_compile scripts/calibration_exp001_v1.py
+      - name: Compile abstention robustness V1 script
+        run: python -m py_compile scripts/abstention_robustness_exp001_v1.py
+      - name: Compile execution economics V1 script
+        run: python -m py_compile scripts/execution_economics_exp001_v1.py
+      - name: Compile V2 execution candidate exporter
+        run: python -m py_compile scripts/export_execution_candidates_exp001_v2.py
+      - name: Compile Dukascopy tick validator
+        run: python -m py_compile scripts/validate_dukascopy_ticks.py
+      - name: Compile execution economics V2 script
+        run: python -m py_compile scripts/execution_economics_exp001_v2.py
+      - name: Compile Exness MT5 tick probe
+        run: python -m py_compile scripts/exness_mt5_tick_probe.py
