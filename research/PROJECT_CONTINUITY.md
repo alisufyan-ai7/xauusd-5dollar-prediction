@@ -564,3 +564,25 @@ EXP-003 V1 therefore:
 2025 FINAL_OOS remains sealed.
 
 No EXP-003 model result has been produced yet.
+
+
+## EXP-003 threshold economics findings
+
+Run 36337595939 completed successfully.
+
+No preregistered EXP-003 V1 policy passed.
+
+T0 F10 means:
+- BUY_ONLY -0.4151;
+- SELL_ONLY -0.4040;
+- COMBINED -0.4142.
+
+T25 remained negative overall; T50/T75 also remained negative and many variants failed minimum trade-count gates.
+
+Therefore:
+- no pre-OOS candidate freeze;
+- no 2025 access;
+- no Exness demo/live advancement;
+- next work is diagnosis of why predicted EV remains misaligned with realized executable P&L.
+
+See research/EXP-003_THRESHOLD_ECONOMICS_V1_FINDINGS.md.
