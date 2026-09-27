@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/exp003-economic-value-v1
-    paths:
-      - ".github/exp003-threshold-economics-v1-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -725,7 +720,7 @@ jobs:
 
 
   exp003-threshold-economics-v1:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'exp003-threshold-economics-v1' }}
+    if: ${{ inputs.mode == 'exp003-threshold-economics-v1' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
