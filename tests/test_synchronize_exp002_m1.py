@@ -14,7 +14,7 @@ with tempfile.TemporaryDirectory() as td:
     # BID missing minute 1, ASK missing minute 2, both absent minute 3.
     write(b,[
       [0,100,101,99,100,1],
-      [2*ONE,101,102,100,101,1],
+      [2*ONE,100.1,100.2,100.0,100.1,1],
       [4*ONE,102,103,101,102,1],
     ])
     write(a,[
