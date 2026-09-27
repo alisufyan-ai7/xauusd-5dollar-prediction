@@ -586,3 +586,26 @@ Therefore:
 - next work is diagnosis of why predicted EV remains misaligned with realized executable P&L.
 
 See research/EXP-003_THRESHOLD_ECONOMICS_V1_FINDINGS.md.
+
+
+## EXP-003 EV miscalibration diagnosis
+
+After EXP-003 threshold economics failed, the project moved to a frozen diagnostic milestone before any EXP-004 design.
+
+Specification:
+research/EXP-003_EV_MISCALIBRATION_DIAGNOSIS_V1.md
+
+The diagnosis decomposes predicted EV error into:
+- class-probability error;
+- unresolved-expiry-P&L regression error;
+- year/quarter calibration drift;
+- error by realized outcome;
+- sequential-trade calibration;
+- feature-distribution shift and TRAIN-support extrapolation.
+
+No new model or threshold is being selected.
+
+Current workflow:
+36348182305
+
+2025 FINAL_OOS remains sealed.
