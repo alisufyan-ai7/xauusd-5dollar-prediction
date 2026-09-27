@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/exp001-foundation
+    paths:
+      - ".github/pre-oos-corrected-revalidation-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -341,7 +346,7 @@ jobs:
           path: data/reports/exp001/abstention-robustness-v1.json
 
   pre-oos-corrected-revalidation:
-    if: ${{ inputs.mode == 'pre-oos-corrected-revalidation' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'pre-oos-corrected-revalidation' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
