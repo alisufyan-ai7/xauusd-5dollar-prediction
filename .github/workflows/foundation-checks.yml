@@ -45,3 +45,5 @@ jobs:
         run: python -m py_compile scripts/calibration_exp001_v1.py
       - name: Compile abstention robustness V1 script
         run: python -m py_compile scripts/abstention_robustness_exp001_v1.py
+      - name: Compile execution economics V1 script
+        run: python -m py_compile scripts/execution_economics_exp001_v1.py
