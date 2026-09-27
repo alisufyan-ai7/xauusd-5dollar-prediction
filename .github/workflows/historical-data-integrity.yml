@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/exp002-executable-target-v1
-    paths:
-      - ".github/exp002-economic-failure-diagnosis-v1-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -627,7 +622,7 @@ jobs:
 
 
   exp002-economic-failure-diagnosis-v1:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'exp002-economic-failure-diagnosis-v1' }}
+    if: ${{ inputs.mode == 'exp002-economic-failure-diagnosis-v1' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
