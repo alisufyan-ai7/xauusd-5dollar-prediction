@@ -539,3 +539,28 @@ Current workflow:
 36328166429
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-003 economic-value model V1
+
+Active branch:
+research/exp003-economic-value-v1
+
+Frozen specification:
+research/EXP-003_PREREGISTRATION.md
+
+Motivation:
+EXP-002 preserved strong SUCCESS-probability ranking but failed sequential economics because high-score regions still contained too many -3 adverse-barrier failures. UNRESOLVED expiry P&L was not the primary drag, and raw qualifying observations were strongly clustered.
+
+EXP-003 V1 therefore:
+- keeps the frozen EXP-002 feature vector;
+- trains separate BUY and SELL three-class models for SUCCESS / FAILURE / UNRESOLVED;
+- trains separate unresolved-expiry-P&L regressors;
+- computes explicit expected executable value;
+- uses frozen EV_F10 abstention thresholds 0 / 0.25 / 0.50 / 0.75;
+- evaluates one global position at a time;
+- requires positive F10 economics in both 2023 and 2024 plus a positive UTC-day bootstrap lower bound before any policy can advance.
+
+2025 FINAL_OOS remains sealed.
+
+No EXP-003 model result has been produced yet.
