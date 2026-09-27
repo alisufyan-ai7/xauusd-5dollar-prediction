@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/exp003-economic-value-v1
+    paths:
+      - ".github/exp003-initial-model-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -671,7 +676,7 @@ jobs:
 
 
   exp003-initial-model:
-    if: ${{ inputs.mode == 'exp003-initial-model' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'exp003-initial-model' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
