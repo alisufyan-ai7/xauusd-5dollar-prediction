@@ -5,6 +5,7 @@ on:
     branches:
       - research/exp001-foundation
       - research/exp002-executable-target-v1
+      - research/exp003-economic-value-v1
   pull_request:
   workflow_dispatch:
 
