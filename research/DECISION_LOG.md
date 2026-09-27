@@ -406,3 +406,47 @@ Frozen operational rules:
 This is an economic screening proxy, not a broker-exact backtest.
 
 2025 remains sealed.
+
+
+---
+
+## D-027 — Exness MT5 is a 2026 broker-validation source, not the historical source
+
+Decision:
+Do not use this Exness demo server as the primary 2023-2024 historical BID/ASK source.
+
+Evidence:
+The read-only monthly boundary probe scanned 45 monthly windows from Sep 2026 through Jan 2023.
+The earliest sampled month returning XAUUSD BID+ASK ticks was Jan 2026.
+All sampled 2025, 2024, and 2023 windows returned zero ticks with no MT5 error.
+
+Use instead:
+- Dukascopy BID+ASK for historical side-aware execution reconstruction;
+- Exness MT5 2026 ticks for broker-specific spread/shadow validation.
+
+No trading mutation occurred.
+
+
+---
+
+## D-028 — Execution Economics V1 does not open FINAL_OOS
+
+Decision:
+Do not freeze a combined operating policy and do not open 2025 after Execution Economics V1.
+
+Reason:
+No combined candidate passed the preregistered C20 economic gate.
+
+Top-1% combined at C20:
+- mean net expectancy: -0.0235 price units/trade;
+- profit factor: 0.988;
+- 2023 mean: +0.1548;
+- 2024 mean: -0.0684;
+- day-block bootstrap 95% interval: [-0.1890, 0.1620].
+
+SELL-only top 1% was positive at C20, but direction-specific promotion was not preregistered and therefore must not be selected post hoc.
+
+Next step:
+historical side-aware BID/ASK execution reconstruction using Dukascopy, then a newly preregistered execution-economics V2.
+
+2025 remains sealed.
