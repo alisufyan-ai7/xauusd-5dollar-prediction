@@ -101,6 +101,18 @@ class Exp001LabelTests(unittest.TestCase):
         self.assertTrue(r["coverage_complete"])
         self.assertEqual(r["bars_observed"], 3)
 
+    def test_internal_gap_invalidates_complete_coverage(self):
+        # The final expected bar exists, but minute 2 is missing. Coverage
+        # must be incomplete because the horizon is not exactly contiguous.
+        bars = [
+            bar(0, 100, 101, 99, 100),
+            bar(1, 100, 101, 99, 100),
+            bar(3, 100, 101, 99, 100),
+        ]
+        r = list(label_rows(bars, horizon_minutes=3))[0]
+        self.assertFalse(r["coverage_complete"])
+        self.assertEqual(r["bars_observed"], 2)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
