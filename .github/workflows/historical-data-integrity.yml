@@ -19,6 +19,7 @@ on:
           - v2-logistic-existing-checkpoint
           - v2-gbt-existing-checkpoint
           - v2-calibration-existing-checkpoint
+          - v2-abstention-robustness-existing-checkpoint
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -305,3 +306,35 @@ jobs:
         with:
           name: exp001-calibration-abstention-v1
           path: data/reports/exp001/calibration-abstention-v1.json
+
+  v2-abstention-robustness-existing-checkpoint:
+    if: ${{ inputs.mode == 'v2-abstention-robustness-existing-checkpoint' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Download existing V2 checkpoint
+        uses: actions/download-artifact@v4
+        with:
+          name: exp001-v2-research-checkpoint
+          path: data
+          run-id: ${{ inputs.logistic_checkpoint_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run EXP-001 abstention robustness V1
+        run: |
+          mkdir -p data/reports/exp001
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp001/partitioned-${year}.csv" "data/features/exp001/features-${year}.csv")
+          done
+          python3 scripts/abstention_robustness_exp001_v1.py data/reports/exp001/abstention-robustness-v1.json "${args[@]}"
+      - name: Upload abstention robustness V1 report
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp001-abstention-robustness-v1
+          path: data/reports/exp001/abstention-robustness-v1.json
