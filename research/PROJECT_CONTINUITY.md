@@ -247,3 +247,27 @@ Conclusion:
 V2 features contain predictive information, especially for BUY, but the linear model is insufficient. Proceed to a frozen gradient-boosted-tree milestone while keeping 2025 sealed.
 
 See research/EXP-001_LOGISTIC_V1_FINDINGS.md.
+
+
+## GBT V1 results
+
+Run 36307804733 completed successfully.
+
+Chronological discrimination:
+- BUY ROC-AUC: TRAIN 0.8439 / VALIDATION 0.7452 / DEVELOPMENT_TEST 0.7378.
+- SELL ROC-AUC: TRAIN 0.8415 / VALIDATION 0.7407 / DEVELOPMENT_TEST 0.7452.
+
+GBT V1 materially outperformed Logistic V1 for both directions.
+
+Key feature-importance signal:
+- 60m true-range mean was dominant;
+- short-term and long-term realized volatility;
+- minutes to session transition;
+- compression/expansion and range-location features.
+
+Raw GBT probabilities are compressed and never reached 0.60 in the evaluated partitions, so they are not yet suitable as direct confidence values.
+
+Next milestone:
+calibration and abstention/score-band research on VALIDATION and DEVELOPMENT_TEST only, with 2025 still sealed.
+
+See research/EXP-001_GBT_V1_FINDINGS.md.
