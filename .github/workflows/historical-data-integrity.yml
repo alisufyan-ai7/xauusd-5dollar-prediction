@@ -546,8 +546,8 @@ jobs:
           mkdir -p data/features/exp002 data/features/exp002-base
           for year in $(seq 2016 2024); do
             next=$((year+1))
-            bid="data/raw/dukascopy/xauusd/m1-exp002/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
-            ask="data/raw/dukascopy/xauusd/m1-exp002/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
             base="data/features/exp002-base/features-${year}.csv"
             out="data/features/exp002/features-${year}.csv"
             python3 scripts/build_features.py "$bid" "$base"
