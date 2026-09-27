@@ -19,7 +19,7 @@ with tempfile.TemporaryDirectory() as td:
     ])
     write(a,[
       [0,100.2,101.2,99.2,100.2,1],
-      [1*ONE,100.3,101.3,99.3,100.3,1],
+      [1*ONE,100.3,100.5,100.1,100.3,1],
       [4*ONE,102.2,103.2,101.2,102.2,1],
     ])
     subprocess.run([sys.executable,str(ROOT/"scripts"/"synchronize_exp002_m1.py"),str(b),str(a),str(ob),str(oa)],check=True)
