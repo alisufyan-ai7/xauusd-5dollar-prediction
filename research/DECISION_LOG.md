@@ -340,3 +340,22 @@ SELL also transferred usefully, although the validation extreme tail was not per
 Platt calibration provided only small BUY improvements and slightly worsened SELL out-of-time calibration. Therefore the robust object for the next milestone is the fixed raw-score ranking / abstention policy, not further probability-map tuning.
 
 2025 remains sealed.
+
+
+---
+
+## D-024 — Move to pre-OOS candidate-policy freeze
+
+Decision:
+Stop exploratory model/policy research and move to a pre-OOS candidate-policy freeze and specification audit before any 2025 access.
+
+Reason:
+All four fixed abstention policies retained positive lift in both years and every populated DEVELOPMENT_TEST quarter, with UTC-day bootstrap lift 95% confidence intervals entirely above 1 for BUY and SELL.
+
+Important coverage caveat:
+The strongest score bands fired almost exclusively in HIGH-volatility conditions and had essentially no LOW/MID-volatility or LATE-session coverage. Therefore robustness is demonstrated for the conditions in which the model selects, not uniformly across all regimes.
+
+Next step:
+freeze one candidate policy, document exact execution semantics and all remaining correctness/audit issues, hash the frozen specification, and only then decide whether the FINAL_OOS gate is ready.
+
+2025 remains sealed.
