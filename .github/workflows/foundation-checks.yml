@@ -47,5 +47,11 @@ jobs:
         run: python -m py_compile scripts/abstention_robustness_exp001_v1.py
       - name: Compile execution economics V1 script
         run: python -m py_compile scripts/execution_economics_exp001_v1.py
+      - name: Compile V2 execution candidate exporter
+        run: python -m py_compile scripts/export_execution_candidates_exp001_v2.py
+      - name: Compile Dukascopy tick validator
+        run: python -m py_compile scripts/validate_dukascopy_ticks.py
+      - name: Compile execution economics V2 script
+        run: python -m py_compile scripts/execution_economics_exp001_v2.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
