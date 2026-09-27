@@ -541,3 +541,29 @@ EXP-002 freezes a new target before empirical results:
 
 Initial non-sealed EXP-002 run:
 36320442383
+
+
+---
+
+## D-032 — Advance EXP-002 to sequential execution economics
+
+Decision:
+Advance EXP-002 from initial predictive validation to sequential execution-economics testing without changing the model, target, features, or score bands.
+
+Evidence:
+Corrected run 36321788362 completed successfully.
+
+DEVELOPMENT_TEST discrimination:
+- BUY ROC-AUC 0.7392, PR-AUC 0.2315;
+- SELL ROC-AUC 0.7482, PR-AUC 0.2454.
+
+Fixed VALIDATION-derived top-1% realized success:
+- BUY 29.05%;
+- SELL 33.07%.
+
+The executable-side target therefore retains meaningful chronological ranking signal.
+
+Next:
+run sequential BUY_ONLY / SELL_ONLY / COMBINED economics using the frozen executable entry, barrier, expiry, one-position-at-a-time, and friction semantics.
+
+2025 remains sealed.
