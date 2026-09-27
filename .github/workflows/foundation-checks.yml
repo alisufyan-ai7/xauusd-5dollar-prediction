@@ -66,5 +66,7 @@ jobs:
         run: python -m py_compile scripts/augment_features_exp002.py
       - name: Compile EXP-002 GBT V1
         run: python -m py_compile scripts/gbt_exp002_v1.py
+      - name: Compile EXP-002 execution economics V1
+        run: python -m py_compile scripts/execution_economics_exp002_v1.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
