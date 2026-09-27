@@ -316,3 +316,24 @@ Next milestone:
 pre-OOS candidate-policy freeze and specification audit before any 2025 access.
 
 See research/EXP-001_ABSTENTION_ROBUSTNESS_V1_FINDINGS.md.
+
+
+## Pre-OOS audit V1
+
+The pre-OOS audit found two label-correctness issues before any FINAL_OOS opening:
+- internal forward gaps could previously pass coverage if the final expected timestamp existed;
+- same-partition year boundaries could lose valid next-year forward context.
+
+Both mechanics are now repaired and deterministic tests were added.
+
+A corrected non-sealed revalidation run rebuilds 2016-2024 only and reruns the frozen GBT/calibration/robustness stack. Run ID: 36311818762.
+
+A separate economic blocker remains:
+raw +$5/-$3 hit rates alone do not prove profitability because UNRESOLVED 60-minute expiry P&L and execution costs are not yet modeled.
+
+Therefore:
+- no final candidate is frozen yet;
+- 2025 remains sealed;
+- after corrected revalidation, freeze expiry/cost semantics and test non-sealed economics before any OOS opening.
+
+See research/EXP-001_PRE_OOS_AUDIT_V1.md.
