@@ -626,3 +626,46 @@ Workflow:
 36328166429
 
 2025 remains sealed.
+
+
+---
+
+## D-035 — Start EXP-003 economic-value model
+
+Decision:
+Start a new clean descendant experiment on branch:
+
+research/exp003-economic-value-v1
+
+EXP-003 changes the prediction objective, not the feature set.
+
+The frozen architecture models, separately for BUY and SELL:
+- P(SUCCESS);
+- P(FAILURE);
+- P(UNRESOLVED);
+- expected executable expiry P&L conditional on UNRESOLVED.
+
+It then computes:
+
+EV_GROSS =
+5*P(SUCCESS)
+-3*P(FAILURE)
++P(UNRESOLVED)*E[UNRESOLVED expiry P&L]
+
+Primary decision score:
+EV_F10 = EV_GROSS - 0.10.
+
+Reason:
+EXP-002 diagnosis showed that high SUCCESS probability did not sufficiently penalize adverse-barrier FAILURE probability, while UNRESOLVED expiry P&L was not the primary economic drag.
+
+Frozen abstention thresholds:
+- T0: EV_F10 > 0.00
+- T25: EV_F10 >= 0.25
+- T50: EV_F10 >= 0.50
+- T75: EV_F10 >= 0.75
+
+Operational evaluation remains one global position at a time so clustered minute observations are not treated as independent opportunities.
+
+No new features or hyperparameter search are permitted in EXP-003 V1.
+
+2025 remains sealed.
