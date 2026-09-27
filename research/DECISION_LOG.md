@@ -510,3 +510,34 @@ Next:
 start a new experiment version whose labels/objective are defined directly from executable ASK/BID entry and exit mechanics before retraining.
 
 2025 remains sealed.
+
+
+---
+
+## D-031 — Start EXP-002 with executable-side labels
+
+Decision:
+Stop modifying the EXP-001 target and start a new experiment version on a clean descendant branch.
+
+Branch:
+research/exp002-executable-target-v1
+
+Reason:
+EXP-001 demonstrated predictive ranking signal but failed side-aware historical execution economics. The failure showed that the BID-referenced target was misaligned with executable BUY/SELL mechanics.
+
+EXP-002 freezes a new target before empirical results:
+- decision after the current M1 close;
+- entry at next M1 executable open;
+- BUY enters ASK and evaluates target/adverse on BID;
+- SELL enters BID and evaluates target/adverse on ASK;
+- 60-minute horizon;
+- +5 target / -3 adverse measured from executable entry;
+- unresolved exits retain executable expiry P&L;
+- paired Dukascopy M1 BID+ASK is primary data;
+- tick data is reserved only for same-minute ordering ambiguity;
+- spread-aware causal features are added;
+- fixed EXP-001 GBT hyperparameters are reused without model search;
+- 2025 remains sealed.
+
+Initial non-sealed EXP-002 run:
+36320442383
