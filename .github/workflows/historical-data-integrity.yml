@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/exp006-causal-path-state-v1
+    paths:
+      - ".github/exp006-causal-path-state-v1-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -916,7 +921,7 @@ jobs:
 
 
   exp006-causal-path-state-v1:
-    if: ${{ inputs.mode == 'exp006-causal-path-state-v1' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'exp006-causal-path-state-v1' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
