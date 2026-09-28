@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/exp004-shift-aware-calibrated-ev-v1
+    paths:
+      - ".github/exp004-shift-aware-calibrated-ev-v1-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -818,7 +823,7 @@ jobs:
 
 
   exp004-shift-aware-calibrated-ev-v1:
-    if: ${{ inputs.mode == 'exp004-shift-aware-calibrated-ev-v1' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'exp004-shift-aware-calibrated-ev-v1' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
