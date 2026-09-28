@@ -787,3 +787,24 @@ Therefore:
 See research/EXP-006_FINDINGS.md.
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-007 causal sequence model V1
+
+Active branch:
+research/exp007-causal-sequence-v1
+
+Frozen specification:
+research/EXP-007_PREREGISTRATION.md
+
+EXP-007 moves beyond hand-crafted tree inputs and tests a small causal temporal CNN over the trailing 60 synchronized M1 bars plus BASE48 static context.
+
+Targets remain:
+- direct executable gross P&L;
+- <=5-minute EARLY_FAILURE.
+
+Economic policies and advancement gates remain unchanged.
+
+No EXP-007 empirical result exists yet.
+
+2025 FINAL_OOS remains sealed.
