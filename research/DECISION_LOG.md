@@ -726,3 +726,28 @@ Workflow:
 36348182305
 
 2025 remains sealed.
+
+
+---
+
+## D-038 — EXP-003 EV failure is tail miscalibration plus distribution shift
+
+Decision:
+Seal the EXP-003 diagnosis before designing EXP-004.
+
+Evidence:
+Run 36348182305 completed successfully.
+
+Dominant mechanisms:
+1. positive-EV tails overpredict SUCCESS and underpredict FAILURE;
+2. calibration error worsens as EV threshold rises;
+3. replacing predicted class probabilities with realized class frequencies flips modeled EV strongly negative;
+4. replacing only unresolved-expiry P&L does not remove the optimism;
+5. 2024 shows substantial volatility/spread/attainability feature-distribution shift;
+6. positive-EV rows frequently lie outside TRAIN 1%-99% feature support;
+7. sequential opportunity filtering does not resolve the calibration gap.
+
+Conclusion:
+EXP-004, if started, must explicitly address probability calibration under temporal distribution shift and out-of-support uncertainty. It must not be a threshold retune of EXP-003.
+
+2025 remains sealed.
