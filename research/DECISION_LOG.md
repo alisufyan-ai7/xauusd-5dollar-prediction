@@ -626,3 +626,128 @@ Workflow:
 36328166429
 
 2025 remains sealed.
+
+
+---
+
+## D-035 — Start EXP-003 economic-value model
+
+Decision:
+Start a new clean descendant experiment on branch:
+
+research/exp003-economic-value-v1
+
+EXP-003 changes the prediction objective, not the feature set.
+
+The frozen architecture models, separately for BUY and SELL:
+- P(SUCCESS);
+- P(FAILURE);
+- P(UNRESOLVED);
+- expected executable expiry P&L conditional on UNRESOLVED.
+
+It then computes:
+
+EV_GROSS =
+5*P(SUCCESS)
+-3*P(FAILURE)
++P(UNRESOLVED)*E[UNRESOLVED expiry P&L]
+
+Primary decision score:
+EV_F10 = EV_GROSS - 0.10.
+
+Reason:
+EXP-002 diagnosis showed that high SUCCESS probability did not sufficiently penalize adverse-barrier FAILURE probability, while UNRESOLVED expiry P&L was not the primary economic drag.
+
+Frozen abstention thresholds:
+- T0: EV_F10 > 0.00
+- T25: EV_F10 >= 0.25
+- T50: EV_F10 >= 0.50
+- T75: EV_F10 >= 0.75
+
+Operational evaluation remains one global position at a time so clustered minute observations are not treated as independent opportunities.
+
+No new features or hyperparameter search are permitted in EXP-003 V1.
+
+2025 remains sealed.
+
+
+---
+
+## D-036 — EXP-003 V1 fails sequential threshold economics
+
+Decision:
+Do not nominate any EXP-003 V1 policy for pre-OOS candidate freeze.
+
+Evidence:
+Run 36337595939 completed successfully.
+
+No preregistered T0/T25/T50/T75 policy in BUY_ONLY, SELL_ONLY, or COMBINED passed the frozen advancement gates.
+
+Representative T0:
+- BUY_ONLY mean NET_F10 -0.4151, PF 0.7583;
+- SELL_ONLY -0.4040, PF 0.7703;
+- COMBINED -0.4142, PF 0.7616.
+
+Higher EV thresholds did not rescue economics and often worsened expectancy or reduced trade counts below the preregistered minimum.
+
+Conclusion:
+explicit EV scoring over the unchanged EXP-002 feature set is still misaligned with realized executable P&L.
+
+Next:
+diagnose EV calibration/failure mechanisms before considering a new preregistered experiment.
+
+2025 remains sealed.
+
+
+---
+
+## D-037 — Diagnose EXP-003 EV miscalibration before EXP-004
+
+Decision:
+Do not design EXP-004 yet.
+
+First complete a frozen component-level diagnosis of why EXP-003 predicted EV_F10 is more optimistic than realized executable NET_F10.
+
+Diagnostic scope:
+- predicted versus realized SUCCESS / FAILURE / UNRESOLVED probabilities;
+- unresolved-expiry-P&L regression error;
+- counterfactual EV decomposition;
+- class-probability calibration drift in 2022 / 2023 / 2024;
+- EV error distribution and error by realized outcome;
+- sequential opportunity-level calibration;
+- frozen-feature distribution shift;
+- positive-EV tail support relative to TRAIN.
+
+TRAIN feature-distribution reference uses the same deterministic every-5th eligible TRAIN-row sampling rule frozen before results.
+
+No recalibration, threshold tuning, feature selection, or new model fitting is permitted.
+
+Workflow:
+36348182305
+
+2025 remains sealed.
+
+
+---
+
+## D-038 — EXP-003 EV failure is tail miscalibration plus distribution shift
+
+Decision:
+Seal the EXP-003 diagnosis before designing EXP-004.
+
+Evidence:
+Run 36348182305 completed successfully.
+
+Dominant mechanisms:
+1. positive-EV tails overpredict SUCCESS and underpredict FAILURE;
+2. calibration error worsens as EV threshold rises;
+3. replacing predicted class probabilities with realized class frequencies flips modeled EV strongly negative;
+4. replacing only unresolved-expiry P&L does not remove the optimism;
+5. 2024 shows substantial volatility/spread/attainability feature-distribution shift;
+6. positive-EV rows frequently lie outside TRAIN 1%-99% feature support;
+7. sequential opportunity filtering does not resolve the calibration gap.
+
+Conclusion:
+EXP-004, if started, must explicitly address probability calibration under temporal distribution shift and out-of-support uncertainty. It must not be a threshold retune of EXP-003.
+
+2025 remains sealed.

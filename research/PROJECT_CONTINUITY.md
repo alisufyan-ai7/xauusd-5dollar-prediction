@@ -539,3 +539,94 @@ Current workflow:
 36328166429
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-003 economic-value model V1
+
+Active branch:
+research/exp003-economic-value-v1
+
+Frozen specification:
+research/EXP-003_PREREGISTRATION.md
+
+Motivation:
+EXP-002 preserved strong SUCCESS-probability ranking but failed sequential economics because high-score regions still contained too many -3 adverse-barrier failures. UNRESOLVED expiry P&L was not the primary drag, and raw qualifying observations were strongly clustered.
+
+EXP-003 V1 therefore:
+- keeps the frozen EXP-002 feature vector;
+- trains separate BUY and SELL three-class models for SUCCESS / FAILURE / UNRESOLVED;
+- trains separate unresolved-expiry-P&L regressors;
+- computes explicit expected executable value;
+- uses frozen EV_F10 abstention thresholds 0 / 0.25 / 0.50 / 0.75;
+- evaluates one global position at a time;
+- requires positive F10 economics in both 2023 and 2024 plus a positive UTC-day bootstrap lower bound before any policy can advance.
+
+2025 FINAL_OOS remains sealed.
+
+No EXP-003 model result has been produced yet.
+
+
+## EXP-003 threshold economics findings
+
+Run 36337595939 completed successfully.
+
+No preregistered EXP-003 V1 policy passed.
+
+T0 F10 means:
+- BUY_ONLY -0.4151;
+- SELL_ONLY -0.4040;
+- COMBINED -0.4142.
+
+T25 remained negative overall; T50/T75 also remained negative and many variants failed minimum trade-count gates.
+
+Therefore:
+- no pre-OOS candidate freeze;
+- no 2025 access;
+- no Exness demo/live advancement;
+- next work is diagnosis of why predicted EV remains misaligned with realized executable P&L.
+
+See research/EXP-003_THRESHOLD_ECONOMICS_V1_FINDINGS.md.
+
+
+## EXP-003 EV miscalibration diagnosis
+
+After EXP-003 threshold economics failed, the project moved to a frozen diagnostic milestone before any EXP-004 design.
+
+Specification:
+research/EXP-003_EV_MISCALIBRATION_DIAGNOSIS_V1.md
+
+The diagnosis decomposes predicted EV error into:
+- class-probability error;
+- unresolved-expiry-P&L regression error;
+- year/quarter calibration drift;
+- error by realized outcome;
+- sequential-trade calibration;
+- feature-distribution shift and TRAIN-support extrapolation.
+
+No new model or threshold is being selected.
+
+Current workflow:
+36348182305
+
+2025 FINAL_OOS remains sealed.
+
+
+## EXP-003 EV miscalibration diagnosis findings
+
+Run 36348182305 completed successfully.
+
+The dominant EXP-003 failure is now identified:
+
+- positive-EV tails systematically overpredict SUCCESS and underpredict FAILURE;
+- this tail miscalibration worsens at higher predicted EV;
+- unresolved-P&L regression is not the primary source of the optimism;
+- 2024 has strong volatility/spread/attainability distribution shift relative to TRAIN;
+- positive-EV rows are frequently outside TRAIN feature support, especially BUY;
+- the same EV optimism persists at sequential executed-trade level.
+
+Therefore a future EXP-004 must address temporal calibration / distribution shift / out-of-support uncertainty rather than merely retuning EV thresholds.
+
+See:
+research/EXP-003_EV_MISCALIBRATION_DIAGNOSIS_V1_FINDINGS.md
+
+2025 FINAL_OOS remains sealed.
