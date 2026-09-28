@@ -854,3 +854,30 @@ Reason:
 EXP-004 showed that probability recalibration and support gating alone did not rescue economics. Prior diagnostics showed rapid <=5-minute outcomes were strongly negative, so EXP-005 tests direct economic prediction plus explicit rapid-downside avoidance.
 
 2025 remains sealed.
+
+
+---
+
+## D-042 — EXP-005 early-failure signal is useful but insufficient
+
+Decision:
+Do not freeze any EXP-005 candidate and do not access FINAL_OOS 2025.
+
+Evidence:
+Corrected run 36445233132 completed successfully.
+
+Findings:
+- direct executable-P&L regression has near-zero correlation with realized gross P&L;
+- the <=5-minute EARLY_FAILURE classifier has useful discrimination (DEV ROC-AUC ~0.81-0.84);
+- downside gating sharply reduces or eliminates observed early failures;
+- however, admissible low-risk opportunities become too sparse;
+- DIRECT_ONLY remains economically negative, especially in 2024;
+- no arm satisfies trade-count, two-year positivity, bootstrap, and concentration gates.
+
+Conclusion:
+rapid downside risk is predictable, but the current frozen 48-feature representation does not provide enough positive-trade-quality information to support robust economics.
+
+Next:
+a materially richer market-state representation is required in a new preregistered experiment.
+
+2025 remains sealed.
