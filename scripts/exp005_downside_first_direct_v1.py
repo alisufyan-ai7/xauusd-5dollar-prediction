@@ -98,6 +98,7 @@ def predictive_metrics(rows,direction,pred_gross,pred_net,ef):
     valid=np.isfinite(labels)
     y=labels[valid];pg=pred_gross[valid];pn=pred_net[valid]
     efr=np.asarray([early_failure(p,direction) for p in rows],dtype=int)[valid]
+    efv=ef[valid]
     corr=float(np.corrcoef(pg,y)[0,1]) if len(y)>1 and np.std(pg)>0 and np.std(y)>0 else None
     bands={}
     for name in ("LE_NEG50","NEG50_TO_0","0_TO_25","25_TO_50","50_TO_75","GE_75"):
@@ -109,10 +110,10 @@ def predictive_metrics(rows,direction,pred_gross,pred_net,ef):
         m=(pn>=qs[i])&((pn<=qs[i+1]) if i==9 else (pn<qs[i+1]))
         decs[f"D{i+1}"]={"n":int(m.sum()),"predicted_net_mean":float(np.mean(pn[m])) if m.any() else None,
                          "realized_net_mean":float(np.mean(y[m]-.10)) if m.any() else None}
-    risk_q=np.quantile(ef,np.linspace(0,1,11));risk_dec={}
+    risk_q=np.quantile(efv,np.linspace(0,1,11));risk_dec={}
     for i in range(10):
-        m=(ef>=risk_q[i])&((ef<=risk_q[i+1]) if i==9 else (ef<risk_q[i+1]))
-        risk_dec[f"D{i+1}"]={"n":int(m.sum()),"predicted_risk_mean":float(np.mean(ef[m])) if m.any() else None,
+        m=(efv>=risk_q[i])&((efv<=risk_q[i+1]) if i==9 else (efv<risk_q[i+1]))
+        risk_dec[f"D{i+1}"]={"n":int(m.sum()),"predicted_risk_mean":float(np.mean(efv[m])) if m.any() else None,
                              "realized_early_failure_rate":float(np.mean(efr[m])) if m.any() else None}
     return {
       "n":int(len(y)),
@@ -120,9 +121,9 @@ def predictive_metrics(rows,direction,pred_gross,pred_net,ef):
                     "predicted_gross_mean":float(np.mean(pg)),"realized_gross_mean":float(np.mean(y)),
                     "pearson":corr,"score_deciles":decs,"fixed_net_bands":bands},
       "early_failure":{"base_rate":float(np.mean(efr)),
-                       "roc_auc":float(roc_auc_score(efr,ef)) if len(np.unique(efr))>1 else None,
-                       "pr_auc":float(average_precision_score(efr,ef)) if len(np.unique(efr))>1 else None,
-                       "brier":float(brier_score_loss(efr,ef)),"risk_deciles":risk_dec}
+                       "roc_auc":float(roc_auc_score(efr,efv)) if len(np.unique(efr))>1 else None,
+                       "pr_auc":float(average_precision_score(efr,efv)) if len(np.unique(efr))>1 else None,
+                       "brier":float(brier_score_loss(efr,efv)),"risk_deciles":risk_dec}
     }
 
 def qualifies(score,t,name):
