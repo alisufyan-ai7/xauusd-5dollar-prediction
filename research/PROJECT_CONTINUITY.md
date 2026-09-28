@@ -630,3 +630,30 @@ See:
 research/EXP-003_EV_MISCALIBRATION_DIAGNOSIS_V1_FINDINGS.md
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-004 shift-aware calibrated EV V1
+
+Active branch:
+research/exp004-shift-aware-calibrated-ev-v1
+
+Frozen specification:
+research/EXP-004_PREREGISTRATION.md
+
+Purpose:
+test whether EXP-003's EV miscalibration can be corrected without changing market features or executable target.
+
+Changes relative to EXP-003:
+- expanding-window out-of-time TRAIN probability calibration;
+- one frozen TRAIN-support abstention gate.
+
+Arms:
+- A raw EXP-003 EV benchmark;
+- B calibrated EV;
+- C calibrated EV plus support gate.
+
+Only B/C may advance.
+
+No EXP-004 result has been produced yet.
+
+2025 FINAL_OOS remains sealed.
