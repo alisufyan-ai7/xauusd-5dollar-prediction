@@ -881,3 +881,37 @@ Next:
 a materially richer market-state representation is required in a new preregistered experiment.
 
 2025 remains sealed.
+
+
+---
+
+## D-043 — Start EXP-006 causal path-state representation
+
+Decision:
+Start EXP-006 on branch:
+
+research/exp006-causal-path-state-v1
+
+Purpose:
+isolate whether the current market-state representation is the limiting factor.
+
+Design:
+- REP_A_BASE48: exact EXP-005 feature set, benchmark only;
+- REP_B_PATH84: BASE48 plus 36 frozen causal price-path features;
+- same direct executable-P&L regressor;
+- same <=5-minute EARLY_FAILURE classifier;
+- same validation-derived Q50/Q25/Q10 risk gates;
+- same T0/T25/T50/T75 economic thresholds;
+- same sequential execution and advancement gates.
+
+The 36 added features measure, for 5/15/30/60/120/240-minute windows:
+- path efficiency;
+- sign-change rate;
+- jump concentration;
+- time since local high;
+- time since local low;
+- synthetic-bar body/range ratio.
+
+No external events/news are added in EXP-006 so representation effects remain attributable.
+
+2025 remains sealed.
