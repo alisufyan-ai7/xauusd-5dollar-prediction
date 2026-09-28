@@ -6,6 +6,7 @@ on:
       - research/exp001-foundation
       - research/exp002-executable-target-v1
       - research/exp003-economic-value-v1
+      - research/exp004-shift-aware-calibrated-ev-v1
   pull_request:
   workflow_dispatch:
 
@@ -77,5 +78,7 @@ jobs:
         run: python -m py_compile scripts/threshold_economics_exp003_v1.py
       - name: Compile EXP-003 EV miscalibration diagnosis V1
         run: python -m py_compile scripts/diagnose_exp003_ev_miscalibration_v1.py
+      - name: Compile EXP-004 shift-aware calibrated EV V1
+        run: python -m py_compile scripts/exp004_shift_aware_calibrated_ev_v1.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py

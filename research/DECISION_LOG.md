@@ -751,3 +751,72 @@ Conclusion:
 EXP-004, if started, must explicitly address probability calibration under temporal distribution shift and out-of-support uncertainty. It must not be a threshold retune of EXP-003.
 
 2025 remains sealed.
+
+
+---
+
+## D-039 — Start EXP-004 shift-aware calibrated EV
+
+Decision:
+Start EXP-004 on branch:
+
+research/exp004-shift-aware-calibrated-ev-v1
+
+EXP-004 keeps:
+- executable labels;
+- feature vector;
+- base learner;
+- unresolved-expiry regressor;
+- EV thresholds;
+- sequential execution semantics.
+
+It changes only:
+1. class-probability calibration using strictly expanding-window out-of-time TRAIN predictions;
+2. explicit TRAIN-support abstention.
+
+Frozen calibration:
+- OOT folds predict 2017, 2018, 2019, 2020, 2021 using only earlier years;
+- multinomial LogisticRegression on log base probabilities;
+- C=1.0, lbfgs, max_iter=1000.
+
+Frozen support gate:
+- outside_count <= 2;
+- total normalized exceedance <= 1.0;
+- TRAIN support reference from every-5th eligible TRAIN rows.
+
+Experimental arms:
+- A RAW_EV benchmark;
+- B calibrated EV;
+- C calibrated EV + support gate.
+
+Only B/C may advance.
+
+2025 remains sealed.
+
+
+---
+
+## D-040 — EXP-004 calibration/support gating does not rescue economics
+
+Decision:
+Do not freeze any EXP-004 candidate and do not access FINAL_OOS 2025.
+
+Evidence:
+Run 36394304605 completed successfully.
+
+No ARM B (calibrated EV) or ARM C (calibrated EV + support gate) policy passed the frozen advancement rules.
+
+Key result:
+- calibration improved aggregate multiclass fit;
+- SELL aggregate EV calibration gap was nearly eliminated;
+- nevertheless T0 sequential economics remained materially negative;
+- higher calibrated-EV thresholds became extremely sparse;
+- support gating rejected ~16.9% of DEVELOPMENT_TEST rows but did not make T0 economics positive.
+
+Conclusion:
+the EXP-003 feature representation / base learner / target combination remains insufficient even after strictly chronological calibration and explicit support-aware abstention.
+
+Next:
+design a materially different experiment rather than retuning EXP-004 thresholds, support gates, or calibrator.
+
+2025 remains sealed.

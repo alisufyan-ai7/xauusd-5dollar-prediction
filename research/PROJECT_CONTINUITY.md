@@ -630,3 +630,63 @@ See:
 research/EXP-003_EV_MISCALIBRATION_DIAGNOSIS_V1_FINDINGS.md
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-004 shift-aware calibrated EV V1
+
+Active branch:
+research/exp004-shift-aware-calibrated-ev-v1
+
+Frozen specification:
+research/EXP-004_PREREGISTRATION.md
+
+Purpose:
+test whether EXP-003's EV miscalibration can be corrected without changing market features or executable target.
+
+Changes relative to EXP-003:
+- expanding-window out-of-time TRAIN probability calibration;
+- one frozen TRAIN-support abstention gate.
+
+Arms:
+- A raw EXP-003 EV benchmark;
+- B calibrated EV;
+- C calibrated EV plus support gate.
+
+Only B/C may advance.
+
+No EXP-004 result has been produced yet.
+
+2025 FINAL_OOS remains sealed.
+
+
+## EXP-004 findings
+
+Run 36394304605 completed successfully.
+
+No calibrated-EV or calibrated-EV-plus-support policy passed.
+
+Calibration improved aggregate probability fit, especially SELL, but did not produce positive sequential economics.
+
+ARM B T0 F10:
+- BUY_ONLY -0.4237;
+- SELL_ONLY -0.4339;
+- COMBINED -0.4413.
+
+ARM C T0 F10:
+- BUY_ONLY -0.3922;
+- SELL_ONLY -0.4379;
+- COMBINED -0.4204.
+
+The support gate rejected about 16.9% of DEVELOPMENT_TEST rows, but economics remained negative.
+
+Higher calibrated-EV thresholds became extremely sparse and did not satisfy minimum trade-count, temporal-coverage, bootstrap, or concentration gates.
+
+Therefore:
+- no candidate freeze;
+- no 2025 access;
+- no Exness demo/live advancement;
+- next experiment must materially change representation or target rather than retune calibration/support thresholds.
+
+See research/EXP-004_FINDINGS.md.
+
+2025 FINAL_OOS remains sealed.
