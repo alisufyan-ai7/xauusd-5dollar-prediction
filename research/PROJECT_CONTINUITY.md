@@ -758,3 +758,32 @@ Only PATH84 policies may advance.
 No EXP-006 empirical result exists yet.
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-006 findings
+
+Run 36467825948 completed successfully.
+
+No PATH84 policy passed.
+
+Representation deltas were essentially zero:
+- BUY direct-P&L Pearson delta -0.0068;
+- SELL +0.0044;
+- EARLY_FAILURE ROC-AUC changes approximately zero.
+
+PATH84 T0 F10:
+- BUY_ONLY -0.5212;
+- SELL_ONLY -0.5074;
+- COMBINED -0.5161.
+
+Thus richer hand-crafted causal price-path features did not solve the trade-quality problem and generally worsened economics.
+
+Therefore:
+- no candidate freeze;
+- no 2025 access;
+- no Exness demo/live advancement;
+- next experiment must change a more fundamental dimension than additional tree-input path features.
+
+See research/EXP-006_FINDINGS.md.
+
+2025 FINAL_OOS remains sealed.
