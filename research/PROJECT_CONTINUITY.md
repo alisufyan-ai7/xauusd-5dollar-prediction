@@ -713,3 +713,27 @@ EXP-005:
 No EXP-005 empirical result exists yet.
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-005 findings
+
+Corrected run 36445233132 completed successfully.
+
+No EXP-005 policy passed.
+
+Key result:
+- direct gross-P&L regression had very weak predictive correlation;
+- <=5-minute EARLY_FAILURE classification was materially stronger (DEV ROC-AUC about 0.81-0.84);
+- risk gating could remove observed rapid-failure trades, but usable trade counts collapsed;
+- ungated direct-score economics remained negative;
+- 2024 remained a major failure point.
+
+Therefore:
+- no candidate freeze;
+- no 2025 access;
+- no Exness demo/live advancement;
+- next experiment must materially improve the market-state representation rather than reuse the same frozen 48 features.
+
+See research/EXP-005_FINDINGS.md.
+
+2025 FINAL_OOS remains sealed.
