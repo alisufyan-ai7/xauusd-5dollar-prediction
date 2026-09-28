@@ -792,3 +792,31 @@ Experimental arms:
 Only B/C may advance.
 
 2025 remains sealed.
+
+
+---
+
+## D-040 — EXP-004 calibration/support gating does not rescue economics
+
+Decision:
+Do not freeze any EXP-004 candidate and do not access FINAL_OOS 2025.
+
+Evidence:
+Run 36394304605 completed successfully.
+
+No ARM B (calibrated EV) or ARM C (calibrated EV + support gate) policy passed the frozen advancement rules.
+
+Key result:
+- calibration improved aggregate multiclass fit;
+- SELL aggregate EV calibration gap was nearly eliminated;
+- nevertheless T0 sequential economics remained materially negative;
+- higher calibrated-EV thresholds became extremely sparse;
+- support gating rejected ~16.9% of DEVELOPMENT_TEST rows but did not make T0 economics positive.
+
+Conclusion:
+the EXP-003 feature representation / base learner / target combination remains insufficient even after strictly chronological calibration and explicit support-aware abstention.
+
+Next:
+design a materially different experiment rather than retuning EXP-004 thresholds, support gates, or calibrator.
+
+2025 remains sealed.
