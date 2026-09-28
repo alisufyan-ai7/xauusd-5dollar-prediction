@@ -820,3 +820,37 @@ Next:
 design a materially different experiment rather than retuning EXP-004 thresholds, support gates, or calibrator.
 
 2025 remains sealed.
+
+
+---
+
+## D-041 — Start EXP-005 downside-first direct economic model
+
+Decision:
+Start EXP-005 on branch:
+
+research/exp005-downside-first-competing-risk-v1
+
+EXP-005 materially changes the prediction objective while retaining the frozen executable semantics and feature representation.
+
+Models:
+1. direct executable gross-P&L regressor;
+2. binary EARLY_FAILURE classifier for adverse-barrier failure within <=5 minutes.
+
+Frozen downside gates are derived only from VALIDATION 2022 predicted EARLY_FAILURE-risk quantiles:
+- Q50;
+- Q25;
+- Q10.
+
+Experimental arms:
+- DIRECT_ONLY;
+- DIRECT_EF_Q50;
+- DIRECT_EF_Q25;
+- DIRECT_EF_Q10.
+
+Direct economic thresholds remain T0/T25/T50/T75.
+
+Reason:
+EXP-004 showed that probability recalibration and support gating alone did not rescue economics. Prior diagnostics showed rapid <=5-minute outcomes were strongly negative, so EXP-005 tests direct economic prediction plus explicit rapid-downside avoidance.
+
+2025 remains sealed.
