@@ -79,6 +79,10 @@ EXP-007 does not rerun/tune that benchmark for advancement.
 Each scored decision uses exactly the trailing 60 completed synchronized M1 bars ending at
 the decision-feature bar t.
 
+One additional immediately preceding synchronized M1 bar is retained only to compute the
+one-minute close-change channel for the first of the 60 model timesteps. That predecessor
+is causal and is not itself passed as a model timestep.
+
 No future bar is included.
 
 For each of the 60 bars construct six channels from synchronized BID/ASK:
@@ -169,7 +173,7 @@ Eligible TRAIN rows:
 - partition-boundary eligible;
 - coverage complete;
 - BASE48 feature complete;
-- exact trailing 60 synchronized contiguous M1 bars available;
+- exact trailing 60 synchronized contiguous M1 bars plus the immediately preceding causal bar available;
 - AMBIGUOUS excluded.
 
 Sampling:
