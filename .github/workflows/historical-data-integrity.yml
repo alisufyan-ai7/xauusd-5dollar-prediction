@@ -32,6 +32,7 @@ on:
           - exp003-ev-miscalibration-diagnosis-v1
           - exp004-shift-aware-calibrated-ev-v1
           - exp005-downside-first-direct-v1
+          - exp006-causal-path-state-v1
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -911,4 +912,54 @@ jobs:
           path: |
             data/manifests/exp002-bidask-m1-manifest.json
             data/reports/exp005/downside-first-direct-v1.json
+          retention-days: 90
+
+
+  exp006-causal-path-state-v1:
+    if: ${{ inputs.mode == 'exp006-causal-path-state-v1' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
+      - name: Acquire paired BID ASK M1 2016-2024
+        run: bash scripts/acquire_exp002_history.sh 2016 2024 data
+      - name: Build executable labels and partitions
+        run: bash scripts/run_exp002_labeling.sh data
+      - name: Build BASE48 and PATH84 features
+        run: |
+          mkdir -p data/features/exp006-base data/features/exp006-spread data/features/exp006
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            base="data/features/exp006-base/features-${year}.csv"
+            spread="data/features/exp006-spread/features-${year}.csv"
+            out="data/features/exp006/features-${year}.csv"
+            python3 scripts/build_features.py "$bid" "$base"
+            python3 scripts/augment_features_exp002.py "$bid" "$ask" "$base" "$spread"
+            python3 scripts/augment_features_exp006_path.py "$bid" "$spread" "$out"
+          done
+      - name: Run EXP-006 causal path-state representation V1
+        run: |
+          mkdir -p data/reports/exp006
+          args=()
+          for year in $(seq 2016 2024); do
+            args+=("data/partitioned/exp002/partitioned-${year}.csv" "data/features/exp006/features-${year}.csv")
+          done
+          python3 scripts/exp006_causal_path_state_v1.py             data/reports/exp006/causal-path-state-v1.json "${args[@]}"
+      - name: Upload compact EXP-006 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: exp006-causal-path-state-v1
+          path: |
+            data/manifests/exp002-bidask-m1-manifest.json
+            data/reports/exp006/causal-path-state-v1.json
           retention-days: 90

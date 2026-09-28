@@ -881,3 +881,63 @@ Next:
 a materially richer market-state representation is required in a new preregistered experiment.
 
 2025 remains sealed.
+
+
+---
+
+## D-043 — Start EXP-006 causal path-state representation
+
+Decision:
+Start EXP-006 on branch:
+
+research/exp006-causal-path-state-v1
+
+Purpose:
+isolate whether the current market-state representation is the limiting factor.
+
+Design:
+- REP_A_BASE48: exact EXP-005 feature set, benchmark only;
+- REP_B_PATH84: BASE48 plus 36 frozen causal price-path features;
+- same direct executable-P&L regressor;
+- same <=5-minute EARLY_FAILURE classifier;
+- same validation-derived Q50/Q25/Q10 risk gates;
+- same T0/T25/T50/T75 economic thresholds;
+- same sequential execution and advancement gates.
+
+The 36 added features measure, for 5/15/30/60/120/240-minute windows:
+- path efficiency;
+- sign-change rate;
+- jump concentration;
+- time since local high;
+- time since local low;
+- synthetic-bar body/range ratio.
+
+No external events/news are added in EXP-006 so representation effects remain attributable.
+
+2025 remains sealed.
+
+
+---
+
+## D-044 — EXP-006 PATH84 does not improve the edge
+
+Decision:
+Do not freeze any EXP-006 candidate and do not access FINAL_OOS 2025.
+
+Evidence:
+Run 36467825948 completed successfully.
+
+Findings:
+- PATH84 did not materially improve direct-P&L correlation;
+- PATH84 did not materially improve EARLY_FAILURE ROC-AUC / PR-AUC;
+- PATH84 T0 sequential economics were worse than BASE48;
+- downside-gated PATH84 policies remained sparse and unstable;
+- no PATH84 policy passed.
+
+Conclusion:
+adding more hand-crafted causal path-state features to the same tree-model family is not justified by evidence.
+
+Next:
+change model family, target formulation, or timestamp-safe external information in a new preregistered experiment.
+
+2025 remains sealed.
