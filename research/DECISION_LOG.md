@@ -941,3 +941,32 @@ Next:
 change model family, target formulation, or timestamp-safe external information in a new preregistered experiment.
 
 2025 remains sealed.
+
+
+---
+
+## D-045 — Start EXP-007 causal sequence model
+
+Decision:
+Start EXP-007 on branch:
+
+research/exp007-causal-sequence-v1
+
+Purpose:
+test whether ordered M1 path information contains executable trade-quality signal that the completed tree-based feature representations did not capture.
+
+Frozen design:
+- trailing 60 synchronized M1 bars;
+- six causal BID/ASK-derived sequence channels;
+- exact BASE48 static context;
+- small fixed temporal CNN;
+- separate direct executable-P&L and <=5-minute EARLY_FAILURE networks;
+- every-20th eligible TRAIN sampling;
+- fixed Adam optimization for 8 epochs;
+- validation-derived Q50/Q25/Q10 downside gates;
+- unchanged T0/T25/T50/T75 thresholds;
+- unchanged sequential execution and advancement gates.
+
+No external event/news context is added in EXP-007.
+
+2025 remains sealed.
