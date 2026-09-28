@@ -609,3 +609,24 @@ Current workflow:
 36348182305
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-003 EV miscalibration diagnosis findings
+
+Run 36348182305 completed successfully.
+
+The dominant EXP-003 failure is now identified:
+
+- positive-EV tails systematically overpredict SUCCESS and underpredict FAILURE;
+- this tail miscalibration worsens at higher predicted EV;
+- unresolved-P&L regression is not the primary source of the optimism;
+- 2024 has strong volatility/spread/attainability distribution shift relative to TRAIN;
+- positive-EV rows are frequently outside TRAIN feature support, especially BUY;
+- the same EV optimism persists at sequential executed-trade level.
+
+Therefore a future EXP-004 must address temporal calibration / distribution shift / out-of-support uncertainty rather than merely retuning EV thresholds.
+
+See:
+research/EXP-003_EV_MISCALIBRATION_DIAGNOSIS_V1_FINDINGS.md
+
+2025 FINAL_OOS remains sealed.
