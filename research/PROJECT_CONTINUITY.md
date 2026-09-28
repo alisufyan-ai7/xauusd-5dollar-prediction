@@ -690,3 +690,50 @@ Therefore:
 See research/EXP-004_FINDINGS.md.
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-005 downside-first direct economic model V1
+
+Active branch:
+research/exp005-downside-first-competing-risk-v1
+
+Frozen specification:
+research/EXP-005_PREREGISTRATION.md
+
+Purpose:
+test a materially different target representation after EXP-004 failed.
+
+EXP-005:
+- predicts realized executable gross P&L directly;
+- separately predicts adverse-barrier FAILURE within <=5 minutes;
+- freezes VALIDATION-derived EARLY_FAILURE risk gates Q50/Q25/Q10;
+- evaluates DIRECT_ONLY and three downside-gated arms;
+- reuses the same frozen market feature vector and execution semantics.
+
+No EXP-005 empirical result exists yet.
+
+2025 FINAL_OOS remains sealed.
+
+
+## EXP-005 findings
+
+Corrected run 36445233132 completed successfully.
+
+No EXP-005 policy passed.
+
+Key result:
+- direct gross-P&L regression had very weak predictive correlation;
+- <=5-minute EARLY_FAILURE classification was materially stronger (DEV ROC-AUC about 0.81-0.84);
+- risk gating could remove observed rapid-failure trades, but usable trade counts collapsed;
+- ungated direct-score economics remained negative;
+- 2024 remained a major failure point.
+
+Therefore:
+- no candidate freeze;
+- no 2025 access;
+- no Exness demo/live advancement;
+- next experiment must materially improve the market-state representation rather than reuse the same frozen 48 features.
+
+See research/EXP-005_FINDINGS.md.
+
+2025 FINAL_OOS remains sealed.

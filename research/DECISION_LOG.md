@@ -820,3 +820,64 @@ Next:
 design a materially different experiment rather than retuning EXP-004 thresholds, support gates, or calibrator.
 
 2025 remains sealed.
+
+
+---
+
+## D-041 — Start EXP-005 downside-first direct economic model
+
+Decision:
+Start EXP-005 on branch:
+
+research/exp005-downside-first-competing-risk-v1
+
+EXP-005 materially changes the prediction objective while retaining the frozen executable semantics and feature representation.
+
+Models:
+1. direct executable gross-P&L regressor;
+2. binary EARLY_FAILURE classifier for adverse-barrier failure within <=5 minutes.
+
+Frozen downside gates are derived only from VALIDATION 2022 predicted EARLY_FAILURE-risk quantiles:
+- Q50;
+- Q25;
+- Q10.
+
+Experimental arms:
+- DIRECT_ONLY;
+- DIRECT_EF_Q50;
+- DIRECT_EF_Q25;
+- DIRECT_EF_Q10.
+
+Direct economic thresholds remain T0/T25/T50/T75.
+
+Reason:
+EXP-004 showed that probability recalibration and support gating alone did not rescue economics. Prior diagnostics showed rapid <=5-minute outcomes were strongly negative, so EXP-005 tests direct economic prediction plus explicit rapid-downside avoidance.
+
+2025 remains sealed.
+
+
+---
+
+## D-042 — EXP-005 early-failure signal is useful but insufficient
+
+Decision:
+Do not freeze any EXP-005 candidate and do not access FINAL_OOS 2025.
+
+Evidence:
+Corrected run 36445233132 completed successfully.
+
+Findings:
+- direct executable-P&L regression has near-zero correlation with realized gross P&L;
+- the <=5-minute EARLY_FAILURE classifier has useful discrimination (DEV ROC-AUC ~0.81-0.84);
+- downside gating sharply reduces or eliminates observed early failures;
+- however, admissible low-risk opportunities become too sparse;
+- DIRECT_ONLY remains economically negative, especially in 2024;
+- no arm satisfies trade-count, two-year positivity, bootstrap, and concentration gates.
+
+Conclusion:
+rapid downside risk is predictable, but the current frozen 48-feature representation does not provide enough positive-trade-quality information to support robust economics.
+
+Next:
+a materially richer market-state representation is required in a new preregistered experiment.
+
+2025 remains sealed.
