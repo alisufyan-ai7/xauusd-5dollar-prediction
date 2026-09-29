@@ -229,9 +229,13 @@ Train a separate frozen classifier on event candidates.
 A trade is eligible only if its predicted EARLY_DAMAGE probability is below a validation-frozen cutoff.
 
 Cutoff:
-- Q50 of VALIDATION 2022 risk distribution.
+- direction-specific Q50 of VALIDATION 2022 predicted risk distribution;
+- freeze one BUY Q50 and one SELL Q50.
 
-Only one downside cutoff is used in V1 to prevent another threshold search.
+If +$1 favorable excursion and INITIAL_STOP_DISTANCE are both touched inside the same M1 bar
+during the first five minutes, classify conservatively as EARLY_DAMAGE.
+
+Only one downside quantile is used in V1 to prevent another threshold search.
 
 ## Entry gate
 
