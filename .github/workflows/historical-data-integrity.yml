@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/root-reset-event-driven-v1
-    paths:
-      - ".github/root-reset-event-driven-v1-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -1077,7 +1072,7 @@ jobs:
 
 
   root-reset-event-driven-v1:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'root-reset-event-driven-v1' }}
+    if: ${{ inputs.mode == 'root-reset-event-driven-v1' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
