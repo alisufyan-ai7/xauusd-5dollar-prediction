@@ -1035,3 +1035,30 @@ Optional frozen early-failure gates:
 No time-bin economic bonus/penalty is allowed.
 
 2025 remains sealed.
+
+
+---
+
+## D-048 — EXP-008 hazard formulation improves calibration but not economics
+
+Decision:
+Do not freeze any EXP-008 candidate and do not access FINAL_OOS 2025.
+
+Evidence:
+Run 36616276558 completed successfully.
+
+Findings:
+- nine-class competing-hazard calibration is broadly reasonable;
+- SELL aggregate EV calibration gap is small;
+- T0 sequential economics remain negative across BUY/SELL/COMBINED;
+- early-failure gating reduces sample size but does not create robust positive economics;
+- a T25 SELL pocket is positive but contains only 10 trades and fails bootstrap, sample-size, and concentration gates;
+- no policy passes.
+
+Conclusion:
+target/adverse timing improves probability representation but does not solve price-only trade-quality prediction.
+
+Next:
+test a separately preregistered timestamp-safe exogenous information source rather than continue reformulating the same price-only state.
+
+2025 remains sealed.
