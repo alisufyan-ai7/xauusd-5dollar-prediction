@@ -886,3 +886,31 @@ Therefore:
 See research/EXP-008_FINDINGS.md.
 
 2025 FINAL_OOS remains sealed.
+
+
+## Root-cause reset — event-driven dynamic trade management V1
+
+Active branch:
+research/root-reset-event-driven-v1
+
+Frozen design:
+research/ROOT_CAUSE_RESET_V1.md
+
+Purpose:
+correct the trading formulation rather than continue tuning models.
+
+Changes:
+- score only event-driven continuation candidates;
+- model probability that executable MFE_60 reaches at least $5;
+- derive initial stop from structure + 15-minute volatility;
+- reject trades whose dynamic stop makes minimum $5 reward/risk < 1.5;
+- use a downside-risk veto;
+- compare:
+  - M0 HOLD_TO_5
+  - M1 BE_AT_3
+  - M2 TAKE_3
+
+VALIDATION 2022 selects one opportunity threshold once.
+DEVELOPMENT_TEST 2023-2024 is accessed only if validation qualification succeeds.
+
+2025 FINAL_OOS remains sealed.
