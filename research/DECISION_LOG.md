@@ -1062,3 +1062,40 @@ Next:
 test a separately preregistered timestamp-safe exogenous information source rather than continue reformulating the same price-only state.
 
 2025 remains sealed.
+
+
+---
+
+## D-049 — Root-cause reset to event-driven dynamic trade management
+
+Decision:
+Stop extending the EXP-001→EXP-008 minute-by-minute fixed-barrier lineage.
+
+Start root reset on branch:
+
+research/root-reset-event-driven-v1
+
+Core corrections:
+- event-driven CUSUM continuation candidates instead of every-minute scoring;
+- direct $5 attainability target via executable MFE_60;
+- regime/structure-adaptive initial stop;
+- retain downside-risk veto;
+- treat +$3 as a management trigger, not automatically the final target;
+- compare HOLD_TO_5, BE_AT_3, and TAKE_3;
+- keep 2025 sealed.
+
+Dynamic stop:
+max(
+  trailing 15-minute structure invalidation + 0.25 * ATR15_PROXY,
+  1.5 * ATR15_PROXY
+)
+
+Reject candidate if initial stop exceeds $5/1.5 = $3.333333....
+
+Opportunity threshold:
+choose once on VALIDATION 2022 from {0.50,0.60,0.70,0.80};
+requires >=100 executed validation trades and positive mean NET_F10 under HOLD_TO_5.
+
+If no validation threshold qualifies, do not access DEVELOPMENT_TEST.
+
+2025 remains sealed.
