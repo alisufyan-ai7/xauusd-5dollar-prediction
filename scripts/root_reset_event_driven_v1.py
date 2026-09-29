@@ -85,17 +85,14 @@ def management_path(direction,entry,stop_dist,fav,adv,exit_close,policy):
         # M0 / M1
         active_stop=be_gross if (policy=="M1_BE_AT_3" and be_active) else -stop_dist
         if policy=="M1_BE_AT_3" and be_active:
-            # adverse excursion from entry >= -0.10 means price reached the protected stop.
-            # adv is nonnegative adverse distance, so protected profitable stop is represented
-            # via executable liquidation relative to entry; same-bar high/low ambiguity is conservative.
-            if f>=5.0 and a>=0.0:
-                # If bar reaches +5, TP is certain only if protected stop is not also reachable
-                # after activation. Since any bar low can be below entry, use side-specific OHLC
-                # already encoded via adv: if any adverse excursion exists, same-bar ordering unknown.
-                # Conservatively allow TP5 only when no adverse move from entry in the bar.
-                if a<=1e-12:return 5.0,k,"TP5"
+            # For both BUY and SELL, per-bar adverse distance a is measured from entry.
+            # The protected stop at +$0.10 gross is reachable when a >= -0.10.
+            be_touched=(a>=-0.10)
+            if f>=5.0 and be_touched:
                 return .10,k,"BE_AMBIG"
-            if a>=0.0:
+            if f>=5.0:
+                return 5.0,k,"TP5"
+            if be_touched:
                 return .10,k,"BE"
         else:
             if a>=stop_dist and f>=5.0:return -stop_dist,k,"STOP_AMBIG"
@@ -104,7 +101,7 @@ def management_path(direction,entry,stop_dist,fav,adv,exit_close,policy):
             if policy=="M1_BE_AT_3" and f>=3.0:
                 be_active=True
                 # if same bar also traded adversely from entry, conservatively assume BE is hit after activation
-                if a>0:return .10,k,"BE_SAME_BAR"
+                if a>=-0.10:return .10,k,"BE_SAME_BAR"
 
     return exit_close,60,"TIME"
 
@@ -143,7 +140,7 @@ def candidate_from_index(i,side,p,f,bid,ask,atr,year):
     stop=max(structure_stop,volatility_stop)
     admissible=bool(stop>0 and stop<=MAX_STOP)
 
-    mfe=max(fav);mae=max(adv)
+    mfe=max(0.0,max(fav));mae=max(0.0,max(adv))
     t3=first_time(fav,3.0);t5=first_time(fav,5.0);t7=first_time(fav,7.0)
     early_damage=0
     if admissible:
@@ -209,13 +206,15 @@ def fit_models(train,side):
     rows=[c for c in train if c["side"]==side]
     X=np.asarray([c["x"] for c in rows],dtype=np.float32)
     y=np.asarray([c["opportunity5"] for c in rows],dtype=np.int8)
-    yd=np.asarray([c["early_damage"] for c in rows],dtype=np.int8)
+    risk_rows=[c for c in rows if c["stop_admissible"]]
+    Xrisk=np.asarray([c["x"] for c in risk_rows],dtype=np.float32)
+    yd=np.asarray([c["early_damage"] for c in risk_rows],dtype=np.int8)
     if len(np.unique(y))<2 or len(np.unique(yd))<2:raise SystemExit(f"CLASS_MISSING:{side}")
     opp=HistGradientBoostingClassifier(loss="log_loss",learning_rate=.05,max_iter=200,max_leaf_nodes=15,
       max_depth=None,min_samples_leaf=100,l2_regularization=1.0,max_bins=255,early_stopping=False,random_state=1)
     risk=HistGradientBoostingClassifier(loss="log_loss",learning_rate=.05,max_iter=200,max_leaf_nodes=15,
       max_depth=None,min_samples_leaf=100,l2_regularization=1.0,max_bins=255,early_stopping=False,random_state=1)
-    opp.fit(X,y);risk.fit(X,yd)
+    opp.fit(X,y);risk.fit(Xrisk,yd)
     return opp,risk
 
 def score(cands,models):
