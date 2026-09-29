@@ -79,10 +79,12 @@ Primary event detector:
 a symmetric CUSUM-style detector applied to causal one-minute BID close changes.
 
 Volatility scale:
-- trailing 60-minute true-range mean, available at event time.
+- causal ATR15_PROXY, defined as the mean true range of the four most recent completed synthetic 15-minute BID bars;
+- each synthetic 15-minute true range uses its high, low, and the close immediately preceding that synthetic bar;
+- therefore ATR15_PROXY summarizes approximately one hour of recent volatility at the 15-minute scale.
 
 Standardized price change:
-- one-minute BID close change / max(tr_mean_60m, 1e-6).
+- one-minute BID close change / max(ATR15_PROXY, 1e-6).
 
 Maintain positive and negative cumulative sums.
 
@@ -161,7 +163,7 @@ The initial stop is not a fixed dollar amount.
 
 At each candidate compute:
 
-ATR_PROXY = tr_mean_60m
+ATR_PROXY = ATR15_PROXY
 
 Structure invalidation distance:
 
@@ -243,19 +245,28 @@ A trade candidate enters only if ALL are true:
 
 Opportunity threshold selection:
 
-Use TRAIN walk-forward predictions only to determine the smallest probability threshold from:
+Candidate thresholds:
 - 0.50
 - 0.60
 - 0.70
 - 0.80
 
-that produces positive mean gross excursion value in at least four of six TRAIN years
-and at least 300 total TRAIN candidate events.
+Fit the opportunity model on TRAIN 2016-2021 only.
 
-Freeze that threshold before VALIDATION 2022 is evaluated.
+Evaluate the four frozen candidate thresholds once on VALIDATION 2022 using the M0 HOLD_TO_5 policy
+and the frozen dynamic-stop rule.
 
-If no threshold qualifies:
-- the reset fails before DEVELOPMENT_TEST.
+Select the LOWEST threshold that satisfies BOTH:
+- at least 100 executed VALIDATION trades;
+- positive mean VALIDATION NET_F10.
+
+If multiple thresholds satisfy, the lowest is selected to avoid post-hoc preference for a sparse tail.
+
+If no threshold satisfies:
+- the reset stops before DEVELOPMENT_TEST;
+- 2023-2024 are not evaluated.
+
+Once selected, the threshold is frozen before any DEVELOPMENT_TEST access.
 
 ## Trade management policies
 
