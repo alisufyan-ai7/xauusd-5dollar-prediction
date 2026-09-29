@@ -941,3 +941,59 @@ Next:
 change model family, target formulation, or timestamp-safe external information in a new preregistered experiment.
 
 2025 remains sealed.
+
+
+---
+
+## D-045 — Start EXP-007 causal sequence model
+
+Decision:
+Start EXP-007 on branch:
+
+research/exp007-causal-sequence-v1
+
+Purpose:
+test whether ordered M1 path information contains executable trade-quality signal that the completed tree-based feature representations did not capture.
+
+Frozen design:
+- trailing 60 synchronized M1 bars;
+- six causal BID/ASK-derived sequence channels;
+- exact BASE48 static context;
+- small fixed temporal CNN;
+- separate direct executable-P&L and <=5-minute EARLY_FAILURE networks;
+- every-20th eligible TRAIN sampling;
+- fixed Adam optimization for 8 epochs;
+- validation-derived Q50/Q25/Q10 downside gates;
+- unchanged T0/T25/T50/T75 thresholds;
+- unchanged sequential execution and advancement gates.
+
+No external event/news context is added in EXP-007.
+
+2025 remains sealed.
+
+
+---
+
+## D-046 — EXP-007 sequence model fails executable-P&L economics
+
+Decision:
+Do not freeze any EXP-007 candidate and do not access FINAL_OOS 2025.
+
+Evidence:
+Run 36485293055 completed successfully.
+
+Findings:
+- BUY direct-P&L Pearson is negative and its high-score tail is catastrophically miscalibrated;
+- SELL direct-P&L Pearson improves modestly to about +0.067 but still fails economic gates;
+- sequence-model EARLY_FAILURE ranking remains strong (ROC-AUC about 0.88);
+- sequential BUY economics collapse near -3 per trade in higher-score bands;
+- downside-gated arms are too sparse and remain negative;
+- no policy passes.
+
+Conclusion:
+ordered 60-minute M1 sequence learning does not solve the positive trade-quality prediction problem under the current targets and economics.
+
+Next:
+change the target/information problem rather than tune the EXP-007 architecture.
+
+2025 remains sealed.
