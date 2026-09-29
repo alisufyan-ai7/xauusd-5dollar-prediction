@@ -997,3 +997,41 @@ Next:
 change the target/information problem rather than tune the EXP-007 architecture.
 
 2025 remains sealed.
+
+
+---
+
+## D-047 — Start EXP-008 competing-hazard target formulation
+
+Decision:
+Start EXP-008 on branch:
+
+research/exp008-competing-hazard-v1
+
+Purpose:
+replace unreliable direct-P&L prediction with a calibrated competing-hazard representation of target-first versus adverse-first timing.
+
+Frozen classes:
+- SUCCESS within 0-5 / 6-15 / 16-30 / 31-60 minutes;
+- FAILURE within 0-5 / 6-15 / 16-30 / 31-60 minutes;
+- UNRESOLVED at 60 minutes.
+
+Inputs:
+- exact BASE48 only.
+
+Probability calibration:
+- strictly out-of-time TRAIN folds 2017-2021;
+- multinomial logistic mapping of nine-class base probabilities.
+
+Economic score:
+- +5 * aggregate calibrated SUCCESS probability;
+- -3 * aggregate calibrated FAILURE probability;
+- unresolved probability times frozen unresolved-expiry P&L prediction;
+- minus F10 friction.
+
+Optional frozen early-failure gates:
+- validation Q50 / Q25 / Q10 of calibrated F_00_05 probability.
+
+No time-bin economic bonus/penalty is allowed.
+
+2025 remains sealed.
