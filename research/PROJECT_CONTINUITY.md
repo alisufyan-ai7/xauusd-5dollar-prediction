@@ -834,3 +834,27 @@ Therefore:
 See research/EXP-007_FINDINGS.md.
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-008 competing-hazard target-before-adverse V1
+
+Active branch:
+research/exp008-competing-hazard-v1
+
+Frozen specification:
+research/EXP-008_PREREGISTRATION.md
+
+EXP-008 changes the target formulation while returning to exact BASE48 inputs.
+
+It models nine competing time-to-event classes:
+- four SUCCESS timing bins;
+- four FAILURE timing bins;
+- U_60 unresolved.
+
+It uses strictly out-of-time TRAIN probability calibration and derives executable EV from the calibrated competing-hazard probabilities.
+
+Validation-derived early-failure gates Q50/Q25/Q10 are preregistered.
+
+No EXP-008 empirical result exists yet.
+
+2025 FINAL_OOS remains sealed.
