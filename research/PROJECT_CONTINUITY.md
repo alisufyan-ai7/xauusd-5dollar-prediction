@@ -834,3 +834,55 @@ Therefore:
 See research/EXP-007_FINDINGS.md.
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-008 competing-hazard target-before-adverse V1
+
+Active branch:
+research/exp008-competing-hazard-v1
+
+Frozen specification:
+research/EXP-008_PREREGISTRATION.md
+
+EXP-008 changes the target formulation while returning to exact BASE48 inputs.
+
+It models nine competing time-to-event classes:
+- four SUCCESS timing bins;
+- four FAILURE timing bins;
+- U_60 unresolved.
+
+It uses strictly out-of-time TRAIN probability calibration and derives executable EV from the calibrated competing-hazard probabilities.
+
+Validation-derived early-failure gates Q50/Q25/Q10 are preregistered.
+
+No EXP-008 empirical result exists yet.
+
+2025 FINAL_OOS remains sealed.
+
+
+## EXP-008 findings
+
+Run 36616276558 completed successfully.
+
+No policy passed.
+
+Aggregate calibration improved:
+- BUY T0 raw rows realized approximately -0.025 NET_F10 versus predicted +0.059 EV;
+- SELL aggregate EV calibration gap was about +0.021.
+
+But sequential T0 economics remained negative:
+- BUY_ONLY -0.4043;
+- SELL_ONLY -0.3412;
+- COMBINED -0.3650.
+
+A T25 SELL subset averaged +1.229 NET_F10 but had only 10 trades and failed bootstrap, sample-size, annual-count, and concentration requirements.
+
+Therefore:
+- no candidate freeze;
+- no 2025 access;
+- no Exness demo/live advancement;
+- next experiment should add separately preregistered timestamp-safe exogenous context.
+
+See research/EXP-008_FINDINGS.md.
+
+2025 FINAL_OOS remains sealed.
