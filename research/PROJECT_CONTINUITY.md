@@ -808,3 +808,29 @@ Economic policies and advancement gates remain unchanged.
 No EXP-007 empirical result exists yet.
 
 2025 FINAL_OOS remains sealed.
+
+
+## EXP-007 findings
+
+Run 36485293055 completed successfully.
+
+No sequence-model policy passed.
+
+Key result:
+- BUY direct-P&L Pearson -0.0269 and catastrophic positive-tail miscalibration;
+- SELL direct-P&L Pearson +0.0667 but still economically negative;
+- EARLY_FAILURE remains highly rankable (ROC-AUC ~0.88 for both directions);
+- T0 BUY_ONLY mean NET_F10 -3.0200;
+- T0 SELL_ONLY -0.2913;
+- T0 COMBINED -2.3099;
+- downside-gated arms are tiny and negative.
+
+Therefore:
+- no candidate freeze;
+- no 2025 access;
+- no Exness demo/live advancement;
+- next experiment should change target formulation or add separately preregistered exogenous information rather than tune the current CNN.
+
+See research/EXP-007_FINDINGS.md.
+
+2025 FINAL_OOS remains sealed.
