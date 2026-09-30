@@ -1271,3 +1271,26 @@ Next admissible work:
 establish a timestamp-safe exogenous context layer before candidate generation, beginning with scheduled macro-event and session/liquidity data, with cross-market context only if reproducible and causally aligned.
 
 Do not access 2022-2025 yet.
+
+
+---
+
+## D-057 — Admit Badar trading repository as research source
+
+Owner decision:
+Explicitly admit private repository:
+
+alisufyan-ai7/unpack-human-trading-strategies-claude
+
+as a research source for this project.
+
+Boundary:
+- source-layer material outside derived/ may be used as evidence of what Badar said/showed, with its documented uncertainty;
+- derived/ may be used only as Claude interpretation/engineering hypothesis and must never be attributed to Badar;
+- no other private repository/chat/project/account memory is admitted by this decision.
+
+This admission allows future preregistered research to formalize a Badar-Core setup hypothesis.
+
+It does not authorize trading, post-hoc tuning, or opening sealed periods.
+
+See research/ADMITTED_SOURCE_BADAR_TRADING_REPO.md.
