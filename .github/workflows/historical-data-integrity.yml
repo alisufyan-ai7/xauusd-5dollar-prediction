@@ -1483,7 +1483,16 @@ jobs:
             sask="$SYNC/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
             python3 scripts/synchronize_exp002_m1.py "$bid" "$ask" "$sbid" "$sask"
           done
-      - name: Run V4 translation diagnosis
+      - name: Record compact TRAIN data identity
+        run: |
+          mkdir -p data/reports/root-reset-v4
+          {
+            echo "# raw provider files"
+            find data/raw/dukascopy/xauusd/m1-exp002 -type f -name '*.csv' -print0 | sort -z | xargs -0 sha256sum
+            echo "# synchronized files"
+            find data/raw/dukascopy/xauusd/m1-exp002-synchronized -type f -name '*.csv' -print0 | sort -z | xargs -0 sha256sum
+          } > data/reports/root-reset-v4/translation-data-sha256.txt
+      - name: Run frozen V4 reference and translation diagnosis on same TRAIN snapshot
         run: |
           args=()
           for year in $(seq 2016 2021); do
@@ -1492,10 +1501,25 @@ jobs:
             ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
             args+=("$bid" "$ask")
           done
+          python3 scripts/root_reset_v4_badar_core.py "${args[@]}"
           python3 scripts/diagnose_root_reset_v4_translation.py "${args[@]}"
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          v4=json.loads(Path("data/reports/root-reset-v4/badar-core-train.json").read_text())
+          diag=json.loads(Path("data/reports/root-reset-v4/translation-diagnosis.json").read_text())
+          expected=v4["funnel"]["m15_closeback_confirmations"]
+          observed=diag["counts"]["m15_confirmations"]
+          if observed != expected:
+              raise SystemExit(f"V4_UPSTREAM_MISMATCH: reference={expected} diagnosis={observed}")
+          print(json.dumps({"status":"PASS","v4_m15_closebacks":expected,"diagnosis_m15_confirmations":observed}))
+          PY
       - name: Upload compact translation evidence
         uses: actions/upload-artifact@v4
         with:
           name: root-reset-v4-translation-diagnosis
-          path: data/reports/root-reset-v4/translation-diagnosis.json
+          path: |
+            data/reports/root-reset-v4/translation-diagnosis.json
+            data/reports/root-reset-v4/badar-core-train.json
+            data/reports/root-reset-v4/translation-data-sha256.txt
           retention-days: 90
