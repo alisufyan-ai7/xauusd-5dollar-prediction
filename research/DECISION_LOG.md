@@ -1171,3 +1171,27 @@ V2 changes the geometry, not the event sampler:
 - keep 2025 sealed.
 
 2025 remains sealed.
+
+
+---
+
+## D-053 — Raw excursion quantiles are not executable geometry
+
+Decision:
+Close Root-Reset V2 at VALIDATION.
+
+Run 36696884026 completed successfully.
+
+No policy qualified, so 2023-2024 were not accessed.
+
+Key findings:
+- MFE/MAE quantile models have meaningful moderate ranking signal;
+- G50-H is mildly positive but has only 17 trades;
+- G70/G80 targets and stops are too wide relative to realized executable paths;
+- raw upper quantiles should not be used literally as target/stop distances;
+- +$3 breakeven protection helps some wide geometries but hurts G50.
+
+Next:
+perform validation-only excursion calibration diagnosis before defining any V3 policy.
+
+2025 remains sealed.
