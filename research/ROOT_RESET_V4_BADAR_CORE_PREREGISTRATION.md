@@ -370,8 +370,12 @@ SELL:
 - favorable on future ASK lows;
 - adverse on future ASK highs.
 
-Conservative same-bar ordering:
-- if target and stop are both touched in the same M1 bar, count stop first.
+Conservative fill-bar and same-bar ordering:
+- the limit fill is detected from the first executable M1 bar touching the limit;
+- if that fill bar also touches the stop, count an immediate stop;
+- a target touch in the fill bar is ignored because its ordering relative to the limit fill is unknowable;
+- ordinary post-fill path measurement begins with the next M1 bar;
+- on later bars, if target and stop are both touched in the same M1 bar, count stop first.
 
 Report separately for S-STRUCT and S-MICRO:
 - target-before-stop;
