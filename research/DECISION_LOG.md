@@ -1145,3 +1145,29 @@ Next:
 design Reset V2 around joint favorable/adverse excursion prediction and regime-adaptive reward/risk.
 
 Do not access 2023-2024 or 2025 yet.
+
+
+---
+
+## D-052 — Start Root-Reset V2 joint excursion geometry
+
+Decision:
+Start Root-Reset V2 on branch:
+
+research/root-reset-v2-joint-excursion
+
+Reason:
+Reset V1 validation diagnosis showed that fixed stop admissibility was anti-correlated with $5 opportunity quality.
+
+V2 changes the geometry, not the event sampler:
+- predict MFE60 q50/q70/q80;
+- predict MAE60 q50/q70/q80;
+- require MFE q70 >= $5;
+- derive target and stop jointly from predicted excursion quantiles;
+- require TARGET/STOP >= 1.20;
+- compare G50/G70/G80 with HOLD and PROTECT_AT_3 management;
+- validate once on 2022;
+- access 2023-2024 only if a policy qualifies;
+- keep 2025 sealed.
+
+2025 remains sealed.
