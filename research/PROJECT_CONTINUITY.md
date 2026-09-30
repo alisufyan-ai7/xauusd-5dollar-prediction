@@ -914,3 +914,28 @@ VALIDATION 2022 selects one opportunity threshold once.
 DEVELOPMENT_TEST 2023-2024 is accessed only if validation qualification succeeds.
 
 2025 FINAL_OOS remains sealed.
+
+
+## Root-reset V1 result
+
+Run 36629144070: SUCCESS.
+
+Outcome:
+- no opportunity threshold selected;
+- zero qualifying validation trades at 0.50/0.60/0.70/0.80;
+- DEVELOPMENT_TEST 2023-2024 was not accessed;
+- FINAL_OOS 2025 was not accessed.
+
+However, OPPORTUNITY_5 ranking showed meaningful validation signal:
+- BUY ROC-AUC 0.7728 / PR-AUC 0.3421;
+- SELL ROC-AUC 0.7592 / PR-AUC 0.3316.
+
+The likely failure is the intersection of:
+- overly high absolute opportunity-probability thresholds;
+- dynamic-stop reward/risk admissibility;
+- an extremely rare EARLY_DAMAGE veto.
+
+Next step:
+VALIDATION-ONLY gate-overlap diagnosis. Do not alter V1 post hoc.
+
+See research/ROOT_CAUSE_RESET_V1_FINDINGS.md.
