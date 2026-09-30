@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/root-reset-v4-badar-core
-    paths:
-      - ".github/root-reset-v4-badar-core-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -1407,7 +1402,7 @@ jobs:
 
 
   root-reset-v4-badar-core:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'root-reset-v4-badar-core' }}
+    if: ${{ inputs.mode == 'root-reset-v4-badar-core' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
