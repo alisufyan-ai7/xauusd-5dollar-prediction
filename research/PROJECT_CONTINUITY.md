@@ -1106,3 +1106,155 @@ The repo may now support a separately preregistered Badar-Core setup experiment.
 No other private source has been admitted by this decision.
 
 See research/ADMITTED_SOURCE_BADAR_TRADING_REPO.md.
+
+
+## Root-Reset V4 — Badar-Core
+
+Active branch:
+research/root-reset-v4-badar-core
+
+Frozen preregistration:
+research/ROOT_RESET_V4_BADAR_CORE_PREREGISTRATION.md
+
+Implementation:
+scripts/root_reset_v4_badar_core.py
+
+Purpose:
+test whether a source-grounded Badar-style multi-stage entry process materially improves the TRAIN entry population relative to the failed generic price-only setup families.
+
+Key sequence:
+HTF context -> session liquidity -> H1 FVG -> M15 sweep/reclaim -> M5 MSS -> displacement FVG -> retracement entry -> structural liquidity target.
+
+Two stop hypotheses are measured without optimization:
+- S-STRUCT
+- S-MICRO
+
+Data:
+2016-2021 only.
+
+2022-2025 remain untouched unless a future separately preregistered validation is justified by the frozen TRAIN gates.
+
+
+## Root-Reset V4 result
+
+Run 36768684222: SUCCESS.
+
+Result:
+- zero filled trades;
+- no economic evaluation possible;
+- no stop hypothesis passed;
+- no 2022 validation authorized.
+
+Primary funnel bottlenecks:
+- 135 M15 confirmations -> 24 M5 two-close MSS;
+- 24 -> 16 MSS + displacement FVG;
+- 16 -> 3 structural targets >= $5;
+- 3 limit orders -> 0 fills.
+
+Interpretation:
+the V4 deterministic translation is too restrictive before entry and should not be treated as proof against Badar's source method.
+
+Next step:
+TRAIN-only translation diagnosis before any V5.
+
+2022-2025 remain untouched.
+
+See research/ROOT_RESET_V4_BADAR_CORE_FINDINGS.md.
+
+
+## Active work — V4 translation diagnosis
+
+Current branch:
+research/root-reset-v4-badar-core
+
+V4 main result:
+- historical run 36768684222 succeeded;
+- zero filled trades;
+- no economic conclusion about Badar's method;
+- 2022-2025 untouched.
+
+Active next step:
+TRAIN-only translation diagnosis.
+
+Frozen specification:
+research/ROOT_RESET_V4_TRANSLATION_DIAGNOSIS.md
+
+Implementation:
+scripts/diagnose_root_reset_v4_translation.py
+
+The diagnosis keeps V4 frozen through:
+HTF context -> session liquidity -> H1 FVG -> M15 sweep -> M15 close-back.
+
+It then measures:
+- one-close M5 vs two-close M5 MSS;
+- M3/M1 one-close confirmation recovery;
+- direct-close entry vs midpoint-FVG fill;
+- PDH/PDL and H1/H4 swing structural-target availability;
+- the exact V4 gate responsible for excluding the most source-plausible cases.
+
+No profitability policy is selected in this diagnosis.
+
+Research-source boundary:
+- primary project repo: alisufyan-ai7/xauusd-5dollar-prediction
+- explicitly admitted Badar research repo: alisufyan-ai7/unpack-human-trading-strategies-claude
+- in the Badar repo, everything outside derived/ is source evidence; derived/ is Claude interpretation only.
+
+Clean-room boundary remains binding:
+do not use account memory, other chats, other projects, or any other private GitHub repository.
+
+2022, 2023-2024, and 2025 remain sealed/unopened for this stage.
+
+New chats should reconstruct project state from this file, research/DECISION_LOG.md, the active preregistration/diagnosis files, and current GitHub Actions state.
+
+
+## V4 translation diagnosis result
+
+Accepted run:
+36779728544 — SUCCESS.
+
+The run is TRAIN-only (2016-2021) and includes a same-snapshot frozen-V4 reference guard plus compact data SHA-256 identity.
+
+The frozen V4 reference reproduced the original funnel exactly:
+- 1,508 NY dates;
+- 627 M15 liquidity sweeps;
+- 364 active-H1-FVG overlaps;
+- 135 M15 close-back confirmations;
+- 24 M5 two-close MSS;
+- 16 MSS + displacement FVG;
+- 3 session targets >= $5;
+- 3 midpoint orders;
+- 0 fills.
+
+Translation diagnosis:
+- C1 one-close M5 = 33;
+- C2 V4 two-close M5 = 24;
+- C3 one-close M3 = 47;
+- C4 one-close M1 = 83;
+- C1 recovers 9 cases C2 misses;
+- M3 and/or M1 recover 63 cases C2 misses;
+- C2 direct entries = 24;
+- C2 displacement-FVG cases = 16;
+- C2 midpoint fills within 30m = 9;
+- C2 direct entries without midpoint fill = 15/24;
+- C2 cases with session targets < $5 but broader previous-day/H1/H4 target >= $5 = 8/24.
+
+Conclusion:
+V4's zero fills were caused by cumulative translation restriction before economic evaluation. The largest absolute population loss is the two-close M5 confirmation gate, with FVG-midpoint entry and session-only target translation adding further restriction.
+
+No profitability policy was selected.
+No 2022-2025 data were accessed.
+
+See:
+research/ROOT_RESET_V4_TRANSLATION_DIAGNOSIS_FINDINGS.md
+
+## Active next step — source-grounded V5 specification
+
+Do not choose C1/C3/C4, direct entry, or a target family simply because it produced the largest diagnostic population.
+
+Before another economic experiment:
+1. use only the admitted Badar source layer outside derived/;
+2. resolve the deterministic confirmation, entry, target and stop translation from source evidence;
+3. preregister one V5 translation on TRAIN;
+4. only then run a new 2016-2021 experiment.
+
+2022, 2023-2024 and 2025 remain sealed.

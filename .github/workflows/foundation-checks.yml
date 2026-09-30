@@ -14,6 +14,7 @@ on:
       - research/root-reset-event-driven-v1
       - research/root-reset-v2-joint-excursion
       - research/root-reset-v3-setup-screening
+      - research/root-reset-v4-badar-core
   pull_request:
   workflow_dispatch:
 
@@ -107,5 +108,9 @@ jobs:
         run: python -m py_compile scripts/diagnose_root_reset_v2_excursion_calibration.py
       - name: Compile Root-Reset V3 setup screening
         run: python -m py_compile scripts/screen_structural_setup_families.py
+      - name: Compile Root-Reset V4 Badar-Core
+        run: python -m py_compile scripts/root_reset_v4_badar_core.py
+      - name: Compile V4 translation diagnosis
+        run: python -m py_compile scripts/diagnose_root_reset_v4_translation.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
