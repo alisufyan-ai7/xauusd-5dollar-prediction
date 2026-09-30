@@ -41,6 +41,7 @@ on:
           - root-reset-v2-excursion-calibration-diagnosis
           - root-reset-v3-setup-screening
           - root-reset-v4-badar-core
+          - root-reset-v4-translation-diagnosis
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -1445,4 +1446,51 @@ jobs:
         with:
           name: root-reset-v4-badar-core
           path: data/reports/root-reset-v4/badar-core-train.json
+          retention-days: 90
+
+
+  root-reset-v4-translation-diagnosis:
+    if: ${{ inputs.mode == 'root-reset-v4-translation-diagnosis' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install diagnosis dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy pandas
+      - name: Acquire paired BID ASK M1 2016-2021 only
+        run: bash scripts/acquire_exp002_history.sh 2016 2021 data
+      - name: Synchronize BID ASK M1 2016-2021 only
+        run: |
+          RAW="data/raw/dukascopy/xauusd/m1-exp002"
+          SYNC="data/raw/dukascopy/xauusd/m1-exp002-synchronized"
+          mkdir -p "$SYNC/bid" "$SYNC/ask"
+          for year in $(seq 2016 2021); do
+            next=$((year+1))
+            bid="$RAW/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="$RAW/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            sbid="$SYNC/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            sask="$SYNC/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            python3 scripts/synchronize_exp002_m1.py "$bid" "$ask" "$sbid" "$sask"
+          done
+      - name: Run V4 translation diagnosis
+        run: |
+          args=()
+          for year in $(seq 2016 2021); do
+            next=$((year+1))
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            args+=("$bid" "$ask")
+          done
+          python3 scripts/diagnose_root_reset_v4_translation.py "${args[@]}"
+      - name: Upload compact translation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: root-reset-v4-translation-diagnosis
+          path: data/reports/root-reset-v4/translation-diagnosis.json
           retention-days: 90
