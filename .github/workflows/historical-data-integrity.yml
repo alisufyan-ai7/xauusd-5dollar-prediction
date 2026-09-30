@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/root-reset-v2-joint-excursion
-    paths:
-      - ".github/root-reset-v2-joint-excursion-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -1218,7 +1213,7 @@ jobs:
 
 
   root-reset-v2-joint-excursion:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'root-reset-v2-joint-excursion' }}
+    if: ${{ inputs.mode == 'root-reset-v2-joint-excursion' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
