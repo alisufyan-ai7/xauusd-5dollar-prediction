@@ -148,7 +148,7 @@ def main(argv):
                 rec={"year":d.year,"side":side}
                 for name,cx,bars in (("c1",c1,m5),("c2",c2,m5),("c3",c3,m3),("c4",c4,bid)):
                     if not cx or (name=="c2" and not cx.get("mss")):continue
-                    ct=cx["mss_time"] if name=="c2" else cx["time"]
+                    ct=(cx.get("mss_time") or bars.index[int(cx["j"])]) if name=="c2" else cx["time"]
                     direct=executable_direct_entry(side,ct,bid,ask)
                     if direct:
                         ep,et=direct
