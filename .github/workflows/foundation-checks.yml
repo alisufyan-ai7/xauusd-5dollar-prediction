@@ -112,5 +112,7 @@ jobs:
         run: python -m py_compile scripts/root_reset_v4_badar_core.py
       - name: Compile V4 translation diagnosis
         run: python -m py_compile scripts/diagnose_root_reset_v4_translation.py
+      - name: Compile Root-Reset V5 Badar source-fidelity
+        run: python -m py_compile scripts/root_reset_v5_badar_source_fidelity.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
