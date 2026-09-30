@@ -1249,3 +1249,25 @@ Purpose:
 determine whether a mechanically defined entry family materially improves path quality before any further model work.
 
 2022-2025 remain untouched.
+
+
+---
+
+## D-056 — Exhaust price-only setup invention; require new causal information
+
+Decision:
+Do not promote any Root-Reset V3 structural setup family.
+
+TRAIN-only run 36711334369 shows:
+- breakout-retest: 0/6 positive YEAR_PATH_EDGE years;
+- sweep-reclaim: 0/6;
+- impulse-pullback: 0/6;
+- all overall median MFE/MAE ratios are far below 1.10.
+
+Conclusion:
+the current price-only setup search is exhausted.
+
+Next admissible work:
+establish a timestamp-safe exogenous context layer before candidate generation, beginning with scheduled macro-event and session/liquidity data, with cross-market context only if reproducible and causally aligned.
+
+Do not access 2022-2025 yet.
