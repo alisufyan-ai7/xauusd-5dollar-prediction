@@ -108,8 +108,10 @@ def main(argv):
         prevday=None if prev.empty else {"high":float(prev["high"].max()),"low":float(prev["low"].min())}
         for side in ("BUY","SELL"):
             day15=m15.loc[(m15.index>ex0)&(m15.index<=ex1)]
+            filled_for_side=False
+            blocked_until=ex0
             for t,bar in day15.iterrows():
-                if v4.is_news_time(t):continue
+                if filled_for_side or t<blocked_until or v4.is_news_time(t):continue
                 s1=v4.lookup_row(sth1,t);s4=v4.lookup_row(sth4,t);sd=v4.lookup_row(std1,t)
                 if s1 is None or s4 is None or sd is None:continue
                 h1v,h4v,d1v=int(s1["state"]),int(s4["state"]),int(sd["state"])
@@ -164,6 +166,30 @@ def main(argv):
                                              "targets":target_distances(side,mid,asian,london,prevday,sth1,sth4,ct)}
                             counts[name+"_mid_fills"]+=1
                 rows.append(rec)
+
+                # Preserve V4 candidate-spacing semantics exactly. Although this
+                # diagnosis changes only logic after M15 close-back, V4 blocks
+                # subsequent M15 candidates while its frozen downstream attempt
+                # is active. Reproduce that blocking so the diagnosed M15 set is
+                # the same V4 set (135 confirmations in the reference run).
+                if c2 is None or not c2.get("mss") or not c2.get("fvg"):
+                    blocked_until=exp
+                    continue
+                v4_entry=float(c2["limit"])
+                v4_target=v4.nearest_target(side,v4_entry,asian,london)
+                if v4_target is None:
+                    blocked_until=exp
+                    continue
+                v4_target_dist=(v4_target-v4_entry) if side=="BUY" else (v4_entry-v4_target)
+                if v4_target_dist<5.0:
+                    blocked_until=exp
+                    continue
+                v4_order_end=min(c2["mss_time"]+pd.Timedelta(minutes=30),ex1)
+                v4_fill=v4.first_limit_fill(side,v4_entry,bid,ask,c2["mss_time"],v4_order_end)
+                if v4_fill is None:
+                    blocked_until=v4_order_end
+                    continue
+                filled_for_side=True
         d+=timedelta(days=1)
 
     report={"status":"PASS","diagnosis":"ROOT_RESET_V4_TRANSLATION","scope":"TRAIN_2016_2021_ONLY",
