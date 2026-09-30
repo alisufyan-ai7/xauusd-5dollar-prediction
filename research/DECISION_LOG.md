@@ -1386,3 +1386,48 @@ Purpose:
 measure where V4 diverged from source-observed Badar execution before defining any V5.
 
 The next chat/session must read GitHub continuity and decision files instead of relying on prior chat memory.
+
+
+---
+
+## D-061 — V4 translation diagnosis confirms pre-entry source-fidelity bottlenecks
+
+Accepted TRAIN-only diagnosis run:
+
+36779728544
+
+The accepted run used a same-snapshot reproducibility guard:
+- reacquire/synchronize 2016-2021 only;
+- run frozen V4 reference and the diagnosis sequentially on the same files;
+- assert identical M15 close-back population;
+- retain compact raw/synchronized SHA-256 identities.
+
+The frozen V4 reference reproduced the original funnel exactly, including:
+- 627 M15 sweeps;
+- 364 active-H1-FVG overlaps;
+- 135 M15 close-back confirmations;
+- 24 two-close M5 MSS;
+- 16 MSS + displacement FVG;
+- 3 session targets >= $5;
+- 0 fills.
+
+Diagnosis findings from the same 135 confirmations:
+- one-close M5: 33 confirmations, recovering 9 cases missed by V4 C2;
+- one-close M3: 47;
+- one-close M1: 83;
+- M3 and/or M1 recover 63 cases where V4 C2 is absent;
+- for V4 C2, direct-close entry exists in 24 cases, while only 9 midpoint fills occur among 16 FVG cases;
+- 15/24 C2 direct entries exist when the midpoint entry does not fill;
+- 8/24 C2 direct entries have all session targets < $5 but at least one broader previous-day/H1/H4 structural target >= $5.
+
+Decision:
+Do not select a profitability policy or mechanically choose the diagnostic alternative with the largest population.
+
+The largest absolute translation loss after frozen M15 close-back is the two-close M5 MSS gate (135 -> 24), while mandatory displacement-FVG/midpoint entry and session-only >=$5 targeting compound the restriction later.
+
+Interpret V4 zero fills as a translation-coverage failure before economic evaluation, not an economic rejection of Badar's source method.
+
+Next:
+define one V5 translation from the admitted Badar source layer using evidence strength and observed execution practice rather than diagnostic outcome counts, preregister it before any TRAIN economic run, and keep 2022-2025 sealed.
+
+See research/ROOT_RESET_V4_TRANSLATION_DIAGNOSIS_FINDINGS.md.
