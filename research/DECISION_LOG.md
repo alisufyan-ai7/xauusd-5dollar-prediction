@@ -1062,3 +1062,86 @@ Next:
 test a separately preregistered timestamp-safe exogenous information source rather than continue reformulating the same price-only state.
 
 2025 remains sealed.
+
+
+---
+
+## D-049 — Root-cause reset to event-driven dynamic trade management
+
+Decision:
+Stop extending the EXP-001→EXP-008 minute-by-minute fixed-barrier lineage.
+
+Start root reset on branch:
+
+research/root-reset-event-driven-v1
+
+Core corrections:
+- event-driven CUSUM continuation candidates instead of every-minute scoring;
+- direct $5 attainability target via executable MFE_60;
+- regime/structure-adaptive initial stop;
+- retain downside-risk veto;
+- treat +$3 as a management trigger, not automatically the final target;
+- compare HOLD_TO_5, BE_AT_3, and TAKE_3;
+- keep 2025 sealed.
+
+Dynamic stop:
+max(
+  trailing 15-minute structure invalidation + 0.25 * ATR15_PROXY,
+  1.5 * ATR15_PROXY
+)
+
+Reject candidate if initial stop exceeds $5/1.5 = $3.333333....
+
+Opportunity threshold:
+choose once on VALIDATION 2022 from {0.50,0.60,0.70,0.80};
+requires >=100 executed validation trades and positive mean NET_F10 under HOLD_TO_5.
+
+If no validation threshold qualifies, do not access DEVELOPMENT_TEST.
+
+2025 remains sealed.
+
+
+---
+
+## D-050 — Reset V1 stops at validation; diagnose gate intersection
+
+Decision:
+Close Root-Cause Reset V1 at VALIDATION.
+
+Run 36629144070 succeeded technically but selected no opportunity threshold.
+
+No DEVELOPMENT_TEST access occurred.
+
+Important finding:
+- event-driven OPPORTUNITY_5 ranking is meaningful (BUY ROC-AUC 0.773, SELL 0.759);
+- zero trades qualified because the frozen combined gate was too restrictive;
+- absolute opportunity thresholds started at 0.50 despite ~12.8% base rate;
+- about half of events fail the $3.333 stop-admissibility cap;
+- redesigned EARLY_DAMAGE is only ~0.6% prevalent and its Q50 cutoff is extremely small.
+
+Next:
+perform validation-only gate-overlap diagnosis before specifying V2.
+
+Do not access 2023-2024 or 2025 during that diagnosis.
+
+
+---
+
+## D-051 — Dynamic stop cap conflicts with $5 opportunity ranking
+
+Decision:
+Do not proceed to DEVELOPMENT_TEST with Reset V1.
+
+Validation-only diagnosis run 36687708188 shows:
+- OPPORTUNITY_5 ranking is strongly monotonic and useful;
+- the frozen stop-admissibility rule is anti-correlated with opportunity quality;
+- high-score events are high-volatility events with both larger MFE and larger MAE;
+- the $3.333 stop cap removes almost all top-decile opportunities;
+- early-damage veto is secondary and weak for SELL.
+
+Therefore the fixed minimum-$5 / 1.5R geometry is itself a root-cause error.
+
+Next:
+design Reset V2 around joint favorable/adverse excursion prediction and regime-adaptive reward/risk.
+
+Do not access 2023-2024 or 2025 yet.

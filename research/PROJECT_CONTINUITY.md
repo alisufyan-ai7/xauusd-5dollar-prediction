@@ -886,3 +886,79 @@ Therefore:
 See research/EXP-008_FINDINGS.md.
 
 2025 FINAL_OOS remains sealed.
+
+
+## Root-cause reset — event-driven dynamic trade management V1
+
+Active branch:
+research/root-reset-event-driven-v1
+
+Frozen design:
+research/ROOT_CAUSE_RESET_V1.md
+
+Purpose:
+correct the trading formulation rather than continue tuning models.
+
+Changes:
+- score only event-driven continuation candidates;
+- model probability that executable MFE_60 reaches at least $5;
+- derive initial stop from structure + 15-minute volatility;
+- reject trades whose dynamic stop makes minimum $5 reward/risk < 1.5;
+- use a downside-risk veto;
+- compare:
+  - M0 HOLD_TO_5
+  - M1 BE_AT_3
+  - M2 TAKE_3
+
+VALIDATION 2022 selects one opportunity threshold once.
+DEVELOPMENT_TEST 2023-2024 is accessed only if validation qualification succeeds.
+
+2025 FINAL_OOS remains sealed.
+
+
+## Root-reset V1 result
+
+Run 36629144070: SUCCESS.
+
+Outcome:
+- no opportunity threshold selected;
+- zero qualifying validation trades at 0.50/0.60/0.70/0.80;
+- DEVELOPMENT_TEST 2023-2024 was not accessed;
+- FINAL_OOS 2025 was not accessed.
+
+However, OPPORTUNITY_5 ranking showed meaningful validation signal:
+- BUY ROC-AUC 0.7728 / PR-AUC 0.3421;
+- SELL ROC-AUC 0.7592 / PR-AUC 0.3316.
+
+The likely failure is the intersection of:
+- overly high absolute opportunity-probability thresholds;
+- dynamic-stop reward/risk admissibility;
+- an extremely rare EARLY_DAMAGE veto.
+
+Next step:
+VALIDATION-ONLY gate-overlap diagnosis. Do not alter V1 post hoc.
+
+See research/ROOT_CAUSE_RESET_V1_FINDINGS.md.
+
+
+## Root-reset V1 gate-overlap result
+
+Corrected diagnosis run 36687708188: SUCCESS.
+
+No DEVELOPMENT_TEST or FINAL_OOS access occurred.
+
+Core result:
+- opportunity ranking is useful;
+- stop admissibility is the dominant bottleneck;
+- stop-admissible validation events have only ~5.2% $5-opportunity rate;
+- stop-rejected events have ~20% $5-opportunity rate;
+- top opportunity decile has ~40-42% $5 attainment but virtually zero stop admissibility.
+
+Thus the fixed $3.333 maximum stop, derived from a fixed $5 / 1.5R geometry, selects quiet low-opportunity states and rejects the high-volatility states where $5 moves actually occur.
+
+Next:
+Root-Reset V2 should jointly model attainable favorable excursion and adverse excursion / structural invalidation, then derive dynamic reward/risk.
+
+See research/ROOT_RESET_V1_GATE_OVERLAP_FINDINGS.md.
+
+2023-2024 and 2025 remain untouched.
