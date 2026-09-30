@@ -1133,3 +1133,30 @@ Data:
 2016-2021 only.
 
 2022-2025 remain untouched unless a future separately preregistered validation is justified by the frozen TRAIN gates.
+
+
+## Root-Reset V4 result
+
+Run 36768684222: SUCCESS.
+
+Result:
+- zero filled trades;
+- no economic evaluation possible;
+- no stop hypothesis passed;
+- no 2022 validation authorized.
+
+Primary funnel bottlenecks:
+- 135 M15 confirmations -> 24 M5 two-close MSS;
+- 24 -> 16 MSS + displacement FVG;
+- 16 -> 3 structural targets >= $5;
+- 3 limit orders -> 0 fills.
+
+Interpretation:
+the V4 deterministic translation is too restrictive before entry and should not be treated as proof against Badar's source method.
+
+Next step:
+TRAIN-only translation diagnosis before any V5.
+
+2022-2025 remain untouched.
+
+See research/ROOT_RESET_V4_BADAR_CORE_FINDINGS.md.
