@@ -1106,3 +1106,30 @@ The repo may now support a separately preregistered Badar-Core setup experiment.
 No other private source has been admitted by this decision.
 
 See research/ADMITTED_SOURCE_BADAR_TRADING_REPO.md.
+
+
+## Root-Reset V4 — Badar-Core
+
+Active branch:
+research/root-reset-v4-badar-core
+
+Frozen preregistration:
+research/ROOT_RESET_V4_BADAR_CORE_PREREGISTRATION.md
+
+Implementation:
+scripts/root_reset_v4_badar_core.py
+
+Purpose:
+test whether a source-grounded Badar-style multi-stage entry process materially improves the TRAIN entry population relative to the failed generic price-only setup families.
+
+Key sequence:
+HTF context -> session liquidity -> H1 FVG -> M15 sweep/reclaim -> M5 MSS -> displacement FVG -> retracement entry -> structural liquidity target.
+
+Two stop hypotheses are measured without optimization:
+- S-STRUCT
+- S-MICRO
+
+Data:
+2016-2021 only.
+
+2022-2025 remain untouched unless a future separately preregistered validation is justified by the frozen TRAIN gates.
