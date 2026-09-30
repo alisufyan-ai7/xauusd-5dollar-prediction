@@ -962,3 +962,33 @@ Root-Reset V2 should jointly model attainable favorable excursion and adverse ex
 See research/ROOT_RESET_V1_GATE_OVERLAP_FINDINGS.md.
 
 2023-2024 and 2025 remain untouched.
+
+
+## Root-Reset V2 — joint excursion dynamic reward/risk
+
+Active branch:
+research/root-reset-v2-joint-excursion
+
+Frozen specification:
+research/ROOT_RESET_V2_PREREGISTRATION.md
+
+Core change:
+replace the fixed stop ceiling with jointly predicted favorable/adverse excursion quantiles.
+
+Models:
+- MFE60 q50/q70/q80;
+- MAE60 q50/q70/q80.
+
+Eligibility:
+- MFE q70 >= $5;
+- central adverse estimate not greater than central favorable estimate;
+- dynamic TARGET/STOP >= 1.20.
+
+Policies:
+- G50-H / G50-B3
+- G70-H / G70-B3
+- G80-H / G80-B3
+
+2022 validation selects at most one policy.
+2023-2024 are accessed only if one qualifies.
+2025 remains sealed.
