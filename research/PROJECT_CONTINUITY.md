@@ -939,3 +939,26 @@ Next step:
 VALIDATION-ONLY gate-overlap diagnosis. Do not alter V1 post hoc.
 
 See research/ROOT_CAUSE_RESET_V1_FINDINGS.md.
+
+
+## Root-reset V1 gate-overlap result
+
+Corrected diagnosis run 36687708188: SUCCESS.
+
+No DEVELOPMENT_TEST or FINAL_OOS access occurred.
+
+Core result:
+- opportunity ranking is useful;
+- stop admissibility is the dominant bottleneck;
+- stop-admissible validation events have only ~5.2% $5-opportunity rate;
+- stop-rejected events have ~20% $5-opportunity rate;
+- top opportunity decile has ~40-42% $5 attainment but virtually zero stop admissibility.
+
+Thus the fixed $3.333 maximum stop, derived from a fixed $5 / 1.5R geometry, selects quiet low-opportunity states and rejects the high-volatility states where $5 moves actually occur.
+
+Next:
+Root-Reset V2 should jointly model attainable favorable excursion and adverse excursion / structural invalidation, then derive dynamic reward/risk.
+
+See research/ROOT_RESET_V1_GATE_OVERLAP_FINDINGS.md.
+
+2023-2024 and 2025 remain untouched.
