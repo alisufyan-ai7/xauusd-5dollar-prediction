@@ -1217,3 +1217,80 @@ the remaining root cause is setup/entry quality, not primarily target or stop ca
 Next admissible research must change the setup family and/or add genuinely new timestamp-safe information before candidate generation.
 
 Do not access 2023-2024 or 2025.
+
+
+---
+
+## D-055 — Screen distinct structural setup families before new modeling
+
+Decision:
+Start Root-Reset V3 as a TRAIN-only setup-family screening milestone.
+
+Branch:
+research/root-reset-v3-setup-screening
+
+Families:
+- A_BREAKOUT_RETEST
+- B_SWEEP_RECLAIM
+- C_IMPULSE_PULLBACK
+
+Scope:
+- synchronized XAUUSD BID/ASK M1;
+- 2016-2021 only;
+- no ML model;
+- no stop/target optimization;
+- no 2022-2025 access.
+
+Selection:
+a family must first pass frozen minimum count, yearly stability, positive path-edge, and MFE/MAE criteria.
+If multiple pass, use the frozen minimum-year-edge ranking.
+
+Purpose:
+determine whether a mechanically defined entry family materially improves path quality before any further model work.
+
+2022-2025 remain untouched.
+
+
+---
+
+## D-056 — Exhaust price-only setup invention; require new causal information
+
+Decision:
+Do not promote any Root-Reset V3 structural setup family.
+
+TRAIN-only run 36711334369 shows:
+- breakout-retest: 0/6 positive YEAR_PATH_EDGE years;
+- sweep-reclaim: 0/6;
+- impulse-pullback: 0/6;
+- all overall median MFE/MAE ratios are far below 1.10.
+
+Conclusion:
+the current price-only setup search is exhausted.
+
+Next admissible work:
+establish a timestamp-safe exogenous context layer before candidate generation, beginning with scheduled macro-event and session/liquidity data, with cross-market context only if reproducible and causally aligned.
+
+Do not access 2022-2025 yet.
+
+
+---
+
+## D-057 — Admit Badar trading repository as research source
+
+Owner decision:
+Explicitly admit private repository:
+
+alisufyan-ai7/unpack-human-trading-strategies-claude
+
+as a research source for this project.
+
+Boundary:
+- source-layer material outside derived/ may be used as evidence of what Badar said/showed, with its documented uncertainty;
+- derived/ may be used only as Claude interpretation/engineering hypothesis and must never be attributed to Badar;
+- no other private repository/chat/project/account memory is admitted by this decision.
+
+This admission allows future preregistered research to formalize a Badar-Core setup hypothesis.
+
+It does not authorize trading, post-hoc tuning, or opening sealed periods.
+
+See research/ADMITTED_SOURCE_BADAR_TRADING_REPO.md.

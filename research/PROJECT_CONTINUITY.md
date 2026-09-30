@@ -1039,3 +1039,70 @@ Therefore:
 See research/ROOT_RESET_V2_EXCURSION_CALIBRATION_FINDINGS.md.
 
 2023-2024 and 2025 remain untouched.
+
+
+## Root-Reset V3 — structural setup family screening
+
+Active branch:
+research/root-reset-v3-setup-screening
+
+Frozen specification:
+research/ROOT_RESET_V3_SETUP_SCREENING.md
+
+TRAIN-only screening of:
+- breakout-retest continuation;
+- sweep-reclaim reversal;
+- impulse-pullback continuation.
+
+Data:
+2016-2021 only.
+
+No validation, development-test, or FINAL_OOS access is allowed.
+
+No model fitting occurs in this milestone.
+
+The output selects at most one setup family for a future separately frozen 2022 validation experiment.
+
+2022-2025 remain untouched.
+
+
+## Root-Reset V3 screening result
+
+Run 36711334369: SUCCESS.
+
+No family selected.
+
+TRAIN-only 2016-2021:
+- A_BREAKOUT_RETEST: 0/6 positive yearly path-edge years;
+- B_SWEEP_RECLAIM: 0/6;
+- C_IMPULSE_PULLBACK: 0/6.
+
+All families have median MFE60 below median MAE60 and fail the frozen stability requirements.
+
+Therefore:
+- no 2022 validation access;
+- no more price-only pattern invention;
+- next work must add genuinely new timestamp-safe causal context before entry generation.
+
+See research/ROOT_RESET_V3_SETUP_SCREENING_FINDINGS.md.
+
+2022-2025 remain untouched.
+
+
+## Newly admitted research source — Badar repository
+
+Owner explicitly admitted:
+
+alisufyan-ai7/unpack-human-trading-strategies-claude
+
+for use in this project.
+
+Use its provenance boundary:
+- outside derived/ = source layer documenting what Badar said/showed;
+- derived/ = Claude interpretation only.
+
+The repo may now support a separately preregistered Badar-Core setup experiment.
+
+No other private source has been admitted by this decision.
+
+See research/ADMITTED_SOURCE_BADAR_TRADING_REPO.md.
