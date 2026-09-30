@@ -97,5 +97,7 @@ jobs:
         run: python -m py_compile scripts/exp008_competing_hazard_v1.py
       - name: Compile root reset event-driven V1
         run: python -m py_compile scripts/root_reset_event_driven_v1.py
+      - name: Compile root-reset V1 gate-overlap diagnosis
+        run: python -m py_compile scripts/diagnose_root_reset_v1_gates.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
