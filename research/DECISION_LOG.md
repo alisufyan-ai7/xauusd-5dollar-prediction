@@ -1331,3 +1331,32 @@ No ML.
 No post-hoc parameter tuning.
 
 See research/ROOT_RESET_V4_BADAR_CORE_PREREGISTRATION.md.
+
+
+---
+
+## D-059 — V4 translation too restrictive before entry
+
+Run 36768684222 completed successfully.
+
+V4 produced:
+- 1,508 NY dates;
+- 627 M15 liquidity sweeps;
+- 364 sweeps at active H1 FVG;
+- 135 M15 close-back confirmations;
+- 24 M5 two-close MSS;
+- 16 MSS + displacement FVG;
+- 3 candidates with structural target >= $5;
+- 3 midpoint limit orders;
+- 0 fills.
+
+Decision:
+Do not interpret V4 as an economic failure of Badar's method.
+The deterministic translation became too restrictive before entry.
+
+Next:
+perform a TRAIN-only translation diagnosis comparing source-observed execution alternatives
+(one-close/M3/M1 confirmation, direct-close versus retracement entry, and broader structural liquidity targets)
+without touching 2022-2025.
+
+Do not loosen V4 post hoc.
