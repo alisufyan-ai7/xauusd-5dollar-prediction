@@ -1160,3 +1160,48 @@ TRAIN-only translation diagnosis before any V5.
 2022-2025 remain untouched.
 
 See research/ROOT_RESET_V4_BADAR_CORE_FINDINGS.md.
+
+
+## Active work — V4 translation diagnosis
+
+Current branch:
+research/root-reset-v4-badar-core
+
+V4 main result:
+- historical run 36768684222 succeeded;
+- zero filled trades;
+- no economic conclusion about Badar's method;
+- 2022-2025 untouched.
+
+Active next step:
+TRAIN-only translation diagnosis.
+
+Frozen specification:
+research/ROOT_RESET_V4_TRANSLATION_DIAGNOSIS.md
+
+Implementation:
+scripts/diagnose_root_reset_v4_translation.py
+
+The diagnosis keeps V4 frozen through:
+HTF context -> session liquidity -> H1 FVG -> M15 sweep -> M15 close-back.
+
+It then measures:
+- one-close M5 vs two-close M5 MSS;
+- M3/M1 one-close confirmation recovery;
+- direct-close entry vs midpoint-FVG fill;
+- PDH/PDL and H1/H4 swing structural-target availability;
+- the exact V4 gate responsible for excluding the most source-plausible cases.
+
+No profitability policy is selected in this diagnosis.
+
+Research-source boundary:
+- primary project repo: alisufyan-ai7/xauusd-5dollar-prediction
+- explicitly admitted Badar research repo: alisufyan-ai7/unpack-human-trading-strategies-claude
+- in the Badar repo, everything outside derived/ is source evidence; derived/ is Claude interpretation only.
+
+Clean-room boundary remains binding:
+do not use account memory, other chats, other projects, or any other private GitHub repository.
+
+2022, 2023-2024, and 2025 remain sealed/unopened for this stage.
+
+New chats should reconstruct project state from this file, research/DECISION_LOG.md, the active preregistration/diagnosis files, and current GitHub Actions state.
