@@ -81,6 +81,14 @@ BUY and SELL share the same family cooldown.
 
 This prevents one market episode from producing many adjacent pseudo-opportunities.
 
+## Stateful setup semantics
+
+For Family A and Family C:
+- maintain at most one pending BUY setup and one pending SELL setup at a time;
+- while a direction has a pending setup, ignore new triggers of that same direction;
+- the pending setup ends only by confirmation, explicit invalidation, or window expiry;
+- an accepted candidate activates the family-level 15-minute cooldown for both directions.
+
 # Family A — Breakout-Retest Continuation
 
 ## Breakout level
