@@ -1258,3 +1258,39 @@ Before another economic experiment:
 4. only then run a new 2016-2021 experiment.
 
 2022, 2023-2024 and 2025 remain sealed.
+
+
+## Root-Reset V5 — Badar A+ source-fidelity
+
+Active branch:
+research/root-reset-v5-badar-source-fidelity
+
+Frozen preregistration:
+research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_PREREGISTRATION.md
+
+Decision record:
+D-062
+
+Purpose:
+translate the admitted Badar S01/A+ setup more faithfully after V4's pre-entry coverage failure, without selecting rules by diagnostic candidate count.
+
+Frozen upstream through M15 close-back remains V4-identical.
+
+Frozen V5 execution after M15 close-back:
+- one-close MSS on M5/M3;
+- first causal valid MSS + clean displacement FVG wins, with M5 tie priority;
+- no M1 MSS;
+- FVG remains mandatory;
+- resting entry at FVG proximal/start edge, not midpoint;
+- structural stop beyond the sweep only;
+- final target from causally known previous-day/H1/H4 liquidity;
+- require target distance >= $5 and target/stop RR >= 3;
+- no direct-close entry, no OB alternative, no micro stop, no partials/BE/trailing.
+
+Data:
+2016-2021 synchronized BID/ASK M1 only.
+
+2022 validation, 2023-2024 development test, and 2025 FINAL_OOS remain sealed.
+
+Next implementation step:
+create scripts/root_reset_v5_badar_source_fidelity.py and a manual historical-data-integrity workflow mode, then run TRAIN once under the frozen specification and record the funnel/economic result.
