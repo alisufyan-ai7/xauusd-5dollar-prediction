@@ -1294,3 +1294,40 @@ This admission allows future preregistered research to formalize a Badar-Core se
 It does not authorize trading, post-hoc tuning, or opening sealed periods.
 
 See research/ADMITTED_SOURCE_BADAR_TRADING_REPO.md.
+
+
+---
+
+## D-058 — Start source-grounded Badar-Core TRAIN experiment
+
+Decision:
+Start Root-Reset V4 on branch:
+
+research/root-reset-v4-badar-core
+
+Source basis:
+the owner-admitted repository
+alisufyan-ai7/unpack-human-trading-strategies-claude
+
+Only its source layer is used to define the experiment.
+Claude-derived rulebook/defaults are excluded.
+
+V4 tests one narrow deterministic translation:
+- H1-led HTF directional context;
+- frozen Asian/London session liquidity;
+- active H1 FVG location;
+- M15 liquidity sweep + close back inside;
+- M5 two-close MSS;
+- displacement FVG;
+- midpoint retracement limit entry;
+- nearest opposing session liquidity target >= $5;
+- structural and micro stop hypotheses measured separately.
+
+Scope:
+TRAIN 2016-2021 only.
+
+No 2022-2025 access.
+No ML.
+No post-hoc parameter tuning.
+
+See research/ROOT_RESET_V4_BADAR_CORE_PREREGISTRATION.md.
