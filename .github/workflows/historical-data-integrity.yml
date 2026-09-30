@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/root-reset-event-driven-v1
+    paths:
+      - ".github/root-reset-v1-gate-overlap-diagnosis-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -1126,7 +1131,7 @@ jobs:
 
 
   root-reset-v1-gate-overlap-diagnosis:
-    if: ${{ inputs.mode == 'root-reset-v1-gate-overlap-diagnosis' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'root-reset-v1-gate-overlap-diagnosis' }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
