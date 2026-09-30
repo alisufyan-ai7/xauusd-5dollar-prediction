@@ -168,9 +168,24 @@ def main(argv):
 
     report={"status":"PASS","diagnosis":"ROOT_RESET_V4_TRANSLATION","scope":"TRAIN_2016_2021_ONLY",
             "validation_accessed":False,"development_test_accessed":False,"final_oos":"NOT_ACCESSED",
-            "counts":dict(counts),"target_summaries":{}}
+            "counts":dict(counts),"target_summaries":{},"entry_observability":{}}
     for name in ("c1_direct","c1_mid","c2_direct","c2_mid","c3_direct","c3_mid","c4_direct","c4_mid"):
         report["target_summaries"][name]=summarize_targets(rows,name)
+    for name in ("c1","c2","c3","c4"):
+        direct_n=sum(1 for r in rows if r.get(name+"_direct"))
+        fvg_n=int(counts.get(name+"_with_fvg",0))
+        mid_fill_n=int(counts.get(name+"_mid_fills",0))
+        waits=[float(r[name+"_mid"]["wait_minutes"]) for r in rows if r.get(name+"_mid")]
+        direct_without_mid=sum(1 for r in rows if r.get(name+"_direct") and not r.get(name+"_mid"))
+        report["entry_observability"][name]={
+          "direct_entries":direct_n,
+          "fvg_available":fvg_n,
+          "midpoint_fills":mid_fill_n,
+          "midpoint_fill_rate":float(mid_fill_n/fvg_n) if fvg_n else None,
+          "median_wait_to_midpoint_fill_minutes":float(np.median(waits)) if waits else None,
+          "direct_entry_without_midpoint_fill":direct_without_mid,
+          "direct_entry_without_midpoint_fill_share":float(direct_without_mid/direct_n) if direct_n else None,
+        }
     # broader-target recovery: direct entries where max broader >=5 and max session <5
     for name in ("c1_direct","c2_direct","c3_direct","c4_direct"):
         n=0;tot=0
