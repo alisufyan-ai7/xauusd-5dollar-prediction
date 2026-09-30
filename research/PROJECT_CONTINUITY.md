@@ -1087,3 +1087,22 @@ Therefore:
 See research/ROOT_RESET_V3_SETUP_SCREENING_FINDINGS.md.
 
 2022-2025 remain untouched.
+
+
+## Newly admitted research source — Badar repository
+
+Owner explicitly admitted:
+
+alisufyan-ai7/unpack-human-trading-strategies-claude
+
+for use in this project.
+
+Use its provenance boundary:
+- outside derived/ = source layer documenting what Badar said/showed;
+- derived/ = Claude interpretation only.
+
+The repo may now support a separately preregistered Badar-Core setup experiment.
+
+No other private source has been admitted by this decision.
+
+See research/ADMITTED_SOURCE_BADAR_TRADING_REPO.md.
