@@ -105,6 +105,13 @@ Executable entries and adverse/favorable paths use BID/ASK correctly.
 
 No incomplete higher-timeframe candle may be used.
 
+Deterministic bar alignment/completeness:
+- M5/M15/H1 bars are UTC-clock aligned and require exactly 5/15/60 synchronized M1 rows;
+- H4 bars are UTC-clock aligned at 00:00/04:00/08:00/12:00/16:00/20:00 and require four complete H1 bars;
+- D1 bars use UTC calendar days and require at least 20 complete H1 bars;
+- an incomplete bar is omitted from structure/FVG logic;
+- these UTC D1/H4 alignments are project operationalizations, not attributed to Badar.
+
 ## Higher-timeframe directional context
 
 Use a deterministic two-close BOS state separately on D1, H4, and H1.
@@ -320,12 +327,14 @@ SELL:
 ### S-MICRO — live-style micro execution invalidation
 
 BUY:
-- stop = minimum BID low from the first M5 MSS close through the entry-triggering FVG creation bars
+- stop = minimum BID low across the two completed M5 bars that form the required two-close MSS confirmation
   - 0.05*ATR15_PROXY.
 
 SELL:
-- stop = maximum ASK high over the analogous interval
+- stop = maximum ASK high across those same two M5 confirmation bars
   + 0.05*ATR15_PROXY.
+
+The M5 displacement FVG must be created no later than the second MSS-close bar; the micro stop therefore uses information fully known at MSS completion.
 
 If either stop is on the wrong side of entry or distance <= 0:
 - that stop hypothesis is invalid for the candidate.
