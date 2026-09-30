@@ -1123,3 +1123,25 @@ Next:
 perform validation-only gate-overlap diagnosis before specifying V2.
 
 Do not access 2023-2024 or 2025 during that diagnosis.
+
+
+---
+
+## D-051 — Dynamic stop cap conflicts with $5 opportunity ranking
+
+Decision:
+Do not proceed to DEVELOPMENT_TEST with Reset V1.
+
+Validation-only diagnosis run 36687708188 shows:
+- OPPORTUNITY_5 ranking is strongly monotonic and useful;
+- the frozen stop-admissibility rule is anti-correlated with opportunity quality;
+- high-score events are high-volatility events with both larger MFE and larger MAE;
+- the $3.333 stop cap removes almost all top-decile opportunities;
+- early-damage veto is secondary and weak for SELL.
+
+Therefore the fixed minimum-$5 / 1.5R geometry is itself a root-cause error.
+
+Next:
+design Reset V2 around joint favorable/adverse excursion prediction and regime-adaptive reward/risk.
+
+Do not access 2023-2024 or 2025 yet.
