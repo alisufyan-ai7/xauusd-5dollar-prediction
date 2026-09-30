@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/root-reset-v4-badar-core
+    paths:
+      - ".github/root-reset-v4-translation-diagnosis-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -1450,7 +1455,7 @@ jobs:
 
 
   root-reset-v4-translation-diagnosis:
-    if: ${{ inputs.mode == 'root-reset-v4-translation-diagnosis' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'root-reset-v4-translation-diagnosis' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
