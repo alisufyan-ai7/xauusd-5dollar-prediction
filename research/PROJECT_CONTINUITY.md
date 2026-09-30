@@ -1017,3 +1017,25 @@ Next:
 validation-only excursion calibration diagnosis; no 2023-2024 or 2025 access.
 
 See research/ROOT_RESET_V2_FINDINGS.md.
+
+
+## V2 excursion calibration result
+
+Run 36700831693: SUCCESS.
+
+No DEVELOPMENT_TEST or FINAL_OOS access occurred.
+
+Key result:
+- MFE q70 needs substantial shrinkage (~0.54-0.61);
+- MFE q80 needs even more (~0.39-0.45);
+- MAE q50 is reasonably calibrated and better than structural invalidation as a risk anchor;
+- after calibration, median reward/risk is still below 1 for the continuation-event population.
+
+Therefore:
+- do not create V3 by shrinkage alone;
+- continuation event entry quality is the remaining bottleneck;
+- next work must change setup family and/or introduce new timestamp-safe information before candidate generation.
+
+See research/ROOT_RESET_V2_EXCURSION_CALIBRATION_FINDINGS.md.
+
+2023-2024 and 2025 remain untouched.
