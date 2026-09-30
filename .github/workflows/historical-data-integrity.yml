@@ -37,6 +37,7 @@ on:
           - exp008-competing-hazard-v1
           - root-reset-event-driven-v1
           - root-reset-v1-gate-overlap-diagnosis
+          - root-reset-v2-joint-excursion
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -1208,4 +1209,57 @@ jobs:
           path: |
             data/manifests/exp002-bidask-m1-manifest.json
             data/reports/root-reset/gate-overlap-diagnosis.json
+          retention-days: 90
+
+
+  root-reset-v2-joint-excursion:
+    if: ${{ inputs.mode == 'root-reset-v2-joint-excursion' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scipy scikit-learn
+      - name: Acquire paired BID ASK M1 2016-2024
+        run: bash scripts/acquire_exp002_history.sh 2016 2024 data
+      - name: Build executable partitions
+        run: bash scripts/run_exp002_labeling.sh data
+      - name: Build BASE48 causal features
+        run: |
+          mkdir -p data/features/root-reset-v2-base data/features/root-reset-v2
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            base="data/features/root-reset-v2-base/features-${year}.csv"
+            out="data/features/root-reset-v2/features-${year}.csv"
+            python3 scripts/build_features.py "$bid" "$base"
+            python3 scripts/augment_features_exp002.py "$bid" "$ask" "$base" "$out"
+          done
+      - name: Run Root-Reset V2
+        run: |
+          mkdir -p data/reports/root-reset-v2
+          args=()
+          for year in $(seq 2016 2024); do
+            next=$((year+1))
+            pp="data/partitioned/exp002/partitioned-${year}.csv"
+            fp="data/features/root-reset-v2/features-${year}.csv"
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            args+=("$pp" "$fp" "$bid" "$ask")
+          done
+          python3 scripts/root_reset_v2_joint_excursion.py             data/reports/root-reset-v2/joint-excursion.json "${args[@]}"
+      - name: Upload compact V2 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: root-reset-v2-joint-excursion
+          path: |
+            data/manifests/exp002-bidask-m1-manifest.json
+            data/reports/root-reset-v2/joint-excursion.json
           retention-days: 90
