@@ -1145,3 +1145,75 @@ Next:
 design Reset V2 around joint favorable/adverse excursion prediction and regime-adaptive reward/risk.
 
 Do not access 2023-2024 or 2025 yet.
+
+
+---
+
+## D-052 — Start Root-Reset V2 joint excursion geometry
+
+Decision:
+Start Root-Reset V2 on branch:
+
+research/root-reset-v2-joint-excursion
+
+Reason:
+Reset V1 validation diagnosis showed that fixed stop admissibility was anti-correlated with $5 opportunity quality.
+
+V2 changes the geometry, not the event sampler:
+- predict MFE60 q50/q70/q80;
+- predict MAE60 q50/q70/q80;
+- require MFE q70 >= $5;
+- derive target and stop jointly from predicted excursion quantiles;
+- require TARGET/STOP >= 1.20;
+- compare G50/G70/G80 with HOLD and PROTECT_AT_3 management;
+- validate once on 2022;
+- access 2023-2024 only if a policy qualifies;
+- keep 2025 sealed.
+
+2025 remains sealed.
+
+
+---
+
+## D-053 — Raw excursion quantiles are not executable geometry
+
+Decision:
+Close Root-Reset V2 at VALIDATION.
+
+Run 36696884026 completed successfully.
+
+No policy qualified, so 2023-2024 were not accessed.
+
+Key findings:
+- MFE/MAE quantile models have meaningful moderate ranking signal;
+- G50-H is mildly positive but has only 17 trades;
+- G70/G80 targets and stops are too wide relative to realized executable paths;
+- raw upper quantiles should not be used literally as target/stop distances;
+- +$3 breakeven protection helps some wide geometries but hurts G50.
+
+Next:
+perform validation-only excursion calibration diagnosis before defining any V3 policy.
+
+2025 remains sealed.
+
+
+---
+
+## D-054 — Continuation entry quality is the remaining bottleneck
+
+Decision:
+Do not define a V3 by merely shrinking excursion predictions or loosening reward/risk gates.
+
+Validation-only calibration run 36700831693 shows:
+- MFE q70 requires ~0.54-0.61 shrinkage to match median attainable reward;
+- MFE q80 requires ~0.39-0.45 shrinkage;
+- MAE q50 is already well calibrated as central adverse excursion;
+- structural invalidation is not a better risk anchor;
+- calibrated median reward/risk remains below 1 across the continuation-event population.
+
+Conclusion:
+the remaining root cause is setup/entry quality, not primarily target or stop calibration.
+
+Next admissible research must change the setup family and/or add genuinely new timestamp-safe information before candidate generation.
+
+Do not access 2023-2024 or 2025.

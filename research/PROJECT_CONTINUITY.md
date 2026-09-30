@@ -962,3 +962,80 @@ Root-Reset V2 should jointly model attainable favorable excursion and adverse ex
 See research/ROOT_RESET_V1_GATE_OVERLAP_FINDINGS.md.
 
 2023-2024 and 2025 remain untouched.
+
+
+## Root-Reset V2 — joint excursion dynamic reward/risk
+
+Active branch:
+research/root-reset-v2-joint-excursion
+
+Frozen specification:
+research/ROOT_RESET_V2_PREREGISTRATION.md
+
+Core change:
+replace the fixed stop ceiling with jointly predicted favorable/adverse excursion quantiles.
+
+Models:
+- MFE60 q50/q70/q80;
+- MAE60 q50/q70/q80.
+
+Eligibility:
+- MFE q70 >= $5;
+- central adverse estimate not greater than central favorable estimate;
+- dynamic TARGET/STOP >= 1.20.
+
+Policies:
+- G50-H / G50-B3
+- G70-H / G70-B3
+- G80-H / G80-B3
+
+2022 validation selects at most one policy.
+2023-2024 are accessed only if one qualifies.
+2025 remains sealed.
+
+
+## Root-Reset V2 result
+
+Run 36696884026: SUCCESS.
+
+Outcome:
+- no validation policy qualified;
+- DEVELOPMENT_TEST 2023-2024 was not accessed;
+- FINAL_OOS 2025 was not accessed.
+
+Excursion models showed moderate signal:
+- MFE q70 Pearson ~0.39 BUY / ~0.41 SELL;
+- MAE q70 Pearson ~0.40 BUY / ~0.46 SELL.
+
+But raw quantile geometry was too optimistic:
+- G70 mean target ~$7.4 vs realized median MFE ~$3.5;
+- G80 mean target ~$7.9 vs realized median MFE ~$4.1.
+
+G50-H was mildly positive (+0.124 NET_F10, PF 1.059) but only 17 trades and therefore inadmissible.
+
+Next:
+validation-only excursion calibration diagnosis; no 2023-2024 or 2025 access.
+
+See research/ROOT_RESET_V2_FINDINGS.md.
+
+
+## V2 excursion calibration result
+
+Run 36700831693: SUCCESS.
+
+No DEVELOPMENT_TEST or FINAL_OOS access occurred.
+
+Key result:
+- MFE q70 needs substantial shrinkage (~0.54-0.61);
+- MFE q80 needs even more (~0.39-0.45);
+- MAE q50 is reasonably calibrated and better than structural invalidation as a risk anchor;
+- after calibration, median reward/risk is still below 1 for the continuation-event population.
+
+Therefore:
+- do not create V3 by shrinkage alone;
+- continuation event entry quality is the remaining bottleneck;
+- next work must change setup family and/or introduce new timestamp-safe information before candidate generation.
+
+See research/ROOT_RESET_V2_EXCURSION_CALIBRATION_FINDINGS.md.
+
+2023-2024 and 2025 remain untouched.
