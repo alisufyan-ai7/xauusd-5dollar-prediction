@@ -1,6 +1,11 @@
 name: historical-data-integrity
 
 on:
+  push:
+    branches:
+      - research/root-reset-v3-setup-screening
+    paths:
+      - ".github/root-reset-v3-setup-screening-trigger-rerun"
   workflow_dispatch:
     inputs:
       mode:
@@ -1354,7 +1359,7 @@ jobs:
 
 
   root-reset-v3-setup-screening:
-    if: ${{ inputs.mode == 'root-reset-v3-setup-screening' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'root-reset-v3-setup-screening' }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
