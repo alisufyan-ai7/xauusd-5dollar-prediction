@@ -1039,3 +1039,28 @@ Therefore:
 See research/ROOT_RESET_V2_EXCURSION_CALIBRATION_FINDINGS.md.
 
 2023-2024 and 2025 remain untouched.
+
+
+## Root-Reset V3 — structural setup family screening
+
+Active branch:
+research/root-reset-v3-setup-screening
+
+Frozen specification:
+research/ROOT_RESET_V3_SETUP_SCREENING.md
+
+TRAIN-only screening of:
+- breakout-retest continuation;
+- sweep-reclaim reversal;
+- impulse-pullback continuation.
+
+Data:
+2016-2021 only.
+
+No validation, development-test, or FINAL_OOS access is allowed.
+
+No model fitting occurs in this milestone.
+
+The output selects at most one setup family for a future separately frozen 2022 validation experiment.
+
+2022-2025 remain untouched.
