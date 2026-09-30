@@ -1195,3 +1195,25 @@ Next:
 perform validation-only excursion calibration diagnosis before defining any V3 policy.
 
 2025 remains sealed.
+
+
+---
+
+## D-054 — Continuation entry quality is the remaining bottleneck
+
+Decision:
+Do not define a V3 by merely shrinking excursion predictions or loosening reward/risk gates.
+
+Validation-only calibration run 36700831693 shows:
+- MFE q70 requires ~0.54-0.61 shrinkage to match median attainable reward;
+- MFE q80 requires ~0.39-0.45 shrinkage;
+- MAE q50 is already well calibrated as central adverse excursion;
+- structural invalidation is not a better risk anchor;
+- calibrated median reward/risk remains below 1 across the continuation-event population.
+
+Conclusion:
+the remaining root cause is setup/entry quality, not primarily target or stop calibration.
+
+Next admissible research must change the setup family and/or add genuinely new timestamp-safe information before candidate generation.
+
+Do not access 2023-2024 or 2025.
