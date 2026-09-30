@@ -1064,3 +1064,26 @@ No model fitting occurs in this milestone.
 The output selects at most one setup family for a future separately frozen 2022 validation experiment.
 
 2022-2025 remain untouched.
+
+
+## Root-Reset V3 screening result
+
+Run 36711334369: SUCCESS.
+
+No family selected.
+
+TRAIN-only 2016-2021:
+- A_BREAKOUT_RETEST: 0/6 positive yearly path-edge years;
+- B_SWEEP_RECLAIM: 0/6;
+- C_IMPULSE_PULLBACK: 0/6.
+
+All families have median MFE60 below median MAE60 and fail the frozen stability requirements.
+
+Therefore:
+- no 2022 validation access;
+- no more price-only pattern invention;
+- next work must add genuinely new timestamp-safe causal context before entry generation.
+
+See research/ROOT_RESET_V3_SETUP_SCREENING_FINDINGS.md.
+
+2022-2025 remain untouched.
