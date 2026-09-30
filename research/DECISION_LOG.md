@@ -1217,3 +1217,35 @@ the remaining root cause is setup/entry quality, not primarily target or stop ca
 Next admissible research must change the setup family and/or add genuinely new timestamp-safe information before candidate generation.
 
 Do not access 2023-2024 or 2025.
+
+
+---
+
+## D-055 — Screen distinct structural setup families before new modeling
+
+Decision:
+Start Root-Reset V3 as a TRAIN-only setup-family screening milestone.
+
+Branch:
+research/root-reset-v3-setup-screening
+
+Families:
+- A_BREAKOUT_RETEST
+- B_SWEEP_RECLAIM
+- C_IMPULSE_PULLBACK
+
+Scope:
+- synchronized XAUUSD BID/ASK M1;
+- 2016-2021 only;
+- no ML model;
+- no stop/target optimization;
+- no 2022-2025 access.
+
+Selection:
+a family must first pass frozen minimum count, yearly stability, positive path-edge, and MFE/MAE criteria.
+If multiple pass, use the frozen minimum-year-edge ranking.
+
+Purpose:
+determine whether a mechanically defined entry family materially improves path quality before any further model work.
+
+2022-2025 remain untouched.
