@@ -1366,7 +1366,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install screening dependencies
-        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scikit-learn
       - name: Acquire paired BID ASK M1 2016-2021 only
         run: bash scripts/acquire_exp002_history.sh 2016 2021 data
       - name: Synchronize BID ASK M1 2016-2021 only
