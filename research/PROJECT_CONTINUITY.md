@@ -1205,3 +1205,56 @@ do not use account memory, other chats, other projects, or any other private Git
 2022, 2023-2024, and 2025 remain sealed/unopened for this stage.
 
 New chats should reconstruct project state from this file, research/DECISION_LOG.md, the active preregistration/diagnosis files, and current GitHub Actions state.
+
+
+## V4 translation diagnosis result
+
+Accepted run:
+36779728544 — SUCCESS.
+
+The run is TRAIN-only (2016-2021) and includes a same-snapshot frozen-V4 reference guard plus compact data SHA-256 identity.
+
+The frozen V4 reference reproduced the original funnel exactly:
+- 1,508 NY dates;
+- 627 M15 liquidity sweeps;
+- 364 active-H1-FVG overlaps;
+- 135 M15 close-back confirmations;
+- 24 M5 two-close MSS;
+- 16 MSS + displacement FVG;
+- 3 session targets >= $5;
+- 3 midpoint orders;
+- 0 fills.
+
+Translation diagnosis:
+- C1 one-close M5 = 33;
+- C2 V4 two-close M5 = 24;
+- C3 one-close M3 = 47;
+- C4 one-close M1 = 83;
+- C1 recovers 9 cases C2 misses;
+- M3 and/or M1 recover 63 cases C2 misses;
+- C2 direct entries = 24;
+- C2 displacement-FVG cases = 16;
+- C2 midpoint fills within 30m = 9;
+- C2 direct entries without midpoint fill = 15/24;
+- C2 cases with session targets < $5 but broader previous-day/H1/H4 target >= $5 = 8/24.
+
+Conclusion:
+V4's zero fills were caused by cumulative translation restriction before economic evaluation. The largest absolute population loss is the two-close M5 confirmation gate, with FVG-midpoint entry and session-only target translation adding further restriction.
+
+No profitability policy was selected.
+No 2022-2025 data were accessed.
+
+See:
+research/ROOT_RESET_V4_TRANSLATION_DIAGNOSIS_FINDINGS.md
+
+## Active next step — source-grounded V5 specification
+
+Do not choose C1/C3/C4, direct entry, or a target family simply because it produced the largest diagnostic population.
+
+Before another economic experiment:
+1. use only the admitted Badar source layer outside derived/;
+2. resolve the deterministic confirmation, entry, target and stop translation from source evidence;
+3. preregister one V5 translation on TRAIN;
+4. only then run a new 2016-2021 experiment.
+
+2022, 2023-2024 and 2025 remain sealed.
