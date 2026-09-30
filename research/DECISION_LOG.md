@@ -1099,3 +1099,27 @@ requires >=100 executed validation trades and positive mean NET_F10 under HOLD_T
 If no validation threshold qualifies, do not access DEVELOPMENT_TEST.
 
 2025 remains sealed.
+
+
+---
+
+## D-050 — Reset V1 stops at validation; diagnose gate intersection
+
+Decision:
+Close Root-Cause Reset V1 at VALIDATION.
+
+Run 36629144070 succeeded technically but selected no opportunity threshold.
+
+No DEVELOPMENT_TEST access occurred.
+
+Important finding:
+- event-driven OPPORTUNITY_5 ranking is meaningful (BUY ROC-AUC 0.773, SELL 0.759);
+- zero trades qualified because the frozen combined gate was too restrictive;
+- absolute opportunity thresholds started at 0.50 despite ~12.8% base rate;
+- about half of events fail the $3.333 stop-admissibility cap;
+- redesigned EARLY_DAMAGE is only ~0.6% prevalent and its Q50 cutoff is extremely small.
+
+Next:
+perform validation-only gate-overlap diagnosis before specifying V2.
+
+Do not access 2023-2024 or 2025 during that diagnosis.
