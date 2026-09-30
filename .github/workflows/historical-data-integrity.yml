@@ -38,6 +38,7 @@ on:
           - root-reset-event-driven-v1
           - root-reset-v1-gate-overlap-diagnosis
           - root-reset-v2-joint-excursion
+          - root-reset-v2-excursion-calibration-diagnosis
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -1262,4 +1263,90 @@ jobs:
           path: |
             data/manifests/exp002-bidask-m1-manifest.json
             data/reports/root-reset-v2/joint-excursion.json
+          retention-days: 90
+
+
+  root-reset-v2-excursion-calibration-diagnosis:
+    if: ${{ inputs.mode == 'root-reset-v2-excursion-calibration-diagnosis' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install modeling dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy scipy scikit-learn
+      - name: Acquire paired BID ASK M1 2016-2022 only
+        run: bash scripts/acquire_exp002_history.sh 2016 2022 data
+      - name: Build executable partitions through 2022 only
+        run: |
+          RAW="data/raw/dukascopy/xauusd/m1-exp002"
+          SYNC="data/raw/dukascopy/xauusd/m1-exp002-synchronized"
+          LAB="data/labels/exp002"
+          PART="data/partitioned/exp002"
+          mkdir -p "$SYNC/bid" "$SYNC/ask" "$LAB" "$PART"
+
+          for year in $(seq 2016 2022); do
+            next=$((year+1))
+            bid="$RAW/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="$RAW/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            sbid="$SYNC/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            sask="$SYNC/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            labels="$LAB/labels-${year}.csv"
+            partitioned="$PART/partitioned-${year}.csv"
+
+            python3 scripts/synchronize_exp002_m1.py "$bid" "$ask" "$sbid" "$sask"
+
+            if [[ "$year" -le 2021 ]]; then
+              n2=$((next+1))
+              nb="$SYNC/bid/xauusd-${next}-01-01-${n2}-01-01-m1-bid.csv"
+              na="$SYNC/ask/xauusd-${next}-01-01-${n2}-01-01-m1-ask.csv"
+              if [[ ! -f "$nb" || ! -f "$na" ]]; then
+                raw_nb="$RAW/bid/xauusd-${next}-01-01-${n2}-01-01-m1-bid.csv"
+                raw_na="$RAW/ask/xauusd-${next}-01-01-${n2}-01-01-m1-ask.csv"
+                python3 scripts/synchronize_exp002_m1.py "$raw_nb" "$raw_na" "$nb" "$na"
+              fi
+              python3 scripts/label_exp002.py "$sbid" "$sask" "$labels" "$nb" "$na"
+            else
+              python3 scripts/label_exp002.py "$sbid" "$sask" "$labels"
+            fi
+
+            python3 scripts/partition_exp001.py "$labels" "$partitioned"
+          done
+      - name: Build BASE48 causal features through 2022 only
+        run: |
+          mkdir -p data/features/root-reset-v2-diag-base data/features/root-reset-v2-diag
+          for year in $(seq 2016 2022); do
+            next=$((year+1))
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            base="data/features/root-reset-v2-diag-base/features-${year}.csv"
+            out="data/features/root-reset-v2-diag/features-${year}.csv"
+            python3 scripts/build_features.py "$bid" "$base"
+            python3 scripts/augment_features_exp002.py "$bid" "$ask" "$base" "$out"
+          done
+      - name: Run validation-only excursion calibration diagnosis
+        run: |
+          mkdir -p data/reports/root-reset-v2
+          args=()
+          for year in $(seq 2016 2022); do
+            next=$((year+1))
+            pp="data/partitioned/exp002/partitioned-${year}.csv"
+            fp="data/features/root-reset-v2-diag/features-${year}.csv"
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            args+=("$pp" "$fp" "$bid" "$ask")
+          done
+          python3 scripts/diagnose_root_reset_v2_excursion_calibration.py             data/reports/root-reset-v2/excursion-calibration-diagnosis.json "${args[@]}"
+      - name: Upload compact diagnosis evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: root-reset-v2-excursion-calibration-diagnosis
+          path: |
+            data/manifests/exp002-bidask-m1-manifest.json
+            data/reports/root-reset-v2/excursion-calibration-diagnosis.json
           retention-days: 90
