@@ -992,3 +992,28 @@ Policies:
 2022 validation selects at most one policy.
 2023-2024 are accessed only if one qualifies.
 2025 remains sealed.
+
+
+## Root-Reset V2 result
+
+Run 36696884026: SUCCESS.
+
+Outcome:
+- no validation policy qualified;
+- DEVELOPMENT_TEST 2023-2024 was not accessed;
+- FINAL_OOS 2025 was not accessed.
+
+Excursion models showed moderate signal:
+- MFE q70 Pearson ~0.39 BUY / ~0.41 SELL;
+- MAE q70 Pearson ~0.40 BUY / ~0.46 SELL.
+
+But raw quantile geometry was too optimistic:
+- G70 mean target ~$7.4 vs realized median MFE ~$3.5;
+- G80 mean target ~$7.9 vs realized median MFE ~$4.1.
+
+G50-H was mildly positive (+0.124 NET_F10, PF 1.059) but only 17 trades and therefore inadmissible.
+
+Next:
+validation-only excursion calibration diagnosis; no 2023-2024 or 2025 access.
+
+See research/ROOT_RESET_V2_FINDINGS.md.
