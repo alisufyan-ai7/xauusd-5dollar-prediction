@@ -102,5 +102,7 @@ jobs:
         run: python -m py_compile scripts/diagnose_root_reset_v1_gates.py
       - name: Compile Root-Reset V2 joint excursion
         run: python -m py_compile scripts/root_reset_v2_joint_excursion.py
+      - name: Compile V2 excursion calibration diagnosis
+        run: python -m py_compile scripts/diagnose_root_reset_v2_excursion_calibration.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
