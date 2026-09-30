@@ -85,10 +85,19 @@ For each NY trading day:
 Execution window:
 - 09:00 through 10:30 America/New_York local time.
 
+Fixed news-time exclusion:
+- do not accept a confirmation bar ending from 09:55 through 10:10 New York time.
+- This is a conservative time-only exclusion for common 10:00 US releases; V4 does not yet use a historical event calendar.
+
 Rationale:
 Badar teaches the first 2-3 hours after session opens as active windows, while the admitted live observations show most NY live entries occurred 09:00-10:30 NY.
 
 No candidate outside this window.
+
+Session-range completeness:
+- Asian and London ranges each require at least 95% of their expected M1 minutes;
+- no internal synchronized-data gap may exceed 5 minutes;
+- otherwise that NY date is excluded.
 
 ## Causal bars
 
@@ -322,7 +331,10 @@ BUY:
 - stop = sweep extreme low - 0.05*ATR15_PROXY.
 
 SELL:
-- stop = sweep extreme high + 0.05*ATR15_PROXY.
+- stop = maximum executable ASK high during the confirming M15 sweep interval + 0.05*ATR15_PROXY.
+
+BUY structural sweep extreme uses BID low because a long stop liquidates on BID.
+SELL uses ASK high because a short stop liquidates on ASK.
 
 ### S-MICRO — live-style micro execution invalidation
 
@@ -370,6 +382,10 @@ Report separately for S-STRUCT and S-MICRO:
 
 Time exit:
 - executable opposite-side close at horizon.
+
+Post-entry path validity:
+- every analyzed M1 minute must be present in the synchronized BID/ASK series;
+- any >1-minute gap before the relevant horizon invalidates that horizon for the candidate.
 
 No break-even, trailing, partials, re-entry, or discretionary early exit in V4.
 
