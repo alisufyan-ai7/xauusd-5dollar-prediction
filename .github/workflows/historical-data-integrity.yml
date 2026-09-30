@@ -39,6 +39,7 @@ on:
           - root-reset-v1-gate-overlap-diagnosis
           - root-reset-v2-joint-excursion
           - root-reset-v2-excursion-calibration-diagnosis
+          - root-reset-v3-setup-screening
       checkpoint_run_id:
         description: "Workflow run ID containing exp001-v2-research-checkpoint"
         required: false
@@ -1349,4 +1350,51 @@ jobs:
           path: |
             data/manifests/exp002-bidask-m1-manifest.json
             data/reports/root-reset-v2/excursion-calibration-diagnosis.json
+          retention-days: 90
+
+
+  root-reset-v3-setup-screening:
+    if: ${{ inputs.mode == 'root-reset-v3-setup-screening' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install screening dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy
+      - name: Acquire paired BID ASK M1 2016-2021 only
+        run: bash scripts/acquire_exp002_history.sh 2016 2021 data
+      - name: Synchronize BID ASK M1 2016-2021 only
+        run: |
+          RAW="data/raw/dukascopy/xauusd/m1-exp002"
+          SYNC="data/raw/dukascopy/xauusd/m1-exp002-synchronized"
+          mkdir -p "$SYNC/bid" "$SYNC/ask"
+          for year in $(seq 2016 2021); do
+            next=$((year+1))
+            bid="$RAW/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="$RAW/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            sbid="$SYNC/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            sask="$SYNC/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            python3 scripts/synchronize_exp002_m1.py "$bid" "$ask" "$sbid" "$sask"
+          done
+      - name: Run TRAIN-only structural setup screening
+        run: |
+          args=()
+          for year in $(seq 2016 2021); do
+            next=$((year+1))
+            bid="data/raw/dukascopy/xauusd/m1-exp002-synchronized/bid/xauusd-${year}-01-01-${next}-01-01-m1-bid.csv"
+            ask="data/raw/dukascopy/xauusd/m1-exp002-synchronized/ask/xauusd-${year}-01-01-${next}-01-01-m1-ask.csv"
+            args+=("$bid" "$ask")
+          done
+          python3 scripts/screen_structural_setup_families.py "${args[@]}"
+      - name: Upload compact V3 screening evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: root-reset-v3-setup-screening
+          path: data/reports/root-reset-v3/setup-family-screening.json
           retention-days: 90
