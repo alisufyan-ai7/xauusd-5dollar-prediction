@@ -1360,3 +1360,29 @@ perform a TRAIN-only translation diagnosis comparing source-observed execution a
 without touching 2022-2025.
 
 Do not loosen V4 post hoc.
+
+
+---
+
+## D-060 — Run TRAIN-only V4 translation diagnosis
+
+Decision:
+After V4 produced zero fills because its deterministic translation became too restrictive before entry, run a separate TRAIN-only translation diagnosis.
+
+Frozen diagnosis:
+research/ROOT_RESET_V4_TRANSLATION_DIAGNOSIS.md
+
+Implementation:
+scripts/diagnose_root_reset_v4_translation.py
+
+Scope:
+- 2016-2021 only;
+- reuse V4 unchanged through M15 sweep + close-back confirmation;
+- diagnose one-close M5, one-close M3, one-close M1, direct-close entry versus FVG-midpoint fill, and broader structural target availability;
+- no P&L-based policy selection;
+- no 2022-2025 access.
+
+Purpose:
+measure where V4 diverged from source-observed Badar execution before defining any V5.
+
+The next chat/session must read GitHub continuity and decision files instead of relying on prior chat memory.
