@@ -1431,3 +1431,49 @@ Next:
 define one V5 translation from the admitted Badar source layer using evidence strength and observed execution practice rather than diagnostic outcome counts, preregister it before any TRAIN economic run, and keep 2022-2025 sealed.
 
 See research/ROOT_RESET_V4_TRANSLATION_DIAGNOSIS_FINDINGS.md.
+
+
+---
+
+## D-062 — Freeze Root-Reset V5 Badar A+ source-fidelity translation
+
+Decision:
+Start Root-Reset V5 on branch:
+
+research/root-reset-v5-badar-source-fidelity
+
+Frozen preregistration:
+research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_PREREGISTRATION.md
+
+Reason:
+D-061 showed that V4 failed before economic evaluation because its mechanical translation added restrictive choices that were not uniquely required by the admitted Badar source layer.
+
+V5 is resolved from source evidence rather than from whichever V4 diagnostic branch produced the most candidates.
+
+Key frozen changes after the unchanged V4 M15 close-back stage:
+- use source-valid one-close MSS on M5/M3;
+- allow M3 as the documented fallback execution timeframe;
+- still require a clean displacement FVG;
+- enter at the FVG proximal/start edge rather than its midpoint;
+- use only the taught structural stop beyond the sweep;
+- use a final HTF liquidity target from previous-day/H1/H4 structure;
+- require target distance >= $5 and structural target/stop RR >= 3;
+- do not use M1/direct-close merely because those variants had greater diagnostic coverage;
+- retain V4-style low-frequency candidate spacing and TRAIN-only advancement gates.
+
+Source basis:
+- notes/videos/dOdvKLaBPaA.md
+- notes/videos/6en-a8-p48w.md
+- notes/videos/CzyCyduZqOk.md
+- notes/videos/TYY0aNKVnZ8.md
+- PLAYBOOK.md S01
+- LIVE_TRADING_OBSERVATIONS.md only as supporting observed-practice evidence, without overriding the taught A+ sequence.
+
+Scope:
+- 2016-2021 TRAIN only;
+- no ML;
+- no post-hoc threshold search;
+- 2022-2025 remain sealed.
+
+Next:
+implement the frozen V5 specification, add a manual historical workflow mode, run it once on 2016-2021, inspect the funnel/economics, and record the result before any further formulation change.
