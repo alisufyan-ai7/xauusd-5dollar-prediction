@@ -1339,3 +1339,42 @@ measure whether the mandatory V4/V5 conjunction of session-liquidity sweep + act
 The audit is diagnostic only and should compare source-supported location families without selecting a profitability winner.
 
 2022, 2023-2024 and 2025 remain sealed.
+
+
+## Intelligent-system information audit
+
+Decision record:
+D-064
+
+Audit:
+research/INTELLIGENT_SYSTEM_INFORMATION_AUDIT.md
+
+Result:
+the project is not yet information-comparable to Badar's observed decision environment.
+
+Available now:
+- XAUUSD M1 BID/ASK OHLCV from Dukascopy;
+- spread and executable-side semantics;
+- multi-timeframe price-derived state;
+- session/timing state;
+- causal PDH/PDL, swing and FVG building blocks;
+- 2026 Exness read-only tick data for later forward broker calibration.
+
+Important unused information already present:
+- Dukascopy M1 volume.
+
+Important missing channels:
+- DXY intraday;
+- US-yield intraday;
+- historical macro calendar and release surprise state;
+- unified source-faithful liquidity/location representation;
+- broader fundamental regime;
+- explicit scenario/confidence state;
+- trade/account/risk state.
+
+Active next step:
+preregister and build Information Parity Layer V1 before another profitability model or strategy experiment.
+
+Then run information-channel ablations and a Badar decision-recognition benchmark. Only if richer information materially improves the representation should one new economic policy experiment be frozen.
+
+2022-2025 remain unopened for this new milestone.
