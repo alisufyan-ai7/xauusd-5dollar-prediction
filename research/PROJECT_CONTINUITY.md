@@ -1294,3 +1294,48 @@ Data:
 
 Next implementation step:
 create scripts/root_reset_v5_badar_source_fidelity.py and a manual historical-data-integrity workflow mode, then run TRAIN once under the frozen specification and record the funnel/economic result.
+
+
+## Root-Reset V5 result
+
+Accepted historical run:
+36783834169 — SUCCESS.
+
+Scope:
+2016-2021 TRAIN only.
+
+Key funnel:
+- 1,546 NY dates;
+- 656 M15 liquidity sweeps;
+- 369 active-H1-FVG overlaps;
+- 137 M15 close-back confirmations;
+- 39 source-valid M5/M3 MSS + FVG triggers;
+- 21 targets >= $5;
+- 9 target/stop RR >= 3;
+- 9 proximal-edge orders;
+- 6 fills.
+
+Advancement:
+- entry population pass: FALSE;
+- structural stop pass: FALSE;
+- future 2022 validation preregistration: NOT AUTHORIZED.
+
+Important formulation finding:
+the frozen >=180 filled-trade gate could not be reached because the retained V4 upstream sampler itself generated only 137 M15 close-back confirmations over all six TRAIN years.
+
+Therefore do not lower the gate or tune downstream rules post hoc.
+
+See:
+research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_FINDINGS.md
+
+## Active next step — TRAIN-only source-location coverage audit
+
+Decision record:
+D-063
+
+Purpose:
+measure whether the mandatory V4/V5 conjunction of session-liquidity sweep + active H1 FVG is substantially narrower than Badar's admitted source-layer concept of trading from a marked liquidity/location zone.
+
+The audit is diagnostic only and should compare source-supported location families without selecting a profitability winner.
+
+2022, 2023-2024 and 2025 remain sealed.
