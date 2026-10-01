@@ -1431,3 +1431,156 @@ Next:
 define one V5 translation from the admitted Badar source layer using evidence strength and observed execution practice rather than diagnostic outcome counts, preregister it before any TRAIN economic run, and keep 2022-2025 sealed.
 
 See research/ROOT_RESET_V4_TRANSLATION_DIAGNOSIS_FINDINGS.md.
+
+
+---
+
+## D-062 — Freeze Root-Reset V5 Badar A+ source-fidelity translation
+
+Decision:
+Start Root-Reset V5 on branch:
+
+research/root-reset-v5-badar-source-fidelity
+
+Frozen preregistration:
+research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_PREREGISTRATION.md
+
+Reason:
+D-061 showed that V4 failed before economic evaluation because its mechanical translation added restrictive choices that were not uniquely required by the admitted Badar source layer.
+
+V5 is resolved from source evidence rather than from whichever V4 diagnostic branch produced the most candidates.
+
+Key frozen changes after the unchanged V4 M15 close-back stage:
+- use source-valid one-close MSS on M5/M3;
+- allow M3 as the documented fallback execution timeframe;
+- still require a clean displacement FVG;
+- enter at the FVG proximal/start edge rather than its midpoint;
+- use only the taught structural stop beyond the sweep;
+- use a final HTF liquidity target from previous-day/H1/H4 structure;
+- require target distance >= $5 and structural target/stop RR >= 3;
+- do not use M1/direct-close merely because those variants had greater diagnostic coverage;
+- retain V4-style low-frequency candidate spacing and TRAIN-only advancement gates.
+
+Source basis:
+- notes/videos/dOdvKLaBPaA.md
+- notes/videos/6en-a8-p48w.md
+- notes/videos/CzyCyduZqOk.md
+- notes/videos/TYY0aNKVnZ8.md
+- PLAYBOOK.md S01
+- LIVE_TRADING_OBSERVATIONS.md only as supporting observed-practice evidence, without overriding the taught A+ sequence.
+
+Scope:
+- 2016-2021 TRAIN only;
+- no ML;
+- no post-hoc threshold search;
+- 2022-2025 remain sealed.
+
+Next:
+implement the frozen V5 specification, add a manual historical workflow mode, run it once on 2016-2021, inspect the funnel/economics, and record the result before any further formulation change.
+
+
+---
+
+## D-063 — Stop V5 at TRAIN; audit upstream source-location coverage before V6
+
+Accepted run:
+36783834169
+
+Result:
+- V5 completed successfully on 2016-2021 TRAIN only;
+- 137 M15 close-back confirmations;
+- 39 source-valid M5/M3 MSS + displacement-FVG triggers;
+- 21 triggers with structural target distance >= $5;
+- 9 with target/structural-stop RR >= 3;
+- 9 proximal-edge orders;
+- 6 fills;
+- entry-population gate failed;
+- structural-stop gate failed;
+- no 2022 validation authorized.
+
+Critical design finding:
+V5 reused the >=180 filled-trade advancement gate, but its unchanged V4 upstream sampler produced only 137 M15 close-back confirmations in total. Therefore the count gate was mathematically unreachable even under perfect downstream conversion.
+
+Decision:
+Do not lower the count gate post hoc and do not tune downstream entry/target parameters to manufacture more trades.
+
+The next scientific step is a TRAIN-only source-location coverage audit focused on whether V4/V5's mandatory session-liquidity sweep + active H1 FVG conjunction is materially narrower than Badar's admitted source-layer location map.
+
+The audit may compare source-supported location/liquidity families descriptively, including session liquidity, PDH/PDL, confirmed H4 swing liquidity, and active H1/H4 FVGs. OB/breaker logic may be included only if a deterministic definition can be frozen from source evidence without arbitrary tuning.
+
+No profitability-policy selection.
+No 2022-2025 access.
+
+See research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_FINDINGS.md.
+
+
+---
+
+## D-064 — Pause new strategy/model experiments until information parity is built
+
+Decision:
+Do not continue the V6 rule-translation loop or start another price-dominant model yet.
+
+Reason:
+An information audit against the admitted Badar source layer shows that the current project is not information-complete even relative to Badar's observed decision environment.
+
+The project currently has strong XAUUSD historical BID/ASK price/spread data and many price-derived features, but is missing or not using several channels Badar demonstrably consults:
+- raw M1 volume exists but is not represented in the main intelligence feature layer;
+- DXY intraday context is absent;
+- US-yield context is absent;
+- timestamp-safe macro-event schedules and release surprises are absent;
+- richer liquidity/location-map state is fragmented rather than unified;
+- scenario/confidence state and trade/account state are not represented;
+- exact historical Exness microstructure before 2026 is unavailable from the probed server.
+
+Decision boundary:
+Prior negative experiments show that the tested price-only/price-dominant representations did not produce robust executable edge. They do not establish that a richer intelligent system cannot match or outperform a skilled discretionary trader.
+
+Next milestone:
+Design and preregister an Information Parity Layer V1 before training any new profitability model.
+
+Minimum information package:
+1. XAUUSD causal BID/ASK sequence + volume + multi-timeframe structure + spread/session/liquidity state;
+2. intraday DXY/USD context;
+3. intraday US-yield/rate context;
+4. timestamp-safe macro-event schedule and, where reproducible, actual/forecast/surprise;
+5. participation/microstructure state;
+6. separate trade/account/risk state.
+
+After parity:
+run a finite Badar-decision recognition and information-channel ablation benchmark before freezing one economic experiment.
+
+Do not endlessly add models or thresholds.
+Do not access 2022-2025 under this decision.
+
+See research/INTELLIGENT_SYSTEM_INFORMATION_AUDIT.md.
+
+
+---
+
+## D-065 — Freeze five-stage Information Parity V1 roadmap before implementation
+
+Decision:
+The exact five-stage plan is now frozen before any new external-data acquisition, information-layer implementation, or profitability modeling begins.
+
+Roadmap:
+research/INFORMATION_PARITY_V1_ROADMAP.md
+
+Stages:
+1. information-source feasibility audit;
+2. build Information Parity Layer V1;
+3. Badar decision-recognition benchmark;
+4. information-channel ablation;
+5. one intelligent economic experiment.
+
+Anti-rat-race rule:
+- do not skip stages;
+- do not iterate model families indefinitely;
+- do not loosen economic gates post hoc;
+- if richer information does not improve expert-state recognition, stop and diagnose information rather than tune models;
+- if the one frozen economic experiment fails, a new experiment requires a new scientific hypothesis.
+
+Immediate next action:
+create a dedicated Information Parity V1 branch and preregister Stage 1 before acquiring/integrating new external historical data.
+
+2022-2025 remain sealed.

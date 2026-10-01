@@ -1258,3 +1258,146 @@ Before another economic experiment:
 4. only then run a new 2016-2021 experiment.
 
 2022, 2023-2024 and 2025 remain sealed.
+
+
+## Root-Reset V5 — Badar A+ source-fidelity
+
+Active branch:
+research/root-reset-v5-badar-source-fidelity
+
+Frozen preregistration:
+research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_PREREGISTRATION.md
+
+Decision record:
+D-062
+
+Purpose:
+translate the admitted Badar S01/A+ setup more faithfully after V4's pre-entry coverage failure, without selecting rules by diagnostic candidate count.
+
+Frozen upstream through M15 close-back remains V4-identical.
+
+Frozen V5 execution after M15 close-back:
+- one-close MSS on M5/M3;
+- first causal valid MSS + clean displacement FVG wins, with M5 tie priority;
+- no M1 MSS;
+- FVG remains mandatory;
+- resting entry at FVG proximal/start edge, not midpoint;
+- structural stop beyond the sweep only;
+- final target from causally known previous-day/H1/H4 liquidity;
+- require target distance >= $5 and target/stop RR >= 3;
+- no direct-close entry, no OB alternative, no micro stop, no partials/BE/trailing.
+
+Data:
+2016-2021 synchronized BID/ASK M1 only.
+
+2022 validation, 2023-2024 development test, and 2025 FINAL_OOS remain sealed.
+
+Next implementation step:
+create scripts/root_reset_v5_badar_source_fidelity.py and a manual historical-data-integrity workflow mode, then run TRAIN once under the frozen specification and record the funnel/economic result.
+
+
+## Root-Reset V5 result
+
+Accepted historical run:
+36783834169 — SUCCESS.
+
+Scope:
+2016-2021 TRAIN only.
+
+Key funnel:
+- 1,546 NY dates;
+- 656 M15 liquidity sweeps;
+- 369 active-H1-FVG overlaps;
+- 137 M15 close-back confirmations;
+- 39 source-valid M5/M3 MSS + FVG triggers;
+- 21 targets >= $5;
+- 9 target/stop RR >= 3;
+- 9 proximal-edge orders;
+- 6 fills.
+
+Advancement:
+- entry population pass: FALSE;
+- structural stop pass: FALSE;
+- future 2022 validation preregistration: NOT AUTHORIZED.
+
+Important formulation finding:
+the frozen >=180 filled-trade gate could not be reached because the retained V4 upstream sampler itself generated only 137 M15 close-back confirmations over all six TRAIN years.
+
+Therefore do not lower the gate or tune downstream rules post hoc.
+
+See:
+research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_FINDINGS.md
+
+## Active next step — TRAIN-only source-location coverage audit
+
+Decision record:
+D-063
+
+Purpose:
+measure whether the mandatory V4/V5 conjunction of session-liquidity sweep + active H1 FVG is substantially narrower than Badar's admitted source-layer concept of trading from a marked liquidity/location zone.
+
+The audit is diagnostic only and should compare source-supported location families without selecting a profitability winner.
+
+2022, 2023-2024 and 2025 remain sealed.
+
+
+## Intelligent-system information audit
+
+Decision record:
+D-064
+
+Audit:
+research/INTELLIGENT_SYSTEM_INFORMATION_AUDIT.md
+
+Result:
+the project is not yet information-comparable to Badar's observed decision environment.
+
+Available now:
+- XAUUSD M1 BID/ASK OHLCV from Dukascopy;
+- spread and executable-side semantics;
+- multi-timeframe price-derived state;
+- session/timing state;
+- causal PDH/PDL, swing and FVG building blocks;
+- 2026 Exness read-only tick data for later forward broker calibration.
+
+Important unused information already present:
+- Dukascopy M1 volume.
+
+Important missing channels:
+- DXY intraday;
+- US-yield intraday;
+- historical macro calendar and release surprise state;
+- unified source-faithful liquidity/location representation;
+- broader fundamental regime;
+- explicit scenario/confidence state;
+- trade/account/risk state.
+
+Active next step:
+preregister and build Information Parity Layer V1 before another profitability model or strategy experiment.
+
+Then run information-channel ablations and a Badar decision-recognition benchmark. Only if richer information materially improves the representation should one new economic policy experiment be frozen.
+
+2022-2025 remain unopened for this new milestone.
+
+
+## Information Parity V1 finite roadmap frozen
+
+Decision record:
+D-065
+
+Roadmap:
+research/INFORMATION_PARITY_V1_ROADMAP.md
+
+The exact next program is now frozen before implementation:
+1. information-source feasibility audit;
+2. build Information Parity Layer V1;
+3. Badar decision-recognition benchmark;
+4. information-channel ablation;
+5. one intelligent economic experiment.
+
+No new external-data acquisition or profitability modeling has started under this roadmap yet.
+
+Immediate next step:
+create the dedicated Information Parity V1 branch and preregister Stage 1.
+
+2022-2025 remain sealed.
