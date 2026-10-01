@@ -1477,3 +1477,38 @@ Scope:
 
 Next:
 implement the frozen V5 specification, add a manual historical workflow mode, run it once on 2016-2021, inspect the funnel/economics, and record the result before any further formulation change.
+
+
+---
+
+## D-063 — Stop V5 at TRAIN; audit upstream source-location coverage before V6
+
+Accepted run:
+36783834169
+
+Result:
+- V5 completed successfully on 2016-2021 TRAIN only;
+- 137 M15 close-back confirmations;
+- 39 source-valid M5/M3 MSS + displacement-FVG triggers;
+- 21 triggers with structural target distance >= $5;
+- 9 with target/structural-stop RR >= 3;
+- 9 proximal-edge orders;
+- 6 fills;
+- entry-population gate failed;
+- structural-stop gate failed;
+- no 2022 validation authorized.
+
+Critical design finding:
+V5 reused the >=180 filled-trade advancement gate, but its unchanged V4 upstream sampler produced only 137 M15 close-back confirmations in total. Therefore the count gate was mathematically unreachable even under perfect downstream conversion.
+
+Decision:
+Do not lower the count gate post hoc and do not tune downstream entry/target parameters to manufacture more trades.
+
+The next scientific step is a TRAIN-only source-location coverage audit focused on whether V4/V5's mandatory session-liquidity sweep + active H1 FVG conjunction is materially narrower than Badar's admitted source-layer location map.
+
+The audit may compare source-supported location/liquidity families descriptively, including session liquidity, PDH/PDL, confirmed H4 swing liquidity, and active H1/H4 FVGs. OB/breaker logic may be included only if a deterministic definition can be frozen from source evidence without arbitrary tuning.
+
+No profitability-policy selection.
+No 2022-2025 access.
+
+See research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_FINDINGS.md.
