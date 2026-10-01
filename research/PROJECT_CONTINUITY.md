@@ -1401,3 +1401,22 @@ Immediate next step:
 create the dedicated Information Parity V1 branch and preregister Stage 1.
 
 2022-2025 remain sealed.
+
+
+## Information Parity V1 — Stage 1 active
+
+Active branch:
+research/information-parity-v1
+
+Decision record:
+D-066
+
+Frozen preregistration:
+research/INFORMATION_PARITY_V1_STAGE1_SOURCE_FEASIBILITY_PREREGISTRATION.md
+
+Current task:
+audit source feasibility for DXY/USD, US yields/rates, macro-event schedules, macro release values/surprises, existing Dukascopy M1 volume semantics, and targeted tick microstructure.
+
+Stage 1 selects sources only on data integrity/causality/reproducibility criteria. It does not train a model or inspect profitability.
+
+2022-2025 XAUUSD evaluation periods remain sealed.
