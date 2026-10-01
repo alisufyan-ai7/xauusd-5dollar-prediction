@@ -1584,3 +1584,33 @@ Immediate next action:
 create a dedicated Information Parity V1 branch and preregister Stage 1 before acquiring/integrating new external historical data.
 
 2022-2025 remain sealed.
+
+
+---
+
+## D-066 — Start Information Parity V1 Stage 1 on dedicated branch
+
+Branch:
+research/information-parity-v1
+
+Frozen preregistration:
+research/INFORMATION_PARITY_V1_STAGE1_SOURCE_FEASIBILITY_PREREGISTRATION.md
+
+Decision:
+Begin Stage 1 of the five-stage Information Parity V1 roadmap.
+
+Stage 1 is a source-feasibility audit only. It must classify the following channels before full integration:
+- DXY / broad USD intraday context;
+- US Treasury / rate intraday context;
+- scheduled macro-event calendar;
+- macro release actual/forecast/previous/surprise feasibility;
+- Dukascopy XAUUSD M1 volume semantics;
+- targeted XAUUSD tick-microstructure feasibility.
+
+Source admission is based on timestamp integrity, point-in-time causality, reproducibility, semantics, historical coverage, missingness, access/licensing practicality and alignment risk — not on trading P&L.
+
+No profitability model, backtest, threshold search or source selection by future XAUUSD outcome is permitted in Stage 1.
+
+Only tiny targeted samples may be used when necessary to verify schema/timestamp/coverage. No full multi-source TRAIN integration occurs until Stage 2 is separately specified.
+
+2022-2025 XAUUSD evaluation periods remain sealed.
