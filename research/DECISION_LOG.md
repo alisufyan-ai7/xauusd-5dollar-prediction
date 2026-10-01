@@ -1512,3 +1512,45 @@ No profitability-policy selection.
 No 2022-2025 access.
 
 See research/ROOT_RESET_V5_BADAR_SOURCE_FIDELITY_FINDINGS.md.
+
+
+---
+
+## D-064 — Pause new strategy/model experiments until information parity is built
+
+Decision:
+Do not continue the V6 rule-translation loop or start another price-dominant model yet.
+
+Reason:
+An information audit against the admitted Badar source layer shows that the current project is not information-complete even relative to Badar's observed decision environment.
+
+The project currently has strong XAUUSD historical BID/ASK price/spread data and many price-derived features, but is missing or not using several channels Badar demonstrably consults:
+- raw M1 volume exists but is not represented in the main intelligence feature layer;
+- DXY intraday context is absent;
+- US-yield context is absent;
+- timestamp-safe macro-event schedules and release surprises are absent;
+- richer liquidity/location-map state is fragmented rather than unified;
+- scenario/confidence state and trade/account state are not represented;
+- exact historical Exness microstructure before 2026 is unavailable from the probed server.
+
+Decision boundary:
+Prior negative experiments show that the tested price-only/price-dominant representations did not produce robust executable edge. They do not establish that a richer intelligent system cannot match or outperform a skilled discretionary trader.
+
+Next milestone:
+Design and preregister an Information Parity Layer V1 before training any new profitability model.
+
+Minimum information package:
+1. XAUUSD causal BID/ASK sequence + volume + multi-timeframe structure + spread/session/liquidity state;
+2. intraday DXY/USD context;
+3. intraday US-yield/rate context;
+4. timestamp-safe macro-event schedule and, where reproducible, actual/forecast/surprise;
+5. participation/microstructure state;
+6. separate trade/account/risk state.
+
+After parity:
+run a finite Badar-decision recognition and information-channel ablation benchmark before freezing one economic experiment.
+
+Do not endlessly add models or thresholds.
+Do not access 2022-2025 under this decision.
+
+See research/INTELLIGENT_SYSTEM_INFORMATION_AUDIT.md.
