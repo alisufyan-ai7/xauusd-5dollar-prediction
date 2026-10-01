@@ -1,0 +1,220 @@
+{
+  "schema_version": "IPV1_STAGE1_SOURCE_REGISTRY_V1",
+  "status": "IN_PROGRESS",
+  "created_under": "research/INFORMATION_PARITY_V1_STAGE1_SOURCE_FEASIBILITY_PREREGISTRATION.md",
+  "economic_selection_used": false,
+  "xauusd_sealed_periods_accessed": [],
+  "channels": {
+    "C1_DXY_USD_INTRADAY": {
+      "status": "CANDIDATE_FOUND",
+      "candidates": [
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "US Dollar Index",
+          "instrument_id": "dollaridxusd",
+          "documented_earliest_utc": "2000-01-01",
+          "documented_supported_timeframes": [
+            "tick",
+            "s1",
+            "m1",
+            "m5",
+            "m15",
+            "m30",
+            "h1",
+            "h4",
+            "d1",
+            "mn1"
+          ],
+          "access": "same public downloader family already used by project",
+          "candidate_strength": "HIGH",
+          "unresolved": [
+            "empirically verify 2016-2021 M1 coverage and timestamp continuity",
+            "confirm exact instrument semantics versus ICE DXY/CFD representation",
+            "record spread/volume behavior and missingness"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node",
+            "https://github.com/Leo4815162342/dukascopy-node/wiki/Downloading-data-with-CLI"
+          ]
+        }
+      ],
+      "verdict": "PENDING"
+    },
+    "C2_US_RATES_INTRADAY": {
+      "status": "CANDIDATES_FOUND",
+      "candidates": [
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "US T-Bond",
+          "instrument_id": "ustbondtrusd",
+          "documented_earliest_utc": "2000-01-01",
+          "role": "possible intraday rates-direction proxy, not exact 10Y yield",
+          "candidate_strength": "MEDIUM",
+          "unresolved": [
+            "identify exact contract/index semantics",
+            "determine relation to 10Y yield direction",
+            "empirically verify TRAIN M1 coverage",
+            "if used, classify only as proxy with explicit limitation"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node"
+          ]
+        },
+        {
+          "provider": "Databento / CME Globex MDP 3.0",
+          "series": "10-Year T-Note Futures",
+          "symbol_family": "ZN",
+          "schemas": [
+            "OHLCV-1m",
+            "OHLCV-1s",
+            "BBO-1m",
+            "trades",
+            "order-book variants"
+          ],
+          "role": "direct market proxy for 10Y rate direction",
+          "candidate_strength": "HIGH_BUT_PAID_OR_ACCESS_DEPENDENT",
+          "unresolved": [
+            "cost/access for full 2016-2021 TRAIN history",
+            "pre-2017-05-21 data comes from FIX flat files without capture timestamps",
+            "define continuous-contract/roll treatment without hindsight",
+            "verify whether event-time semantics are sufficient for 2016"
+          ],
+          "evidence_urls": [
+            "https://databento.com/catalog/cme/GLBX.MDP3/futures/ZN"
+          ]
+        }
+      ],
+      "verdict": "PENDING"
+    },
+    "C3_MACRO_EVENT_CALENDAR": {
+      "status": "CANDIDATE_FOUND",
+      "candidates": [
+        {
+          "provider": "Trading Economics API",
+          "series": "Economic Calendar",
+          "coverage_evidence": "documentation includes historical 2016 examples and date-range endpoints",
+          "fields": [
+            "Date",
+            "Country",
+            "Category",
+            "Event",
+            "Reference",
+            "Source",
+            "Actual",
+            "Previous",
+            "Forecast",
+            "TEForecast",
+            "LastUpdate",
+            "Revised",
+            "Unit",
+            "Ticker",
+            "Symbol"
+          ],
+          "point_in_time_support": true,
+          "candidate_strength": "HIGH",
+          "unresolved": [
+            "subscription/API entitlement required for full 2016-2021 history",
+            "verify timezone semantics of Date and LastUpdate",
+            "map required event families consistently across years",
+            "record redistribution/storage constraints"
+          ],
+          "evidence_urls": [
+            "https://docs.tradingeconomics.com/economic_calendar/point-in-time/",
+            "https://docs.tradingeconomics.com/economic_calendar/country/"
+          ]
+        }
+      ],
+      "verdict": "PENDING"
+    },
+    "C4_MACRO_RELEASE_SURPRISE": {
+      "status": "CANDIDATE_FOUND",
+      "candidates": [
+        {
+          "provider": "Trading Economics API",
+          "series": "Economic Calendar point-in-time",
+          "fields": [
+            "Actual",
+            "Previous",
+            "Forecast",
+            "Revised",
+            "Date",
+            "LastUpdate"
+          ],
+          "point_in_time_support": true,
+          "candidate_strength": "HIGH",
+          "unresolved": [
+            "verify that point-in-time endpoint preserves forecast/previous as known before release for target event families",
+            "verify first-release versus later-revised actual handling",
+            "subscription/API entitlement",
+            "define normalization only in Stage 2 after source admission"
+          ],
+          "evidence_urls": [
+            "https://docs.tradingeconomics.com/economic_calendar/point-in-time/",
+            "https://docs.tradingeconomics.com/economic_calendar/snapshot/"
+          ]
+        }
+      ],
+      "verdict": "PENDING"
+    },
+    "C5_XAUUSD_M1_VOLUME": {
+      "status": "SEMANTICS_UNRESOLVED",
+      "candidates": [
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "XAUUSD M1 volume field",
+          "project_status": "already downloaded in existing OHLCV schema but unused by main intelligence layer",
+          "tool_support": "CLI supports --volumes and volume units; candle output contains volume",
+          "candidate_strength": "HIGH_IF_SEMANTICS_RESOLVED",
+          "unresolved": [
+            "provider-level meaning of candle volume for XAUUSD",
+            "whether it is tick/quote volume or another liquidity measure",
+            "BID versus ASK side volume relationship",
+            "zero/missing behavior",
+            "do not call it centralized traded volume without evidence"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node/wiki/Basic-usage-of-dukascopy-node",
+            "https://github.com/Leo4815162342/dukascopy-node/blob/master/src/cli/config.ts"
+          ]
+        }
+      ],
+      "verdict": "PENDING"
+    },
+    "C6_XAUUSD_TICK_MICROSTRUCTURE": {
+      "status": "TECHNICALLY_AVAILABLE",
+      "candidates": [
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "XAUUSD tick",
+          "documented_fields": [
+            "timestamp",
+            "askPrice",
+            "bidPrice",
+            "askVolume",
+            "bidVolume"
+          ],
+          "candidate_strength": "HIGH_FOR_TARGETED_USE",
+          "constraints": [
+            "long ranges can be gigabytes and slow",
+            "Stage 1 authorizes only tiny targeted samples",
+            "volume-field semantics still require resolution"
+          ],
+          "unresolved": [
+            "verify fixed TRAIN sample availability/quality",
+            "quantify row count/file size for targeted windows",
+            "decide whether full Stage 2 tick integration is necessary or M1 is sufficient"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node/wiki/Downloading-tick-data"
+          ]
+        }
+      ],
+      "verdict": "PENDING"
+    }
+  },
+  "notes": [
+    "This registry records source feasibility only; no source has been selected by XAUUSD profitability.",
+    "No full external historical integration has begun.",
+    "Final C1-C6 verdicts belong in Stage 1 findings and a later decision record."
+  ]
+}
