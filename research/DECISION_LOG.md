@@ -1554,3 +1554,33 @@ Do not endlessly add models or thresholds.
 Do not access 2022-2025 under this decision.
 
 See research/INTELLIGENT_SYSTEM_INFORMATION_AUDIT.md.
+
+
+---
+
+## D-065 — Freeze five-stage Information Parity V1 roadmap before implementation
+
+Decision:
+The exact five-stage plan is now frozen before any new external-data acquisition, information-layer implementation, or profitability modeling begins.
+
+Roadmap:
+research/INFORMATION_PARITY_V1_ROADMAP.md
+
+Stages:
+1. information-source feasibility audit;
+2. build Information Parity Layer V1;
+3. Badar decision-recognition benchmark;
+4. information-channel ablation;
+5. one intelligent economic experiment.
+
+Anti-rat-race rule:
+- do not skip stages;
+- do not iterate model families indefinitely;
+- do not loosen economic gates post hoc;
+- if richer information does not improve expert-state recognition, stop and diagnose information rather than tune models;
+- if the one frozen economic experiment fails, a new experiment requires a new scientific hypothesis.
+
+Immediate next action:
+create a dedicated Information Parity V1 branch and preregister Stage 1 before acquiring/integrating new external historical data.
+
+2022-2025 remain sealed.
