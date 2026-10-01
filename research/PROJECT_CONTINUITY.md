@@ -1378,3 +1378,26 @@ preregister and build Information Parity Layer V1 before another profitability m
 Then run information-channel ablations and a Badar decision-recognition benchmark. Only if richer information materially improves the representation should one new economic policy experiment be frozen.
 
 2022-2025 remain unopened for this new milestone.
+
+
+## Information Parity V1 finite roadmap frozen
+
+Decision record:
+D-065
+
+Roadmap:
+research/INFORMATION_PARITY_V1_ROADMAP.md
+
+The exact next program is now frozen before implementation:
+1. information-source feasibility audit;
+2. build Information Parity Layer V1;
+3. Badar decision-recognition benchmark;
+4. information-channel ablation;
+5. one intelligent economic experiment.
+
+No new external-data acquisition or profitability modeling has started under this roadmap yet.
+
+Immediate next step:
+create the dedicated Information Parity V1 branch and preregister Stage 1.
+
+2022-2025 remain sealed.
