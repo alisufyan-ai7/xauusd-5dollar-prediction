@@ -1,11 +1,6 @@
 name: historical-data-integrity
 
 on:
-  push:
-    branches:
-      - research/root-reset-v5-badar-source-fidelity
-    paths:
-      - ".github/root-reset-v5-badar-source-fidelity-trigger"
   workflow_dispatch:
     inputs:
       mode:
@@ -1526,7 +1521,7 @@ jobs:
           retention-days: 90
 
   root-reset-v5-badar-source-fidelity:
-    if: ${{ github.event_name == 'push' || inputs.mode == 'root-reset-v5-badar-source-fidelity' }}
+    if: ${{ inputs.mode == 'root-reset-v5-badar-source-fidelity' }}
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
