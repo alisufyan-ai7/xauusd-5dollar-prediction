@@ -6,7 +6,7 @@
   "xauusd_sealed_periods_accessed": [],
   "channels": {
     "C1_DXY_USD_INTRADAY": {
-      "status": "CANDIDATE_FOUND",
+      "status": "PROVISIONALLY_ADMISSIBLE_WITH_LIMITATION",
       "candidates": [
         {
           "provider": "Dukascopy public historical feed via dukascopy-node",
@@ -54,10 +54,51 @@
           ]
         }
       ],
-      "verdict": "PENDING"
+      "verdict": "PENDING",
+      "empirical_probe": {
+        "direct_dukascopy_dxy": {
+          "2016-02-01": {
+            "status": "EMPTY",
+            "rows": 0
+          },
+          "2019-02-04": {
+            "status": "PASS",
+            "rows": 1154,
+            "gap_count": 36,
+            "largest_gap_minutes": 4
+          },
+          "2021-02-01": {
+            "status": "PASS",
+            "rows": 1237,
+            "gap_count": 19,
+            "largest_gap_minutes": 3
+          }
+        },
+        "synthetic_dukascopy_bid": {
+          "2016-02-01": {
+            "common_constituent_rows": 1417,
+            "official_overlap_rows": 0
+          },
+          "2019-02-04": {
+            "common_constituent_rows": 1419,
+            "official_overlap_rows": 1151,
+            "level_pearson": 0.9984497301760841,
+            "first_difference_pearson": 0.9461607215833275,
+            "normalized_tracking_diff_mean": 0.003144086460863911
+          },
+          "2021-02-01": {
+            "common_constituent_rows": 1404,
+            "official_overlap_rows": 1224,
+            "level_pearson": 0.9997811407087971,
+            "first_difference_pearson": 0.9179585416317367,
+            "normalized_tracking_diff_mean": 0.00264986774309154
+          }
+        },
+        "interpretation": "Synthetic ICE-method DXY using six Dukascopy M1 BID FX constituents supplies the 2016 anchor where Dukascopy's direct DXY CFD is absent and tracks the direct CFD closely in 2019/2021 overlap. Final verdict should preserve synthetic/provider-specific limitation."
+      }
     },
     "C2_US_RATES_INTRADAY": {
-      "status": "CANDIDATES_FOUND",
+      "status": "PENDING_FINAL_IEF_PROBE",
       "candidates": [
         {
           "provider": "Dukascopy public historical feed via dukascopy-node",
@@ -117,7 +158,28 @@
           ]
         }
       ],
-      "verdict": "PENDING"
+      "verdict": "PENDING",
+      "empirical_probe": {
+        "ustbondtrusd": {
+          "2016-02-01": {
+            "status": "EMPTY",
+            "rows": 0
+          },
+          "2019-02-04": {
+            "status": "PASS",
+            "rows": 1205,
+            "gap_count": 105,
+            "largest_gap_minutes": 61
+          },
+          "2021-02-01": {
+            "status": "PASS",
+            "rows": 829,
+            "gap_count": 247,
+            "largest_gap_minutes": 61
+          }
+        },
+        "interpretation": "US T-Bond CFD is not exact 10Y yield, has no 2016 anchor data and later samples are materially gapped. IEF fixed-date probe is pending under C2 addendum."
+      }
     },
     "C3_MACRO_EVENT_CALENDAR": {
       "status": "CANDIDATE_FOUND",
@@ -205,7 +267,7 @@
       "verdict": "PENDING"
     },
     "C5_XAUUSD_M1_VOLUME": {
-      "status": "SEMANTICS_UNRESOLVED",
+      "status": "PROVISIONALLY_ADMISSIBLE_WITH_LIMITATION",
       "candidates": [
         {
           "provider": "Dukascopy public historical feed via dukascopy-node",
@@ -227,10 +289,34 @@
           "normalization_evidence": "dukascopy-node exposes --volumes and volume units and reads candle volume from the source response; this establishes a provider volume field but not centralized traded-volume semantics."
         }
       ],
-      "verdict": "PENDING"
+      "verdict": "PENDING",
+      "empirical_probe": {
+        "2016-02-01": {
+          "rows": 1380,
+          "bid_mean": 0.04754376811594203,
+          "ask_mean": 0.058467862318840574,
+          "volume_equal_share": 0.002898550724637681,
+          "bid_ask_volume_pearson": 0.7383482260593857
+        },
+        "2019-02-04": {
+          "rows": 1371,
+          "bid_mean": 0.016999394602479942,
+          "ask_mean": 0.016019416484318018,
+          "volume_equal_share": 0.0036469730123997084,
+          "bid_ask_volume_pearson": 0.5850094245218881
+        },
+        "2021-02-01": {
+          "rows": 1380,
+          "bid_mean": 0.08014178913043478,
+          "ask_mean": 0.0833081231884058,
+          "volume_equal_share": 0.007971014492753623,
+          "bid_ask_volume_pearson": 0.5567492891053326
+        }
+      },
+      "provisional_interpretation": "Nonzero, side-specific provider volume is consistently present in fixed samples. Treat only as Dukascopy participation/volume proxy, not centralized/global gold volume."
     },
     "C6_XAUUSD_TICK_MICROSTRUCTURE": {
-      "status": "TECHNICALLY_AVAILABLE",
+      "status": "PROVISIONALLY_ADMISSIBLE_WITH_LIMITATION",
       "candidates": [
         {
           "provider": "Dukascopy public historical feed via dukascopy-node",
@@ -259,7 +345,26 @@
           "normalization_evidence": "dukascopy-node tick normalization carries source askVolumes and bidVolumes when requested."
         }
       ],
-      "verdict": "PENDING"
+      "verdict": "PENDING",
+      "empirical_probe": {
+        "2016-02-01T14:00Z/15:00Z": {
+          "rows": 9190,
+          "bytes": 438352,
+          "rows_per_minute": 153.21156616730735,
+          "median_spread": 0.27299999999991087,
+          "ask_volume_present": true,
+          "bid_volume_present": true
+        },
+        "2021-02-01T14:00Z/15:00Z": {
+          "rows": 27097,
+          "bytes": 1293438,
+          "rows_per_minute": 451.76273661817316,
+          "median_spread": 0.44000000000005457,
+          "ask_volume_present": true,
+          "bid_volume_present": true
+        }
+      },
+      "provisional_interpretation": "Historical ticks are technically available and practical for targeted windows; full 2016-2021 tick acquisition remains unapproved and provider volume is not a global order book."
     }
   },
   "notes": [
@@ -267,5 +372,14 @@
     "No full external historical integration has begun.",
     "Final C1-C6 verdicts belong in Stage 1 findings and a later decision record."
   ],
-  "updated_note": "Documentation review found official product-launch dates that contradict generic earliest-date metadata for Dukascopy DXY and US T-Bond, motivating fixed empirical probes and a preregistered synthetic DXY fallback."
+  "updated_note": "Expanded fixed Stage 1 probe run 36985961410 succeeded. C1 synthetic DXY, C5 M1 volume and C6 targeted ticks are provisionally admissible with explicit limitations. C2 awaits one final preregistered IEF proxy probe.",
+  "stage1_probe_v3": {
+    "workflow_run": 36985961410,
+    "head_sha": "3c000f5acfa0002f039aab246c3254ad8c9e4ef0",
+    "artifact": "information-parity-stage1-probes",
+    "artifact_id": 11218010751,
+    "artifact_digest": "sha256:f6635ef56bf4e2ba6e417bde0fd4df2dbf3f983644103e3548c60ee6cc790959",
+    "scope": "fixed preregistered TRAIN-era source-feasibility samples only",
+    "sealed_xauusd_periods_accessed": []
+  }
 }
