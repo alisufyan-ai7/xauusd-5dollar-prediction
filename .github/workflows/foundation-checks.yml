@@ -126,5 +126,7 @@ jobs:
         run: python -m py_compile scripts/acquire_macro_schedule_stage2.py
       - name: Compile Information Parity Stage 2 integrity validator
         run: python -m py_compile scripts/validate_information_parity_stage2.py
+      - name: Compile Information Parity Stage 2 manifest builder
+        run: python -m py_compile scripts/build_information_parity_manifest.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
