@@ -1484,3 +1484,25 @@ Active next step:
 implement acquisition/normalization + leakage/integrity checks under the frozen Stage 2 contract and run one 2016-2021 same-snapshot build.
 
 2022-2025 remain sealed.
+
+
+## Stage 2 macro-calendar implementation frozen
+
+Decision record:
+D-069
+
+Specification:
+research/INFORMATION_PARITY_V1_STAGE2_MACRO_ADDENDUM.md
+
+Implementation now targets first-party scheduled timestamps for:
+CPI, NFP, JOLTS, FOMC, Initial Claims and national GDP.
+
+ISM Manufacturing/Services historical dates are deferred from V1 rather than synthesized from a generic business-day rule because exact historical first-party holiday exceptions are not sufficiently reproducible from the public archive.
+
+Scripts added:
+- scripts/acquire_macro_schedule_stage2.py
+- scripts/validate_information_parity_stage2.py
+
+No macro outcomes/surprises are allowed.
+No model training is allowed yet.
+2022-2025 XAUUSD remain sealed.
