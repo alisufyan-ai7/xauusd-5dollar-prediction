@@ -173,7 +173,7 @@ def build_w1(d1: pd.DataFrame) -> pd.DataFrame:
         ])
     z = d1.copy()
     day = pd.to_datetime(z["bar_start_ms"], unit="ms", utc=True)
-    z["week_start"] = day - pd.to_timedelta(day.weekday, unit="D")
+    z["week_start"] = day - pd.to_timedelta(day.dt.weekday, unit="D")
     rows = []
     for week_start, g in z.groupby("week_start", sort=True):
         if len(g) < 4:
