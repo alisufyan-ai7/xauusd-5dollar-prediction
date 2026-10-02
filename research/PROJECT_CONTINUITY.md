@@ -1506,3 +1506,19 @@ Scripts added:
 No macro outcomes/surprises are allowed.
 No model training is allowed yet.
 2022-2025 XAUUSD remain sealed.
+
+
+## Stage 2 macro transport fallback
+
+Decision record:
+D-070
+
+Second smoke run 37011477397 confirmed that BLS blocks GitHub Actions with HTTP 403 even though the official historical schedule is publicly available. The project will stop retrying that transport path.
+
+Stage 2 now permits versioned normalized BLS schedule snapshots derived from official BLS historical pages, with source URL/provenance on every row. This is a transport/reproducibility fallback, not a new data source and not a raw provider-data commit.
+
+The immediate smoke fix is limited to the already-frozen 2016 smoke year. Equivalent 2017-2021 snapshots must be verified before the full TRAIN build.
+
+BEA GDP discovery will also switch to the official national-GDP archive with created_1=All and release-year filtering.
+
+No economic outcomes or sealed XAUUSD periods are involved.
