@@ -1720,3 +1720,37 @@ Next implementation step:
 build the Stage 2 acquisition/normalization pipeline and integrity checks on 2016-2021 TRAIN only, then run one accepted same-snapshot integrity build before Stage 3.
 
 2022-2025 remain sealed.
+
+
+---
+
+## D-069 — Freeze Stage 2 public macro-calendar implementation and defer ISM historical dates
+
+Decision:
+Implement the Stage 2 scheduled macro calendar from reproducible first-party public sources for:
+- CPI;
+- Employment Situation / NFP;
+- JOLTS;
+- FOMC statements/rate decisions;
+- Initial Jobless Claims;
+- national GDP releases.
+
+Exact implementation is frozen in:
+research/INFORMATION_PARITY_V1_STAGE2_MACRO_ADDENDUM.md
+
+Source families:
+- BLS yearly historical schedules for CPI/NFP/JOLTS;
+- Federal Reserve historical FOMC pages and statement pages;
+- BEA national GDP archive/release pages;
+- DOL/ETA weekly claims publication rule and holiday exception.
+
+ISM implementation finding:
+The public first-party site documents the normal first/third-business-day schedule, but also documents ISM-specific holiday exceptions, while historical PMI material is not reliably available publicly. Therefore V1 will not fabricate 2016-2021 ISM dates from a generic business-day calendar.
+
+ISM Manufacturing/Services schedule state is deferred from Stage 2 V1 unless an exact reproducible first-party historical-date source is found before the first live macro acquisition.
+
+Macro readiness for a year requires the six included core families to pass source-acquisition and count sanity checks. No actual/forecast/previous/revision/surprise values are ingested.
+
+This decision was made from source reproducibility/causality constraints before Stage 2 model work and without XAUUSD outcome/P&L inspection.
+
+2022-2025 XAUUSD remain sealed.
