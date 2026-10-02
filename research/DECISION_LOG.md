@@ -1669,3 +1669,54 @@ Next:
 Do not train a model yet. Preregister Stage 2 Information Parity Layer V1 schema and timestamp-alignment contract before full 2016-2021 TRAIN acquisition/integration.
 
 See research/INFORMATION_PARITY_V1_STAGE1_SOURCE_FEASIBILITY_FINDINGS.md.
+
+
+---
+
+## D-068 — Start Information Parity V1 Stage 2 with frozen schema/alignment contract
+
+Branch:
+research/information-parity-v1-stage2
+
+Frozen preregistration:
+research/INFORMATION_PARITY_V1_STAGE2_SCHEMA_PREREGISTRATION.md
+
+Decision:
+Begin Stage 2 design/build only after Stage 1 source verdicts were frozen in D-067.
+
+Core timestamp contract:
+- Dukascopy M1 timestamp is bar start;
+- decision time = M1 bar start + 60 seconds;
+- only information with availability time <= decision time may enter a decision row;
+- no partial higher-timeframe candle may be used.
+
+Frozen V1 information sources:
+- synchronized XAUUSD M1 BID/ASK OHLC;
+- spread;
+- Dukascopy M1 provider volume;
+- causal M3/M5/M15/M30/H1/H4/D1/W1 bars;
+- deterministic causal swing/FVG/session/location state;
+- SYNTHETIC_DXY_DUKASCOPY_BID;
+- scheduled first-party U.S. macro-event calendar only;
+- targeted tick microstructure only when explicitly justified;
+- separate neutral trade/risk-state interface.
+
+Explicit exclusions remain:
+- intraday US 10Y/rate channel;
+- macro actual/forecast/consensus/surprise;
+- global order flow;
+- full six-year tick ingestion by default.
+
+Important design choices:
+- reuse established EXP-002 BID/ASK synchronization;
+- reuse conservative completed-bar semantics from existing project code;
+- synthetic DXY is aligned by availability time with max 5-minute backward staleness;
+- macro schedule may expose future scheduled event time, but never future event outcome;
+- no pre-2016 warm-up acquisition;
+- no outcome/P&L labels in Stage 2;
+- accepted Stage 2 build must use one same-snapshot acquisition/build/integrity run with hashes.
+
+Next implementation step:
+build the Stage 2 acquisition/normalization pipeline and integrity checks on 2016-2021 TRAIN only, then run one accepted same-snapshot integrity build before Stage 3.
+
+2022-2025 remain sealed.
