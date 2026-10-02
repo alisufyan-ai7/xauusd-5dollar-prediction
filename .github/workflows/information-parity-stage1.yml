@@ -66,6 +66,7 @@ jobs:
             compact="${day//-/}"
             download_m1 dollaridxusd "$day" bid "dxy-${compact}-m1-bid"
             download_m1 ustbondtrusd "$day" bid "ustbond-${compact}-m1-bid"
+            download_m1 iefususd "$day" bid "ief-${compact}-m1-bid"
             download_m1 xauusd "$day" bid "xauusd-${compact}-m1-bid"
             download_m1 xauusd "$day" ask "xauusd-${compact}-m1-ask"
 
@@ -87,6 +88,8 @@ jobs:
             python scripts/probe_information_parity_stage1.py m1               "$RAW/dxy-${compact}-m1-bid.csv"               > "$OUT/m1/dxy-${compact}.json"
 
             python scripts/probe_information_parity_stage1.py m1               "$RAW/ustbond-${compact}-m1-bid.csv"               > "$OUT/m1/ustbond-${compact}.json"
+
+            python scripts/probe_information_parity_stage1.py m1               "$RAW/ief-${compact}-m1-bid.csv"               > "$OUT/m1/ief-${compact}.json"
 
             python scripts/probe_information_parity_stage1.py m1               "$RAW/xauusd-${compact}-m1-bid.csv"               > "$OUT/m1/xauusd-${compact}-bid.json"
 
