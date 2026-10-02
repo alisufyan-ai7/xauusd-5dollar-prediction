@@ -1754,3 +1754,35 @@ Macro readiness for a year requires the six included core families to pass sourc
 This decision was made from source reproducibility/causality constraints before Stage 2 model work and without XAUUSD outcome/P&L inspection.
 
 2022-2025 XAUUSD remain sealed.
+
+
+---
+
+## D-070 — Use versioned normalized first-party schedule snapshots when agency sites block CI transport
+
+Trigger:
+The second bounded Stage 2 smoke run (37011477397) again failed only at macro-calendar completeness. BLS returned HTTP 403 from GitHub Actions for both official 2016 schedule URLs, while the same official BLS historical schedule is publicly readable outside the runner. FOMC and Claims succeeded. BEA returned pages but the archive query/parser did not surface national GDP releases.
+
+Decision:
+Do not keep changing user agents or repeatedly retrying the same blocked agency endpoint.
+
+For schedule-only metadata, Stage 2 may use a small, versioned, normalized reference snapshot committed to the research repository when:
+- every row is transcribed/normalized from an official first-party historical schedule page;
+- the exact official source URL is stored on every row;
+- local time and UTC conversion are deterministic with America/New_York;
+- no release actual/forecast/previous/surprise value is included;
+- the snapshot is reviewed against the official source before use;
+- the snapshot is derived reference metadata, not a raw provider dump.
+
+This transport fallback does not change the admitted information source: BLS remains the source for CPI/NFP/JOLTS schedule timestamps. It only removes runtime dependence on a BLS endpoint that blocks GitHub Actions.
+
+Implementation order:
+1. freeze and commit a verified BLS 2016 normalized schedule snapshot for the already-preregistered smoke year;
+2. make the macro builder prefer live first-party fetch but fall back to the verified snapshot when BLS transport fails;
+3. fix BEA GDP discovery by paging the official national-GDP archive with created_1=All and filtering releases by their first-party release timestamp;
+4. rerun the same bounded 2016 smoke;
+5. only after smoke acceptance, build/verify equivalent BLS snapshots for 2017-2021 before the full TRAIN run.
+
+No third-party economic calendar is admitted by this decision.
+No model/P&L data are used.
+2022-2025 XAUUSD remain sealed.
