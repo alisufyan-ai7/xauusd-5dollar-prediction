@@ -64,6 +64,31 @@ def load_csv(path: Path) -> tuple[list[str], list[dict]]:
 
 
 def summarize_m1(path: Path) -> dict:
+    base = {
+        "file": path.name,
+        "sha256": sha256(path),
+        "bytes": path.stat().st_size,
+    }
+    if path.stat().st_size == 0:
+        return {
+            **base,
+            "status": "EMPTY",
+            "schema": [],
+            "rows": 0,
+            "first_timestamp": None,
+            "last_timestamp": None,
+            "off_m1_grid": 0,
+            "duplicates": 0,
+            "nonmonotonic": 0,
+            "gap_count": 0,
+            "largest_gap_minutes": 0.0,
+            "price_errors": 0,
+            "volume_present": False,
+            "volume_invalid": 0,
+            "volume_zero_share": None,
+            "volume_stats": {"n": 0},
+        }
+
     fields, rows = load_csv(path)
     required = ["timestamp", "open", "high", "low", "close"]
     if any(k not in fields for k in required):
@@ -107,9 +132,8 @@ def summarize_m1(path: Path) -> dict:
         zero_share = sum(1 for x in vols if x == 0) / len(vols)
 
     return {
-        "file": path.name,
-        "sha256": sha256(path),
-        "bytes": path.stat().st_size,
+        **base,
+        "status": "PASS",
         "schema": fields,
         "rows": len(rows),
         "first_timestamp": ts[0] if ts else None,
@@ -184,6 +208,32 @@ def summarize_m1_pair(bid_path: Path, ask_path: Path) -> dict:
 
 
 def summarize_ticks(path: Path) -> dict:
+    base = {
+        "file": path.name,
+        "sha256": sha256(path),
+        "bytes": path.stat().st_size,
+    }
+    if path.stat().st_size == 0:
+        return {
+            **base,
+            "status": "EMPTY",
+            "schema": [],
+            "rows": 0,
+            "first_timestamp": None,
+            "last_timestamp": None,
+            "nonmonotonic": 0,
+            "negative_spread_rows": 0,
+            "spread_stats": {"n": 0},
+            "duration_minutes_observed": None,
+            "rows_per_observed_minute": None,
+            "ask_volume_present": False,
+            "bid_volume_present": False,
+            "ask_volume_stats": {"n": 0},
+            "bid_volume_stats": {"n": 0},
+            "ask_volume_zero_share": None,
+            "bid_volume_zero_share": None,
+        }
+
     fields, rows = load_csv(path)
     required = ["timestamp", "askPrice", "bidPrice"]
     if any(k not in fields for k in required):
@@ -220,9 +270,8 @@ def summarize_ticks(path: Path) -> dict:
         rows_per_minute = len(rows) / duration_minutes
 
     return {
-        "file": path.name,
-        "sha256": sha256(path),
-        "bytes": path.stat().st_size,
+        **base,
+        "status": "PASS",
         "schema": fields,
         "rows": len(rows),
         "first_timestamp": ts[0] if ts else None,
