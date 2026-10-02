@@ -56,9 +56,9 @@ jobs:
           )"
             local tmp
             tmp="$(mktemp -d)"
-            npx -y dukascopy-node@1.50.0               -i "$inst"               -from "$day"               -to "$next"               -t m1               -p "$side"               -v               -utc 0               -f csv               -fn "$name"               -dir "$tmp"
-            test -s "$tmp/$name"
-            mv "$tmp/$name" "$RAW/$name"
+            npx -y dukascopy-node@1.50.0               -i "$inst"               -from "$day"               -to "$next"               -t m1               -p "$side"               -v               -utc 0               -f csv               -fn "$stem"               -dir "$tmp"
+            test -e "$tmp/$stem.csv"
+            mv "$tmp/$stem.csv" "$RAW/$stem.csv"
             rm -rf "$tmp"
           }
 
@@ -95,9 +95,9 @@ jobs:
             local stem="$3"
             local tmp
             tmp="$(mktemp -d)"
-            npx -y dukascopy-node@1.50.0               -i xauusd               -from "$from"               -to "$to"               -t tick               -v               -utc 0               -f csv               -fn "$name"               -dir "$tmp"
-            test -s "$tmp/$name"
-            mv "$tmp/$name" "$RAW/$name"
+            npx -y dukascopy-node@1.50.0               -i xauusd               -from "$from"               -to "$to"               -t tick               -v               -utc 0               -f csv               -fn "$stem"               -dir "$tmp"
+            test -e "$tmp/$stem.csv"
+            mv "$tmp/$stem.csv" "$RAW/$stem.csv"
             rm -rf "$tmp"
           }
 
