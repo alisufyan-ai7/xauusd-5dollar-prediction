@@ -35,6 +35,22 @@
           "evidence_urls": [
             "https://github.com/Leo4815162342/dukascopy-node",
             "https://github.com/Leo4815162342/dukascopy-node/wiki/Downloading-data-with-CLI"
+          ],
+          "official_product_launch": "2018-08-24",
+          "coverage_warning": "Official Dukascopy news says DOLLAR.IDX/USD was introduced on 2018-08-24; third-party registry's 2000 earliest date is not trustworthy for full TRAIN coverage."
+        },
+        {
+          "provider": "Dukascopy constituent FX + official ICE DXY methodology",
+          "series": "SYNTHETIC_DXY_DUKASCOPY_BID",
+          "construction": "50.14348112 * EURUSD^-0.576 * USDJPY^0.136 * GBPUSD^-0.119 * USDCAD^0.091 * USDSEK^0.042 * USDCHF^0.036",
+          "input_frequency": "M1 BID closes",
+          "coverage_goal": "2016-2021 TRAIN",
+          "candidate_strength": "HIGH",
+          "status": "PREREGISTERED_FOR_PROBE",
+          "limitation": "Synthetic provider-specific reconstruction, not an official ICE market print.",
+          "evidence_urls": [
+            "https://www.ice.com/publicdocs/data/ICE_FX_Indexes_Methodology.pdf",
+            "https://github.com/Leo4815162342/dukascopy-node"
           ]
         }
       ],
@@ -58,7 +74,9 @@
           ],
           "evidence_urls": [
             "https://github.com/Leo4815162342/dukascopy-node"
-          ]
+          ],
+          "official_live_launch": "2019-09-11",
+          "coverage_warning": "Official Dukascopy news says USTBOND.TR/USD went live in September 2019; third-party registry's 2000 earliest date is not trustworthy for full TRAIN coverage."
         },
         {
           "provider": "Databento / CME Globex MDP 3.0",
@@ -81,6 +99,21 @@
           ],
           "evidence_urls": [
             "https://databento.com/catalog/cme/GLBX.MDP3/futures/ZN"
+          ]
+        },
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "iShares 7-10 Year Treasury Bond ETF",
+          "instrument_id": "iefususd",
+          "role": "closer-duration Treasury price proxy than US T-Bond; not a yield series",
+          "candidate_strength": "MEDIUM",
+          "unresolved": [
+            "empirically verify actual 2016-2021 intraday coverage rather than relying on generic earliest-date metadata",
+            "equity-market-hours limitation",
+            "not an exact 10Y yield series"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node"
           ]
         }
       ],
@@ -122,6 +155,21 @@
             "https://docs.tradingeconomics.com/economic_calendar/point-in-time/",
             "https://docs.tradingeconomics.com/economic_calendar/country/"
           ]
+        },
+        {
+          "provider": "Composite first-party U.S. release archives",
+          "series": "BLS + Federal Reserve + BEA + Department of Labor + ISM",
+          "role": "timestamp-safe schedule source for core event families",
+          "candidate_strength": "HIGH",
+          "observed_support": {
+            "BLS": "historical yearly schedule pages provide exact release date/time for Employment Situation, CPI, JOLTS",
+            "FOMC": "meeting archive plus statement pages provide exact release dates and 2:00 p.m. ET statement times",
+            "BEA": "historical GDP releases provide exact release dates/times and estimate stage",
+            "DOL": "weekly claims normally Thursday 8:30 a.m. ET with archived holiday exceptions",
+            "ISM": "published rule is first/third business day at 10:00 a.m. ET; historical exceptions still require archive verification"
+          },
+          "limitation": "Requires multi-provider acquisition/alignment instead of one normalized API.",
+          "verdict": "PENDING"
         }
       ],
       "verdict": "PENDING"
@@ -175,7 +223,8 @@
           "evidence_urls": [
             "https://github.com/Leo4815162342/dukascopy-node/wiki/Basic-usage-of-dukascopy-node",
             "https://github.com/Leo4815162342/dukascopy-node/blob/master/src/cli/config.ts"
-          ]
+          ],
+          "normalization_evidence": "dukascopy-node exposes --volumes and volume units and reads candle volume from the source response; this establishes a provider volume field but not centralized traded-volume semantics."
         }
       ],
       "verdict": "PENDING"
@@ -206,7 +255,8 @@
           ],
           "evidence_urls": [
             "https://github.com/Leo4815162342/dukascopy-node/wiki/Downloading-tick-data"
-          ]
+          ],
+          "normalization_evidence": "dukascopy-node tick normalization carries source askVolumes and bidVolumes when requested."
         }
       ],
       "verdict": "PENDING"
@@ -216,5 +266,6 @@
     "This registry records source feasibility only; no source has been selected by XAUUSD profitability.",
     "No full external historical integration has begun.",
     "Final C1-C6 verdicts belong in Stage 1 findings and a later decision record."
-  ]
+  ],
+  "updated_note": "Documentation review found official product-launch dates that contradict generic earliest-date metadata for Dukascopy DXY and US T-Bond, motivating fixed empirical probes and a preregistered synthetic DXY fallback."
 }
