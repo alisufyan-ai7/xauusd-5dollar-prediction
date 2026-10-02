@@ -31,7 +31,7 @@ jobs:
           python-version: "3.12"
 
       - name: Compile probe summarizer
-        run: python -m py_compile scripts/probe_information_parity_stage1.py
+        run: python -m py_compile scripts/probe_information_parity_stage1.py scripts/probe_synthetic_dxy_stage1.py
 
       - name: Run fixed Dukascopy M1 source probes
         shell: bash
@@ -68,6 +68,21 @@ jobs:
             download_m1 ustbondtrusd "$day" bid "ustbond-${compact}-m1-bid"
             download_m1 xauusd "$day" bid "xauusd-${compact}-m1-bid"
             download_m1 xauusd "$day" ask "xauusd-${compact}-m1-ask"
+
+            for fx in eurusd usdjpy gbpusd usdcad usdsek usdchf; do
+              download_m1 "$fx" "$day" bid "${fx}-${compact}-m1-bid"
+            done
+
+            python scripts/probe_synthetic_dxy_stage1.py \
+              "$RAW/eurusd-${compact}-m1-bid.csv" \
+              "$RAW/usdjpy-${compact}-m1-bid.csv" \
+              "$RAW/gbpusd-${compact}-m1-bid.csv" \
+              "$RAW/usdcad-${compact}-m1-bid.csv" \
+              "$RAW/usdsek-${compact}-m1-bid.csv" \
+              "$RAW/usdchf-${compact}-m1-bid.csv" \
+              "$RAW/dxy-${compact}-m1-bid.csv" \
+              "$day" \
+              > "$OUT/m1/synthetic-dxy-${compact}.json"
 
             python scripts/probe_information_parity_stage1.py m1               "$RAW/dxy-${compact}-m1-bid.csv"               > "$OUT/m1/dxy-${compact}.json"
 
