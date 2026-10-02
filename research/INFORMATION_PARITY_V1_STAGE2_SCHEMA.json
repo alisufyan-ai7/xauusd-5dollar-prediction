@@ -1,0 +1,209 @@
+{
+  "schema_version": "IPV1_STAGE2_SCHEMA_V1",
+  "status": "FROZEN_BEFORE_IMPLEMENTATION",
+  "partition": {
+    "allowed": [
+      "2016",
+      "2017",
+      "2018",
+      "2019",
+      "2020",
+      "2021"
+    ],
+    "sealed": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ]
+  },
+  "timestamp_contract": {
+    "m1_timestamp_meaning": "UTC bar start",
+    "decision_time_expression": "timestamp_ms + 60000",
+    "availability_rule": "field_available_time_ms <= decision_time_ms",
+    "partial_higher_timeframes_allowed": false
+  },
+  "sources": {
+    "xauusd": "Dukascopy synchronized M1 BID/ASK",
+    "dxy": "SYNTHETIC_DXY_DUKASCOPY_BID",
+    "macro": "composite first-party scheduled U.S. release calendar",
+    "rates": null,
+    "macro_surprise": null,
+    "tick": "targeted-only"
+  },
+  "tables": {
+    "xauusd_m1_market_state": {
+      "key": [
+        "timestamp_ms"
+      ],
+      "required": [
+        "timestamp_ms",
+        "decision_time_ms",
+        "bid_open",
+        "bid_high",
+        "bid_low",
+        "bid_close",
+        "bid_volume",
+        "ask_open",
+        "ask_high",
+        "ask_low",
+        "ask_close",
+        "ask_volume",
+        "spread_open",
+        "spread_close",
+        "bid_flat_fill",
+        "ask_flat_fill"
+      ]
+    },
+    "timeframe_tables": {
+      "names": [
+        "xauusd_m3",
+        "xauusd_m5",
+        "xauusd_m15",
+        "xauusd_m30",
+        "xauusd_h1",
+        "xauusd_h4",
+        "xauusd_d1",
+        "xauusd_w1"
+      ],
+      "required": [
+        "available_time_ms",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "source_count"
+      ]
+    },
+    "xauusd_structural_state": {
+      "required": [
+        "decision_time_ms",
+        "last_confirmed_swing_high_m5",
+        "last_confirmed_swing_low_m5",
+        "last_confirmed_swing_high_m15",
+        "last_confirmed_swing_low_m15",
+        "last_confirmed_swing_high_h1",
+        "last_confirmed_swing_low_h1",
+        "last_confirmed_swing_high_h4",
+        "last_confirmed_swing_low_h4",
+        "nearest_active_bull_fvg_m5",
+        "nearest_active_bear_fvg_m5",
+        "nearest_active_bull_fvg_m15",
+        "nearest_active_bear_fvg_m15",
+        "nearest_active_bull_fvg_h1",
+        "nearest_active_bear_fvg_h1",
+        "nearest_active_bull_fvg_h4",
+        "nearest_active_bear_fvg_h4",
+        "previous_day_high",
+        "previous_day_low",
+        "asia_high_known",
+        "asia_low_known",
+        "london_high_known",
+        "london_low_known",
+        "session_label",
+        "minutes_since_session_boundary"
+      ]
+    },
+    "synthetic_dxy_m1": {
+      "required": [
+        "dxy_bar_start_ms",
+        "dxy_available_time_ms",
+        "dxy_level",
+        "dxy_change_1m",
+        "dxy_change_5m",
+        "dxy_change_15m",
+        "dxy_change_60m",
+        "dxy_change_240m"
+      ],
+      "max_join_staleness_minutes": 5
+    },
+    "macro_event_schedule": {
+      "required": [
+        "event_id",
+        "event_family",
+        "scheduled_time_utc",
+        "scheduled_time_local",
+        "source_timezone",
+        "source_agency",
+        "source_document_id_or_url",
+        "release_stage",
+        "historical_exception_flag",
+        "normalization_version"
+      ],
+      "forbidden": [
+        "actual",
+        "forecast",
+        "consensus",
+        "previous",
+        "revised",
+        "surprise"
+      ]
+    },
+    "decision_index": {
+      "required": [
+        "timestamp_ms",
+        "decision_time_ms",
+        "year",
+        "utc_date",
+        "ny_date",
+        "feature_ready_market",
+        "dxy_available",
+        "macro_schedule_available",
+        "market_state_version"
+      ]
+    },
+    "trade_risk_state_template": {
+      "required": [
+        "position_state",
+        "open_position_count",
+        "entry_price",
+        "stop_price",
+        "target_price",
+        "minutes_in_position",
+        "session_realized_pnl",
+        "session_trade_count",
+        "consecutive_loss_count",
+        "risk_fraction_deployed",
+        "same_thesis_attempt_count"
+      ],
+      "stage2_default": "neutral FLAT/zero/null only"
+    }
+  },
+  "structural_rules": {
+    "swing_confirmation": "2 bars left + 2 bars right; available only after i+2 closes",
+    "fvg_creation": "3-bar gap; available only after creation bar closes",
+    "session_timezones": [
+      "UTC",
+      "Europe/London",
+      "America/New_York"
+    ]
+  },
+  "forbidden_stage2_fields": [
+    "future_return",
+    "mfe",
+    "mae",
+    "target_before_stop",
+    "profit_loss",
+    "trade_label",
+    "macro_actual",
+    "macro_forecast",
+    "macro_consensus",
+    "macro_surprise"
+  ],
+  "manifest_requirements": [
+    "code_commit_sha",
+    "downloader_versions",
+    "source_ranges",
+    "raw_sha256",
+    "normalized_sha256",
+    "row_counts",
+    "first_last_timestamps",
+    "synchronization_fills_drops",
+    "dxy_coverage",
+    "macro_counts_by_family_year",
+    "missingness",
+    "timezone_runtime",
+    "sealed_period_assertion"
+  ]
+}

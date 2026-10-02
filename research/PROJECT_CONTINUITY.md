@@ -1449,3 +1449,76 @@ Active next step:
 preregister the Stage 2 Information Parity Layer V1 schema and timestamp-alignment contract before full TRAIN acquisition/integration.
 
 Do not train a profitability model yet.
+
+
+## Information Parity V1 — Stage 2 active
+
+Active branch:
+research/information-parity-v1-stage2
+
+Decision record:
+D-068
+
+Frozen preregistration:
+research/INFORMATION_PARITY_V1_STAGE2_SCHEMA_PREREGISTRATION.md
+
+Stage 2 purpose:
+build a causal, reproducible 2016-2021 Information Parity Layer V1. No predictive model or profitability evaluation is authorized in this stage.
+
+Key decision-time rule:
+M1 timestamp is bar start; decision time is bar start + 60 seconds; every joined field must have availability time <= decision time.
+
+Stage 2 source set:
+- synchronized XAUUSD BID/ASK M1 OHLC;
+- spread and provider-volume state;
+- causal multi-timeframe/structural/session state;
+- SYNTHETIC_DXY_DUKASCOPY_BID;
+- first-party scheduled macro calendar;
+- targeted tick data only if explicitly required;
+- separate trade/risk-state schema.
+
+Deferred/excluded:
+US 10Y/rates, macro surprises/consensus, global order flow, default full-history ticks.
+
+Active next step:
+implement acquisition/normalization + leakage/integrity checks under the frozen Stage 2 contract and run one 2016-2021 same-snapshot build.
+
+2022-2025 remain sealed.
+
+
+## Stage 2 macro-calendar implementation frozen
+
+Decision record:
+D-069
+
+Specification:
+research/INFORMATION_PARITY_V1_STAGE2_MACRO_ADDENDUM.md
+
+Implementation now targets first-party scheduled timestamps for:
+CPI, NFP, JOLTS, FOMC, Initial Claims and national GDP.
+
+ISM Manufacturing/Services historical dates are deferred from V1 rather than synthesized from a generic business-day rule because exact historical first-party holiday exceptions are not sufficiently reproducible from the public archive.
+
+Scripts added:
+- scripts/acquire_macro_schedule_stage2.py
+- scripts/validate_information_parity_stage2.py
+
+No macro outcomes/surprises are allowed.
+No model training is allowed yet.
+2022-2025 XAUUSD remain sealed.
+
+
+## Stage 2 macro transport fallback
+
+Decision record:
+D-070
+
+Second smoke run 37011477397 confirmed that BLS blocks GitHub Actions with HTTP 403 even though the official historical schedule is publicly available. The project will stop retrying that transport path.
+
+Stage 2 now permits versioned normalized BLS schedule snapshots derived from official BLS historical pages, with source URL/provenance on every row. This is a transport/reproducibility fallback, not a new data source and not a raw provider-data commit.
+
+The immediate smoke fix is limited to the already-frozen 2016 smoke year. Equivalent 2017-2021 snapshots must be verified before the full TRAIN build.
+
+BEA GDP discovery will also switch to the official national-GDP archive with created_1=All and release-year filtering.
+
+No economic outcomes or sealed XAUUSD periods are involved.
