@@ -34,6 +34,21 @@ TF_RULES = {
 STRUCT_TFS = ("m5", "m15", "h1", "h4")
 
 
+def datetime_like_to_epoch_ms(values) -> np.ndarray:
+    """Convert pandas datetime-like values to UTC epoch milliseconds.
+
+    Do not divide raw pandas int64 datetime storage by a hard-coded factor:
+    pandas may preserve a non-nanosecond internal resolution.
+    """
+    idx = pd.DatetimeIndex(pd.to_datetime(values, utc=True))
+    idx = idx.tz_convert("UTC").tz_localize(None)
+    return idx.to_numpy(dtype="datetime64[ms]").astype(np.int64)
+
+
+def timestamp_to_epoch_ms(value) -> int:
+    return int(datetime_like_to_epoch_ms([value])[0])
+
+
 def fail(msg: str):
     raise SystemExit(f"STAGE2_BUILD_FAILED:{msg}")
 
@@ -125,12 +140,10 @@ def resample_exact(m1: pd.DataFrame, rule: str, expected: int) -> pd.DataFrame:
     cnt = r["close"].count()
     out = agg.loc[cnt == expected].copy()
     out["source_count"] = cnt.loc[cnt == expected].astype("int32")
-    out["available_time_ms"] = (out.index.view("int64") // 1_000_000).astype("int64")
+    out["available_time_ms"] = datetime_like_to_epoch_ms(out.index)
 
     delta = pd.to_timedelta(rule)
-    out["bar_start_ms"] = (
-        (out.index - delta).view("int64") // 1_000_000
-    ).astype("int64")
+    out["bar_start_ms"] = datetime_like_to_epoch_ms(out.index - delta)
 
     out = out[[
         "bar_start_ms", "available_time_ms",
@@ -145,6 +158,15 @@ def resample_exact(m1: pd.DataFrame, rule: str, expected: int) -> pd.DataFrame:
     ).reset_index(drop=True)
 
     av = out["available_time_ms"].to_numpy(np.int64)
+    starts = out["bar_start_ms"].to_numpy(np.int64)
+    expected_span_ms = int(delta / pd.Timedelta(milliseconds=1))
+    if len(av) and np.any((av - starts) != expected_span_ms):
+        bad = out.loc[
+            (out["available_time_ms"] - out["bar_start_ms"]) != expected_span_ms,
+            ["bar_start_ms", "available_time_ms"],
+        ].head(20).to_dict("records")
+        fail(f"timeframe_epoch_unit_or_span:{rule}:{expected_span_ms}:{bad}")
+
     if len(av) > 1 and np.any(np.diff(av) <= 0):
         dup = out.loc[
             out["available_time_ms"].duplicated(keep=False),
@@ -171,8 +193,8 @@ def build_d1(h1: pd.DataFrame) -> pd.DataFrame:
             continue
         available = day + pd.Timedelta(days=1)
         rows.append({
-            "bar_start_ms": int(day.value // 1_000_000),
-            "available_time_ms": int(available.value // 1_000_000),
+            "bar_start_ms": timestamp_to_epoch_ms(day),
+            "available_time_ms": timestamp_to_epoch_ms(available),
             "open": float(g.iloc[0]["open"]),
             "high": float(g["high"].max()),
             "low": float(g["low"].min()),
@@ -198,8 +220,8 @@ def build_w1(d1: pd.DataFrame) -> pd.DataFrame:
             continue
         available = week_start + pd.Timedelta(days=7)
         rows.append({
-            "bar_start_ms": int(week_start.value // 1_000_000),
-            "available_time_ms": int(available.value // 1_000_000),
+            "bar_start_ms": timestamp_to_epoch_ms(week_start),
+            "available_time_ms": timestamp_to_epoch_ms(available),
             "open": float(g.iloc[0]["open"]),
             "high": float(g["high"].max()),
             "low": float(g["low"].min()),
@@ -554,7 +576,7 @@ def load_macro_events(path: Path) -> pd.DataFrame:
     if m.empty:
         return m
     m["scheduled_dt"] = pd.to_datetime(m["scheduled_time_utc"], utc=True)
-    m["scheduled_time_ms"] = (m["scheduled_dt"].astype("int64") // 1_000_000).astype("int64")
+    m["scheduled_time_ms"] = datetime_like_to_epoch_ms(m["scheduled_dt"])
     return m.sort_values(["scheduled_time_ms", "event_family", "event_id"]).reset_index(drop=True)
 
 
