@@ -1449,3 +1449,38 @@ Active next step:
 preregister the Stage 2 Information Parity Layer V1 schema and timestamp-alignment contract before full TRAIN acquisition/integration.
 
 Do not train a profitability model yet.
+
+
+## Information Parity V1 — Stage 2 active
+
+Active branch:
+research/information-parity-v1-stage2
+
+Decision record:
+D-068
+
+Frozen preregistration:
+research/INFORMATION_PARITY_V1_STAGE2_SCHEMA_PREREGISTRATION.md
+
+Stage 2 purpose:
+build a causal, reproducible 2016-2021 Information Parity Layer V1. No predictive model or profitability evaluation is authorized in this stage.
+
+Key decision-time rule:
+M1 timestamp is bar start; decision time is bar start + 60 seconds; every joined field must have availability time <= decision time.
+
+Stage 2 source set:
+- synchronized XAUUSD BID/ASK M1 OHLC;
+- spread and provider-volume state;
+- causal multi-timeframe/structural/session state;
+- SYNTHETIC_DXY_DUKASCOPY_BID;
+- first-party scheduled macro calendar;
+- targeted tick data only if explicitly required;
+- separate trade/risk-state schema.
+
+Deferred/excluded:
+US 10Y/rates, macro surprises/consensus, global order flow, default full-history ticks.
+
+Active next step:
+implement acquisition/normalization + leakage/integrity checks under the frozen Stage 2 contract and run one 2016-2021 same-snapshot build.
+
+2022-2025 remain sealed.
