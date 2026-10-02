@@ -146,7 +146,7 @@ def build_d1(h1: pd.DataFrame) -> pd.DataFrame:
     idx = pd.to_datetime(h1["available_time_ms"], unit="ms", utc=True)
     tmp = h1.copy()
     tmp.index = idx
-    tmp["source_day"] = (idx - pd.Timedelta(nanoseconds=1)).floor("D")
+    tmp["source_day"] = (idx - pd.Timedelta(nanoseconds=1)).dt.floor("D")
     rows = []
     for day, g in tmp.groupby("source_day", sort=True):
         if len(g) < 20:
