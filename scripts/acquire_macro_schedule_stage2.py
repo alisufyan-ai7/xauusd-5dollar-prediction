@@ -130,44 +130,58 @@ def parse_date_time_et(date_text: str, time_text: str) -> datetime:
 
 
 def acquire_bls(fetch: Fetcher, year: int) -> tuple[list[Event], list[str]]:
-    url = f"https://www.bls.gov/schedule/{year}/"
+    urls = [
+        f"https://www.bls.gov/schedule/{year}/home.htm",
+        f"https://www.bls.gov/schedule/{year}/",
+    ]
     errors = []
     events = []
-    try:
-        html = fetch.get(url, f"bls-{year}")
-        soup = BeautifulSoup(html, "html.parser")
-        seen = set()
-        for tr in soup.find_all("tr"):
-            cells = [c.get_text(" ", strip=True) for c in tr.find_all(["td", "th"])]
-            if len(cells) < 3:
-                continue
-            date_txt, time_txt, release = cells[0], cells[1], cells[2]
-            family = None
-            if release.startswith("Consumer Price Index for"):
-                family = "CPI"
-            elif release.startswith("Employment Situation for"):
-                family = "NFP"
-            elif release.startswith("Job Openings and Labor Turnover Survey for"):
-                family = "JOLTS"
-            if family is None or not re.search(r"d{1,2}:d{2}s*[AP]M", time_txt, re.I):
-                continue
-            try:
-                dt = parse_date_time_et(date_txt, time_txt)
-            except Exception as e:
-                errors.append(f"BLS_PARSE:{year}:{date_txt}:{time_txt}:{release}:{e}")
-                continue
-            key = (family, dt)
-            if key in seen:
-                continue
-            seen.add(key)
-            events.append(Event(
-                family=family,
-                dt_local=dt,
-                agency="BLS",
-                source=url,
-            ))
-    except Exception as e:
-        errors.append(str(e))
+    html = None
+    source_url = None
+    fetch_errors = []
+    for url in urls:
+        try:
+            html = fetch.get(url, f"bls-{year}")
+            source_url = url
+            break
+        except Exception as e:
+            fetch_errors.append(str(e))
+    if html is None:
+        return [], fetch_errors
+
+    soup = BeautifulSoup(html, "html.parser")
+    seen = set()
+    for tr in soup.find_all("tr"):
+        cells = [x.get_text(" ", strip=True) for x in tr.find_all(["td", "th"])]
+        if len(cells) < 3:
+            continue
+        date_txt, time_txt, release = cells[0], cells[1], cells[2]
+        family = None
+        if release.startswith("Consumer Price Index for"):
+            family = "CPI"
+        elif release.startswith("Employment Situation for"):
+            family = "NFP"
+        elif release.startswith("Job Openings and Labor Turnover Survey for"):
+            family = "JOLTS"
+        if family is None or not re.search(r"\d{1,2}:\d{2}\s*[AP]M", time_txt, re.I):
+            continue
+        try:
+            dt = parse_date_time_et(date_txt, time_txt)
+        except Exception as e:
+            errors.append(f"BLS_PARSE:{year}:{date_txt}:{time_txt}:{release}:{e}")
+            continue
+        key = (family, dt)
+        if key in seen:
+            continue
+        seen.add(key)
+        events.append(Event(
+            family=family,
+            dt_local=dt,
+            agency="BLS",
+            source=source_url or urls[0],
+        ))
+    if not events:
+        errors.append(f"BLS_NO_TARGET_EVENTS:{year}:{source_url}")
     return events, errors
 
 
@@ -273,8 +287,13 @@ def acquire_gdp(fetch: Fetcher, year: int) -> tuple[list[Event], list[str]]:
     events = []
     errors = []
     seen_urls = set()
+    pages_without_hits_after_hit = 0
+    ever_hit = False
 
-    for page in range(0, 8):
+    # BEA's archive is a Drupal view whose HTML is not guaranteed to use table
+    # rows. Scan all anchors on a bounded set of pages and follow only national
+    # "Gross Domestic Product," release links.
+    for page in range(0, 12):
         url = (
             "https://www.bea.gov/news/archive"
             f"?field_related_product_target_id=451&created_1={year}&page={page}&title="
@@ -284,20 +303,19 @@ def acquire_gdp(fetch: Fetcher, year: int) -> tuple[list[Event], list[str]]:
         except Exception as e:
             errors.append(str(e))
             break
+
         soup = BeautifulSoup(html, "html.parser")
         page_hits = 0
-        for tr in soup.find_all("tr"):
-            a = tr.find("a", href=True)
-            if a is None:
-                continue
+        for a in soup.find_all("a", href=True):
             title = a.get_text(" ", strip=True)
-            if not title.startswith("Gross Domestic Product,"):
+            if not title.lower().startswith("gross domestic product,"):
                 continue
             href = urljoin(url, a["href"])
             if href in seen_urls:
                 continue
             seen_urls.add(href)
             page_hits += 1
+            ever_hit = True
             try:
                 body = fetch.get(href, f"bea-gdp-release-{year}-{len(seen_urls)}")
                 text = BeautifulSoup(body, "html.parser").get_text(" ", strip=True)
@@ -316,13 +334,21 @@ def acquire_gdp(fetch: Fetcher, year: int) -> tuple[list[Event], list[str]]:
                 ))
             except Exception as e:
                 errors.append(f"BEA_PAGE:{href}:{e}")
-        if page_hits == 0:
-            break
+
+        if ever_hit and page_hits == 0:
+            pages_without_hits_after_hit += 1
+            if pages_without_hits_after_hit >= 2:
+                break
+        elif page_hits:
+            pages_without_hits_after_hit = 0
 
     unique = {}
     for e in events:
         unique[(e.family, e.dt_local, e.stage, e.source)] = e
-    return sorted(unique.values(), key=lambda e: e.dt_local), errors
+    out = sorted(unique.values(), key=lambda e: e.dt_local)
+    if not out:
+        errors.append(f"BEA_GDP_NO_RELEASES:{year}")
+    return out, errors
 
 
 def fourth_thursday(year: int, month: int) -> date:
