@@ -1614,3 +1614,58 @@ No profitability model, backtest, threshold search or source selection by future
 Only tiny targeted samples may be used when necessary to verify schema/timestamp/coverage. No full multi-source TRAIN integration occurs until Stage 2 is separately specified.
 
 2022-2025 XAUUSD evaluation periods remain sealed.
+
+
+---
+
+## D-067 — Complete Information Parity V1 Stage 1 and freeze Stage 2 source set
+
+Accepted final source-feasibility probe:
+- workflow run: 36986414645
+- status: SUCCESS
+- artifact: information-parity-stage1-probes
+- artifact id: 11217188926
+- artifact digest: sha256:27ff2ed0f4d03a6392a479208ad9d2a80bd467d45fe5a2b2d46113aa3d7f8821
+- sealed XAUUSD periods accessed: none
+
+Final Stage 1 channel verdicts:
+- C1 DXY / broad USD intraday: ADMITTED WITH LIMITATION using SYNTHETIC_DXY_DUKASCOPY_BID;
+- C2 US Treasury / rate intraday: DEFERRED;
+- C3 scheduled macro-event calendar: ADMITTED WITH LIMITATION using composite first-party U.S. release archives/schedules;
+- C4 macro actual/forecast/previous/surprise: DEFERRED;
+- C5 XAUUSD M1 volume: ADMITTED WITH LIMITATION as Dukascopy provider participation/volume proxy;
+- C6 XAUUSD tick microstructure: ADMITTED WITH LIMITATION for targeted use.
+
+Important evidence:
+- synthetic DXY had 1,417 / 1,419 / 1,404 synchronized M1 rows on the fixed 2016/2019/2021 anchor days;
+- where direct Dukascopy DXY exists, synthetic-vs-direct level correlation was 0.99845 in 2019 and 0.99978 in 2021, with first-difference correlation 0.94616 and 0.91796;
+- US T-Bond CFD had no 2016 anchor data and material later gaps;
+- the frozen IEF fallback probe returned zero rows on all three anchor days, ending Stage 1 rate-source hunting;
+- XAUUSD M1 provider volume is nonzero and side-specific in all fixed samples;
+- targeted XAUUSD tick windows succeeded with 9,190 rows in 2016 and 27,097 rows in 2021, including BID/ASK and askVolume/bidVolume.
+
+Decision:
+Stage 1 is complete. Stage 2 design is authorized because the frozen minimum conditions are satisfied: XAUUSD historical state exists, M1 provider volume is characterized for limited use, at least one cross-market channel (synthetic DXY) is admitted, and a scheduled macro-event calendar is admitted.
+
+Frozen Stage 2 source set:
+- XAUUSD synchronized M1 BID/ASK OHLC;
+- spread;
+- Dukascopy XAUUSD M1 provider volume;
+- raw XAUUSD causal sequences / multi-timeframe transforms;
+- source-supported structural/session/liquidity state;
+- SYNTHETIC_DXY_DUKASCOPY_BID;
+- composite first-party scheduled U.S. macro-event calendar;
+- optional targeted Dukascopy tick microstructure where explicitly justified;
+- separate trade/account/risk state.
+
+Explicit V1 exclusions:
+- intraday US 10Y/rate channel;
+- historical macro consensus/surprise;
+- full global order flow;
+- official ICE DXY prints as a complete TRAIN source;
+- full six-year tick ingestion by default.
+
+Next:
+Do not train a model yet. Preregister Stage 2 Information Parity Layer V1 schema and timestamp-alignment contract before full 2016-2021 TRAIN acquisition/integration.
+
+See research/INFORMATION_PARITY_V1_STAGE1_SOURCE_FEASIBILITY_FINDINGS.md.
