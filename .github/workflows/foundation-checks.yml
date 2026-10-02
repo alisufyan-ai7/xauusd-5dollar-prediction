@@ -120,5 +120,7 @@ jobs:
         run: python -m py_compile scripts/synchronize_information_parity_m1.py
       - name: Compile Information Parity Stage 2 DXY builder
         run: python -m py_compile scripts/build_synthetic_dxy_stage2.py
+      - name: Compile Information Parity Stage 2 annual builder
+        run: python -m py_compile scripts/build_information_parity_stage2_year.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
