@@ -1,0 +1,169 @@
+name: information-parity-stage1
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage1-source-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile probe summarizer
+        run: python -m py_compile scripts/probe_information_parity_stage1.py scripts/probe_synthetic_dxy_stage1.py
+
+      - name: Run fixed Dukascopy M1 source probes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          RAW="$RUNNER_TEMP/ip-stage1-raw"
+          OUT="data/reports/information-parity-stage1"
+          mkdir -p "$RAW" "$OUT/m1"
+
+          download_m1() {
+            local inst="$1"
+            local day="$2"
+            local side="$3"
+            local stem="$4"
+            local next
+            next="$(python - "$day" <<'PY'
+          import datetime as dt,sys
+          d=dt.date.fromisoformat(sys.argv[1])
+          print((d+dt.timedelta(days=1)).isoformat())
+          PY
+          )"
+            local tmp
+            tmp="$(mktemp -d)"
+            npx -y dukascopy-node@1.50.0               -i "$inst"               -from "$day"               -to "$next"               -t m1               -p "$side"               -v               -utc 0               -f csv               -fn "$stem"               -dir "$tmp"
+            test -e "$tmp/$stem.csv"
+            mv "$tmp/$stem.csv" "$RAW/$stem.csv"
+            rm -rf "$tmp"
+          }
+
+          for day in 2016-02-01 2019-02-04 2021-02-01; do
+            compact="${day//-/}"
+            download_m1 dollaridxusd "$day" bid "dxy-${compact}-m1-bid"
+            download_m1 ustbondtrusd "$day" bid "ustbond-${compact}-m1-bid"
+            download_m1 iefususd "$day" bid "ief-${compact}-m1-bid"
+            download_m1 xauusd "$day" bid "xauusd-${compact}-m1-bid"
+            download_m1 xauusd "$day" ask "xauusd-${compact}-m1-ask"
+
+            for fx in eurusd usdjpy gbpusd usdcad usdsek usdchf; do
+              download_m1 "$fx" "$day" bid "${fx}-${compact}-m1-bid"
+            done
+
+            python scripts/probe_synthetic_dxy_stage1.py \
+              "$RAW/eurusd-${compact}-m1-bid.csv" \
+              "$RAW/usdjpy-${compact}-m1-bid.csv" \
+              "$RAW/gbpusd-${compact}-m1-bid.csv" \
+              "$RAW/usdcad-${compact}-m1-bid.csv" \
+              "$RAW/usdsek-${compact}-m1-bid.csv" \
+              "$RAW/usdchf-${compact}-m1-bid.csv" \
+              "$RAW/dxy-${compact}-m1-bid.csv" \
+              "$day" \
+              > "$OUT/m1/synthetic-dxy-${compact}.json"
+
+            python scripts/probe_information_parity_stage1.py m1               "$RAW/dxy-${compact}-m1-bid.csv"               > "$OUT/m1/dxy-${compact}.json"
+
+            python scripts/probe_information_parity_stage1.py m1               "$RAW/ustbond-${compact}-m1-bid.csv"               > "$OUT/m1/ustbond-${compact}.json"
+
+            python scripts/probe_information_parity_stage1.py m1               "$RAW/ief-${compact}-m1-bid.csv"               > "$OUT/m1/ief-${compact}.json"
+
+            python scripts/probe_information_parity_stage1.py m1               "$RAW/xauusd-${compact}-m1-bid.csv"               > "$OUT/m1/xauusd-${compact}-bid.json"
+
+            python scripts/probe_information_parity_stage1.py m1               "$RAW/xauusd-${compact}-m1-ask.csv"               > "$OUT/m1/xauusd-${compact}-ask.json"
+
+            python scripts/probe_information_parity_stage1.py pair               "$RAW/xauusd-${compact}-m1-bid.csv"               "$RAW/xauusd-${compact}-m1-ask.csv"               > "$OUT/m1/xauusd-${compact}-pair.json"
+          done
+
+      - name: Run fixed XAUUSD tick microstructure probes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          RAW="$RUNNER_TEMP/ip-stage1-raw"
+          OUT="data/reports/information-parity-stage1"
+          mkdir -p "$RAW" "$OUT/tick"
+
+          download_tick_window() {
+            local from="$1"
+            local to="$2"
+            local stem="$3"
+            local tmp
+            tmp="$(mktemp -d)"
+            npx -y dukascopy-node@1.50.0               -i xauusd               -from "$from"               -to "$to"               -t tick               -v               -utc 0               -f csv               -fn "$stem"               -dir "$tmp"
+            test -e "$tmp/$stem.csv"
+            mv "$tmp/$stem.csv" "$RAW/$stem.csv"
+            rm -rf "$tmp"
+          }
+
+          download_tick_window             "2016-02-01T14:00:00.000Z"             "2016-02-01T15:00:00.000Z"             "xauusd-tick-20160201-1400-1500"
+
+          download_tick_window             "2021-02-01T14:00:00.000Z"             "2021-02-01T15:00:00.000Z"             "xauusd-tick-20210201-1400-1500"
+
+          python scripts/probe_information_parity_stage1.py tick             "$RAW/xauusd-tick-20160201-1400-1500.csv"             > "$OUT/tick/xauusd-tick-20160201-1400-1500.json"
+
+          python scripts/probe_information_parity_stage1.py tick             "$RAW/xauusd-tick-20210201-1400-1500.csv"             > "$OUT/tick/xauusd-tick-20210201-1400-1500.json"
+
+      - name: Build compact Stage 1 probe manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/reports/information-parity-stage1"
+          python - "$OUT" <<'PY'
+          import hashlib,json,pathlib,sys
+          out=pathlib.Path(sys.argv[1])
+          docs=[]
+          for p in sorted(out.rglob("*.json")):
+              if p.name=="probe-manifest.json":
+                  continue
+              docs.append({
+                  "path":str(p),
+                  "sha256":hashlib.sha256(p.read_bytes()).hexdigest(),
+                  "content":json.loads(p.read_text()),
+              })
+          manifest={
+              "schema_version":"IPV1_STAGE1_PROBE_V1",
+              "purpose":"source feasibility only; no profitability or outcome selection",
+              "fixed_m1_anchor_days":["2016-02-01","2019-02-04","2021-02-01"],
+              "fixed_tick_windows":[
+                  "2016-02-01T14:00:00Z/2016-02-01T15:00:00Z",
+                  "2021-02-01T14:00:00Z/2021-02-01T15:00:00Z"
+              ],
+              "sealed_xauusd_periods_accessed":[],
+              "documents":docs
+          }
+          (out/"probe-manifest.json").write_text(json.dumps(manifest,indent=2,sort_keys=True)+"\n")
+          PY
+
+          find "$OUT" -maxdepth 3 -type f -print | sort
+          find "$OUT" -type f -name '*.json' -print | sort | xargs sha256sum > "$OUT/summary-sha256.txt"
+
+      - name: Upload compact Stage 1 probe evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: information-parity-stage1-probes
+          path: |
+            data/reports/information-parity-stage1/probe-manifest.json
+            data/reports/information-parity-stage1/summary-sha256.txt
+            data/reports/information-parity-stage1/m1/*.json
+            data/reports/information-parity-stage1/tick/*.json
+          if-no-files-found: error
+          retention-days: 90

@@ -1401,3 +1401,51 @@ Immediate next step:
 create the dedicated Information Parity V1 branch and preregister Stage 1.
 
 2022-2025 remain sealed.
+
+
+## Information Parity V1 — Stage 1 active
+
+Active branch:
+research/information-parity-v1
+
+Decision record:
+D-066
+
+Frozen preregistration:
+research/INFORMATION_PARITY_V1_STAGE1_SOURCE_FEASIBILITY_PREREGISTRATION.md
+
+Current task:
+audit source feasibility for DXY/USD, US yields/rates, macro-event schedules, macro release values/surprises, existing Dukascopy M1 volume semantics, and targeted tick microstructure.
+
+Stage 1 selects sources only on data integrity/causality/reproducibility criteria. It does not train a model or inspect profitability.
+
+2022-2025 XAUUSD evaluation periods remain sealed.
+
+
+## Information Parity V1 — Stage 1 complete
+
+Decision record:
+D-067
+
+Findings:
+research/INFORMATION_PARITY_V1_STAGE1_SOURCE_FEASIBILITY_FINDINGS.md
+
+Accepted final probe:
+- run 36986414645 — SUCCESS
+- artifact digest sha256:27ff2ed0f4d03a6392a479208ad9d2a80bd467d45fe5a2b2d46113aa3d7f8821
+- 2022-2025 XAUUSD remained untouched.
+
+Final source verdicts:
+- C1 synthetic DXY: ADMITTED WITH LIMITATION;
+- C2 rates/yields: DEFERRED;
+- C3 scheduled macro calendar: ADMITTED WITH LIMITATION;
+- C4 macro surprise/consensus: DEFERRED;
+- C5 M1 provider volume: ADMITTED WITH LIMITATION;
+- C6 targeted tick microstructure: ADMITTED WITH LIMITATION.
+
+Stage 2 source set is now frozen around XAUUSD M1 BID/ASK + spread + provider volume + multi-timeframe/structural state + synthetic DXY + first-party scheduled macro calendar, with targeted tick microstructure optional and trade/risk state separate.
+
+Active next step:
+preregister the Stage 2 Information Parity Layer V1 schema and timestamp-alignment contract before full TRAIN acquisition/integration.
+
+Do not train a profitability model yet.

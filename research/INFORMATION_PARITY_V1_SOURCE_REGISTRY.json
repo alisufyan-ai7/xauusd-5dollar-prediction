@@ -1,0 +1,453 @@
+{
+  "schema_version": "IPV1_STAGE1_SOURCE_REGISTRY_V1",
+  "status": "STAGE1_COMPLETE",
+  "created_under": "research/INFORMATION_PARITY_V1_STAGE1_SOURCE_FEASIBILITY_PREREGISTRATION.md",
+  "economic_selection_used": false,
+  "xauusd_sealed_periods_accessed": [],
+  "channels": {
+    "C1_DXY_USD_INTRADAY": {
+      "status": "ADMITTED_WITH_LIMITATION",
+      "candidates": [
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "US Dollar Index",
+          "instrument_id": "dollaridxusd",
+          "documented_earliest_utc": "2000-01-01",
+          "documented_supported_timeframes": [
+            "tick",
+            "s1",
+            "m1",
+            "m5",
+            "m15",
+            "m30",
+            "h1",
+            "h4",
+            "d1",
+            "mn1"
+          ],
+          "access": "same public downloader family already used by project",
+          "candidate_strength": "HIGH",
+          "unresolved": [
+            "empirically verify 2016-2021 M1 coverage and timestamp continuity",
+            "confirm exact instrument semantics versus ICE DXY/CFD representation",
+            "record spread/volume behavior and missingness"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node",
+            "https://github.com/Leo4815162342/dukascopy-node/wiki/Downloading-data-with-CLI"
+          ],
+          "official_product_launch": "2018-08-24",
+          "coverage_warning": "Official Dukascopy news says DOLLAR.IDX/USD was introduced on 2018-08-24; third-party registry's 2000 earliest date is not trustworthy for full TRAIN coverage."
+        },
+        {
+          "provider": "Dukascopy constituent FX + official ICE DXY methodology",
+          "series": "SYNTHETIC_DXY_DUKASCOPY_BID",
+          "construction": "50.14348112 * EURUSD^-0.576 * USDJPY^0.136 * GBPUSD^-0.119 * USDCAD^0.091 * USDSEK^0.042 * USDCHF^0.036",
+          "input_frequency": "M1 BID closes",
+          "coverage_goal": "2016-2021 TRAIN",
+          "candidate_strength": "HIGH",
+          "status": "PREREGISTERED_FOR_PROBE",
+          "limitation": "Synthetic provider-specific reconstruction, not an official ICE market print.",
+          "evidence_urls": [
+            "https://www.ice.com/publicdocs/data/ICE_FX_Indexes_Methodology.pdf",
+            "https://github.com/Leo4815162342/dukascopy-node"
+          ]
+        }
+      ],
+      "verdict": "ADMITTED WITH LIMITATION",
+      "empirical_probe": {
+        "direct_dukascopy_dxy": {
+          "2016-02-01": {
+            "status": "EMPTY",
+            "rows": 0
+          },
+          "2019-02-04": {
+            "status": "PASS",
+            "rows": 1154,
+            "gap_count": 36,
+            "largest_gap_minutes": 4
+          },
+          "2021-02-01": {
+            "status": "PASS",
+            "rows": 1237,
+            "gap_count": 19,
+            "largest_gap_minutes": 3
+          }
+        },
+        "synthetic_dukascopy_bid": {
+          "2016-02-01": {
+            "common_constituent_rows": 1417,
+            "official_overlap_rows": 0
+          },
+          "2019-02-04": {
+            "common_constituent_rows": 1419,
+            "official_overlap_rows": 1151,
+            "level_pearson": 0.9984497301760841,
+            "first_difference_pearson": 0.9461607215833275,
+            "normalized_tracking_diff_mean": 0.003144086460863911
+          },
+          "2021-02-01": {
+            "common_constituent_rows": 1404,
+            "official_overlap_rows": 1224,
+            "level_pearson": 0.9997811407087971,
+            "first_difference_pearson": 0.9179585416317367,
+            "normalized_tracking_diff_mean": 0.00264986774309154
+          }
+        },
+        "interpretation": "Synthetic ICE-method DXY using six Dukascopy M1 BID FX constituents supplies the 2016 anchor where Dukascopy's direct DXY CFD is absent and tracks the direct CFD closely in 2019/2021 overlap. Final verdict should preserve synthetic/provider-specific limitation."
+      },
+      "stage2_source": "SYNTHETIC_DXY_DUKASCOPY_BID",
+      "stage2_limitations": [
+        "Synthetic provider-specific reconstruction using the published ICE DXY formula and Dukascopy M1 BID FX constituents.",
+        "Not an official ICE DXY market print.",
+        "Direct Dukascopy DXY CFD does not cover the full 2016-2021 TRAIN period."
+      ]
+    },
+    "C2_US_RATES_INTRADAY": {
+      "status": "DEFERRED",
+      "candidates": [
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "US T-Bond",
+          "instrument_id": "ustbondtrusd",
+          "documented_earliest_utc": "2000-01-01",
+          "role": "possible intraday rates-direction proxy, not exact 10Y yield",
+          "candidate_strength": "MEDIUM",
+          "unresolved": [
+            "identify exact contract/index semantics",
+            "determine relation to 10Y yield direction",
+            "empirically verify TRAIN M1 coverage",
+            "if used, classify only as proxy with explicit limitation"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node"
+          ],
+          "official_live_launch": "2019-09-11",
+          "coverage_warning": "Official Dukascopy news says USTBOND.TR/USD went live in September 2019; third-party registry's 2000 earliest date is not trustworthy for full TRAIN coverage."
+        },
+        {
+          "provider": "Databento / CME Globex MDP 3.0",
+          "series": "10-Year T-Note Futures",
+          "symbol_family": "ZN",
+          "schemas": [
+            "OHLCV-1m",
+            "OHLCV-1s",
+            "BBO-1m",
+            "trades",
+            "order-book variants"
+          ],
+          "role": "direct market proxy for 10Y rate direction",
+          "candidate_strength": "HIGH_BUT_PAID_OR_ACCESS_DEPENDENT",
+          "unresolved": [
+            "cost/access for full 2016-2021 TRAIN history",
+            "pre-2017-05-21 data comes from FIX flat files without capture timestamps",
+            "define continuous-contract/roll treatment without hindsight",
+            "verify whether event-time semantics are sufficient for 2016"
+          ],
+          "evidence_urls": [
+            "https://databento.com/catalog/cme/GLBX.MDP3/futures/ZN"
+          ]
+        },
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "iShares 7-10 Year Treasury Bond ETF",
+          "instrument_id": "iefususd",
+          "role": "closer-duration Treasury price proxy than US T-Bond; not a yield series",
+          "candidate_strength": "MEDIUM",
+          "unresolved": [
+            "empirically verify actual 2016-2021 intraday coverage rather than relying on generic earliest-date metadata",
+            "equity-market-hours limitation",
+            "not an exact 10Y yield series"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node"
+          ]
+        }
+      ],
+      "verdict": "DEFERRED",
+      "empirical_probe": {
+        "ustbondtrusd": {
+          "2016-02-01": {
+            "status": "EMPTY",
+            "rows": 0
+          },
+          "2019-02-04": {
+            "status": "PASS",
+            "rows": 1205,
+            "gap_count": 105,
+            "largest_gap_minutes": 61
+          },
+          "2021-02-01": {
+            "status": "PASS",
+            "rows": 829,
+            "gap_count": 247,
+            "largest_gap_minutes": 61
+          }
+        },
+        "interpretation": "US T-Bond CFD is not exact 10Y yield, has no 2016 anchor data and later samples are materially gapped. IEF fixed-date probe is pending under C2 addendum.",
+        "iefususd": {
+          "2016-02-01": {
+            "status": "EMPTY",
+            "rows": 0
+          },
+          "2019-02-04": {
+            "status": "EMPTY",
+            "rows": 0
+          },
+          "2021-02-01": {
+            "status": "EMPTY",
+            "rows": 0
+          }
+        }
+      },
+      "stage2_source": null,
+      "final_reason": "Free/access-existing candidates did not meet the frozen 2016-2021 coverage and semantic fidelity bar. No further provider hunting under Stage 1."
+    },
+    "C3_MACRO_EVENT_CALENDAR": {
+      "status": "ADMITTED_WITH_LIMITATION",
+      "candidates": [
+        {
+          "provider": "Trading Economics API",
+          "series": "Economic Calendar",
+          "coverage_evidence": "documentation includes historical 2016 examples and date-range endpoints",
+          "fields": [
+            "Date",
+            "Country",
+            "Category",
+            "Event",
+            "Reference",
+            "Source",
+            "Actual",
+            "Previous",
+            "Forecast",
+            "TEForecast",
+            "LastUpdate",
+            "Revised",
+            "Unit",
+            "Ticker",
+            "Symbol"
+          ],
+          "point_in_time_support": true,
+          "candidate_strength": "HIGH",
+          "unresolved": [
+            "subscription/API entitlement required for full 2016-2021 history",
+            "verify timezone semantics of Date and LastUpdate",
+            "map required event families consistently across years",
+            "record redistribution/storage constraints"
+          ],
+          "evidence_urls": [
+            "https://docs.tradingeconomics.com/economic_calendar/point-in-time/",
+            "https://docs.tradingeconomics.com/economic_calendar/country/"
+          ]
+        },
+        {
+          "provider": "Composite first-party U.S. release archives",
+          "series": "BLS + Federal Reserve + BEA + Department of Labor + ISM",
+          "role": "timestamp-safe schedule source for core event families",
+          "candidate_strength": "HIGH",
+          "observed_support": {
+            "BLS": "historical yearly schedule pages provide exact release date/time for Employment Situation, CPI, JOLTS",
+            "FOMC": "meeting archive plus statement pages provide exact release dates and 2:00 p.m. ET statement times",
+            "BEA": "historical GDP releases provide exact release dates/times and estimate stage",
+            "DOL": "weekly claims normally Thursday 8:30 a.m. ET with archived holiday exceptions",
+            "ISM": "published rule is first/third business day at 10:00 a.m. ET; historical exceptions still require archive verification"
+          },
+          "limitation": "Requires multi-provider acquisition/alignment instead of one normalized API.",
+          "verdict": "PENDING"
+        }
+      ],
+      "verdict": "ADMITTED WITH LIMITATION",
+      "stage2_source": "Composite first-party U.S. release schedules/archives",
+      "stage2_limitations": [
+        "Requires multi-provider normalization.",
+        "Historical ET/DST and holiday/date exceptions must be preserved exactly.",
+        "Event-family provenance must be stored."
+      ]
+    },
+    "C4_MACRO_RELEASE_SURPRISE": {
+      "status": "DEFERRED",
+      "candidates": [
+        {
+          "provider": "Trading Economics API",
+          "series": "Economic Calendar point-in-time",
+          "fields": [
+            "Actual",
+            "Previous",
+            "Forecast",
+            "Revised",
+            "Date",
+            "LastUpdate"
+          ],
+          "point_in_time_support": true,
+          "candidate_strength": "HIGH",
+          "unresolved": [
+            "verify that point-in-time endpoint preserves forecast/previous as known before release for target event families",
+            "verify first-release versus later-revised actual handling",
+            "subscription/API entitlement",
+            "define normalization only in Stage 2 after source admission"
+          ],
+          "evidence_urls": [
+            "https://docs.tradingeconomics.com/economic_calendar/point-in-time/",
+            "https://docs.tradingeconomics.com/economic_calendar/snapshot/"
+          ]
+        }
+      ],
+      "verdict": "DEFERRED",
+      "stage2_source": null,
+      "final_reason": "Point-in-time consensus/revision semantics and full-history entitlement were not established strongly enough to admit surprise features without hindsight risk."
+    },
+    "C5_XAUUSD_M1_VOLUME": {
+      "status": "ADMITTED_WITH_LIMITATION",
+      "candidates": [
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "XAUUSD M1 volume field",
+          "project_status": "already downloaded in existing OHLCV schema but unused by main intelligence layer",
+          "tool_support": "CLI supports --volumes and volume units; candle output contains volume",
+          "candidate_strength": "HIGH_IF_SEMANTICS_RESOLVED",
+          "unresolved": [
+            "provider-level meaning of candle volume for XAUUSD",
+            "whether it is tick/quote volume or another liquidity measure",
+            "BID versus ASK side volume relationship",
+            "zero/missing behavior",
+            "do not call it centralized traded volume without evidence"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node/wiki/Basic-usage-of-dukascopy-node",
+            "https://github.com/Leo4815162342/dukascopy-node/blob/master/src/cli/config.ts"
+          ],
+          "normalization_evidence": "dukascopy-node exposes --volumes and volume units and reads candle volume from the source response; this establishes a provider volume field but not centralized traded-volume semantics."
+        }
+      ],
+      "verdict": "ADMITTED WITH LIMITATION",
+      "empirical_probe": {
+        "2016-02-01": {
+          "rows": 1380,
+          "bid_mean": 0.04754376811594203,
+          "ask_mean": 0.058467862318840574,
+          "volume_equal_share": 0.002898550724637681,
+          "bid_ask_volume_pearson": 0.7383482260593857
+        },
+        "2019-02-04": {
+          "rows": 1371,
+          "bid_mean": 0.016999394602479942,
+          "ask_mean": 0.016019416484318018,
+          "volume_equal_share": 0.0036469730123997084,
+          "bid_ask_volume_pearson": 0.5850094245218881
+        },
+        "2021-02-01": {
+          "rows": 1380,
+          "bid_mean": 0.08014178913043478,
+          "ask_mean": 0.0833081231884058,
+          "volume_equal_share": 0.007971014492753623,
+          "bid_ask_volume_pearson": 0.5567492891053326
+        }
+      },
+      "provisional_interpretation": "Nonzero, side-specific provider volume is consistently present in fixed samples. Treat only as Dukascopy participation/volume proxy, not centralized/global gold volume.",
+      "stage2_source": "Dukascopy XAUUSD M1 volume field",
+      "stage2_limitations": [
+        "Use only as provider participation/volume proxy.",
+        "Do not describe as centralized exchange volume, complete OTC volume, or institutional order flow."
+      ]
+    },
+    "C6_XAUUSD_TICK_MICROSTRUCTURE": {
+      "status": "ADMITTED_WITH_LIMITATION",
+      "candidates": [
+        {
+          "provider": "Dukascopy public historical feed via dukascopy-node",
+          "series": "XAUUSD tick",
+          "documented_fields": [
+            "timestamp",
+            "askPrice",
+            "bidPrice",
+            "askVolume",
+            "bidVolume"
+          ],
+          "candidate_strength": "HIGH_FOR_TARGETED_USE",
+          "constraints": [
+            "long ranges can be gigabytes and slow",
+            "Stage 1 authorizes only tiny targeted samples",
+            "volume-field semantics still require resolution"
+          ],
+          "unresolved": [
+            "verify fixed TRAIN sample availability/quality",
+            "quantify row count/file size for targeted windows",
+            "decide whether full Stage 2 tick integration is necessary or M1 is sufficient"
+          ],
+          "evidence_urls": [
+            "https://github.com/Leo4815162342/dukascopy-node/wiki/Downloading-tick-data"
+          ],
+          "normalization_evidence": "dukascopy-node tick normalization carries source askVolumes and bidVolumes when requested."
+        }
+      ],
+      "verdict": "ADMITTED WITH LIMITATION",
+      "empirical_probe": {
+        "2016-02-01T14:00Z/15:00Z": {
+          "rows": 9190,
+          "bytes": 438352,
+          "rows_per_minute": 153.21156616730735,
+          "median_spread": 0.27299999999991087,
+          "ask_volume_present": true,
+          "bid_volume_present": true
+        },
+        "2021-02-01T14:00Z/15:00Z": {
+          "rows": 27097,
+          "bytes": 1293438,
+          "rows_per_minute": 451.76273661817316,
+          "median_spread": 0.44000000000005457,
+          "ask_volume_present": true,
+          "bid_volume_present": true
+        }
+      },
+      "provisional_interpretation": "Historical ticks are technically available and practical for targeted windows; full 2016-2021 tick acquisition remains unapproved and provider volume is not a global order book.",
+      "stage2_source": "Targeted Dukascopy XAUUSD tick windows",
+      "stage2_limitations": [
+        "Targeted use only unless Stage 2 explicitly justifies broader ingestion.",
+        "Provider-side askVolume/bidVolume are not a global order book.",
+        "M1 remains the default historical information layer."
+      ]
+    }
+  },
+  "notes": [
+    "This registry records source feasibility only; no source has been selected by XAUUSD profitability.",
+    "No full external historical integration has begun.",
+    "Final C1-C6 verdicts belong in Stage 1 findings and a later decision record."
+  ],
+  "updated_note": "Stage 1 complete. Final C1-C6 verdicts frozen from documentation and preregistered fixed probes; no profitability-based source selection was used.",
+  "stage1_probe_v3": {
+    "workflow_run": 36985961410,
+    "head_sha": "3c000f5acfa0002f039aab246c3254ad8c9e4ef0",
+    "artifact": "information-parity-stage1-probes",
+    "artifact_id": 11218010751,
+    "artifact_digest": "sha256:f6635ef56bf4e2ba6e417bde0fd4df2dbf3f983644103e3548c60ee6cc790959",
+    "scope": "fixed preregistered TRAIN-era source-feasibility samples only",
+    "sealed_xauusd_periods_accessed": []
+  },
+  "final_probe": {
+    "workflow_run": 36986414645,
+    "head_sha": "7b450032dce18c1ab1f5d89712e88c7ffc947013",
+    "artifact": "information-parity-stage1-probes",
+    "artifact_id": 11217188926,
+    "artifact_digest": "sha256:27ff2ed0f4d03a6392a479208ad9d2a80bd467d45fe5a2b2d46113aa3d7f8821",
+    "sealed_xauusd_periods_accessed": []
+  },
+  "final_stage2_source_set": [
+    "XAUUSD synchronized M1 BID/ASK OHLC",
+    "XAUUSD spread",
+    "Dukascopy XAUUSD M1 provider volume",
+    "raw causal XAUUSD sequences and multi-timeframe transforms",
+    "source-supported structural/session/liquidity state",
+    "SYNTHETIC_DXY_DUKASCOPY_BID",
+    "composite first-party scheduled U.S. macro-event calendar",
+    "optional targeted Dukascopy tick microstructure",
+    "separate trade/account/risk state"
+  ],
+  "stage2_exclusions": [
+    "intraday US 10Y/rate channel",
+    "historical macro consensus/surprise",
+    "full global order flow",
+    "official ICE DXY prints as complete TRAIN source",
+    "full six-year tick ingestion by default"
+  ],
+  "next_step": "Preregister Stage 2 Information Parity Layer V1 schema and timestamp-alignment contract before full TRAIN acquisition/integration."
+}
