@@ -34,7 +34,7 @@ from zoneinfo import ZoneInfo
 
 ET = ZoneInfo("America/New_York")
 UTC = timezone.utc
-UA = "xauusd-5dollar-prediction-information-parity-v1/1.0 research"
+UA = "Mozilla/5.0 (compatible; XAUUSD-Information-Parity-Research/1.0; +https://github.com/alisufyan-ai7/xauusd-5dollar-prediction)"
 
 FIELDS = [
     "event_id",
