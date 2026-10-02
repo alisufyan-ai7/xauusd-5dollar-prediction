@@ -131,10 +131,28 @@ def resample_exact(m1: pd.DataFrame, rule: str, expected: int) -> pd.DataFrame:
     out["bar_start_ms"] = (
         (out.index - delta).view("int64") // 1_000_000
     ).astype("int64")
-    return out[[
+
+    out = out[[
         "bar_start_ms", "available_time_ms",
         "open", "high", "low", "close", "volume", "source_count"
-    ]]
+    ]].reset_index(drop=True)
+
+    # Canonical physical row order is availability time. Do not silently
+    # remove duplicates: a duplicate availability timestamp is a build error.
+    out = out.sort_values(
+        ["available_time_ms", "bar_start_ms"],
+        kind="mergesort",
+    ).reset_index(drop=True)
+
+    av = out["available_time_ms"].to_numpy(np.int64)
+    if len(av) > 1 and np.any(np.diff(av) <= 0):
+        dup = out.loc[
+            out["available_time_ms"].duplicated(keep=False),
+            ["bar_start_ms", "available_time_ms"],
+        ].head(20).to_dict("records")
+        fail(f"nonunique_or_nonmonotonic_timeframe:{rule}:{dup}")
+
+    return out
 
 
 def build_d1(h1: pd.DataFrame) -> pd.DataFrame:
