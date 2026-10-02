@@ -46,7 +46,7 @@ jobs:
             local inst="$1"
             local day="$2"
             local side="$3"
-            local name="$4"
+            local stem="$4"
             local next
             next="$(python - "$day" <<'PY'
           import datetime as dt,sys
@@ -64,10 +64,10 @@ jobs:
 
           for day in 2016-02-01 2019-02-04 2021-02-01; do
             compact="${day//-/}"
-            download_m1 dollaridxusd "$day" bid "dxy-${compact}-m1-bid.csv"
-            download_m1 ustbondtrusd "$day" bid "ustbond-${compact}-m1-bid.csv"
-            download_m1 xauusd "$day" bid "xauusd-${compact}-m1-bid.csv"
-            download_m1 xauusd "$day" ask "xauusd-${compact}-m1-ask.csv"
+            download_m1 dollaridxusd "$day" bid "dxy-${compact}-m1-bid"
+            download_m1 ustbondtrusd "$day" bid "ustbond-${compact}-m1-bid"
+            download_m1 xauusd "$day" bid "xauusd-${compact}-m1-bid"
+            download_m1 xauusd "$day" ask "xauusd-${compact}-m1-ask"
 
             python scripts/probe_information_parity_stage1.py m1               "$RAW/dxy-${compact}-m1-bid.csv"               > "$OUT/m1/dxy-${compact}.json"
 
@@ -92,7 +92,7 @@ jobs:
           download_tick_window() {
             local from="$1"
             local to="$2"
-            local name="$3"
+            local stem="$3"
             local tmp
             tmp="$(mktemp -d)"
             npx -y dukascopy-node@1.50.0               -i xauusd               -from "$from"               -to "$to"               -t tick               -v               -utc 0               -f csv               -fn "$name"               -dir "$tmp"
@@ -101,9 +101,9 @@ jobs:
             rm -rf "$tmp"
           }
 
-          download_tick_window             "2016-02-01T14:00:00.000Z"             "2016-02-01T15:00:00.000Z"             "xauusd-tick-20160201-1400-1500.csv"
+          download_tick_window             "2016-02-01T14:00:00.000Z"             "2016-02-01T15:00:00.000Z"             "xauusd-tick-20160201-1400-1500"
 
-          download_tick_window             "2021-02-01T14:00:00.000Z"             "2021-02-01T15:00:00.000Z"             "xauusd-tick-20210201-1400-1500.csv"
+          download_tick_window             "2021-02-01T14:00:00.000Z"             "2021-02-01T15:00:00.000Z"             "xauusd-tick-20210201-1400-1500"
 
           python scripts/probe_information_parity_stage1.py tick             "$RAW/xauusd-tick-20160201-1400-1500.csv"             > "$OUT/tick/xauusd-tick-20160201-1400-1500.json"
 
