@@ -2025,3 +2025,46 @@ If the exact-runtime preflight passes, the next provider-data action is a correc
 See:
 - research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_STATIC_REVIEW_ADDENDUM.md
 - research/INFORMATION_PARITY_V1_STAGE2_LOCAL_REVIEW_V2.md
+
+
+---
+
+## D-077 — Exact-runtime deterministic Stage 2 preflight accepted
+
+Accepted run:
+- workflow: information-parity-stage2-preflight
+- run: 37231660721
+- head: 1a008ac8ff70335ee7ef8793a81d55c6909db8bb
+- conclusion: SUCCESS
+
+The run completed under the frozen environment:
+- CPython 3.12.14;
+- numpy 2.5.3;
+- pandas 3.0.6;
+- requests 2.34.2;
+- beautifulsoup4 4.15.0;
+- Node 22.23.3 / npm 10.9.9 as enforced by the preflight shell gate.
+
+Passing gates:
+- repository contract PASS;
+- environment lock PASS;
+- foundation tests PASS;
+- deterministic offline preflight PASS;
+- overall preflight PASS.
+
+The exact-runtime confirmation includes the D-074/D-076 corrections:
+- D1/W1 hierarchy;
+- simultaneous macro-event multiplicity;
+- structural/session/previous-day distances;
+- duplicate/off-grid raw M1 guards;
+- negative leakage rejection.
+
+Decision:
+The deterministic Stage 2 implementation is accepted for an updated bounded real-data smoke.
+
+Because D-074 materially changed D1/W1/previous-day behavior after the earlier smoke, the previous smoke is not sufficient for those paths. One corrected 2016 bounded smoke is now authorized before any full 2016-2021 TRAIN build.
+
+The deterministic preflight workflow has been restored to manual-only and its temporary trigger removed.
+
+No full TRAIN run or model training is authorized yet.
+2022-2025 XAUUSD remain sealed.
