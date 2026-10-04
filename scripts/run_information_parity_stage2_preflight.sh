@@ -17,10 +17,15 @@ fi
 python -m py_compile \
   scripts/synchronize_information_parity_m1.py \
   scripts/build_synthetic_dxy_stage2.py \
+  scripts/build_synthetic_dxy_stage2_full_train.py \
   scripts/acquire_macro_schedule_stage2.py \
   scripts/build_information_parity_stage2_year.py \
+  scripts/build_information_parity_stage2_full_train.py \
   scripts/validate_information_parity_stage2.py \
+  scripts/validate_information_parity_stage2_full_train.py \
   scripts/build_information_parity_manifest.py \
+  scripts/verify_information_parity_stage2_full_train_inputs.py \
+  scripts/summarize_information_parity_stage2_full_train.py \
   scripts/check_information_parity_stage2_environment.py \
   scripts/check_information_parity_stage2_repo_contract.py \
   tests/test_information_parity_stage2_foundation.py \
