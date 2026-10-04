@@ -1959,3 +1959,41 @@ No model training is authorized.
 2022-2025 XAUUSD remain sealed.
 
 See research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_RUN2_FINDINGS.md.
+
+
+---
+
+## D-075 — Local deterministic Stage 2 logic gate passes; exact-runtime CI still deferred
+
+A real local execution was performed after the D-074 D1 fix.
+
+This was not static review and not GitHub Actions.
+
+Local result:
+- Python compile PASS;
+- deterministic preflight PASS;
+- exit code 0;
+- 40,319 synchronized M1 rows;
+- one BID reconstruction and one ASK reconstruction;
+- D1 = 28;
+- W1 = 4;
+- one deliberate >5m DXY coverage hole produced one unavailable decision row;
+- max DXY age on available rows = 5m;
+- macro state available on all deterministic rows;
+- integrity validator PASS;
+- injected future_return field correctly rejected;
+- sealed periods accessed: none.
+
+Execution-log SHA-256:
+a80a1e9b6e001d1a5b62a7fe9e9e3b8fe57330f1fbc0f92756e94f8543516014
+
+Important limitation:
+the local container is Python 3.13.5 / pandas 2.2.3 / Node 22.16.0, not the frozen exact CI environment. Some larger source files had to be semantically materialized from connector content rather than byte-identical repository checkout because the local container cannot network-clone GitHub.
+
+Decision:
+Treat this as a successful local logic gate only. Do not trigger provider-data CI. Do not yet claim exact-branch/exact-runtime preflight acceptance.
+
+Next:
+reconcile exact source identity / finish static pandas-alignment review, then authorize one manual exact-runtime deterministic-preflight CI only if still warranted. Poll that intentional CI for up to four minutes.
+
+See research/INFORMATION_PARITY_V1_STAGE2_LOCAL_PREFLIGHT_EVIDENCE.md.
