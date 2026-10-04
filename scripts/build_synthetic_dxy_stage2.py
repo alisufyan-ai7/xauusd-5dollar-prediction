@@ -47,6 +47,10 @@ def load_close(path: Path) -> dict[int, float]:
             raise SystemExit(f"DXY_INPUT_SCHEMA:{path}:{r.fieldnames}")
         for row in r:
             ts = int(row["timestamp"])
+            if ts % ONE_MINUTE_MS != 0:
+                raise SystemExit(f"DXY_OFF_GRID_TIMESTAMP:{path}:{ts}")
+            if ts in out:
+                raise SystemExit(f"DXY_DUPLICATE_TIMESTAMP:{path}:{ts}")
             px = float(row["close"])
             if not math.isfinite(px) or px <= 0:
                 raise SystemExit(f"DXY_INPUT_PRICE:{path}:{ts}:{px}")
