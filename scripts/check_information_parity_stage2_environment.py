@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 LOCK = Path("requirements/information-parity-stage2.lock.txt")
-EXPECTED_PYTHON = (3, 12)
+EXPECTED_PYTHON = "3.12.14"
 
 
 def parse_lock(path: Path) -> dict[str, str]:
@@ -27,11 +27,10 @@ def parse_lock(path: Path) -> dict[str, str]:
 
 
 def main() -> None:
-    if sys.version_info[:2] != EXPECTED_PYTHON:
+    if platform.python_version() != EXPECTED_PYTHON:
         raise SystemExit(
             "STAGE2_PYTHON_VERSION_MISMATCH:"
-            f"expected={EXPECTED_PYTHON[0]}.{EXPECTED_PYTHON[1]}:"
-            f"actual={platform.python_version()}"
+            f"expected={EXPECTED_PYTHON}:actual={platform.python_version()}"
         )
 
     expected = parse_lock(LOCK)
