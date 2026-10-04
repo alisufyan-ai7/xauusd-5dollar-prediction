@@ -2131,3 +2131,35 @@ See research/INFORMATION_PARITY_V1_STAGE2_FULL_TRAIN_CONTINUITY_ADDENDUM.md.
 
 No full CI run is authorized until the continuous full-TRAIN orchestration passes off-CI review.
 2022-2025 XAUUSD remain sealed.
+
+
+---
+
+## D-080 — 2016-2021 BLS fallback snapshots complete and static full-input gate passes
+
+The repository now contains normalized official-BLS schedule snapshots for every permitted TRAIN year 2016-2021.
+
+Each annual snapshot contains exactly:
+- CPI: 12 rows;
+- Employment Situation / NFP: 12 rows;
+- JOLTS: 12 rows.
+
+Off-CI static verification against the exact GitHub branch files passed for all six years:
+- exact frozen CSV schema;
+- BLS agency/source provenance;
+- America/New_York timezone declaration;
+- local/UTC instant equivalence;
+- unique event IDs;
+- unique family/timestamp identities;
+- deterministic SHA-256 event-ID reconstruction;
+- minimum family-count requirement.
+
+2017-2021 provenance and normalized SHA-256 identities are documented in:
+research/INFORMATION_PARITY_V1_BLS_2017_2021_SNAPSHOT_PROVENANCE.md
+
+Decision:
+The BLS transport-fallback prerequisite no longer blocks full TRAIN preparation.
+
+This does not authorize the full provider-data CI by itself. The continuous full-TRAIN orchestration still must pass its deterministic integration/static gate first.
+
+No economic outcomes were used. 2022-2025 XAUUSD remain sealed.
