@@ -1651,3 +1651,20 @@ Four integrity gaps were fixed off-CI: macro simultaneous-event multiplicity, re
 The corrected local deterministic suite passes.
 
 One exact-runtime deterministic-preflight CI is now authorized. Provider-data acquisition is still blocked until that confirmation succeeds.
+
+
+## Exact-runtime Stage 2 preflight accepted
+
+Decision record:
+D-077
+
+Accepted run:
+- 37231660721 — SUCCESS
+- head 1a008ac8ff70335ee7ef8793a81d55c6909db8bb
+
+All deterministic gates passed under the frozen Python/pandas/Node environment.
+
+Active next step:
+run one corrected bounded 2016 real-data smoke on the accepted implementation because D-074 materially changed D1/W1/previous-day behavior after the earlier smoke.
+
+Full TRAIN and model work remain blocked. 2022-2025 remain sealed.
