@@ -1701,3 +1701,14 @@ The full 2016-2021 Information Parity build must compute causal state continuous
 
 Current implementation task:
 create continuous market/DXY concatenation, continuous Stage 2 state construction, post-state annual partitioning, boundary integrity checks and compact full-TRAIN manifests. Keep CI/provider full build blocked until off-CI review passes.
+
+
+## BLS 2016-2021 full-TRAIN input gate complete
+
+Decision record:
+D-080
+
+All six normalized BLS fallback snapshots are now present and passed off-CI static verification, including deterministic event-ID reconstruction and exact source/timezone checks.
+
+Active blocker before the expensive full provider run:
+finish and pass the deterministic full-TRAIN orchestration integration gate. CI remains manual-only and has not been triggered for this work.
