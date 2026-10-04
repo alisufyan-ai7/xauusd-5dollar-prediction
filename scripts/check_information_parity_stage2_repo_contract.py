@@ -115,13 +115,32 @@ def main() -> None:
         "preflight_workflow",
     )
 
-    # Provider-data workflow may upload artifacts; its action revision is pinned.
+    # Provider-data workflow is manual-only and its action revision is pinned.
+    require(main_wf, "workflow_dispatch:", "stage2_workflow")
+    forbid(main_wf, "\n  push:", "stage2_workflow")
+    forbid(main_wf, "\n  pull_request:", "stage2_workflow")
     require(
         main_wf,
         f"actions/upload-artifact@{UPLOAD_ARTIFACT_SHA}",
         "stage2_workflow",
     )
-    require(
+
+    # Full TRAIN orchestration must be continuous, same-snapshot, and bounded
+    # strictly to the permitted 2016-2021 TRAIN interval.
+    for needle in (
+        "inputs.mode == 'full-train'",
+        "timeout-minutes: 360",
+        "verify_information_parity_stage2_full_train_inputs.py",
+        "acquire_information_parity_stage2.sh 2016 2021",
+        "build_synthetic_dxy_stage2_full_train.py",
+        "build_information_parity_stage2_full_train.py",
+        "validate_information_parity_stage2_full_train.py",
+        "summarize_information_parity_stage2_full_train.py",
+        "information-parity-stage2-full-train",
+        "Release raw provider files after identities and DXY are frozen",
+    ):
+        require(main_wf, needle, "stage2_workflow")
+    forbid(
         main_wf,
         "Full build intentionally blocked until smoke acceptance",
         "stage2_workflow",
@@ -136,6 +155,26 @@ def main() -> None:
         "START_YEAR < 2016 || END_YEAR > 2021",
         "stage2_acquisition",
     )
+    require(
+        acquisition,
+        'tee "$REPORTS/xauusd-sync-${year}.json"',
+        "stage2_acquisition",
+    )
+    require(
+        acquisition,
+        "build_information_parity_manifest.py",
+        "stage2_acquisition",
+    )
+
+    for path in (
+        "scripts/build_synthetic_dxy_stage2_full_train.py",
+        "scripts/build_information_parity_stage2_full_train.py",
+        "scripts/validate_information_parity_stage2_full_train.py",
+        "scripts/verify_information_parity_stage2_full_train_inputs.py",
+        "scripts/summarize_information_parity_stage2_full_train.py",
+        "research/INFORMATION_PARITY_V1_STAGE2_FULL_TRAIN_CONTINUITY_ADDENDUM.md",
+    ):
+        read(path)
 
     macro = read("scripts/acquire_macro_schedule_stage2.py")
     require(
