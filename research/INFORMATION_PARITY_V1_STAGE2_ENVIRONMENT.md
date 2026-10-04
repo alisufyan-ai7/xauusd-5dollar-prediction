@@ -11,9 +11,19 @@ Accepted smoke:
 Python:
 - CPython 3.12.14
 
+Runner family:
+- Ubuntu 24.04
+- accepted-smoke image: ubuntu-24.04 version 20260927.320.1
+
 Node:
 - Node v22.23.3
 - npm 10.9.9
+
+GitHub Actions revisions:
+- actions/checkout: 11d5960a326750d5838078e36cf38b85af677262
+- actions/setup-node: 49933ea5288caeca8642d1e84afbd3f7d6820020
+- actions/setup-python: a26af69be951a213d495a4c3e4e4022e16d87065
+- actions/upload-artifact: ea165f8d65b6e75b540449e92b4886f43607fa02
 
 Dukascopy downloader:
 - `dukascopy-node@1.50.0`
@@ -49,10 +59,12 @@ Before any Stage 2 CI or provider-data run is intentionally triggered:
 
 1. install the pinned Python lock;
 2. use Python 3.12.14;
-3. use Node 22.23.3 / npm 10.9.9 for the downloader layer;
-4. run:
+3. use Ubuntu 24.04 for Stage 2 CI;
+4. use Node 22.23.3 / npm 10.9.9 for the downloader layer;
+5. use the pinned GitHub Actions revisions listed above;
+6. run:
    `bash scripts/run_information_parity_stage2_preflight.sh`
-5. do not trigger CI unless the offline preflight passes.
+7. do not trigger CI unless the offline preflight passes.
 
 The preflight itself uses no network and no provider data.
 
