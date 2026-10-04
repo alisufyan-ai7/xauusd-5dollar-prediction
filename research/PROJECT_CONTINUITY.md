@@ -1542,3 +1542,30 @@ Active next step:
 prepare/verify 2017-2021 normalized BLS schedule snapshots under D-070, then implement and run the single full 2016-2021 same-snapshot Stage 2 workflow after foundation CI is green.
 
 No model training yet.
+
+
+## Stage 2 engineering preflight gate active
+
+Decision record:
+D-072
+
+Isolated development branch:
+research/information-parity-v1-stage2-preflight
+
+Preflight specification:
+research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT.md
+
+Frozen environment:
+research/INFORMATION_PARITY_V1_STAGE2_ENVIRONMENT.md
+requirements/information-parity-stage2.lock.txt
+
+Offline command:
+bash scripts/run_information_parity_stage2_preflight.sh
+
+Policy change:
+GitHub Actions is no longer the first integration-test environment for Stage 2. Ordinary preflight development stays on the isolated branch with no automatic CI. CI is triggered only once the deterministic offline suite is ready and passing.
+
+The accepted real-data smoke remains run 37192128583.
+The full 2016-2021 provider-data build is still blocked until this preflight gate and 2017-2021 BLS schedule verification are complete.
+
+No model training yet. 2022-2025 remain sealed.
