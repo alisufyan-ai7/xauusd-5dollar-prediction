@@ -45,6 +45,14 @@ from scripts.build_information_parity_stage2_year import (
     write_csv_gz,
 )
 
+from scripts.acquire_macro_schedule_stage2 import (
+    acquire_claims,
+    load_bls_snapshot,
+    parse_bea_embargo,
+    parse_date_time_et,
+    parse_release_time,
+)
+
 UTC = timezone.utc
 ONE_MIN = 60_000
 START = datetime(2016, 3, 7, 0, 0, tzinfo=UTC)
@@ -299,6 +307,38 @@ def assert_swing_and_fvg_causality() -> None:
     assert rec["invalid_ms"] > rec["created_ms"]
 
 
+def assert_macro_parser_and_snapshot_fallback() -> None:
+    events, errors = load_bls_snapshot(2016)
+    assert errors == []
+    counts = {"CPI": 0, "NFP": 0, "JOLTS": 0}
+    for event in events:
+        counts[event.family] += 1
+        assert event.agency == "BLS"
+        assert event.source == "https://www.bls.gov/schedule/2016/home.htm"
+    assert counts == {"CPI": 12, "NFP": 12, "JOLTS": 12}
+
+    bls_dt = parse_date_time_et("Friday, March 04, 2016", "08:30 AM")
+    assert bls_dt.isoformat() == "2016-03-04T08:30:00-05:00"
+
+    assert parse_release_time("For release at 2:00 p.m. EDT") == (14, 0)
+
+    bea = parse_bea_embargo(
+        "EMBARGOED UNTIL RELEASE AT 8:30 A.M. EDT, Thursday, April 28, 2016"
+    )
+    assert bea is not None
+    assert bea.isoformat() == "2016-04-28T08:30:00-04:00"
+
+    claims, claim_errors = acquire_claims(2016)
+    assert claim_errors == []
+    assert len(claims) == 52
+    thanksgiving_exception = [
+        e for e in claims
+        if e.dt_local.date().isoformat() == "2016-11-23"
+    ]
+    assert len(thanksgiving_exception) == 1
+    assert thanksgiving_exception[0].exception == 1
+
+
 def assert_macro_multilabel() -> None:
     event_ms = epoch_ms(datetime(2016, 3, 11, 13, 30, tzinfo=UTC))
     macro = pd.DataFrame({
@@ -443,6 +483,7 @@ def end_to_end(tmp: Path) -> None:
 
 def main() -> None:
     assert_swing_and_fvg_causality()
+    assert_macro_parser_and_snapshot_fallback()
     assert_macro_multilabel()
     with tempfile.TemporaryDirectory() as td:
         tmp = Path(td)
