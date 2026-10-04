@@ -184,10 +184,16 @@ def resample_exact(m1: pd.DataFrame, rule: str, expected: int) -> pd.DataFrame:
 def build_d1(h1: pd.DataFrame) -> pd.DataFrame:
     if h1.empty:
         return pd.DataFrame(columns=BAR_COLUMNS)
-    idx = pd.to_datetime(h1["available_time_ms"], unit="ms", utc=True)
+    idx = pd.DatetimeIndex(
+        pd.to_datetime(h1["available_time_ms"], unit="ms", utc=True)
+    )
     tmp = h1.copy()
     tmp.index = idx
-    tmp["source_day"] = (idx - pd.Timedelta(nanoseconds=1)).dt.floor("D")
+
+    # IMPORTANT: derive source_day from the DatetimeIndex itself. Assigning a
+    # RangeIndex-backed Series here causes pandas label alignment against the
+    # DatetimeIndex and silently produces all-NaT source_day values.
+    tmp["source_day"] = (tmp.index - pd.Timedelta(nanoseconds=1)).floor("D")
     rows = []
     for day, g in tmp.groupby("source_day", sort=True):
         if len(g) < 20:
