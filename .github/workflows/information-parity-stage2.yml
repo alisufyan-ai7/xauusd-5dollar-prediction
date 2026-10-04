@@ -11,11 +11,6 @@ on:
         options:
           - smoke
           - full-train
-  push:
-    branches:
-      - research/information-parity-v1-stage2-preflight
-    paths:
-      - ".github/information-parity-stage2-trigger"
 
 permissions:
   contents: read
