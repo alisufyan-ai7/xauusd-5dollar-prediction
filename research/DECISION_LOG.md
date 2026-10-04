@@ -1835,3 +1835,55 @@ Next:
 
 No model training is authorized yet.
 See research/INFORMATION_PARITY_V1_STAGE2_SMOKE_FINDINGS.md.
+
+
+---
+
+## D-072 — Require offline deterministic Stage 2 preflight before any new CI/provider run
+
+Decision:
+The accepted Stage 2 smoke proved the end-to-end research pipeline can pass, but the sequence of preceding failures showed an engineering-process weakness: GitHub Actions was being used as the first integration-test environment.
+
+That process is now stopped.
+
+A dedicated isolated branch has been created:
+research/information-parity-v1-stage2-preflight
+
+It is intentionally not the head of PR #15 and is not included in automatic foundation-check push branches, so ordinary development commits there do not trigger CI.
+
+Required offline gate:
+- frozen runtime documented in research/INFORMATION_PARITY_V1_STAGE2_ENVIRONMENT.md;
+- exact Python package lock in requirements/information-parity-stage2.lock.txt;
+- offline runner: scripts/run_information_parity_stage2_preflight.sh;
+- deterministic suite: tests/test_information_parity_stage2_preflight.py.
+
+The suite exercises, without network/provider data:
+- BID/ASK one-sided reconstruction and both-sides-missing behavior;
+- M3/M5/M15/M30/H1/H4/D1/W1 aggregation;
+- empty D1/W1 schema serialization;
+- synthetic DXY exact-common-timestamp construction and <=5m backward staleness;
+- US/UK DST session-boundary transitions;
+- swing confirmation causality;
+- FVG creation/invalidation causality;
+- simultaneous macro-event multi-label state;
+- neutral trade/risk state;
+- positive integrity validation;
+- a negative leakage test that must reject an injected future_return field.
+
+Frozen accepted-smoke environment:
+- CPython 3.12.14;
+- Node v22.23.3;
+- npm 10.9.9;
+- dukascopy-node 1.50.0;
+- exact Python package versions from accepted smoke run 37192128583.
+
+CI policy:
+CI is confirmation, not exploratory debugging.
+Do not trigger a new Stage 2 CI/provider run simply because code changed.
+First pass the offline deterministic preflight under the frozen environment. Then run one intentional pinned-environment CI confirmation only when the implementation is ready for integration.
+
+If that intentional CI fails, add a deterministic regression before retrying whenever the failure is reproducible offline.
+
+No new scientific source/model decision is made here.
+No profitability work is authorized.
+2022-2025 XAUUSD remain sealed.
