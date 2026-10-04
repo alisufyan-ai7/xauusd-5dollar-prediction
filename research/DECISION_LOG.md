@@ -1997,3 +1997,31 @@ Next:
 reconcile exact source identity / finish static pandas-alignment review, then authorize one manual exact-runtime deterministic-preflight CI only if still warranted. Poll that intentional CI for up to four minutes.
 
 See research/INFORMATION_PARITY_V1_STAGE2_LOCAL_PREFLIGHT_EVIDENCE.md.
+
+
+---
+
+## D-076 — Off-CI static review passes after four integrity corrections; authorize one exact-runtime preflight CI
+
+After D-074/D-075, the exact branch source was reviewed off-CI for pandas alignment, higher-timeframe hierarchy, as-of semantics, macro grouping and raw timestamp integrity.
+
+Four implementation gaps were found and corrected before another CI:
+1. simultaneous macro events were counted as one timestamp instead of multiple admitted events;
+2. required swing/session/previous-day distances were missing from the physical structural table;
+3. the validator did not independently recompute D1/W1 hierarchy or previous-day as-of state;
+4. raw XAUUSD/DXY loaders could silently overwrite duplicate timestamps and accepted off-grid M1 timestamps.
+
+The corrected local deterministic suite then passed under the available local runtime.
+
+Local review log SHA-256:
+296261657094045e01afc4941fee413e2a8477fe0f95f1496a6cdb00b335fd0a
+
+Decision:
+One exact-runtime deterministic-preflight CI is now justified to confirm exact repository bytes under the frozen environment. This is a confirmation gate, not exploratory debugging.
+
+No provider-data smoke/full run is authorized by this decision.
+If the exact-runtime preflight passes, the next provider-data action is a corrected bounded smoke because D-074 materially changed D1/W1/previous-day behavior.
+
+See:
+- research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_STATIC_REVIEW_ADDENDUM.md
+- research/INFORMATION_PARITY_V1_STAGE2_LOCAL_REVIEW_V2.md
