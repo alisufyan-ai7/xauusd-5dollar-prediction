@@ -1786,3 +1786,52 @@ Implementation order:
 No third-party economic calendar is admitted by this decision.
 No model/P&L data are used.
 2022-2025 XAUUSD remain sealed.
+
+
+---
+
+## D-071 — Accept Stage 2 end-to-end smoke and advance to full-TRAIN preparation
+
+Accepted smoke:
+- run 37192128583 — SUCCESS
+- head 273b93cc882ac954fcd6bc21b28155ef4ab5aa0f
+- artifact information-parity-stage2-smoke
+- artifact id 11299477067
+- artifact digest sha256:cc46e7a2d7e3875533440e11c73846de5ed92e27b6182aff62a4a7f743d34d82
+
+Result:
+The fixed 2016-02-01 through 2016-02-06 market smoke completed acquisition, synchronization, synthetic DXY, macro normalization, Stage 2 layer build, and integrity validation end-to-end.
+
+Key coverage:
+- XAUUSD M1 decision rows: 6,840;
+- synthetic DXY rows: 7,008;
+- DXY availability on decision rows: 100%;
+- feature-ready market share: 82.53%;
+- normalized 2016 macro events: 108;
+- macro schedule available: 100%.
+
+Macro counts:
+- Claims 52;
+- CPI 12;
+- FOMC 8;
+- GDP 12;
+- JOLTS 12;
+- NFP 12.
+
+Integrity validator: PASS.
+2022-2025 XAUUSD accessed: none.
+
+Expected smoke warnings:
+D1 and W1 are empty because the smoke market window is one week and the frozen completion rules require more history. Their empty canonical files now preserve schema/header and validate correctly.
+
+Decision:
+Stage 2 smoke is accepted. Do not rerun it unless a later implementation change materially touches the end-to-end path.
+
+Next:
+- verify/commit 2017-2021 BLS normalized schedule snapshots under D-070;
+- obtain green foundation CI for the new empty-table regression;
+- implement the single 2016-2021 same-snapshot full TRAIN workflow;
+- then run it once.
+
+No model training is authorized yet.
+See research/INFORMATION_PARITY_V1_STAGE2_SMOKE_FINDINGS.md.
