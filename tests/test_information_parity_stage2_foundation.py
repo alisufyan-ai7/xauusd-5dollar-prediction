@@ -7,6 +7,15 @@ import sys
 import tempfile
 from pathlib import Path
 
+import pandas as pd
+
+from scripts.build_information_parity_stage2_year import (
+    BAR_COLUMNS,
+    build_d1,
+    build_w1,
+    write_csv_gz,
+)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -115,11 +124,59 @@ def test_synthetic_dxy(tmp: Path):
     assert meta["common_timestamps"] == 2
 
 
+def test_empty_canonical_bar_tables(tmp: Path):
+    # Non-empty H1 input can legitimately yield zero D1 bars under the frozen
+    # >=20-completed-H1 requirement. The result must still preserve schema.
+    h1 = pd.DataFrame.from_records([
+        {
+            "bar_start_ms": 1_454_284_800_000,
+            "available_time_ms": 1_454_288_400_000,
+            "open": 100.0,
+            "high": 101.0,
+            "low": 99.0,
+            "close": 100.5,
+            "volume": 1.0,
+            "source_count": 60,
+        }
+    ], columns=BAR_COLUMNS)
+    d1 = build_d1(h1)
+    assert d1.empty
+    assert list(d1.columns) == BAR_COLUMNS
+
+    # Likewise, a partial week can have D1 rows but zero canonical W1 bars.
+    d1_partial = pd.DataFrame.from_records([
+        {
+            "bar_start_ms": 1_454_284_800_000 + i * 86_400_000,
+            "available_time_ms": 1_454_371_200_000 + i * 86_400_000,
+            "open": 100.0 + i,
+            "high": 101.0 + i,
+            "low": 99.0 + i,
+            "close": 100.5 + i,
+            "volume": 10.0,
+            "source_count": 24,
+        }
+        for i in range(3)
+    ], columns=BAR_COLUMNS)
+    w1 = build_w1(d1_partial)
+    assert w1.empty
+    assert list(w1.columns) == BAR_COLUMNS
+
+    # Empty canonical tables must serialize as header-only CSV.GZ files that
+    # pandas can read back without EmptyDataError.
+    for name, table in (("d1", d1), ("w1", w1)):
+        p = tmp / f"{name}.csv.gz"
+        write_csv_gz(table, p)
+        roundtrip = pd.read_csv(p, compression="gzip")
+        assert roundtrip.empty
+        assert list(roundtrip.columns) == BAR_COLUMNS
+
+
 def main():
     with tempfile.TemporaryDirectory() as td:
         tmp = Path(td)
         test_sync(tmp)
         test_synthetic_dxy(tmp)
+        test_empty_canonical_bar_tables(tmp)
     print("INFORMATION_PARITY_STAGE2_FOUNDATION_PASS")
 
 
