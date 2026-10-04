@@ -36,6 +36,7 @@ if str(ROOT) not in sys.path:
 
 from scripts.build_information_parity_stage2_year import (
     BAR_COLUMNS,
+    add_m1_transforms,
     build_d1,
     build_fvg_records,
     build_macro_state,
@@ -380,6 +381,94 @@ def assert_empty_table_serialization(tmp: Path) -> None:
         assert list(rt.columns) == BAR_COLUMNS
 
 
+def assert_cross_year_continuity(tmp: Path) -> None:
+    # 360 contiguous M1 rows cross 2016->2017. The first 2017 row has more
+    # than 240 prior contiguous TRAIN minutes and must not cold-start.
+    start = datetime(2016, 12, 31, 20, 0, tzinfo=UTC)
+    rows = []
+    for i in range(360):
+        ts = epoch_ms(start + timedelta(minutes=i))
+        px = 1200.0 + 0.01 * i
+        rows.append({
+            "timestamp_ms": ts,
+            "decision_time_ms": ts + ONE_MIN,
+            "bid_open": px,
+            "bid_high": px + 0.05,
+            "bid_low": px - 0.05,
+            "bid_close": px,
+            "bid_volume": 1.0,
+            "ask_open": px + 0.4,
+            "ask_high": px + 0.45,
+            "ask_low": px + 0.35,
+            "ask_close": px + 0.4,
+            "ask_volume": 1.0,
+            "spread_open": 0.4,
+            "spread_close": 0.4,
+            "bid_flat_fill": 0,
+            "ask_flat_fill": 0,
+        })
+    m1 = add_m1_transforms(pd.DataFrame(rows))
+    years = pd.to_datetime(m1["timestamp_ms"], unit="ms", utc=True).dt.year
+    first_2017 = int(np.flatnonzero(years.to_numpy() == 2017)[0])
+    assert m1.iloc[first_2017]["core_240m_contiguous_ready"] == 1
+    assert math.isfinite(float(m1.iloc[first_2017]["volume_mean_240m"]))
+    assert math.isfinite(float(m1.iloc[first_2017]["spread_mean_60m"]))
+
+    # Full-TRAIN DXY must also carry exact rolling state across Dec/Jan.
+    fx_dir = tmp / "full-dxy-fx"
+    fx_dir.mkdir(parents=True, exist_ok=True)
+    instruments = ("eurusd", "usdjpy", "gbpusd", "usdcad", "usdsek", "usdchf")
+    base_px = {
+        "eurusd": 1.10,
+        "usdjpy": 112.0,
+        "gbpusd": 1.42,
+        "usdcad": 1.33,
+        "usdsek": 8.45,
+        "usdchf": 0.99,
+    }
+    for year in range(2016, 2022):
+        for inst in instruments:
+            if year == 2016:
+                times = [datetime(2016, 12, 31, 23, 59, tzinfo=UTC)]
+            elif year == 2017:
+                times = [
+                    datetime(2017, 1, 1, 0, 0, tzinfo=UTC),
+                    datetime(2017, 1, 1, 0, 1, tzinfo=UTC),
+                ]
+            else:
+                times = [datetime(year, 1, 1, 0, 0, tzinfo=UTC)]
+            raw = []
+            for j, dt in enumerate(times):
+                px = base_px[inst] + 0.0001 * j
+                raw.append([
+                    epoch_ms(dt), px, px + 0.0001, px - 0.0001, px, 1.0
+                ])
+            write_rows(
+                fx_dir / (
+                    f"{inst}-{year}-01-01-{year + 1}-01-01-m1-bid.csv"
+                ),
+                raw,
+            )
+
+    out = tmp / "full-dxy.csv"
+    report = tmp / "full-dxy-report.json"
+    run([
+        sys.executable,
+        str(ROOT / "scripts/build_synthetic_dxy_stage2_full_train.py"),
+        str(fx_dir),
+        str(out),
+        str(report),
+    ])
+    dxy = pd.read_csv(out)
+    row = dxy.loc[
+        dxy["dxy_bar_start_ms"]
+        == epoch_ms(datetime(2017, 1, 1, 0, 0, tzinfo=UTC))
+    ].iloc[0]
+    assert pd.notna(row["dxy_change_1m"])
+    meta = json.loads(report.read_text(encoding="utf-8"))
+    assert meta["cross_year_state_preserved"] is True
+
+
 def assert_raw_timestamp_guards(tmp: Path) -> None:
     dup_bid = tmp / "dup-bid.csv"
     dup_ask = tmp / "dup-ask.csv"
@@ -583,6 +672,7 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as td:
         tmp = Path(td)
         assert_empty_table_serialization(tmp)
+        assert_cross_year_continuity(tmp)
         assert_raw_timestamp_guards(tmp)
         end_to_end(tmp)
     print("INFORMATION_PARITY_STAGE2_OFFLINE_PREFLIGHT_PASS")
