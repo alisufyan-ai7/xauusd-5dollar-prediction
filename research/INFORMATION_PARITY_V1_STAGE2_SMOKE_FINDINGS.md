@@ -1,6 +1,6 @@
 # Information Parity V1 — Stage 2 Smoke Findings
 
-Status: **ACCEPTED END-TO-END SMOKE**
+Status: **ACCEPTED FOR M1-H4 / DXY / MACRO PATHS; D1/W1 PATH INVALIDATED BY D-074**
 
 Accepted workflow run:
 - workflow: `information-parity-stage2`
@@ -60,7 +60,9 @@ BID/ASK reconstruction in smoke:
 - D1: 0
 - W1: 0
 
-The zero D1/W1 counts are expected for this deliberately short smoke window under the conservative completion rules. Empty canonical tables now serialize with their required headers and pass validation.
+**Correction (D-074):** these zero D1/W1 counts were initially interpreted as expected for the short smoke window. The deterministic preflight later proved that interpretation was wrong. The Stage 2 D1 builder assigned a RangeIndex-backed timestamp Series into a DatetimeIndex-backed frame, causing pandas label alignment to produce all-NaT `source_day` values. Therefore the smoke did **not** validate D1/W1 construction or previous-day state.
+
+The smoke remains valid evidence for the successfully exercised M1 through H4, DXY, macro, synchronization, structural/session, decision-index, and neutral trade-state paths. A corrected real-data smoke is required after the deterministic preflight is fully green.
 
 ## Macro schedule
 
@@ -106,11 +108,11 @@ Warnings:
 - `xauusd_d1:empty`
 - `xauusd_w1:empty`
 
-These warnings are expected for the bounded one-week market window.
+**Correction (D-074):** these warnings were not benign smoke-window effects; they exposed a latent D1 grouping bug that the original validator treated only as warnings. D1/W1 and previous-day coverage from run 37192128583 must not be used as validated evidence.
 
 ## Scientific interpretation
 
-The smoke validates **implementation feasibility and causal integrity only**.
+The smoke validates **implementation feasibility and causal integrity for the exercised M1-H4/DXY/macro paths only**. D1/W1 and previous-day state are excluded from that claim under D-074.
 
 It does not:
 - establish predictive value;
