@@ -1,0 +1,166 @@
+name: information-parity-stage2
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Information Parity Stage 2 task"
+        required: true
+        default: "smoke"
+        type: choice
+        options:
+          - smoke
+          - full-train
+  push:
+    branches:
+      - research/information-parity-v1-stage2
+    paths:
+      - ".github/information-parity-stage2-trigger"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    if: ${{ github.event_name == 'push' || inputs.mode == 'smoke' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Stage 2 dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy pandas requests beautifulsoup4
+
+      - name: Compile Stage 2 scripts
+        run: |
+          python -m py_compile             scripts/synchronize_information_parity_m1.py             scripts/build_synthetic_dxy_stage2.py             scripts/acquire_macro_schedule_stage2.py             scripts/build_information_parity_stage2_year.py             scripts/validate_information_parity_stage2.py             scripts/build_information_parity_manifest.py
+
+      - name: Acquire fixed smoke market window
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          RAW="$RUNNER_TEMP/ip-stage2-smoke-raw"
+          mkdir -p "$RAW/xauusd" "$RAW/fx"
+
+          bash scripts/download_dukascopy_m1_generic.sh             xauusd bid 2016-02-01 2016-02-06             "$RAW/xauusd/xauusd-20160201-20160206-m1-bid.csv"
+
+          bash scripts/download_dukascopy_m1_generic.sh             xauusd ask 2016-02-01 2016-02-06             "$RAW/xauusd/xauusd-20160201-20160206-m1-ask.csv"
+
+          for inst in eurusd usdjpy gbpusd usdcad usdsek usdchf; do
+            bash scripts/download_dukascopy_m1_generic.sh               "$inst" bid 2016-02-01 2016-02-06               "$RAW/fx/${inst}-20160201-20160206-m1-bid.csv"
+          done
+
+      - name: Synchronize XAUUSD smoke market
+        shell: bash
+        run: |
+          set -euo pipefail
+          RAW="$RUNNER_TEMP/ip-stage2-smoke-raw"
+          OUT="data/derived/information-parity-v1-stage2-smoke"
+          mkdir -p "$OUT"
+
+          python scripts/synchronize_information_parity_m1.py             "$RAW/xauusd/xauusd-20160201-20160206-m1-bid.csv"             "$RAW/xauusd/xauusd-20160201-20160206-m1-ask.csv"             "$OUT/xauusd-2016-smoke-synchronized.csv"             | tee "$OUT/xauusd-sync-report.json"
+
+      - name: Build synthetic DXY smoke series
+        shell: bash
+        run: |
+          set -euo pipefail
+          RAW="$RUNNER_TEMP/ip-stage2-smoke-raw"
+          OUT="data/derived/information-parity-v1-stage2-smoke"
+
+          python scripts/build_synthetic_dxy_stage2.py             "$RAW/fx/eurusd-20160201-20160206-m1-bid.csv"             "$RAW/fx/usdjpy-20160201-20160206-m1-bid.csv"             "$RAW/fx/gbpusd-20160201-20160206-m1-bid.csv"             "$RAW/fx/usdcad-20160201-20160206-m1-bid.csv"             "$RAW/fx/usdsek-20160201-20160206-m1-bid.csv"             "$RAW/fx/usdchf-20160201-20160206-m1-bid.csv"             "$OUT/synthetic-dxy-2016-smoke.csv"             "$OUT/synthetic-dxy-2016-smoke-report.json"
+
+      - name: Acquire and normalize 2016 macro schedule
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/derived/information-parity-v1-stage2-smoke"
+          RAW_MACRO="$RUNNER_TEMP/ip-stage2-macro-raw"
+
+          python scripts/acquire_macro_schedule_stage2.py             2016 2016             "$OUT/macro-event-schedule-2016.csv"             "$OUT/macro-coverage-2016.json"             "$RAW_MACRO"
+
+      - name: Require complete core 2016 macro coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          p="data/derived/information-parity-v1-stage2-smoke/macro-coverage-2016.json"
+          o=json.load(open(p))
+          y=o["years"]["2016"]
+          print(json.dumps(y,indent=2,sort_keys=True))
+          if not y["stage2_macro_schedule_available"]:
+              raise SystemExit("STAGE2_SMOKE_MACRO_INCOMPLETE")
+          PY
+
+      - name: Build partial-2016 information layer
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/derived/information-parity-v1-stage2-smoke"
+          LAYER="$OUT/layer-2016"
+          REPORTS="data/reports/information-parity-v1-stage2-smoke"
+          mkdir -p "$REPORTS"
+
+          python scripts/build_information_parity_stage2_year.py             2016             "$OUT/xauusd-2016-smoke-synchronized.csv"             "$OUT/synthetic-dxy-2016-smoke.csv"             "$OUT/macro-event-schedule-2016.csv"             "$OUT/macro-coverage-2016.json"             "$LAYER"             "$REPORTS/build-2016-smoke.json"
+
+      - name: Validate Stage 2 smoke integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/derived/information-parity-v1-stage2-smoke"
+          LAYER="$OUT/layer-2016"
+          REPORTS="data/reports/information-parity-v1-stage2-smoke"
+
+          python scripts/validate_information_parity_stage2.py             2016             "$LAYER"             "$OUT/synthetic-dxy-2016-smoke.csv"             "$OUT/macro-event-schedule-2016.csv"             "$OUT/macro-coverage-2016.json"             "$REPORTS/integrity-2016-smoke.json"
+
+      - name: Build compact smoke manifests
+        shell: bash
+        run: |
+          set -euo pipefail
+          RAW="$RUNNER_TEMP/ip-stage2-smoke-raw"
+          OUT="data/derived/information-parity-v1-stage2-smoke"
+          REPORTS="data/reports/information-parity-v1-stage2-smoke"
+          MANIFESTS="data/manifests/information-parity-v1-stage2-smoke"
+          mkdir -p "$MANIFESTS"
+
+          python scripts/build_information_parity_manifest.py             "$MANIFESTS/raw-market-files.json"             "$RAW/xauusd/xauusd-20160201-20160206-m1-bid.csv"             "$RAW/xauusd/xauusd-20160201-20160206-m1-ask.csv"             "$RAW/fx/eurusd-20160201-20160206-m1-bid.csv"             "$RAW/fx/usdjpy-20160201-20160206-m1-bid.csv"             "$RAW/fx/gbpusd-20160201-20160206-m1-bid.csv"             "$RAW/fx/usdcad-20160201-20160206-m1-bid.csv"             "$RAW/fx/usdsek-20160201-20160206-m1-bid.csv"             "$RAW/fx/usdchf-20160201-20160206-m1-bid.csv"
+
+          python scripts/build_information_parity_manifest.py             "$MANIFESTS/normalized-files.json"             "$OUT/xauusd-2016-smoke-synchronized.csv"             "$OUT/synthetic-dxy-2016-smoke.csv"             "$OUT/macro-event-schedule-2016.csv"             "$OUT/layer-2016/"*.csv.gz             "$REPORTS/build-2016-smoke.json"             "$REPORTS/integrity-2016-smoke.json"             "$OUT/macro-coverage-2016.json"             "$OUT/synthetic-dxy-2016-smoke-report.json"
+
+          find "$MANIFESTS" "$REPORTS" -type f -print | sort | xargs sha256sum             > "$REPORTS/compact-evidence-sha256.txt"
+
+      - name: Upload compact Stage 2 smoke evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: information-parity-stage2-smoke
+          path: |
+            data/manifests/information-parity-v1-stage2-smoke/*.json
+            data/reports/information-parity-v1-stage2-smoke/*.json
+            data/reports/information-parity-v1-stage2-smoke/compact-evidence-sha256.txt
+            data/derived/information-parity-v1-stage2-smoke/macro-coverage-2016.json
+            data/derived/information-parity-v1-stage2-smoke/synthetic-dxy-2016-smoke-report.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  full-train:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'full-train' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Full build intentionally blocked until smoke acceptance
+        run: |
+          echo "Stage 2 full TRAIN build is not yet authorized."
+          exit 1

@@ -114,5 +114,21 @@ jobs:
         run: python -m py_compile scripts/diagnose_root_reset_v4_translation.py
       - name: Compile Root-Reset V5 Badar source-fidelity
         run: python -m py_compile scripts/root_reset_v5_badar_source_fidelity.py
+      - name: Install Information Parity Stage 2 foundation dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir numpy pandas
+      - name: Run Information Parity Stage 2 foundation tests
+        run: python tests/test_information_parity_stage2_foundation.py
+      - name: Compile Information Parity Stage 2 synchronizer
+        run: python -m py_compile scripts/synchronize_information_parity_m1.py
+      - name: Compile Information Parity Stage 2 DXY builder
+        run: python -m py_compile scripts/build_synthetic_dxy_stage2.py
+      - name: Compile Information Parity Stage 2 annual builder
+        run: python -m py_compile scripts/build_information_parity_stage2_year.py
+      - name: Compile Information Parity Stage 2 macro acquisition
+        run: python -m py_compile scripts/acquire_macro_schedule_stage2.py
+      - name: Compile Information Parity Stage 2 integrity validator
+        run: python -m py_compile scripts/validate_information_parity_stage2.py
+      - name: Compile Information Parity Stage 2 manifest builder
+        run: python -m py_compile scripts/build_information_parity_manifest.py
       - name: Compile Exness MT5 tick probe
         run: python -m py_compile scripts/exness_mt5_tick_probe.py
