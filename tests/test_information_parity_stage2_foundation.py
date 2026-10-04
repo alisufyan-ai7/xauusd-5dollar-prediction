@@ -125,6 +125,28 @@ def test_synthetic_dxy(tmp: Path):
     assert meta["common_timestamps"] == 2
 
 
+def test_d1_grouping_uses_datetime_index_not_label_alignment():
+    start = pd.Timestamp("2016-03-07T00:00:00Z")
+    rows = []
+    for i in range(48):
+        bar_start = start + pd.Timedelta(hours=i)
+        available = bar_start + pd.Timedelta(hours=1)
+        rows.append({
+            "bar_start_ms": int(bar_start.timestamp() * 1000),
+            "available_time_ms": int(available.timestamp() * 1000),
+            "open": 100.0 + i,
+            "high": 101.0 + i,
+            "low": 99.0 + i,
+            "close": 100.5 + i,
+            "volume": 1.0,
+            "source_count": 60,
+        })
+    h1 = pd.DataFrame.from_records(rows, columns=BAR_COLUMNS)
+    d1 = build_d1(h1)
+    assert len(d1) == 2
+    assert d1["source_count"].tolist() == [24, 24]
+
+
 def test_empty_canonical_bar_tables(tmp: Path):
     # Non-empty H1 input can legitimately yield zero D1 bars under the frozen
     # >=20-completed-H1 requirement. The result must still preserve schema.
@@ -177,6 +199,7 @@ def main():
         tmp = Path(td)
         test_sync(tmp)
         test_synthetic_dxy(tmp)
+        test_d1_grouping_uses_datetime_index_not_label_alignment()
         test_empty_canonical_bar_tables(tmp)
     print("INFORMATION_PARITY_STAGE2_FOUNDATION_PASS")
 
