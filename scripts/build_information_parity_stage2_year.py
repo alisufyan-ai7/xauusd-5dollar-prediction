@@ -32,6 +32,10 @@ TF_RULES = {
     "h4": ("4h", 240),
 }
 STRUCT_TFS = ("m5", "m15", "h1", "h4")
+BAR_COLUMNS = [
+    "bar_start_ms", "available_time_ms",
+    "open", "high", "low", "close", "volume", "source_count",
+]
 
 
 def datetime_like_to_epoch_ms(values) -> np.ndarray:
@@ -179,10 +183,7 @@ def resample_exact(m1: pd.DataFrame, rule: str, expected: int) -> pd.DataFrame:
 
 def build_d1(h1: pd.DataFrame) -> pd.DataFrame:
     if h1.empty:
-        return pd.DataFrame(columns=[
-            "bar_start_ms", "available_time_ms", "open", "high", "low", "close",
-            "volume", "source_count"
-        ])
+        return pd.DataFrame(columns=BAR_COLUMNS)
     idx = pd.to_datetime(h1["available_time_ms"], unit="ms", utc=True)
     tmp = h1.copy()
     tmp.index = idx
@@ -202,7 +203,7 @@ def build_d1(h1: pd.DataFrame) -> pd.DataFrame:
             "volume": float(g["volume"].sum()),
             "source_count": int(len(g)),
         })
-    return pd.DataFrame(rows)
+    return pd.DataFrame.from_records(rows, columns=BAR_COLUMNS)
 
 
 def build_w1(d1: pd.DataFrame) -> pd.DataFrame:
@@ -229,7 +230,7 @@ def build_w1(d1: pd.DataFrame) -> pd.DataFrame:
             "volume": float(g["volume"].sum()),
             "source_count": int(len(g)),
         })
-    return pd.DataFrame(rows)
+    return pd.DataFrame.from_records(rows, columns=BAR_COLUMNS)
 
 
 def swing_events(bars: pd.DataFrame):
