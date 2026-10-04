@@ -93,12 +93,22 @@ def main() -> None:
         require(text, f"actions/setup-python@{SETUP_PYTHON_SHA}", name)
         forbid(text, "runs-on: ubuntu-latest", name)
 
-    # The deterministic preflight is intentionally manual-only.
+    # The deterministic preflight is manual by default. During a deliberately
+    # authorized CI confirmation, a push trigger is allowed only when it is
+    # restricted to this isolated branch AND the single trigger file.
     require(preflight, "workflow_dispatch:", "preflight_workflow")
-    forbid(preflight, "
-  push:", "preflight_workflow")
-    forbid(preflight, "
-  pull_request:", "preflight_workflow")
+    forbid(preflight, "\n  pull_request:", "preflight_workflow")
+    if "\n  push:" in preflight:
+        require(
+            preflight,
+            "research/information-parity-v1-stage2-preflight",
+            "preflight_workflow",
+        )
+        require(
+            preflight,
+            '".github/information-parity-stage2-preflight-trigger"',
+            "preflight_workflow",
+        )
     require(
         preflight,
         "bash scripts/run_information_parity_stage2_preflight.sh",
