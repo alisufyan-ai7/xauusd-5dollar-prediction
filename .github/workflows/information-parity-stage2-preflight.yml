@@ -2,6 +2,11 @@ name: information-parity-stage2-preflight
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - research/information-parity-v1-stage2-preflight
+    paths:
+      - ".github/information-parity-stage2-preflight-trigger"
 
 permissions:
   contents: read
