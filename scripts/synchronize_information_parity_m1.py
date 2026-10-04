@@ -31,7 +31,12 @@ def load(path: Path) -> dict[int, dict]:
         if r.fieldnames != required:
             raise SystemExit(f"UNEXPECTED_SCHEMA:{path}:{r.fieldnames}")
         for row in r:
-            out[int(row["timestamp"])] = row
+            ts = int(row["timestamp"])
+            if ts % ONE_MINUTE_MS != 0:
+                raise SystemExit(f"OFF_GRID_TIMESTAMP:{path}:{ts}")
+            if ts in out:
+                raise SystemExit(f"DUPLICATE_TIMESTAMP:{path}:{ts}")
+            out[ts] = row
     return out
 
 
