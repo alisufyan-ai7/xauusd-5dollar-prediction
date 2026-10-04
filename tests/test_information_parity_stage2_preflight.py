@@ -349,8 +349,10 @@ def assert_macro_multilabel() -> None:
     state = build_macro_state(dtimes, macro, True)
     assert state.iloc[0]["next_event_families"] == "CPI|NFP"
     assert state.iloc[0]["minutes_to_next_event"] == 1
+    assert state.iloc[0]["events_next_120m_count"] == 2
     assert state.iloc[1]["previous_event_families"] == "CPI|NFP"
     assert state.iloc[1]["minutes_since_previous_event"] == 0
+    assert state.iloc[1]["events_prior_120m_count"] == 2
 
 
 def assert_empty_table_serialization(tmp: Path) -> None:
@@ -376,6 +378,55 @@ def assert_empty_table_serialization(tmp: Path) -> None:
         rt = pd.read_csv(p, compression="gzip")
         assert rt.empty
         assert list(rt.columns) == BAR_COLUMNS
+
+
+def assert_raw_timestamp_guards(tmp: Path) -> None:
+    dup_bid = tmp / "dup-bid.csv"
+    dup_ask = tmp / "dup-ask.csv"
+    write_rows(dup_bid, [
+        [0, 100, 101, 99, 100.5, 1],
+        [0, 100, 101, 99, 100.5, 1],
+    ])
+    write_rows(dup_ask, [
+        [0, 100.5, 101.5, 99.5, 101.0, 1],
+    ])
+    bad = run([
+        sys.executable,
+        str(ROOT / "scripts/synchronize_information_parity_m1.py"),
+        str(dup_bid), str(dup_ask), str(tmp / "dup-sync.csv"),
+    ], expect_success=False)
+    assert "DUPLICATE_TIMESTAMP" in (bad.stdout + bad.stderr)
+
+    off_bid = tmp / "offgrid-bid.csv"
+    write_rows(off_bid, [
+        [1, 100, 101, 99, 100.5, 1],
+    ])
+    bad = run([
+        sys.executable,
+        str(ROOT / "scripts/synchronize_information_parity_m1.py"),
+        str(off_bid), str(dup_ask), str(tmp / "offgrid-sync.csv"),
+    ], expect_success=False)
+    assert "OFF_GRID_TIMESTAMP" in (bad.stdout + bad.stderr)
+
+    fx_paths = []
+    for name in ("eurusd", "usdjpy", "gbpusd", "usdcad", "usdsek", "usdchf"):
+        p = tmp / f"guard-{name}.csv"
+        rows = [
+            [0, 1.0, 1.1, 0.9, 1.0, 1],
+            [60_000, 1.0, 1.1, 0.9, 1.0, 1],
+        ]
+        if name == "eurusd":
+            rows.append([60_000, 1.0, 1.1, 0.9, 1.0, 1])
+        write_rows(p, rows)
+        fx_paths.append(p)
+    bad = run([
+        sys.executable,
+        str(ROOT / "scripts/build_synthetic_dxy_stage2.py"),
+        *map(str, fx_paths),
+        str(tmp / "guard-dxy.csv"),
+        str(tmp / "guard-dxy.json"),
+    ], expect_success=False)
+    assert "DXY_DUPLICATE_TIMESTAMP" in (bad.stdout + bad.stderr)
 
 
 def end_to_end(tmp: Path) -> None:
@@ -446,6 +497,7 @@ def end_to_end(tmp: Path) -> None:
     assert integ["sealed_xauusd_periods_accessed"] == []
 
     decision = pd.read_csv(layer / "decision_index_2016.csv.gz", compression="gzip")
+    market = pd.read_csv(layer / "xauusd_m1_market_state_2016.csv.gz", compression="gzip")
     structural = pd.read_csv(layer / "xauusd_structural_state_2016.csv.gz", compression="gzip")
     d1 = pd.read_csv(layer / "xauusd_d1_2016.csv.gz", compression="gzip")
     w1 = pd.read_csv(layer / "xauusd_w1_2016.csv.gz", compression="gzip")
@@ -462,6 +514,46 @@ def end_to_end(tmp: Path) -> None:
     assert decision["macro_schedule_available"].eq(1).all()
     assert trade["position_state"].eq("FLAT").all()
     assert pd.to_numeric(trade["session_trade_count"]).eq(0).all()
+
+    prices = market["bid_close"].to_numpy(float)
+    for col in (
+        "asia_high",
+        "asia_low",
+        "london_high",
+        "london_low",
+    ):
+        level = pd.to_numeric(structural[f"{col}_known"], errors="coerce").to_numpy(float)
+        dist = pd.to_numeric(
+            structural[f"{col}_distance_from_bid_close"],
+            errors="coerce",
+        ).to_numpy(float)
+        assert np.allclose(dist, level - prices, equal_nan=True)
+
+    for field in ("high", "low", "open", "close"):
+        level = pd.to_numeric(
+            structural[f"previous_day_{field}"],
+            errors="coerce",
+        ).to_numpy(float)
+        dist = pd.to_numeric(
+            structural[f"previous_day_{field}_distance_from_bid_close"],
+            errors="coerce",
+        ).to_numpy(float)
+        assert np.allclose(dist, level - prices, equal_nan=True)
+
+    swing_distance_checked = False
+    for tf in ("m5", "m15", "h1", "h4"):
+        for side in ("high", "low"):
+            level = pd.to_numeric(
+                structural[f"last_confirmed_swing_{side}_{tf}_level"],
+                errors="coerce",
+            ).to_numpy(float)
+            dist = pd.to_numeric(
+                structural[f"last_confirmed_swing_{side}_{tf}_distance_from_bid_close"],
+                errors="coerce",
+            ).to_numpy(float)
+            assert np.allclose(dist, level - prices, equal_nan=True)
+            swing_distance_checked = swing_distance_checked or np.isfinite(level).any()
+    assert swing_distance_checked
 
     assert_session_dst(structural)
 
@@ -491,6 +583,7 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as td:
         tmp = Path(td)
         assert_empty_table_serialization(tmp)
+        assert_raw_timestamp_guards(tmp)
         end_to_end(tmp)
     print("INFORMATION_PARITY_STAGE2_OFFLINE_PREFLIGHT_PASS")
 
