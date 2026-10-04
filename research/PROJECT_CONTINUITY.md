@@ -1635,3 +1635,19 @@ Current next step:
 finish exact-source reconciliation/static alignment review before deciding whether one manual pinned-runtime preflight CI is justified.
 
 No provider-data run. No model training. 2022-2025 remain sealed.
+
+
+## Stage 2 off-CI review V2 passed
+
+Decision record:
+D-076
+
+Documents:
+- research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_STATIC_REVIEW_ADDENDUM.md
+- research/INFORMATION_PARITY_V1_STAGE2_LOCAL_REVIEW_V2.md
+
+Four integrity gaps were fixed off-CI: macro simultaneous-event multiplicity, required structural distances, D1/W1 + previous-day validator recomputation, and duplicate/off-grid raw M1 guards.
+
+The corrected local deterministic suite passes.
+
+One exact-runtime deterministic-preflight CI is now authorized. Provider-data acquisition is still blocked until that confirmation succeeds.
