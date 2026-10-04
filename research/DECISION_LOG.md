@@ -2068,3 +2068,41 @@ The deterministic preflight workflow has been restored to manual-only and its te
 
 No full TRAIN run or model training is authorized yet.
 2022-2025 XAUUSD remain sealed.
+
+
+---
+
+## D-078 — Corrected bounded real-data Stage 2 smoke accepted; authorize full TRAIN implementation work
+
+Accepted run:
+- workflow: information-parity-stage2
+- run: 37231837219
+- head: e2aaaaa829a76be6cd10e35f9dac85e3b7c6b343
+- conclusion: SUCCESS
+- artifact digest: sha256:05d7955f11834eb668d191b2cbf5dcf64ff0b4bbedec646c2e42fd2079cfe59e
+
+Key corrected evidence:
+- M1 6,840;
+- H1 114;
+- D1 5;
+- W1 1;
+- D1<-H1 hierarchy PASS;
+- W1<-D1 hierarchy PASS;
+- previous-day as-of PASS;
+- structural distances PASS;
+- DXY backward as-of PASS;
+- macro state/timezone integrity PASS;
+- sealed-period guard PASS;
+- warnings: none.
+
+This resolves the D-074 defect on real provider data.
+
+Decision:
+The Stage 2 implementation is accepted for full 2016-2021 TRAIN information-layer build preparation.
+
+Do not jump directly to an expensive full CI run until the full-train orchestration itself has been implemented and reviewed off-CI. Once that orchestration passes static/local checks, one full TRAIN CI execution is scientifically justified.
+
+No model training is authorized yet.
+2022-2025 XAUUSD remain sealed.
+
+See research/INFORMATION_PARITY_V1_STAGE2_CORRECTED_SMOKE_FINDINGS.md.
