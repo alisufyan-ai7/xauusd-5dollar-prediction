@@ -1569,3 +1569,22 @@ The accepted real-data smoke remains run 37192128583.
 The full 2016-2021 provider-data build is still blocked until this preflight gate and 2017-2021 BLS schedule verification are complete.
 
 No model training yet. 2022-2025 remain sealed.
+
+
+## Stage 2 preflight run 1 diagnosed
+
+Run 37196172995 failed before deterministic tests because the static repository-contract checker itself had a Python newline-escaping syntax error.
+
+This is documented in:
+research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_RUN1_FINDINGS.md
+
+Decision record:
+D-073
+
+Corrective changes:
+- checker newline handling fixed;
+- Python compile gate moved before checker/test execution;
+- corrected checker and preflight test syntax-compiled off-CI;
+- shell runner passed bash syntax validation off-CI.
+
+One more deterministic preflight CI is now justified solely to execute the complete suite under the exact frozen runtime. Provider market-data workflows remain blocked.
