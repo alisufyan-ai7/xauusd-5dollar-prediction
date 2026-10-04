@@ -1668,3 +1668,22 @@ Active next step:
 run one corrected bounded 2016 real-data smoke on the accepted implementation because D-074 materially changed D1/W1/previous-day behavior after the earlier smoke.
 
 Full TRAIN and model work remain blocked. 2022-2025 remain sealed.
+
+
+## Corrected Stage 2 provider smoke accepted
+
+Decision record:
+D-078
+
+Findings:
+research/INFORMATION_PARITY_V1_STAGE2_CORRECTED_SMOKE_FINDINGS.md
+
+Accepted run 37231837219 succeeded and produced non-empty corrected D1/W1:
+- D1 5;
+- W1 1;
+with hierarchy, previous-day, structural-distance, DXY, macro and sealed-period checks all passing and no warnings.
+
+Active next step:
+implement and off-CI review the full 2016-2021 Stage 2 TRAIN orchestration. Do not trigger the expensive full build until that orchestration passes its own local/static gate.
+
+No model training. 2022-2025 remain sealed.
