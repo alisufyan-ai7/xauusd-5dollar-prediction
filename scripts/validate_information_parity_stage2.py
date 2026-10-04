@@ -119,7 +119,106 @@ def check_timeframe(df: pd.DataFrame, name: str, year: int, report: dict):
     report["checks"][f"{name}_availability"] = "PASS"
 
 
-def check_structural(df: pd.DataFrame, m1: pd.DataFrame, report: dict):
+def _compare_bar_table(actual: pd.DataFrame, expected: list[dict], name: str):
+    exp = pd.DataFrame.from_records(
+        expected,
+        columns=[
+            "bar_start_ms", "available_time_ms",
+            "open", "high", "low", "close", "volume", "source_count",
+        ],
+    )
+    if len(actual) != len(exp):
+        fail(f"{name}_row_count:expected={len(exp)}:actual={len(actual)}")
+    if actual.empty:
+        return
+    for col in ("bar_start_ms", "available_time_ms", "source_count"):
+        if not np.array_equal(
+            actual[col].to_numpy(np.int64),
+            exp[col].to_numpy(np.int64),
+        ):
+            fail(f"{name}_{col}_mismatch")
+    for col in ("open", "high", "low", "close", "volume"):
+        if not np.allclose(
+            actual[col].to_numpy(float),
+            exp[col].to_numpy(float),
+            rtol=1e-10,
+            atol=1e-10,
+            equal_nan=True,
+        ):
+            fail(f"{name}_{col}_mismatch")
+
+
+def check_hierarchy(tf: dict[str, pd.DataFrame], report: dict):
+    h1 = tf["h1"]
+    d1 = tf["d1"]
+    w1 = tf["w1"]
+
+    expected_d1 = []
+    if not h1.empty:
+        av = h1["available_time_ms"].to_numpy(np.int64)
+        source_day = (
+            pd.DatetimeIndex(pd.to_datetime(av, unit="ms", utc=True))
+            - pd.Timedelta(nanoseconds=1)
+        ).floor("D")
+        source_day_ms = source_day.tz_convert("UTC").tz_localize(None).to_numpy(
+            dtype="datetime64[ms]"
+        ).astype(np.int64)
+
+        for day_ms in np.unique(source_day_ms):
+            pos = np.flatnonzero(source_day_ms == day_ms)
+            if len(pos) < 20:
+                continue
+            g = h1.iloc[pos]
+            expected_d1.append({
+                "bar_start_ms": int(day_ms),
+                "available_time_ms": int(day_ms + 86_400_000),
+                "open": float(g.iloc[0]["open"]),
+                "high": float(g["high"].max()),
+                "low": float(g["low"].min()),
+                "close": float(g.iloc[-1]["close"]),
+                "volume": float(g["volume"].sum()),
+                "source_count": int(len(g)),
+            })
+
+    _compare_bar_table(d1, expected_d1, "d1_from_h1")
+
+    expected_w1 = []
+    if expected_d1:
+        ed = pd.DataFrame.from_records(expected_d1)
+        starts = ed["bar_start_ms"].to_numpy(np.int64)
+        days = pd.DatetimeIndex(pd.to_datetime(starts, unit="ms", utc=True))
+        week_start = days - pd.to_timedelta(days.weekday, unit="D")
+        week_ms = week_start.tz_convert("UTC").tz_localize(None).to_numpy(
+            dtype="datetime64[ms]"
+        ).astype(np.int64)
+
+        for week_start_ms in np.unique(week_ms):
+            pos = np.flatnonzero(week_ms == week_start_ms)
+            if len(pos) < 4:
+                continue
+            g = ed.iloc[pos]
+            expected_w1.append({
+                "bar_start_ms": int(week_start_ms),
+                "available_time_ms": int(week_start_ms + 7 * 86_400_000),
+                "open": float(g.iloc[0]["open"]),
+                "high": float(g["high"].max()),
+                "low": float(g["low"].min()),
+                "close": float(g.iloc[-1]["close"]),
+                "volume": float(g["volume"].sum()),
+                "source_count": int(len(g)),
+            })
+
+    _compare_bar_table(w1, expected_w1, "w1_from_d1")
+    report["checks"]["d1_h1_hierarchy"] = "PASS"
+    report["checks"]["w1_d1_hierarchy"] = "PASS"
+
+
+def check_structural(
+    df: pd.DataFrame,
+    m1: pd.DataFrame,
+    d1: pd.DataFrame,
+    report: dict,
+):
     assert_no_forbidden_columns("xauusd_structural_state", df.columns)
     if len(df) != len(m1):
         fail("structural_row_count")
@@ -140,8 +239,54 @@ def check_structural(df: pd.DataFrame, m1: pd.DataFrame, report: dict):
             if np.any(vals[mask] < 0):
                 fail(f"negative_structural_age:{c}")
 
+    prices = m1["bid_close"].to_numpy(float)
+
+    # Frozen schema requires explicit distances from current BID close.
+    for tf in ("m5", "m15", "h1", "h4"):
+        for side in ("high", "low"):
+            level_col = f"last_confirmed_swing_{side}_{tf}_level"
+            dist_col = f"last_confirmed_swing_{side}_{tf}_distance_from_bid_close"
+            if level_col not in df.columns or dist_col not in df.columns:
+                fail(f"structural_missing_distance:{dist_col}")
+            level = pd.to_numeric(df[level_col], errors="coerce").to_numpy(float)
+            dist = pd.to_numeric(df[dist_col], errors="coerce").to_numpy(float)
+            if not np.allclose(dist, level - prices, equal_nan=True):
+                fail(f"structural_distance_mismatch:{dist_col}")
+
+    for base in ("asia_high", "asia_low", "london_high", "london_low"):
+        level_col = f"{base}_known"
+        dist_col = f"{base}_distance_from_bid_close"
+        if level_col not in df.columns or dist_col not in df.columns:
+            fail(f"session_missing_distance:{dist_col}")
+        level = pd.to_numeric(df[level_col], errors="coerce").to_numpy(float)
+        dist = pd.to_numeric(df[dist_col], errors="coerce").to_numpy(float)
+        if not np.allclose(dist, level - prices, equal_nan=True):
+            fail(f"session_distance_mismatch:{dist_col}")
+
+    # Recompute previous-day as-of state independently from canonical D1.
+    d1_av = d1["available_time_ms"].to_numpy(np.int64) if not d1.empty else np.array([], dtype=np.int64)
+    pos = np.searchsorted(d1_av, dec, side="right") - 1 if len(d1_av) else np.full(len(dec), -1)
+    valid = pos >= 0
+    for field in ("high", "low", "open", "close"):
+        level_col = f"previous_day_{field}"
+        dist_col = f"{level_col}_distance_from_bid_close"
+        if level_col not in df.columns or dist_col not in df.columns:
+            fail(f"previous_day_missing:{field}")
+        expected = np.full(len(dec), np.nan)
+        if len(d1_av):
+            vals = d1[field].to_numpy(float)
+            expected[valid] = vals[pos[valid]]
+        actual = pd.to_numeric(df[level_col], errors="coerce").to_numpy(float)
+        actual_dist = pd.to_numeric(df[dist_col], errors="coerce").to_numpy(float)
+        if not np.allclose(actual, expected, equal_nan=True):
+            fail(f"previous_day_level_mismatch:{field}")
+        if not np.allclose(actual_dist, expected - prices, equal_nan=True):
+            fail(f"previous_day_distance_mismatch:{field}")
+
     report["checks"]["structural_alignment"] = "PASS"
     report["checks"]["structural_causality"] = "PASS"
+    report["checks"]["structural_distances"] = "PASS"
+    report["checks"]["previous_day_asof"] = "PASS"
 
 
 def load_dxy(path: Path) -> pd.DataFrame:
@@ -298,12 +443,16 @@ def main(argv: list[str]) -> None:
     m1 = read_gz(layer / f"xauusd_m1_market_state_{year}.csv.gz")
     check_m1(m1, year, report)
 
+    tf = {}
     for name in ("m3", "m5", "m15", "m30", "h1", "h4", "d1", "w1"):
         df = read_gz(layer / f"xauusd_{name}_{year}.csv.gz")
         check_timeframe(df, f"xauusd_{name}", year, report)
+        tf[name] = df
+
+    check_hierarchy(tf, report)
 
     structural = read_gz(layer / f"xauusd_structural_state_{year}.csv.gz")
-    check_structural(structural, m1, report)
+    check_structural(structural, m1, tf["d1"], report)
 
     dxy = load_dxy(dxy_path)
     decision = read_gz(layer / f"decision_index_{year}.csv.gz")
