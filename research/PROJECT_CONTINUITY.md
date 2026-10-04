@@ -1612,3 +1612,26 @@ Current policy:
 - review remaining deterministic paths for similar alignment assumptions first.
 
 2022-2025 remain sealed. No model training.
+
+
+## Local Stage 2 deterministic logic gate passed
+
+Decision record:
+D-075
+
+Evidence:
+research/INFORMATION_PARITY_V1_STAGE2_LOCAL_PREFLIGHT_EVIDENCE.md
+
+A real local deterministic execution passed after the D-074 D1 fix:
+- D1 28;
+- W1 4;
+- integrity PASS;
+- negative leakage injection rejected;
+- no sealed-period access.
+
+This is explicitly a local logic gate, not exact pinned-runtime acceptance. The local environment differs from the frozen CI environment and some large source files were semantically materialized rather than byte-identical due container network restrictions.
+
+Current next step:
+finish exact-source reconciliation/static alignment review before deciding whether one manual pinned-runtime preflight CI is justified.
+
+No provider-data run. No model training. 2022-2025 remain sealed.
