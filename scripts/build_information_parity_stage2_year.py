@@ -208,10 +208,7 @@ def build_d1(h1: pd.DataFrame) -> pd.DataFrame:
 
 def build_w1(d1: pd.DataFrame) -> pd.DataFrame:
     if d1.empty:
-        return pd.DataFrame(columns=[
-            "bar_start_ms", "available_time_ms", "open", "high", "low", "close",
-            "volume", "source_count"
-        ])
+        return pd.DataFrame(columns=BAR_COLUMNS)
     z = d1.copy()
     day = pd.to_datetime(z["bar_start_ms"], unit="ms", utc=True)
     z["week_start"] = day - pd.to_timedelta(day.dt.weekday, unit="D")
