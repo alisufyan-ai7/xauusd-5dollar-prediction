@@ -1588,3 +1588,27 @@ Corrective changes:
 - shell runner passed bash syntax validation off-CI.
 
 One more deterministic preflight CI is now justified solely to execute the complete suite under the exact frozen runtime. Provider market-data workflows remain blocked.
+
+
+## Stage 2 preflight found real D1/W1 bug
+
+Decision record:
+D-074
+
+Findings:
+research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_RUN2_FINDINGS.md
+
+Run 37227754869 passed the frozen environment/repository/foundation gates but exposed a real pandas index-alignment bug in D1 grouping.
+
+The bug is fixed and deterministic regressions now require exact D1/W1 output.
+
+Important correction:
+accepted smoke run 37192128583 remains valid for M1-H4/DXY/macro and other exercised paths, but its D1/W1/previous-day path is invalidated and must be rerun after preflight acceptance.
+
+Current policy:
+- no automatic preflight trigger exists;
+- no new CI yet;
+- no provider-data run yet;
+- review remaining deterministic paths for similar alignment assumptions first.
+
+2022-2025 remain sealed. No model training.
