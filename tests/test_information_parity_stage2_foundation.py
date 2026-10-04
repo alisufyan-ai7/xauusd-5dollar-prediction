@@ -18,6 +18,8 @@ from scripts.build_information_parity_stage2_year import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
 def write_m1(path: Path, rows):
