@@ -45,7 +45,14 @@ jobs:
 
       - name: Compile Stage 2 scripts
         run: |
-          python scripts/check_information_parity_stage2_environment.py\n          python -m py_compile             scripts/synchronize_information_parity_m1.py             scripts/build_synthetic_dxy_stage2.py             scripts/acquire_macro_schedule_stage2.py             scripts/build_information_parity_stage2_year.py             scripts/validate_information_parity_stage2.py             scripts/build_information_parity_manifest.py
+          python scripts/check_information_parity_stage2_environment.py
+          python -m py_compile \
+            scripts/synchronize_information_parity_m1.py \
+            scripts/build_synthetic_dxy_stage2.py \
+            scripts/acquire_macro_schedule_stage2.py \
+            scripts/build_information_parity_stage2_year.py \
+            scripts/validate_information_parity_stage2.py \
+            scripts/build_information_parity_manifest.py
 
       - name: Acquire fixed smoke market window
         shell: bash
