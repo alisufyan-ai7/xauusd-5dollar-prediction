@@ -161,8 +161,210 @@ jobs:
   full-train:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'full-train' }}
     runs-on: ubuntu-24.04
+    timeout-minutes: 360
+
     steps:
-      - name: Full build intentionally blocked until smoke acceptance
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Setup exact Node runtime
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22.23.3"
+
+      - name: Setup exact Python runtime
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12.14"
+
+      - name: Install frozen Stage 2 Python environment
         run: |
-          echo "Stage 2 full TRAIN build is not yet authorized."
-          exit 1
+          python -m pip install --disable-pip-version-check --no-cache-dir \
+            -r requirements/information-parity-stage2.lock.txt
+
+      - name: Verify frozen runtime and compile full-TRAIN surface
+        run: |
+          set -euo pipefail
+          python scripts/check_information_parity_stage2_environment.py
+          python -m py_compile \
+            scripts/synchronize_information_parity_m1.py \
+            scripts/build_synthetic_dxy_stage2_full_train.py \
+            scripts/acquire_macro_schedule_stage2.py \
+            scripts/build_information_parity_stage2_year.py \
+            scripts/build_information_parity_stage2_full_train.py \
+            scripts/validate_information_parity_stage2.py \
+            scripts/validate_information_parity_stage2_full_train.py \
+            scripts/build_information_parity_manifest.py \
+            scripts/verify_information_parity_stage2_full_train_inputs.py \
+            scripts/summarize_information_parity_stage2_full_train.py
+          bash -n scripts/acquire_information_parity_stage2.sh
+          bash -n scripts/download_dukascopy_m1_generic.sh
+
+      - name: Verify repository-controlled full-TRAIN prerequisites
+        run: |
+          set -euo pipefail
+          mkdir -p data/reports/information-parity-v1-stage2-full
+          python scripts/verify_information_parity_stage2_full_train_inputs.py \
+            data/reports/information-parity-v1-stage2-full/input-verification.json
+
+      - name: Record runtime versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "STAGE2_NODE_VERSION=$(node --version)" >> "$GITHUB_ENV"
+          echo "STAGE2_NPM_VERSION=$(npm --version)" >> "$GITHUB_ENV"
+
+      - name: Acquire one same-snapshot 2016-2021 market history
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="$RUNNER_TEMP/ip-stage2-full"
+          bash scripts/acquire_information_parity_stage2.sh 2016 2021 "$BASE"
+
+          mkdir -p \
+            data/manifests/information-parity-v1-stage2-full \
+            data/reports/information-parity-v1-stage2-full
+
+          cp "$BASE/manifests/information-parity-v1-stage2-raw-market-manifest.json" \
+            data/manifests/information-parity-v1-stage2-full/raw-market-manifest.json
+          cp "$BASE/manifests/information-parity-v1-stage2-synchronized-xauusd-manifest.json" \
+            data/manifests/information-parity-v1-stage2-full/synchronized-xauusd-manifest.json
+          cp "$BASE/reports/information-parity-v1-stage2-acquisition/"*.json \
+            data/reports/information-parity-v1-stage2-full/
+
+      - name: Build continuous 2016-2021 synthetic DXY
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="$RUNNER_TEMP/ip-stage2-full"
+          OUT="data/derived/information-parity-v1-stage2-full"
+          REPORTS="data/reports/information-parity-v1-stage2-full"
+          mkdir -p "$OUT" "$REPORTS"
+
+          python scripts/build_synthetic_dxy_stage2_full_train.py \
+            "$BASE/raw/information-parity-v1/fx/m1/bid" \
+            "$OUT/synthetic-dxy-2016-2021.csv" \
+            "$REPORTS/synthetic-dxy-2016-2021.json"
+
+      - name: Acquire and normalize 2016-2021 macro schedule
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/derived/information-parity-v1-stage2-full"
+          REPORTS="data/reports/information-parity-v1-stage2-full"
+          RAW_MACRO="$RUNNER_TEMP/ip-stage2-full-macro-raw"
+
+          python scripts/acquire_macro_schedule_stage2.py \
+            2016 2021 \
+            "$OUT/macro-event-schedule-2016-2021.csv" \
+            "$REPORTS/macro-coverage-2016-2021.json" \
+            "$RAW_MACRO"
+
+          python - <<'PY'
+          import json
+          p="data/reports/information-parity-v1-stage2-full/macro-coverage-2016-2021.json"
+          o=json.load(open(p))
+          print(json.dumps(o["years"],indent=2,sort_keys=True))
+          if o.get("status") != "PASS":
+              raise SystemExit("STAGE2_FULL_MACRO_INCOMPLETE")
+          for year in range(2016, 2022):
+              if not o["years"][str(year)]["stage2_macro_schedule_available"]:
+                  raise SystemExit(f"STAGE2_FULL_MACRO_YEAR_INCOMPLETE:{year}")
+          PY
+
+      - name: Release raw provider files after identities and DXY are frozen
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="$RUNNER_TEMP/ip-stage2-full"
+          rm -rf "$BASE/raw/information-parity-v1"
+
+      - name: Build continuous 2016-2021 Information Parity layer
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="$RUNNER_TEMP/ip-stage2-full"
+          OUT="data/derived/information-parity-v1-stage2-full"
+          LAYER="$OUT/layer"
+          REPORTS="data/reports/information-parity-v1-stage2-full"
+
+          python scripts/build_information_parity_stage2_full_train.py \
+            "$BASE/derived/information-parity-v1/xauusd/m1" \
+            "$OUT/synthetic-dxy-2016-2021.csv" \
+            "$OUT/macro-event-schedule-2016-2021.csv" \
+            "$REPORTS/macro-coverage-2016-2021.json" \
+            "$LAYER" \
+            "$REPORTS/build-2016-2021.json"
+
+      - name: Validate continuous full-TRAIN integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/derived/information-parity-v1-stage2-full"
+          LAYER="$OUT/layer"
+          REPORTS="data/reports/information-parity-v1-stage2-full"
+
+          python scripts/validate_information_parity_stage2_full_train.py \
+            "$LAYER" \
+            "$OUT/synthetic-dxy-2016-2021.csv" \
+            "$OUT/macro-event-schedule-2016-2021.csv" \
+            "$REPORTS/macro-coverage-2016-2021.json" \
+            "$REPORTS/integrity-2016-2021.json"
+
+      - name: Build normalized compact identity manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/derived/information-parity-v1-stage2-full"
+          LAYER="$OUT/layer"
+          REPORTS="data/reports/information-parity-v1-stage2-full"
+          MANIFESTS="data/manifests/information-parity-v1-stage2-full"
+
+          python scripts/build_information_parity_manifest.py \
+            "$MANIFESTS/normalized-full-train-manifest.json" \
+            "$OUT/synthetic-dxy-2016-2021.csv" \
+            "$OUT/macro-event-schedule-2016-2021.csv" \
+            "$LAYER/"*.csv.gz \
+            "$REPORTS/build-2016-2021.json" \
+            "$REPORTS/integrity-2016-2021.json" \
+            "$REPORTS/macro-coverage-2016-2021.json" \
+            "$REPORTS/synthetic-dxy-2016-2021.json"
+
+      - name: Assemble and hard-check full-TRAIN summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPORTS="data/reports/information-parity-v1-stage2-full"
+          MANIFESTS="data/manifests/information-parity-v1-stage2-full"
+
+          python scripts/summarize_information_parity_stage2_full_train.py \
+            "$REPORTS/input-verification.json" \
+            "$REPORTS/synthetic-dxy-2016-2021.json" \
+            "$REPORTS/macro-coverage-2016-2021.json" \
+            "$REPORTS/build-2016-2021.json" \
+            "$REPORTS/integrity-2016-2021.json" \
+            "$MANIFESTS/raw-market-manifest.json" \
+            "$MANIFESTS/normalized-full-train-manifest.json" \
+            "$REPORTS/full-train-summary.json"
+
+      - name: Hash compact full-TRAIN evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          REPORTS="data/reports/information-parity-v1-stage2-full"
+          MANIFESTS="data/manifests/information-parity-v1-stage2-full"
+
+          find "$MANIFESTS" "$REPORTS" -type f -print | sort | xargs sha256sum \
+            > "$REPORTS/compact-evidence-sha256.txt"
+
+      - name: Upload compact Stage 2 full-TRAIN evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: information-parity-stage2-full-train
+          path: |
+            data/manifests/information-parity-v1-stage2-full/*.json
+            data/reports/information-parity-v1-stage2-full/*.json
+            data/reports/information-parity-v1-stage2-full/compact-evidence-sha256.txt
+          if-no-files-found: warn
+          retention-days: 90
