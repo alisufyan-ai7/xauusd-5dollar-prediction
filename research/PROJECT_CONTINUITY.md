@@ -1687,3 +1687,17 @@ Active next step:
 implement and off-CI review the full 2016-2021 Stage 2 TRAIN orchestration. Do not trigger the expensive full build until that orchestration passes its own local/static gate.
 
 No model training. 2022-2025 remain sealed.
+
+
+## Full TRAIN continuity requirement discovered before build
+
+Decision record:
+D-079
+
+Addendum:
+research/INFORMATION_PARITY_V1_STAGE2_FULL_TRAIN_CONTINUITY_ADDENDUM.md
+
+The full 2016-2021 Information Parity build must compute causal state continuously across year boundaries. Annual independent builds would incorrectly reset causally available context every January 1.
+
+Current implementation task:
+create continuous market/DXY concatenation, continuous Stage 2 state construction, post-state annual partitioning, boundary integrity checks and compact full-TRAIN manifests. Keep CI/provider full build blocked until off-CI review passes.
