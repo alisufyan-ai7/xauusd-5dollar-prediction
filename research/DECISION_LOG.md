@@ -1916,3 +1916,46 @@ Off-CI checks completed before rerun authorization:
 The next CI, if triggered, is justified only to execute the full deterministic suite under the exact pinned runtime. It must not acquire provider market data.
 
 See research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_RUN1_FINDINGS.md.
+
+
+---
+
+## D-074 — Preflight exposed real D1 grouping bug; partially invalidate prior smoke and block provider runs
+
+Run 37227754869 passed repository-contract, frozen-environment and foundation checks, then failed inside the deterministic end-to-end suite on daily-bar coverage.
+
+Root cause:
+`build_d1` changed the working frame to a DatetimeIndex and then assigned a RangeIndex-backed timestamp Series to `source_day`. Pandas label alignment therefore produced NaT source-day values and prevented D1 grouping.
+
+Consequences:
+- D1 construction was broken;
+- W1 was empty downstream;
+- previous-day state could not be populated;
+- the earlier smoke run 37192128583 did not validate D1/W1/previous-day state.
+
+Correction:
+The Stage 2 smoke findings are amended. Run 37192128583 remains accepted evidence for M1-H4, DXY, macro, synchronization, structural/session, decision-index and neutral trade-state paths, but not for D1/W1 or previous-day state.
+
+Fix:
+Derive source_day directly from the DatetimeIndex, avoiding Series label alignment.
+
+New regressions:
+- 48 H1 bars => exactly 2 D1 bars with source_count 24/24;
+- four-week deterministic fixture => exactly 28 D1 and 4 W1 bars.
+
+Independent off-CI reproduction after the fix produced:
+- H1 671;
+- D1 28;
+- W1 4;
+with one 23-H1 day caused by the deliberately missing both-sides M1 minute.
+
+Decision:
+Do not trigger another CI or provider-data run yet.
+Restore the preflight workflow to manual-only, remove the temporary trigger, review the remaining deterministic suite for similar index-alignment assumptions, and only then authorize one intentional preflight confirmation.
+
+A corrected real-data smoke will be required after deterministic preflight acceptance because the fix materially changes the D1/W1 end-to-end path.
+
+No model training is authorized.
+2022-2025 XAUUSD remain sealed.
+
+See research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_RUN2_FINDINGS.md.
