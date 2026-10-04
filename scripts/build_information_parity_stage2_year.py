@@ -419,6 +419,13 @@ def add_structural_state(
         for key, arr in ls.items():
             out[f"last_confirmed_swing_low_{tf}_{key}"] = arr
 
+        out[f"last_confirmed_swing_high_{tf}_distance_from_bid_close"] = (
+            out[f"last_confirmed_swing_high_{tf}_level"].to_numpy(float) - prices
+        )
+        out[f"last_confirmed_swing_low_{tf}_distance_from_bid_close"] = (
+            out[f"last_confirmed_swing_low_{tf}_level"].to_numpy(float) - prices
+        )
+
         fvgs = build_fvg_records(bars)
         for side in ("bull", "bear"):
             lower, upper, signed, created, age = fvg_state_for_decisions(
@@ -439,6 +446,7 @@ def session_state(m1: pd.DataFrame) -> pd.DataFrame:
     dec = m1["decision_time_ms"].to_numpy(np.int64)
     hi = m1["bid_high"].to_numpy(float)
     lo = m1["bid_low"].to_numpy(float)
+    close = m1["bid_close"].to_numpy(float)
 
     labels = np.empty(len(m1), dtype=object)
     mins = np.full(len(m1), np.nan)
@@ -504,6 +512,10 @@ def session_state(m1: pd.DataFrame) -> pd.DataFrame:
         "asia_low_known": asia_lo,
         "london_high_known": lon_hi,
         "london_low_known": lon_lo,
+        "asia_high_distance_from_bid_close": asia_hi - close,
+        "asia_low_distance_from_bid_close": asia_lo - close,
+        "london_high_distance_from_bid_close": lon_hi - close,
+        "london_low_distance_from_bid_close": lon_lo - close,
     })
 
 
@@ -511,11 +523,14 @@ def add_previous_day(
     structural: pd.DataFrame,
     dtimes: np.ndarray,
     d1: pd.DataFrame,
+    prices: np.ndarray,
 ):
     structural["previous_day_high"] = np.nan
     structural["previous_day_low"] = np.nan
     structural["previous_day_open"] = np.nan
     structural["previous_day_close"] = np.nan
+    for field in ("high", "low", "open", "close"):
+        structural[f"previous_day_{field}_distance_from_bid_close"] = np.nan
     if d1.empty:
         return
     av = d1["available_time_ms"].to_numpy(np.int64)
@@ -531,6 +546,7 @@ def add_previous_day(
         vals = d1[src].to_numpy(float)
         arr[valid] = vals[pos[valid]]
         structural[dst] = arr
+        structural[f"{dst}_distance_from_bid_close"] = arr - prices
 
 
 def load_dxy(path: Path):
@@ -618,12 +634,20 @@ def build_macro_state(
         return out
 
     grouped = (
-        macro.groupby("scheduled_time_ms")["event_family"]
-        .apply(lambda s: "|".join(sorted(set(map(str, s)))))
+        macro.groupby("scheduled_time_ms")
+        .agg(
+            event_families=(
+                "event_family",
+                lambda s: "|".join(sorted(set(map(str, s)))),
+            ),
+            event_count=("event_family", "size"),
+        )
         .sort_index()
     )
     et = grouped.index.to_numpy(np.int64)
-    fam = grouped.to_numpy(object)
+    fam = grouped["event_families"].to_numpy(object)
+    multiplicity = grouped["event_count"].to_numpy(np.int64)
+    prefix = np.concatenate(([0], np.cumsum(multiplicity, dtype=np.int64)))
 
     prev_pos = np.searchsorted(et, dtimes, side="right") - 1
     next_pos = np.searchsorted(et, dtimes, side="right")
@@ -650,8 +674,8 @@ def build_macro_state(
     out["minutes_since_previous_event"] = prev_mins
     out["next_event_families"] = next_family
     out["minutes_to_next_event"] = next_mins
-    out["events_prior_120m_count"] = prior_right - prior_left
-    out["events_next_120m_count"] = next_right - next_left
+    out["events_prior_120m_count"] = prefix[prior_right] - prefix[prior_left]
+    out["events_next_120m_count"] = prefix[next_right] - prefix[next_left]
     out["event_0_15m_before"] = ((next_mins > 0) & (next_mins <= 15)).astype("int8")
     out["event_15_60m_before"] = ((next_mins > 15) & (next_mins <= 60)).astype("int8")
     out["event_0_15m_after"] = ((prev_mins >= 0) & (prev_mins <= 15)).astype("int8")
@@ -713,7 +737,12 @@ def main(argv: list[str]) -> None:
     structural = add_structural_state(m1, tf)
     ss = session_state(m1)
     structural = structural.merge(ss, on="decision_time_ms", how="left", validate="one_to_one")
-    add_previous_day(structural, dtimes, tf["d1"])
+    add_previous_day(
+        structural,
+        dtimes,
+        tf["d1"],
+        m1["bid_close"].to_numpy(float),
+    )
 
     dxy = load_dxy(dxy_path)
     dxy_available, dxy_age = dxy_alignment(dtimes, dxy)
