@@ -13,11 +13,12 @@ fi
 RAW="$BASE/raw/information-parity-v1"
 DERIVED="$BASE/derived/information-parity-v1"
 MANIFEST="$BASE/manifests"
+REPORTS="$BASE/reports/information-parity-v1-stage2-acquisition"
 mkdir -p \
   "$RAW/xauusd/m1/bid" "$RAW/xauusd/m1/ask" \
   "$RAW/fx/m1/bid" \
   "$DERIVED/xauusd/m1" \
-  "$MANIFEST"
+  "$MANIFEST" "$REPORTS"
 
 FX=(eurusd usdjpy gbpusd usdcad usdsek usdchf)
 raw_files=()
@@ -37,7 +38,8 @@ for year in $(seq "$START_YEAR" "$END_YEAR"); do
   raw_files+=("$bid" "$ask")
 
   combined="$DERIVED/xauusd/m1/xauusd-${from}-${to}-m1-synchronized.csv"
-  python3 scripts/synchronize_information_parity_m1.py "$bid" "$ask" "$combined"
+  python3 scripts/synchronize_information_parity_m1.py "$bid" "$ask" "$combined" \
+    | tee "$REPORTS/xauusd-sync-${year}.json"
   sync_files+=("$combined")
 
   for inst in "${FX[@]}"; do
@@ -48,11 +50,11 @@ for year in $(seq "$START_YEAR" "$END_YEAR"); do
   done
 done
 
-python3 scripts/build_manifest.py \
+python3 scripts/build_information_parity_manifest.py \
   "$MANIFEST/information-parity-v1-stage2-raw-market-manifest.json" \
   "${raw_files[@]}"
 
-python3 scripts/build_manifest.py \
+python3 scripts/build_information_parity_manifest.py \
   "$MANIFEST/information-parity-v1-stage2-synchronized-xauusd-manifest.json" \
   "${sync_files[@]}"
 
