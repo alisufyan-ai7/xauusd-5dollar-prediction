@@ -1522,3 +1522,23 @@ The immediate smoke fix is limited to the already-frozen 2016 smoke year. Equiva
 BEA GDP discovery will also switch to the official national-GDP archive with created_1=All and release-year filtering.
 
 No economic outcomes or sealed XAUUSD periods are involved.
+
+
+## Stage 2 smoke accepted
+
+Decision record:
+D-071
+
+Findings:
+research/INFORMATION_PARITY_V1_STAGE2_SMOKE_FINDINGS.md
+
+Accepted run:
+- 37192128583 — SUCCESS
+- artifact digest sha256:cc46e7a2d7e3875533440e11c73846de5ed92e27b6182aff62a4a7f743d34d82
+
+End-to-end integrity passed for the fixed 2016 smoke window. Macro coverage was complete for the admitted six core families, synthetic DXY was available on all smoke decision rows, and no sealed XAUUSD periods were accessed.
+
+Active next step:
+prepare/verify 2017-2021 normalized BLS schedule snapshots under D-070, then implement and run the single full 2016-2021 same-snapshot Stage 2 workflow after foundation CI is green.
+
+No model training yet.
