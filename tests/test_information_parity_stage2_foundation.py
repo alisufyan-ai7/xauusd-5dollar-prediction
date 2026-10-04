@@ -9,17 +9,16 @@ from pathlib import Path
 
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from scripts.build_information_parity_stage2_year import (
     BAR_COLUMNS,
     build_d1,
     build_w1,
     write_csv_gz,
 )
-
-
-ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
 
 
 def write_m1(path: Path, rows):
