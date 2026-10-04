@@ -29,12 +29,16 @@ python -m py_compile \
   scripts/check_information_parity_stage2_environment.py \
   scripts/check_information_parity_stage2_repo_contract.py \
   tests/test_information_parity_stage2_foundation.py \
-  tests/test_information_parity_stage2_preflight.py
+  tests/test_information_parity_stage2_preflight.py \
+  tests/test_information_parity_stage2_full_train_preflight.py
 
 python scripts/check_information_parity_stage2_repo_contract.py
 python scripts/check_information_parity_stage2_environment.py
 
+python scripts/verify_information_parity_stage2_full_train_inputs.py \
+  /tmp/information-parity-stage2-full-input-verification.json
 python tests/test_information_parity_stage2_foundation.py
 python tests/test_information_parity_stage2_preflight.py
+python tests/test_information_parity_stage2_full_train_preflight.py
 
 echo "INFORMATION_PARITY_STAGE2_PREFLIGHT_ALL_PASS"
