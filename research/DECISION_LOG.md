@@ -2106,3 +2106,28 @@ No model training is authorized yet.
 2022-2025 XAUUSD remain sealed.
 
 See research/INFORMATION_PARITY_V1_STAGE2_CORRECTED_SMOKE_FINDINGS.md.
+
+
+---
+
+## D-079 — Full Stage 2 TRAIN must preserve causal state across calendar-year boundaries
+
+During off-CI implementation review after D-078, the existing annual builder/orchestration pattern was found unsuitable for the accepted full TRAIN run if invoked independently for each year.
+
+Independent yearly builds would incorrectly cold-start at every January 1 and lose causally available prior-TRAIN state, including rolling volume/spread context, swing/FVG state, D1/W1/previous-day context and DXY rolling history.
+
+The frozen Stage 2 warm-up policy authorizes a cold start only at the beginning of 2016; it does not justify annual resets.
+
+Decision:
+- treat 2016-2021 as one continuous causal history;
+- compute state continuously;
+- use annual files only as post-computation physical partitions;
+- build synthetic DXY continuously across all six years;
+- add explicit year-boundary continuity checks.
+
+This is an implementation-correctness clarification made before the full TRAIN build. It uses no future XAUUSD outcome or P&L information.
+
+See research/INFORMATION_PARITY_V1_STAGE2_FULL_TRAIN_CONTINUITY_ADDENDUM.md.
+
+No full CI run is authorized until the continuous full-TRAIN orchestration passes off-CI review.
+2022-2025 XAUUSD remain sealed.
