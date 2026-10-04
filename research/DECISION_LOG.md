@@ -1887,3 +1887,32 @@ If that intentional CI fails, add a deterministic regression before retrying whe
 No new scientific source/model decision is made here.
 No profitability work is authorized.
 2022-2025 XAUUSD remain sealed.
+
+
+---
+
+## D-073 — First Stage 2 preflight failure was harness syntax; require compile-first rerun
+
+Run 37196172995 failed before the deterministic suite executed.
+
+Exact cause:
+`scripts/check_information_parity_stage2_repo_contract.py` contained an unterminated string literal caused by newline escaping in the generated checker source.
+
+The exact pinned environment itself initialized successfully:
+- Node 22.23.3;
+- npm 10.9.9;
+- CPython 3.12.14;
+- frozen Python dependency lock.
+
+Decision:
+Do not treat run 37196172995 as a Stage 2 information-layer failure.
+Fix the checker, move the entire Python compile gate before checker/test execution, and perform off-CI syntax/shell validation before one more intentional deterministic-preflight confirmation.
+
+Off-CI checks completed before rerun authorization:
+- corrected repository-contract checker compiles;
+- deterministic preflight test compiles;
+- preflight shell runner passes bash syntax validation.
+
+The next CI, if triggered, is justified only to execute the full deterministic suite under the exact pinned runtime. It must not acquire provider market data.
+
+See research/INFORMATION_PARITY_V1_STAGE2_PREFLIGHT_RUN1_FINDINGS.md.
