@@ -9,6 +9,7 @@ snapshots needed when BLS blocks GitHub Actions.
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import sys
 from datetime import datetime, timezone
@@ -79,6 +80,19 @@ def inspect_snapshot(path: Path, year: int) -> dict:
             fail(f"bls_snapshot_local_year:{year}:{eid}")
         if local.astimezone(timezone.utc) != utc.astimezone(timezone.utc):
             fail(f"bls_snapshot_utc_mismatch:{year}:{eid}")
+
+        stage = row.get("release_stage", "")
+        source = row["source_document_id_or_url"]
+        token = (
+            f"BLS|{fam}|{utc.astimezone(timezone.utc).isoformat()}|"
+            f"{stage}|{source}"
+        )
+        expected_id = hashlib.sha256(token.encode()).hexdigest()[:20]
+        if eid != expected_id:
+            fail(
+                f"bls_snapshot_event_id_hash:{year}:{eid}:"
+                f"expected={expected_id}"
+            )
 
         key = (fam, utc.astimezone(timezone.utc))
         if key in seen_family_time:
