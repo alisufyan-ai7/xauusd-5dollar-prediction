@@ -451,8 +451,11 @@ def end_to_end(tmp: Path) -> None:
     w1 = pd.read_csv(layer / "xauusd_w1_2016.csv.gz", compression="gzip")
     trade = pd.read_csv(layer / "trade_risk_state_template_2016.csv.gz", compression="gzip")
 
-    assert len(d1) >= 20
-    assert len(w1) >= 3
+    # Four complete UTC weeks are generated. One M1 timestamp is absent
+    # from both XAUUSD sides, which removes one H1 bar but still leaves that
+    # UTC day above the frozen >=20 completed-H1 threshold.
+    assert len(d1) == 28
+    assert len(w1) == 4
     assert decision["dxy_available"].min() == 0
     assert decision["dxy_available"].max() == 1
     assert decision.loc[decision["dxy_available"] == 1, "dxy_age_minutes"].max() <= 5
