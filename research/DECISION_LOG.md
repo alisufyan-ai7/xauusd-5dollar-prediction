@@ -2300,3 +2300,36 @@ one complete exact-runtime deterministic preflight is now justified on the curre
 If it passes, the next authorized run is one 2016-2021 **macro-only** network confirmation. Full TRAIN remains blocked until that macro-only confirmation passes.
 
 2022-2025 XAUUSD remain sealed. No model training.
+
+
+---
+
+## D-085 — Exact-runtime Stage 2 macro-recovery deterministic preflight accepted
+
+Accepted run:
+- workflow: `information-parity-stage2-preflight`
+- run: **37472945799**
+- head: `7e74193cba68591883621c70c4645b4ad85a425d`
+- conclusion: **SUCCESS**
+
+Frozen runtime confirmed:
+- Node 22.23.3 / npm 10.9.9;
+- CPython 3.12.14;
+- exact Stage 2 Python lock, including pandas 3.0.6.
+
+All terminal gates passed:
+- repository contract;
+- frozen environment;
+- foundation suite;
+- deterministic Stage 2 preflight;
+- continuous full-TRAIN deterministic preflight;
+- overall preflight.
+
+This exact-runtime suite includes the D-083/D-084 Federal Reserve 2021 fallback and BEA parser regressions, plus the workflow contract that prevents the macro-only gate from acquiring XAUUSD/FX market data and requires the full-TRAIN macro gate to precede expensive market acquisition.
+
+The temporary isolated trigger was removed and the deterministic preflight workflow is manual-only again.
+
+Decision:
+the next authorized run is exactly one 2016-2021 **macro-only network confirmation**. Full TRAIN remains blocked until that macro-only run passes every admitted family/year coverage gate.
+
+2022-2025 XAUUSD remain sealed. No model training.
