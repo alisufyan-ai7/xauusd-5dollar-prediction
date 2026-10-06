@@ -2163,3 +2163,39 @@ The BLS transport-fallback prerequisite no longer blocks full TRAIN preparation.
 This does not authorize the full provider-data CI by itself. The continuous full-TRAIN orchestration still must pass its deterministic integration/static gate first.
 
 No economic outcomes were used. 2022-2025 XAUUSD remain sealed.
+
+
+---
+
+## D-081 — Continuous Stage 2 full-TRAIN deterministic integration gate passes off-CI
+
+After D-079/D-080, the continuous 2016-2021 Stage 2 orchestration was reconstructed from the exact branch files and executed off-CI using deterministic synthetic fixtures only.
+
+Command-equivalent integration target:
+`tests/test_information_parity_stage2_full_train_preflight.py`
+
+Observed terminal result:
+`INFORMATION_PARITY_STAGE2_FULL_TRAIN_PREFLIGHT_PASS`
+
+The passing integration exercised:
+- six annual TRAIN partitions feeding one continuous causal history;
+- continuous synthetic DXY construction;
+- M1 rolling state without artificial calendar-year resets;
+- M3/M5/M15/M30/H1/H4 aggregation;
+- D1-from-H1 and W1-from-D1 hierarchy validation;
+- structural swing/FVG causality and distance checks;
+- previous-day backward as-of state;
+- macro schedule/state alignment;
+- neutral trade/risk-state template;
+- 2017-2021 year-boundary continuity checks;
+- normalized manifest construction;
+- final compact full-TRAIN summary gate;
+- sealed-period assertions.
+
+No provider market acquisition occurred in this off-CI run. No 2022-2025 XAUUSD data were accessed. No economic/P&L labels were used.
+
+Runtime caveat:
+The available local execution runtime was not the frozen CI runtime. Therefore this result accepts the orchestration logic/integration gate only; it does NOT substitute for exact-runtime confirmation under Python 3.12.14 / Node 22.23.3 and the frozen Stage 2 lock.
+
+Decision:
+The next step is one exact-runtime deterministic preflight CI confirmation. Do not launch the expensive full provider-data `full-train` job until that exact-runtime deterministic gate passes.
