@@ -1876,3 +1876,24 @@ Immediate next step:
 **do not start Stage 3 fitting yet.** Preregister Stage 3 Badar decision-recognition dataset construction, teacher-record provenance, matched non-trade examples, fixed recognition architecture/evaluation protocol, and the exact dependency on the accepted Stage 2 identity.
 
 No 2022-2025 XAUUSD access. No model training or profitability tuning until the Stage 3 preregistration is durable in GitHub.
+
+
+## Stage 3 chronology blocker discovered before fitting
+
+Decision record:
+D-088
+
+Feasibility record:
+`research/INFORMATION_PARITY_V1_STAGE3_TEACHER_TIME_DOMAIN_FEASIBILITY.md`
+
+Pinned Badar source-layer teacher identity:
+- repo commit `2df3d588c4b6d82761df2ee0c6f6639e82ce3414`
+- `dataset/live_trades.csv` blob `ea620cb44937f276be2e65ae7da25ae9503be655`
+
+The current source-layer teacher table has 119 rows across 43 streams and every row is dated 2026. The accepted Information Parity layer is 2016-2021 TRAIN, while 2026 is reserved for later forward/shadow comparison.
+
+Therefore Stage 3 empirical Badar-entry recognition is **blocked before market acquisition**. Do not access 2026 XAUUSD or fit a teacher model until a separate chronology decision resolves whether to preserve the 2026 reserve or repurpose a bounded teacher window.
+
+Safe preparatory work may define timestamp-resolution, provenance, grouping, matched-control and evaluation rules using source metadata only.
+
+2022-2025 remain sealed. 2026 remains untouched for Stage 3 market reconstruction under current governance.
