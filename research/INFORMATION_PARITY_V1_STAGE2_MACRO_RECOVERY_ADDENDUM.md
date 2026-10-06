@@ -58,8 +58,8 @@ No release value is ingested.
 
 Before another 2016-2021 full-TRAIN provider-data build:
 1. add deterministic offline regressions for A20/A21;
-2. pass the Stage 2 deterministic preflight off-CI;
-3. confirm the changed implementation under the frozen exact runtime;
+2. pass deterministic changed-surface regressions plus static full-surface contract review off-CI;
+3. run the complete Stage 2 deterministic preflight under the frozen exact runtime;
 4. run one intentionally scoped **macro-only network confirmation** for 2016-2021;
 5. only if macro coverage is PASS may another full same-snapshot build be launched.
 
