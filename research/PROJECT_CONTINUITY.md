@@ -1930,3 +1930,31 @@ Immediate next safe work:
 build the source-only teacher adjudication table and stream observation-window metadata from the pinned Badar source commit, without acquiring/querying 2026 XAUUSD. Then report whether the frozen minimum evidence gate is achievable.
 
 2022-2025 remain sealed. 2026 remains untouched for market reconstruction until an explicit chronology decision.
+
+
+## Stage 3 source timestamp audit V1 frozen
+
+Decision record:
+D-090
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_SOURCE_TIMESTAMP_AUDIT_FINDINGS.md`
+
+Current source-only metadata result:
+- 35 exact-M1 candidate teacher rows;
+- 16 dates;
+- 14 LONG;
+- 21 SHORT.
+
+This is below the frozen D-089 minimum evidence gate, but it is not final because source frames/notes may still resolve some approximate rows without changing the exact-M1 standard.
+
+Durable metadata tables:
+- `research/reference/information-parity-v1/stage3-teacher-timestamp-audit-v1.csv`
+- `research/reference/information-parity-v1/stage3-stream-observation-windows-v1.csv`
+
+The stream-window table is audit metadata only; it is not yet approved as minute-level negative-control coverage.
+
+Immediate next safe task:
+targeted source-frame/note adjudication of unresolved teacher timestamps, prioritizing dates absent from the current exact set and LONG rows. Use no market-price lookup.
+
+D-088 still blocks 2026 market reconstruction/model fitting. 2022-2025 remain sealed.
