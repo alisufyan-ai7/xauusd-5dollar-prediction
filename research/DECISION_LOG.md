@@ -2510,3 +2510,40 @@ Immediate next safe task:
 construct the source-only teacher adjudication and stream observation-window metadata from the pinned Badar source layer, then determine whether the minimum teacher-evidence gate can be met without looking at market prices.
 
 2022-2025 remain sealed. 2026 remains reserved until a separate chronology decision explicitly changes that status.
+
+
+---
+
+## D-090 — Freeze Stage 3 source timestamp audit V1; targeted frame adjudication is the next safe gate
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_SOURCE_TIMESTAMP_AUDIT_FINDINGS.md`
+
+Durable source-only artifacts:
+- `research/reference/information-parity-v1/stage3-teacher-timestamp-audit-v1.csv`
+  - blob `fdfe6f2be6fd7633daaf0be69d5b738cdda0e315`;
+- `research/reference/information-parity-v1/stage3-stream-observation-windows-v1.csv`
+  - blob `6c1ee6b6450e688bc267c309e410b95472c53e07`.
+
+Using only the pinned Badar source commit and source metadata, the conservative V1 resolver currently proves:
+- 35 exact-M1 candidate rows;
+- 16 dates;
+- 14 LONG;
+- 21 SHORT.
+
+This is below D-089's minimum 40 / 20 dates / 15 LONG / 15 SHORT gate **before** authorship or live-execution exclusions.
+
+Decision:
+this is an intermediate metadata result, not a final teacher-evidence failure.
+
+Source frames/notes may promote approximate rows only when they independently resolve one unique M1 entry minute. No timestamp rule may be relaxed to manufacture the minimum count.
+
+The 43 stream header windows are now pinned for audit but are not yet authorized as negative-control windows; minute-level XAUUSD visibility still requires source-only review.
+
+Immediate next safe work:
+perform a targeted source-frame/note timestamp review of unresolved rows, prioritizing missing dates and LONG rows. Do not query market prices.
+
+D-088 remains controlling:
+no 2026 XAUUSD acquisition or empirical Stage 3 fitting is authorized.
+
+No CI is required for this source-evidence review.
