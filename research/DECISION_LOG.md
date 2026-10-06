@@ -2452,3 +2452,61 @@ See:
 `research/INFORMATION_PARITY_V1_STAGE3_TEACHER_TIME_DOMAIN_FEASIBILITY.md`.
 
 2022-2025 XAUUSD remain sealed. 2026 also remains untouched for Stage 3 until the chronology gate is changed explicitly.
+
+
+---
+
+## D-089 — Freeze Stage 3 decision-recognition protocol while empirical execution remains blocked
+
+Preregistration:
+`research/INFORMATION_PARITY_V1_STAGE3_PROTOCOL_PREREGISTRATION.md`
+
+Development branch:
+`research/information-parity-v1-stage3-preregistration`
+
+This decision freezes the non-market Stage 3 protocol before any 2026 XAUUSD access or model fitting.
+
+Teacher provenance remains pinned to:
+- Badar source repo commit `2df3d588c4b6d82761df2ee0c6f6639e82ce3414`;
+- source-layer `dataset/live_trades.csv` blob `ea620cb44937f276be2e65ae7da25ae9503be655`;
+- no `derived/` content may be attributed to Badar or used as teacher supervision.
+
+Frozen primary teacher requirements:
+- XAUUSD only;
+- Badar authorship confirmed from source-layer evidence;
+- live/real personal execution confirmed;
+- unambiguous LONG/SHORT;
+- one exact M1 entry minute;
+- no outcome-dependent inclusion.
+
+Paper/simulation, student/viewer, planning/signal-only, unclear-fill and unresolved-time rows are excluded from the primary teacher benchmark.
+
+Frozen control/evaluation design:
+- controls come only from source-observed stream minutes;
+- uncertain trade intervals are quarantined from negatives;
+- all same-date streams remain in one group;
+- leave-one-source-date-out evaluation;
+- no random row split;
+- no random negative subsampling in the primary benchmark.
+
+Frozen comparison:
+- GOLD_PRICE_ONLY versus FULL_INFORMATION_PARITY_V1;
+- identical candidate rows/folds/preprocessing/model architecture;
+- fixed L2 logistic-regression recognition benchmark;
+- no hyperparameter search.
+
+Primary advancement rule:
+- minimum 40 eligible positive minutes, 20 dates, 15 LONG and 15 SHORT;
+- FULL must improve mean per-date entry-recognition ROC-AUC over GOLD by at least +0.03;
+- paired date-bootstrap 95% CI lower bound for the delta must be >0;
+- FULL Brier score may not be worse than GOLD by more than 0.01.
+
+Direction recognition is mandatory secondary evidence but cannot rescue a failed opportunity-recognition gate.
+
+Critically, D-088 remains in force:
+**this protocol does not authorize 2026 XAUUSD acquisition or empirical Stage 3 fitting.**
+
+Immediate next safe task:
+construct the source-only teacher adjudication and stream observation-window metadata from the pinned Badar source layer, then determine whether the minimum teacher-evidence gate can be met without looking at market prices.
+
+2022-2025 remain sealed. 2026 remains reserved until a separate chronology decision explicitly changes that status.
