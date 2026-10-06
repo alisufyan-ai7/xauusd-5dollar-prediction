@@ -1818,3 +1818,26 @@ run exactly one 2016-2021 `macro-preflight` network confirmation. It must not ac
 Only if that macro-only run passes may another one-shot full 2016-2021 same-snapshot provider build be authorized.
 
 2022-2025 XAUUSD remain sealed. No model training.
+
+
+## Stage 2 macro-only network gate accepted
+
+Decision record:
+D-086
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE2_MACRO_PREFLIGHT_FINDINGS.md`
+
+Accepted run:
+- 37473462028 — SUCCESS
+- artifact 11418296108
+- digest `sha256:67f134b67cbc1f476829a0c0d4f6bab58efa61773bda09dd2252c88a739c8a5d`
+
+Every admitted macro family passes every 2016-2021 TRAIN year with no errors. The run was isolated: smoke and full-TRAIN jobs were skipped, and no XAUUSD/FX provider acquisition ran.
+
+Immediate next step:
+launch exactly one second full 2016-2021 same-snapshot provider-data Stage 2 build on the current accepted implementation.
+
+The job must keep the new macro-first ordering, preserve continuous full-TRAIN causal state, and keep 2022-2025 XAUUSD sealed.
+
+No model training yet.
