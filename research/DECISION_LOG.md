@@ -2273,3 +2273,30 @@ The market/DXY outputs from run 37434856203 are diagnostic partial evidence only
 
 No source substitution, economic-outcome inspection or model tuning is authorized.
 2022-2025 XAUUSD remain sealed.
+
+
+---
+
+## D-084 — Macro recovery changed-surface off-CI gate passed; exact-runtime preflight authorized
+
+Evidence:
+`research/INFORMATION_PARITY_V1_STAGE2_MACRO_RECOVERY_LOCAL_REVIEW.md`
+
+After D-083:
+- the Federal Reserve 2021 index fallback and BEA title/time parser corrections were implemented;
+- deterministic regressions were added for the exact observed failure modes;
+- the full-TRAIN workflow was reordered so macro readiness precedes expensive market acquisition;
+- a manual macro-only network-confirmation mode was added;
+- repository-contract checks now enforce those properties.
+
+Off-CI changed-surface regression result:
+`TARGETED_MACRO_RECOVERY_OFF_CI_PASS 8 []`
+
+The available local runtime differs from the frozen Stage 2 runtime, so this is a logic/static gate only.
+
+Decision:
+one complete exact-runtime deterministic preflight is now justified on the current branch. It is not a provider-data experiment and must be the only CI run triggered at this gate.
+
+If it passes, the next authorized run is one 2016-2021 **macro-only** network confirmation. Full TRAIN remains blocked until that macro-only confirmation passes.
+
+2022-2025 XAUUSD remain sealed. No model training.
