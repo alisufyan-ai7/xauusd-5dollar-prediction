@@ -234,21 +234,38 @@ Each eligible source date is held out exactly once. Preprocessing and model fitt
 
 There is no random row-level split.
 
-## 10. Minimum teacher-evidence gate
+## 10. Minimum teacher evidence-adequacy gate
 
-Do not fit the Stage 3 benchmark unless the frozen source-only adjudication yields at least:
+This is an **experimental adequacy gate**, not a profitability gate and not an information-sufficiency hypothesis test.
+
+Do not fit the Stage 3 recognition benchmark unless the frozen source-only adjudication yields at least:
 
 - 40 primary positive decision minutes;
 - 20 distinct eligible source dates;
 - 15 LONG positives;
 - 15 SHORT positives.
 
-If this gate fails:
-- Stage 3 stops for insufficient teacher evidence;
-- do not relax timestamp/authorship standards;
-- do not add paper/student/uncertain rows merely to reach the threshold.
+These floors are pragmatic preregistered minimums intended to prevent an unstable grouped benchmark from being driven by a very small number of correlated streams/dates or by a severely one-sided direction sample. They are not theorem-derived cutoffs at which 39 observations are scientifically useless and 40 become sufficient, and they do not imply any minimum number of profitable trades.
 
-A new teacher source would require a new preregistered decision.
+The evidence-adequacy result has only two states:
+
+- `ADEQUATE`: all four floors are met, so the frozen Stage 3 recognition benchmark may be statistically interpreted subject to the separate chronology gate;
+- `INSUFFICIENT`: one or more floors are not met, so the current Badar teacher evidence is too sparse for the frozen benchmark to support a reliable recognition conclusion.
+
+`INSUFFICIENT` means **inconclusive due to teacher evidence**. It does not mean:
+- Information Parity V1 lacks useful information;
+- Badar's method is unlearnable;
+- XAUUSD is unmodellable;
+- a profitable trading system cannot be built;
+- later economic modeling is scientifically disproven.
+
+If the evidence-adequacy gate is `INSUFFICIENT`:
+- do not run the frozen Stage 3 empirical benchmark;
+- do not relax timestamp/authorship standards;
+- do not add paper/student/uncertain rows merely to reach the threshold;
+- do not alter the floors after observing the shortfall solely to force execution.
+
+A new teacher source or a materially different recognition design requires a new preregistered decision.
 
 ## 11. Benchmark tasks
 
@@ -399,26 +416,40 @@ Report the percentile 95% confidence interval.
 
 No minute-level bootstrap is allowed because minutes within one stream/day are dependent.
 
-## 16. Frozen advancement rule
+## 16. Frozen recognition-hypothesis advancement rule
 
-Stage 3 passes the information-sufficiency recognition gate only if:
+Section 10 must first return `ADEQUATE`. Evidence adequacy is a prerequisite for interpretation; it is not itself a hypothesis PASS.
 
-1. the minimum teacher-evidence gate in Section 10 passes;
+Only after evidence is adequate and the separate chronology gate authorizes execution does Stage 3 test the recognition hypothesis.
+
+The recognition hypothesis is `PASS` only if:
+
+1. Section 10 is `ADEQUATE`;
 2. `FULL - GOLD >= +0.03` absolute on mean per-date Task A ROC-AUC;
 3. the 95% paired date-bootstrap confidence interval lower bound for that Task A delta is > 0;
 4. FULL Task A Brier score is not worse than GOLD by more than 0.01.
 
-Task B direction results are mandatory evidence but are secondary to the Stage 3 advancement gate. They must be reported without changing the Task A rule.
+If Section 10 is `INSUFFICIENT`, the recognition hypothesis is **NOT TESTED / INCONCLUSIVE**, not FAIL.
 
-A failed Task A gate cannot be rescued by:
-- choosing another model family;
+If evidence is adequate but criteria 2-4 are not met, the result is a **negative result for this frozen recognition hypothesis**:
+
+> Under this teacher dataset, representation, candidate construction and fixed diagnostic model, FULL_INFORMATION_PARITY_V1 did not demonstrate the preregistered improvement over GOLD_PRICE_ONLY.
+
+That negative result does **not** establish that profitable XAUUSD trading is impossible. Stage 3 does not use profitability as a target and cannot make that claim.
+
+Task B direction results are mandatory evidence but are secondary to the Stage 3 recognition-hypothesis rule. They must be reported without changing the Task A rule.
+
+A negative Task A recognition result cannot be rescued by:
+- choosing another model family after seeing the result;
 - changing C;
 - changing the negative-sampling rule;
 - dropping difficult dates;
 - filtering losing Badar trades;
 - tuning on outcomes.
 
-If Stage 3 fails, follow roadmap Stop B: diagnose missing information rather than starting an arbitrary model search.
+A negative recognition result should trigger a separately documented diagnosis of possibilities such as teacher noise, missing information, representation limits or model-capacity limits. It must not trigger an arbitrary threshold/model search.
+
+Later claims about profitability require separate economic targets, execution assumptions, chronological validation and sealed OOS evaluation. Stage 3 alone neither proves nor disproves profitability.
 
 ## 17. Missingness and row parity
 
