@@ -125,6 +125,28 @@ def main() -> None:
         "stage2_workflow",
     )
 
+    # Macro parser/network validation is a deliberately narrow manual gate.
+    require(main_wf, "inputs.mode == 'macro-preflight'", "stage2_workflow")
+    require(
+        main_wf,
+        "information-parity-stage2-macro-preflight",
+        "stage2_workflow",
+    )
+    macro_section = main_wf.split("\n  macro-preflight:\n", 1)
+    if len(macro_section) != 2:
+        fail("missing_macro_preflight_job")
+    macro_section = macro_section[1].split("\n  full-train:\n", 1)[0]
+    require(
+        macro_section,
+        "Acquire and normalize 2016-2021 macro schedule only",
+        "macro_preflight_job",
+    )
+    forbid(
+        macro_section,
+        "acquire_information_parity_stage2.sh",
+        "macro_preflight_job",
+    )
+
     # Full TRAIN orchestration must be continuous, same-snapshot, and bounded
     # strictly to the permitted 2016-2021 TRAIN interval.
     for needle in (
@@ -145,6 +167,19 @@ def main() -> None:
         "Full build intentionally blocked until smoke acceptance",
         "stage2_workflow",
     )
+
+    full_train_section = main_wf.split("\n  full-train:\n", 1)
+    if len(full_train_section) != 2:
+        fail("missing_full_train_job")
+    full_train_section = full_train_section[1]
+    macro_gate = full_train_section.find(
+        "Acquire and normalize 2016-2021 macro schedule"
+    )
+    market_gate = full_train_section.find(
+        "Acquire one same-snapshot 2016-2021 market history"
+    )
+    if macro_gate < 0 or market_gate < 0 or macro_gate > market_gate:
+        fail("full_train_macro_gate_must_precede_market_acquisition")
 
     downloader = read("scripts/download_dukascopy_m1_generic.sh")
     require(downloader, "dukascopy-node@1.50.0", "dukascopy_downloader")
@@ -183,6 +218,13 @@ def main() -> None:
         "macro_acquisition",
     )
 
+    for needle in (
+        "2021-press-fomc.htm",
+        "def is_national_gdp_title",
+        'suffix[0] in {",", ":", "("}',
+    ):
+        require(macro, needle, "macro_acquisition")
+
     validator = read("scripts/validate_information_parity_stage2.py")
     require(
         validator,
@@ -203,6 +245,9 @@ def main() -> None:
         "load_bls_snapshot(2016)",
         "dxy_age_minutes",
         "xauusd_w1_2016.csv.gz",
+        "Fomc2021FallbackFixture",
+        "Gross Domestic Product: First Quarter 2018",
+        "A.M., EDT",
     ):
         require(test, needle, "offline_preflight_test")
 
