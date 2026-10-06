@@ -1776,3 +1776,21 @@ After local deterministic acceptance:
 - only after both pass may a second full same-snapshot provider build be authorized.
 
 2022-2025 XAUUSD remain sealed. No model training.
+
+
+## Stage 2 macro recovery changed-surface gate passed off-CI
+
+Decision record:
+D-084
+
+Evidence:
+`research/INFORMATION_PARITY_V1_STAGE2_MACRO_RECOVERY_LOCAL_REVIEW.md`
+
+The exact failed Fed/BEA paths from full-TRAIN run 37434856203 are now covered by deterministic regressions, and the changed GitHub source passed static review. The available local runtime is not the frozen Stage 2 runtime.
+
+Current gate:
+one complete exact-runtime deterministic preflight is authorized now. Do not trigger provider data in parallel.
+
+If that preflight passes, run exactly one manual 2016-2021 macro-only network confirmation. Full TRAIN remains blocked until the macro-only gate passes.
+
+2022-2025 XAUUSD remain sealed. No model training.
