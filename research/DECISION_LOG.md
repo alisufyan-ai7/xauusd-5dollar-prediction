@@ -2199,3 +2199,38 @@ The available local execution runtime was not the frozen CI runtime. Therefore t
 
 Decision:
 The next step is one exact-runtime deterministic preflight CI confirmation. Do not launch the expensive full provider-data `full-train` job until that exact-runtime deterministic gate passes.
+
+
+---
+
+## D-082 — Exact-runtime continuous Stage 2 deterministic preflight accepted
+
+GitHub Actions run:
+- workflow: `information-parity-stage2-preflight`
+- run ID: `37434443674`
+- event: temporary branch/path-restricted push trigger
+- head: `052e76d97edcdce07205be20c012cb557ea6d964`
+- status: completed
+- conclusion: success
+- started: 2026-10-06T08:11:19Z
+- completed: approximately 2026-10-06T08:12:22Z
+
+Exact configured runtimes observed in the job log:
+- Node: `v22.23.3`
+- CPython: `3.12.14`
+- frozen Stage 2 Python lock installed successfully.
+
+Deterministic terminal gates all passed:
+- `INFORMATION_PARITY_STAGE2_REPO_CONTRACT_PASS`
+- `INFORMATION_PARITY_STAGE2_ENVIRONMENT_PASS`
+- `INFORMATION_PARITY_STAGE2_FOUNDATION_PASS`
+- `INFORMATION_PARITY_STAGE2_OFFLINE_PREFLIGHT_PASS`
+- `INFORMATION_PARITY_STAGE2_FULL_TRAIN_PREFLIGHT_PASS`
+- `INFORMATION_PARITY_STAGE2_PREFLIGHT_ALL_PASS`
+
+GitHub emitted a platform warning that some pinned actions internally target deprecated Node 20 and are being forced by the hosted runner to Node 24. This did not alter the configured project Node 22.23.3 runtime used by the deterministic suite and did not fail any gate. Pinned action revisions remain unchanged.
+
+The temporary push trigger was removed immediately after acceptance and the preflight workflow was restored to manual dispatch only.
+
+Decision:
+The deterministic/offline prerequisite for the Stage 2 full TRAIN build is accepted. The next authorized research action is the one-shot same-snapshot 2016-2021 provider-data `full-train` build. 2022-2025 remain sealed.
