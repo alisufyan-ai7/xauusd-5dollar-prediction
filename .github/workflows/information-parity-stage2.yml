@@ -12,17 +12,12 @@ on:
           - smoke
           - macro-preflight
           - full-train
-  push:
-    branches:
-      - research/information-parity-v1-stage2-preflight
-    paths:
-      - ".github/information-parity-stage2-macro-preflight-trigger"
 permissions:
   contents: read
 
 jobs:
   smoke:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'smoke' }}
+    if: ${{ github.event_name == 'push' || inputs.mode == 'smoke' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 90
 
@@ -165,7 +160,7 @@ jobs:
 
 
   macro-preflight:
-    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.mode == 'macro-preflight') || github.event_name == 'push' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'macro-preflight' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
 
