@@ -2547,3 +2547,36 @@ D-088 remains controlling:
 no 2026 XAUUSD acquisition or empirical Stage 3 fitting is authorized.
 
 No CI is required for this source-evidence review.
+
+
+---
+
+## D-091 — Separate Stage 3 evidence adequacy, recognition hypothesis, and profitability claims
+
+Clarification:
+`research/INFORMATION_PARITY_V1_STAGE3_EVIDENCE_ADEQUACY_CLARIFICATION.md`
+
+The Stage 3 protocol has been amended before any empirical execution.
+
+The 40 positive / 20 date / 15 LONG / 15 SHORT floors are now formally an **evidence-adequacy gate**, not a profitability gate and not the recognition-hypothesis PASS/FAIL test.
+
+Allowed evidence-adequacy outcomes:
+- `ADEQUATE`: all four floors are met;
+- `INSUFFICIENT`: one or more floors are missed.
+
+If evidence is `INSUFFICIENT`:
+- the frozen recognition hypothesis is `NOT TESTED / INCONCLUSIVE`;
+- do not relax source-quality/timestamp standards merely to cross the floors;
+- do not infer that Information Parity lacks economic value;
+- do not infer that a profitable XAUUSD system is impossible.
+
+Only after evidence is `ADEQUATE` and the separate chronology gate authorizes execution may the frozen FULL-vs-GOLD recognition hypothesis be tested.
+
+If that recognition hypothesis produces a negative result, the conclusion is limited to the frozen teacher dataset, representation, candidate construction and diagnostic model. It still does not prove unprofitability.
+
+Profitability requires a later separately frozen economic evaluation with BUY/SELL/NO-TRADE semantics, execution costs, economic outcomes, chronological validation and sealed OOS testing.
+
+The existing 35 exact-M1 / 16-date / 14-LONG / 21-SHORT metadata result is therefore an intermediate evidence audit only.
+
+D-088 remains unchanged:
+no 2026 XAUUSD acquisition, market reconstruction or Stage 3 empirical fitting is authorized.
