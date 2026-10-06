@@ -10,6 +10,7 @@ on:
         type: choice
         options:
           - smoke
+          - macro-preflight
           - full-train
 permissions:
   contents: read
@@ -157,6 +158,80 @@ jobs:
           if-no-files-found: warn
           retention-days: 90
 
+
+  macro-preflight:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'macro-preflight' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Setup exact Node runtime
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22.23.3"
+
+      - name: Setup exact Python runtime
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12.14"
+
+      - name: Install frozen Stage 2 Python environment
+        run: |
+          python -m pip install --disable-pip-version-check --no-cache-dir \
+            -r requirements/information-parity-stage2.lock.txt
+
+      - name: Verify frozen runtime and macro surface
+        run: |
+          set -euo pipefail
+          python scripts/check_information_parity_stage2_environment.py
+          python -m py_compile \
+            scripts/acquire_macro_schedule_stage2.py \
+            scripts/verify_information_parity_stage2_full_train_inputs.py
+          mkdir -p data/reports/information-parity-v1-stage2-macro-preflight
+          python scripts/verify_information_parity_stage2_full_train_inputs.py \
+            data/reports/information-parity-v1-stage2-macro-preflight/input-verification.json
+
+      - name: Acquire and normalize 2016-2021 macro schedule only
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/derived/information-parity-v1-stage2-macro-preflight"
+          REPORTS="data/reports/information-parity-v1-stage2-macro-preflight"
+          RAW_MACRO="$RUNNER_TEMP/ip-stage2-macro-preflight-raw"
+          mkdir -p "$OUT" "$REPORTS"
+
+          python scripts/acquire_macro_schedule_stage2.py \
+            2016 2021 \
+            "$OUT/macro-event-schedule-2016-2021.csv" \
+            "$REPORTS/macro-coverage-2016-2021.json" \
+            "$RAW_MACRO"
+
+          python - <<'PY'
+          import json
+          p="data/reports/information-parity-v1-stage2-macro-preflight/macro-coverage-2016-2021.json"
+          o=json.load(open(p))
+          print(json.dumps(o["years"],indent=2,sort_keys=True))
+          if o.get("status") != "PASS":
+              raise SystemExit("STAGE2_MACRO_PREFLIGHT_INCOMPLETE")
+          for year in range(2016, 2022):
+              if not o["years"][str(year)]["stage2_macro_schedule_available"]:
+                  raise SystemExit(f"STAGE2_MACRO_PREFLIGHT_YEAR_INCOMPLETE:{year}")
+          PY
+
+      - name: Upload compact macro-preflight evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: information-parity-stage2-macro-preflight
+          path: |
+            data/reports/information-parity-v1-stage2-macro-preflight/*.json
+            data/derived/information-parity-v1-stage2-macro-preflight/macro-event-schedule-2016-2021.csv
+          if-no-files-found: warn
+          retention-days: 90
+
   full-train:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'full-train' }}
     runs-on: ubuntu-24.04
@@ -213,6 +288,32 @@ jobs:
           echo "STAGE2_NODE_VERSION=$(node --version)" >> "$GITHUB_ENV"
           echo "STAGE2_NPM_VERSION=$(npm --version)" >> "$GITHUB_ENV"
 
+      - name: Acquire and normalize 2016-2021 macro schedule
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="data/derived/information-parity-v1-stage2-full"
+          REPORTS="data/reports/information-parity-v1-stage2-full"
+          RAW_MACRO="$RUNNER_TEMP/ip-stage2-full-macro-raw"
+
+          python scripts/acquire_macro_schedule_stage2.py \
+            2016 2021 \
+            "$OUT/macro-event-schedule-2016-2021.csv" \
+            "$REPORTS/macro-coverage-2016-2021.json" \
+            "$RAW_MACRO"
+
+          python - <<'PY'
+          import json
+          p="data/reports/information-parity-v1-stage2-full/macro-coverage-2016-2021.json"
+          o=json.load(open(p))
+          print(json.dumps(o["years"],indent=2,sort_keys=True))
+          if o.get("status") != "PASS":
+              raise SystemExit("STAGE2_FULL_MACRO_INCOMPLETE")
+          for year in range(2016, 2022):
+              if not o["years"][str(year)]["stage2_macro_schedule_available"]:
+                  raise SystemExit(f"STAGE2_FULL_MACRO_YEAR_INCOMPLETE:{year}")
+          PY
+
       - name: Acquire one same-snapshot 2016-2021 market history
         shell: bash
         run: |
@@ -244,32 +345,6 @@ jobs:
             "$BASE/raw/information-parity-v1/fx/m1/bid" \
             "$OUT/synthetic-dxy-2016-2021.csv" \
             "$REPORTS/synthetic-dxy-2016-2021.json"
-
-      - name: Acquire and normalize 2016-2021 macro schedule
-        shell: bash
-        run: |
-          set -euo pipefail
-          OUT="data/derived/information-parity-v1-stage2-full"
-          REPORTS="data/reports/information-parity-v1-stage2-full"
-          RAW_MACRO="$RUNNER_TEMP/ip-stage2-full-macro-raw"
-
-          python scripts/acquire_macro_schedule_stage2.py \
-            2016 2021 \
-            "$OUT/macro-event-schedule-2016-2021.csv" \
-            "$REPORTS/macro-coverage-2016-2021.json" \
-            "$RAW_MACRO"
-
-          python - <<'PY'
-          import json
-          p="data/reports/information-parity-v1-stage2-full/macro-coverage-2016-2021.json"
-          o=json.load(open(p))
-          print(json.dumps(o["years"],indent=2,sort_keys=True))
-          if o.get("status") != "PASS":
-              raise SystemExit("STAGE2_FULL_MACRO_INCOMPLETE")
-          for year in range(2016, 2022):
-              if not o["years"][str(year)]["stage2_macro_schedule_available"]:
-                  raise SystemExit(f"STAGE2_FULL_MACRO_YEAR_INCOMPLETE:{year}")
-          PY
 
       - name: Release raw provider files after identities and DXY are frozen
         shell: bash
