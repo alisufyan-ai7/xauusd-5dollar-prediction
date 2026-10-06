@@ -1726,3 +1726,23 @@ This validates orchestration logic only because the local runtime differs from t
 
 Immediate next step:
 run one exact-runtime deterministic Stage 2 preflight in GitHub Actions. Only if that passes may the manual provider-data `full-train` job be considered.
+
+
+## Exact-runtime Stage 2 deterministic preflight accepted
+
+Decision record:
+D-082
+
+Accepted run:
+`37434443674`
+
+Head:
+`052e76d97edcdce07205be20c012cb557ea6d964`
+
+Result:
+`INFORMATION_PARITY_STAGE2_PREFLIGHT_ALL_PASS`
+
+The job used configured Node 22.23.3, CPython 3.12.14 and the frozen Stage 2 dependency lock. The temporary push trigger was cleaned up; the preflight workflow is manual-only again.
+
+Immediate next step:
+launch the one-shot same-snapshot 2016-2021 provider-data Stage 2 `full-train` build. Do not access 2022-2025.
