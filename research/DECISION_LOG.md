@@ -2360,3 +2360,51 @@ Decision:
 the preregistered D-083 recovery gates are complete. Exactly one second full 2016-2021 same-snapshot provider build is now authorized on the accepted implementation. Macro readiness must execute before market acquisition, and full-TRAIN causal state must remain continuous across year boundaries.
 
 No 2022-2025 XAUUSD access, model training, profitability tuning or broker mutation is authorized.
+
+
+---
+
+## D-087 — Accept continuous 2016-2021 Information Parity V1 Stage 2 full-TRAIN build
+
+Accepted run:
+- workflow: `information-parity-stage2`
+- run: **37474263432**
+- head: `51664a31ab7739e2a4bdba9df70eadf02249133a`
+- conclusion: **SUCCESS**
+- artifact ID: **11421634040**
+- artifact digest: `sha256:41ebcaacaaaddafc6433e787ee9232eccf5128205b8648cecfd20f595d52985a`
+
+Final evidence:
+- full summary: PASS;
+- continuous 2016-2021 causal state: true;
+- integrity checks: 27/27 PASS;
+- integrity warnings: none;
+- macro coverage: PASS for every admitted family/year;
+- sealed XAUUSD periods accessed: none.
+
+Core accepted counts:
+- XAUUSD M1 / decision rows: 2,124,206;
+- synthetic DXY M1: 2,138,819;
+- macro schedule: 652;
+- D1: 1,459;
+- W1: 292.
+
+Accepted evidence identities include:
+- raw market manifest SHA-256 `128496c869cc99aff7790a1b2f8ad3fd03505fbfa41202edd6a4d07bd6717919`;
+- synchronized XAUUSD manifest SHA-256 `4041c62ddcd1717f466dd5cdc9ce0426053603c8ef0c692794ab249f7740ea11`;
+- normalized full-TRAIN manifest SHA-256 `e9440bb0971c52456d1a79ddaa0144aa36fd758666421392bc4e7203132ea4c9`;
+- final summary SHA-256 `34e577e7755b2e3ebd9d619329c84ea26a9eca3d134677fc736236ed5c622d1f`;
+- integrity report SHA-256 `79867cb548feeec8b537cfbbc80678057c664867e86c8ddb9fdba771376c5bf4`.
+
+The compact evidence hash list contains a non-authoritative self-hash line for its own file because it was hashed while being written. This is a bookkeeping quirk only; do not rerun provider acquisition for it. The GitHub artifact digest is the uploaded-artifact identity, and all non-self scientific evidence hashes remain usable.
+
+Decision:
+**Information Parity V1 Stage 2 is complete and accepted.**
+
+This does not establish profitability, does not authorize model tuning against sealed years, and does not open 2022-2025 XAUUSD.
+
+Next:
+freeze the accepted Stage 2 identity in Stage 3 prerequisites and preregister the Badar decision-recognition dataset/evaluation protocol before any Stage 3 empirical fitting.
+
+See:
+`research/INFORMATION_PARITY_V1_STAGE2_FULL_TRAIN_ACCEPTED_FINDINGS.md`.
