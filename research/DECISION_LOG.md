@@ -2580,3 +2580,47 @@ The existing 35 exact-M1 / 16-date / 14-LONG / 21-SHORT metadata result is there
 
 D-088 remains unchanged:
 no 2026 XAUUSD acquisition, market reconstruction or Stage 3 empirical fitting is authorized.
+
+
+---
+
+## D-092 — Stage 3 timestamp sub-audit reaches numeric floors; primary evidence adequacy remains unresolved
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_SOURCE_TIMESTAMP_AUDIT_V2_FINDINGS.md`
+
+V2 timestamp artifact:
+`research/reference/information-parity-v1/stage3-teacher-timestamp-audit-v2.csv`
+
+Blob:
+`de7f9647a18aa018ca00dc727c141f02d74fd2f4`
+
+Targeted pinned-source transcript/frame review promoted five rows to exact M1:
+- `HOidQitTyAc#3` -> 18:01 UTC+4;
+- `qTSedn6hEp8#2` -> 17:41 UTC+4;
+- `NPUPkMWzKTE#1` -> 18:11 UTC+4;
+- `m0l1wj9IZ2o#3` -> 17:33 UTC+4;
+- `PYPzCJV-YXE#1` -> 18:15 UTC+5.
+
+Timestamp-only totals are now:
+- 40 exact-M1 candidates;
+- 21 source dates;
+- 16 LONG;
+- 24 SHORT.
+
+These clear the numerical D-091 floors **before** authorship/live-execution filtering.
+
+Decision:
+do not label Stage 3 evidence `ADEQUATE` yet.
+
+D-091 adequacy applies to primary eligible positives after Badar authorship adjudication, live/real execution adjudication, frozen exclusions and same-minute same-direction collapse.
+
+Current status:
+`UNRESOLVED — PRIMARY ELIGIBILITY NOT YET ADJUDICATED`.
+
+Several reviewed rows were deliberately not promoted where the exact entry minute remained ambiguous, including `9d7IHhIAi6M#1`, `6trb-6A2t6Q#1/#2` and `fkZjFHTg3GY#1`. The timestamp standard was not relaxed to cross the numeric floor.
+
+Immediate next safe task:
+perform source-only authorship/execution adjudication on the 40 exact-M1 V2 candidates and compute the first true D-091 `ADEQUATE` / `INSUFFICIENT` result.
+
+D-088 remains controlling. No 2026 XAUUSD market reconstruction or model fitting is authorized.

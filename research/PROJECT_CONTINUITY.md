@@ -1987,3 +1987,35 @@ Current metadata-only audit:
 That current state is intermediate evidence only. Targeted source-frame/note adjudication remains the next safe work.
 
 D-088 still blocks 2026 XAUUSD market access and empirical Stage 3 fitting. 2022-2025 remain sealed.
+
+
+## Stage 3 timestamp sub-audit reaches numeric floors
+
+Decision record:
+D-092
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_SOURCE_TIMESTAMP_AUDIT_V2_FINDINGS.md`
+
+Timestamp V2:
+`research/reference/information-parity-v1/stage3-teacher-timestamp-audit-v2.csv`
+
+Current timestamp-qualified candidate counts:
+- 40 exact-M1;
+- 21 dates;
+- 16 LONG;
+- 24 SHORT.
+
+Five source-only transcript/frame promotions produced this increase. The exact-M1 rule was not relaxed; ambiguous rows remain `INTERVAL_ONLY`.
+
+This is **not yet** a D-091 `ADEQUATE` result.
+
+Evidence adequacy is evaluated only after Badar authorship/live-real execution adjudication, frozen exclusions and same-minute collapse.
+
+Current overall status:
+`UNRESOLVED — PRIMARY ELIGIBILITY NOT YET ADJUDICATED`.
+
+Immediate next safe work:
+source-only authorship/execution adjudication of the 40 exact-M1 V2 candidates, then compute the first true D-091 `ADEQUATE` / `INSUFFICIENT` result.
+
+D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.
