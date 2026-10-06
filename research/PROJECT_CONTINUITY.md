@@ -2121,3 +2121,40 @@ Immediate next safe task:
 adjudicate the final 10 V2 exact-M1 candidates, then determine whether a targeted interval-only review is still required before final ADEQUATE/INSUFFICIENT status.
 
 D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.
+
+
+## Current 40-row exact-M1 primary adjudication complete
+
+Decision record:
+D-096
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_PRIMARY_ADJUDICATION_BATCH04_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3-teacher-primary-adjudication-batch04.csv`
+
+All 40 current V2 exact-M1 candidates are now source-adjudicated.
+
+Current primary set:
+- 4 total;
+- 3 LONG;
+- 1 SHORT;
+- 3 distinct dates.
+
+Current V2 exact-M1 pool alone is `INSUFFICIENT`.
+
+Overall D-091 remains pending only because 79 source rows remain interval-only/unresolved.
+
+To reach the frozen evidence floors, those remaining rows must add at least:
+- 36 primary positives;
+- 17 new eligible dates;
+- 12 LONG;
+- 14 SHORT.
+
+Immediate next safe task:
+perform a source-only interval-row feasibility-bound scan rather than exhaustive blind review. A row matters only if it plausibly has both live/real Badar execution evidence and source evidence capable of resolving one exact M1 minute.
+
+If the conservative maximum possible pool misses any D-091 floor, finalize `INSUFFICIENT / NOT TESTED`.
+
+D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.

@@ -2745,3 +2745,48 @@ Immediate next safe work:
 adjudicate the final 10 current V2 exact-M1 candidates, then assess whether additional interval-only review is necessary before final evidence adequacy.
 
 No 2026 market-price lookup, model fitting or CI is authorized.
+
+
+---
+
+## D-096 — Complete primary adjudication of the current 40-row exact-M1 pool; overall adequacy now depends on interval-row feasibility
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_PRIMARY_ADJUDICATION_BATCH04_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3-teacher-primary-adjudication-batch04.csv`
+
+Batch 04:
+- 10 / 10 `BADAR_CONFIRMED`;
+- 10 `FILL_UNCLEAR`;
+- 0 new primary-eligible rows.
+
+The complete current V2 exact-M1 pool is now adjudicated:
+
+- 40 / 40 rows reviewed;
+- 4 primary eligible;
+- 3 LONG;
+- 1 SHORT;
+- 3 distinct primary dates.
+
+The exact-M1 V2 pool alone is `INSUFFICIENT` against D-091's evidence-adequacy floors.
+
+However, overall D-091 status remains pending because 79 source-table rows are still outside the exact-M1 set.
+
+To reach `ADEQUATE`, the remaining source evidence would have to contribute at minimum:
+- 36 additional primary positives;
+- 17 additional eligible dates;
+- 12 additional LONG;
+- 14 additional SHORT.
+
+Decision:
+do not blindly adjudicate all 79 interval rows.
+
+Immediate next safe work is a source-only **feasibility-bound scan**. A remaining row can matter only if source evidence plausibly supports both:
+1. a live/real Badar-owned execution;
+2. resolution to one unique M1 entry minute.
+
+If the resulting maximum possible pool cannot meet any one of the frozen floors, finalize D-091 as `INSUFFICIENT / NOT TESTED`.
+
+D-088 remains controlling. No 2026 market-price lookup, model fitting or CI is authorized.
