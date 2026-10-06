@@ -1712,3 +1712,17 @@ All six normalized BLS fallback snapshots are now present and passed off-CI stat
 
 Active blocker before the expensive full provider run:
 finish and pass the deterministic full-TRAIN orchestration integration gate. CI remains manual-only and has not been triggered for this work.
+
+
+## Continuous full-TRAIN deterministic integration gate passed off-CI
+
+Decision record:
+D-081
+
+The synthetic six-year integration test now passes end-to-end:
+`INFORMATION_PARITY_STAGE2_FULL_TRAIN_PREFLIGHT_PASS`.
+
+This validates orchestration logic only because the local runtime differs from the frozen CI runtime. No provider data or sealed XAUUSD periods were accessed.
+
+Immediate next step:
+run one exact-runtime deterministic Stage 2 preflight in GitHub Actions. Only if that passes may the manual provider-data `full-train` job be considered.
