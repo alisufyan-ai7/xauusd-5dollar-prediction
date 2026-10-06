@@ -74,9 +74,11 @@ Frozen D-089 minimum teacher-evidence gate:
 - >=15 LONG;
 - >=15 SHORT.
 
-Therefore the **metadata-only resolver does not yet meet the frozen gate**.
+Therefore the metadata-only result is currently **INSUFFICIENT against the frozen evidence-adequacy floors**.
 
-This is not a final Stage 3 failure because D-089 permits source-frame/note adjudication. Several approximate source-table rows have frame/contact-sheet evidence that may independently resolve a unique entry minute without using market-price data or relaxing the exact-M1 rule.
+This is not a Stage 3 recognition failure and says nothing about profitability. It is also not yet the final evidence-adequacy result because D-089 permits source-frame/note adjudication. Several approximate source-table rows have frame/contact-sheet evidence that may independently resolve a unique entry minute without using market-price data or relaxing the exact-M1 rule.
+
+Per the Stage 3 evidence-adequacy clarification, if the final source-only adjudication remains below one or more floors, the recognition hypothesis is **NOT TESTED / INCONCLUSIVE**, not FAIL.
 
 ## Stream observation-window metadata
 
