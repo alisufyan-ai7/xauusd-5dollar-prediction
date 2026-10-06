@@ -1794,3 +1794,27 @@ one complete exact-runtime deterministic preflight is authorized now. Do not tri
 If that preflight passes, run exactly one manual 2016-2021 macro-only network confirmation. Full TRAIN remains blocked until the macro-only gate passes.
 
 2022-2025 XAUUSD remain sealed. No model training.
+
+
+## Exact-runtime Stage 2 macro recovery preflight accepted
+
+Decision record:
+D-085
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE2_MACRO_RECOVERY_EXACT_RUNTIME_FINDINGS.md`
+
+Accepted run:
+- 37472945799 — SUCCESS
+- head `7e74193cba68591883621c70c4645b4ad85a425d`
+
+All deterministic gates passed under Node 22.23.3, CPython 3.12.14 and the frozen Stage 2 dependency lock, including the new Federal Reserve/BEA recovery regressions and continuous full-TRAIN integration suite.
+
+The temporary trigger was cleaned up and the preflight workflow is manual-only.
+
+Immediate next step:
+run exactly one 2016-2021 `macro-preflight` network confirmation. It must not acquire XAUUSD/FX market data.
+
+Only if that macro-only run passes may another one-shot full 2016-2021 same-snapshot provider build be authorized.
+
+2022-2025 XAUUSD remain sealed. No model training.
