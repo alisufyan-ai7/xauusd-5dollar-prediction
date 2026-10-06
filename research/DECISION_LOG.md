@@ -2333,3 +2333,30 @@ Decision:
 the next authorized run is exactly one 2016-2021 **macro-only network confirmation**. Full TRAIN remains blocked until that macro-only run passes every admitted family/year coverage gate.
 
 2022-2025 XAUUSD remain sealed. No model training.
+
+
+---
+
+## D-086 — 2016-2021 macro-only network confirmation accepted; second full-TRAIN build authorized
+
+Accepted run:
+- workflow: `information-parity-stage2`
+- run: **37473462028**
+- head: `db6dd32394c342e2c9650553cc20b24294fed544`
+- artifact ID: **11418296108**
+- digest: `sha256:67f134b67cbc1f476829a0c0d4f6bab58efa61773bda09dd2252c88a739c8a5d`
+
+The isolated macro-only job passed and the smoke/full-TRAIN jobs were skipped.
+
+Coverage status is PASS with 652 normalized schedule rows. Every admitted family passes every TRAIN year with no recorded errors. The previously failing cells are now:
+- 2018 GDP = 12;
+- 2020 GDP = 12;
+- 2021 GDP = 12;
+- 2021 FOMC = 8.
+
+Both the macro coverage and repository-input verification record no sealed XAUUSD-period access.
+
+Decision:
+the preregistered D-083 recovery gates are complete. Exactly one second full 2016-2021 same-snapshot provider build is now authorized on the accepted implementation. Macro readiness must execute before market acquisition, and full-TRAIN causal state must remain continuous across year boundaries.
+
+No 2022-2025 XAUUSD access, model training, profitability tuning or broker mutation is authorized.
