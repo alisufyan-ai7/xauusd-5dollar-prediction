@@ -1958,3 +1958,32 @@ Immediate next safe task:
 targeted source-frame/note adjudication of unresolved teacher timestamps, prioritizing dates absent from the current exact set and LONG rows. Use no market-price lookup.
 
 D-088 still blocks 2026 market reconstruction/model fitting. 2022-2025 remain sealed.
+
+
+## Stage 3 evidence-adequacy semantics clarified
+
+Decision record:
+D-091
+
+Clarification:
+`research/INFORMATION_PARITY_V1_STAGE3_EVIDENCE_ADEQUACY_CLARIFICATION.md`
+
+The 40 / 20 dates / 15 LONG / 15 SHORT floors are **teacher-evidence adequacy floors**, not profitability thresholds.
+
+Status language is now:
+- `ADEQUATE` when all evidence floors are met;
+- `INSUFFICIENT` when any floor is missed.
+
+`INSUFFICIENT` means the Badar recognition hypothesis is NOT TESTED / INCONCLUSIVE. It does not mean Information Parity failed and does not imply that profitable XAUUSD trading is impossible.
+
+A later negative FULL-vs-GOLD recognition result would also be limited to that frozen recognition hypothesis; profitability requires separate economic evaluation and OOS evidence.
+
+Current metadata-only audit:
+- 35 exact-M1 candidates;
+- 16 dates;
+- 14 LONG;
+- 21 SHORT.
+
+That current state is intermediate evidence only. Targeted source-frame/note adjudication remains the next safe work.
+
+D-088 still blocks 2026 XAUUSD market access and empirical Stage 3 fitting. 2022-2025 remain sealed.
