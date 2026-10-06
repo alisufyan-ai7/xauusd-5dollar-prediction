@@ -2158,3 +2158,46 @@ perform a source-only interval-row feasibility-bound scan rather than exhaustive
 If the conservative maximum possible pool misses any D-091 floor, finalize `INSUFFICIENT / NOT TESTED`.
 
 D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.
+
+
+## Stage 3 teacher evidence finalized as INSUFFICIENT
+
+Decision record:
+D-097
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_INTERVAL_FEASIBILITY_BOUND_FINDINGS.md`
+
+Feasibility artifact:
+`research/reference/information-parity-v1/stage3-interval-feasibility-bound-v1.csv`
+
+All 40 current exact-M1 candidates were already adjudicated, yielding 4 primary rows.
+
+The remaining 79 rows were then subjected to a deliberately generous source-only rescue bound. Even counting whole unresolved streams with real/live/terminal/broker context as potentially rescuable, the absolute optimistic maximum is:
+- 42 positives;
+- 20 LONG;
+- 22 SHORT;
+- **17 distinct dates**.
+
+The frozen evidence gate requires 20 dates.
+
+Therefore final D-091 evidence status is:
+`INSUFFICIENT`
+
+The frozen Stage 3 recognition hypothesis is:
+`NOT TESTED / INCONCLUSIVE`
+
+Do not run the FULL-vs-GOLD recognition benchmark on this teacher corpus.
+
+This result concerns teacher evidence, not profitability. It does not imply that a profitable XAUUSD system is impossible.
+
+D-088 remains in force. No 2026 market reconstruction is justified by this benchmark because opening 2026 would not fix the source-evidence shortfall.
+
+Immediate next research decision must be separately preregistered:
+- obtain additional source-layer expert teacher evidence;
+- or define a different teacher construct/experiment;
+- or admit a different expert source.
+
+Do not post-hoc weaken the existing primary-teacher rules or sample floors.
+
+2022-2025 remain sealed. 2026 remains untouched for Stage 3 market reconstruction.

@@ -2790,3 +2790,52 @@ Immediate next safe work is a source-only **feasibility-bound scan**. A remainin
 If the resulting maximum possible pool cannot meet any one of the frozen floors, finalize D-091 as `INSUFFICIENT / NOT TESTED`.
 
 D-088 remains controlling. No 2026 market-price lookup, model fitting or CI is authorized.
+
+
+---
+
+## D-097 — Finalize Stage 3 teacher evidence as INSUFFICIENT; frozen recognition hypothesis is NOT TESTED
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_INTERVAL_FEASIBILITY_BOUND_FINDINGS.md`
+
+Feasibility artifact:
+`research/reference/information-parity-v1/stage3-interval-feasibility-bound-v1.csv`
+
+D-096 left 79 interval-only/unresolved teacher rows.
+
+A deliberately generous source-only feasibility bound was applied:
+- entire unresolved streams were retained where source evidence showed explicit real/live/terminal execution context;
+- MetaTrader/broker-chart streams were also retained as a conservative allowance;
+- row-level live proof was **not** required for inclusion in the upper bound;
+- unresolved timing was assumed potentially resolvable unless the source itself made a unique M1 path unavailable.
+
+The optimistic unresolved rescue set contains:
+- 38 rows;
+- 17 dates;
+- 17 LONG;
+- 21 SHORT.
+
+Combining those with the four already confirmed primary rows gives an absolute optimistic maximum of:
+- 42 positives;
+- 20 LONG;
+- 22 SHORT;
+- only **17 distinct eligible dates**.
+
+D-091 requires 20 dates.
+
+Therefore even perfect promotion of every deliberately over-included rescue row cannot satisfy the frozen evidence-adequacy gate.
+
+Final evidence status:
+`INSUFFICIENT`
+
+Stage 3 recognition hypothesis:
+`NOT TESTED / INCONCLUSIVE`
+
+This is not a profitability result and must not be interpreted as proof that a profitable XAUUSD system cannot be built.
+
+Do not run the frozen FULL-vs-GOLD Stage 3 benchmark on the current pinned teacher corpus.
+
+D-088 remains controlling. Opening 2026 market data would not solve this source-evidence inadequacy and is not authorized.
+
+Any continuation requires a new preregistered teacher-source or teacher-definition decision; do not loosen D-089 post hoc merely to make the benchmark executable.
