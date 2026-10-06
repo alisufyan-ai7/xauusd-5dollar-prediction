@@ -1841,3 +1841,38 @@ launch exactly one second full 2016-2021 same-snapshot provider-data Stage 2 bui
 The job must keep the new macro-first ordering, preserve continuous full-TRAIN causal state, and keep 2022-2025 XAUUSD sealed.
 
 No model training yet.
+
+
+## Information Parity V1 Stage 2 complete
+
+Decision record:
+D-087
+
+Accepted findings:
+`research/INFORMATION_PARITY_V1_STAGE2_FULL_TRAIN_ACCEPTED_FINDINGS.md`
+
+Accepted full-TRAIN run:
+- 37474263432 — SUCCESS
+- head `51664a31ab7739e2a4bdba9df70eadf02249133a`
+- artifact 11421634040
+- digest `sha256:41ebcaacaaaddafc6433e787ee9232eccf5128205b8648cecfd20f595d52985a`
+
+The accepted Stage 2 layer contains one continuous causal 2016-2021 TRAIN history. Final summary and 27 integrity checks pass with no warnings. Macro coverage passes every admitted family/year. 2022-2025 XAUUSD remain untouched.
+
+Accepted core counts:
+- M1 / decision rows 2,124,206;
+- synthetic DXY M1 2,138,819;
+- macro schedule 652;
+- D1 1,459;
+- W1 292.
+
+Important evidence identity:
+normalized full-TRAIN manifest SHA-256:
+`e9440bb0971c52456d1a79ddaa0144aa36fd758666421392bc4e7203132ea4c9`
+
+The compact SHA list's self-hash line is a known bookkeeping quirk and is not a reason to reacquire provider data. The GitHub artifact digest above is authoritative for the uploaded compact artifact.
+
+Immediate next step:
+**do not start Stage 3 fitting yet.** Preregister Stage 3 Badar decision-recognition dataset construction, teacher-record provenance, matched non-trade examples, fixed recognition architecture/evaluation protocol, and the exact dependency on the accepted Stage 2 identity.
+
+No 2022-2025 XAUUSD access. No model training or profitability tuning until the Stage 3 preregistration is durable in GitHub.
