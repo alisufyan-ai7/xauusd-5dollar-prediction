@@ -1746,3 +1746,33 @@ The job used configured Node 22.23.3, CPython 3.12.14 and the frozen Stage 2 dep
 
 Immediate next step:
 launch the one-shot same-snapshot 2016-2021 provider-data Stage 2 `full-train` build. Do not access 2022-2025.
+
+
+## Stage 2 full-TRAIN run 1 failed at macro normalization
+
+Decision record:
+D-083
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE2_FULL_TRAIN_RUN1_FINDINGS.md`
+
+Recovery addendum:
+`research/INFORMATION_PARITY_V1_STAGE2_MACRO_RECOVERY_ADDENDUM.md`
+
+Run 37434856203 is not accepted as a full-TRAIN build. It successfully acquired/synchronized 2016-2021 market data and built continuous synthetic DXY, but stopped before the Information Parity layer because macro coverage was incomplete.
+
+Failure scope:
+- 2018 GDP 9;
+- 2020 GDP 10;
+- 2021 GDP 10;
+- 2021 FOMC 0 due obsolete Federal Reserve historical-year URL.
+
+Immediate next step:
+implement the narrowly frozen Fed/BEA parser corrections and deterministic regressions off-CI. Do not rerun full TRAIN.
+
+After local deterministic acceptance:
+- run one exact-runtime deterministic preflight;
+- then one macro-only 2016-2021 network confirmation;
+- only after both pass may a second full same-snapshot provider build be authorized.
+
+2022-2025 XAUUSD remain sealed. No model training.
