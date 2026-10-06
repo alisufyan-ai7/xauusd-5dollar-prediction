@@ -2234,3 +2234,42 @@ The temporary push trigger was removed immediately after acceptance and the pref
 
 Decision:
 The deterministic/offline prerequisite for the Stage 2 full TRAIN build is accepted. The next authorized research action is the one-shot same-snapshot 2016-2021 provider-data `full-train` build. 2022-2025 remain sealed.
+
+
+---
+
+## D-083 — Full-TRAIN run 1 failed at macro normalization; freeze narrow recovery gate
+
+Run 37434856203 is **not** an accepted Stage 2 full-TRAIN build.
+
+What passed before the failure:
+- frozen runtime and repository prerequisites;
+- same-job 2016-2021 market acquisition;
+- all annual XAUUSD synchronizations;
+- continuous 2016-2021 synthetic DXY construction.
+
+Failure:
+- macro normalization was incomplete:
+  - 2018 GDP = 9 (<11);
+  - 2020 GDP = 10 (<11);
+  - 2021 GDP = 10 (<11);
+  - 2021 FOMC = 0 (<8).
+- the legacy Federal Reserve 2021 historical-year URL returns 404;
+- the BEA parser excludes legitimate national-GDP colon/parenthetical title variants and one punctuation form in embargo timestamps.
+
+Artifact:
+- id 11400771061
+- digest sha256:4f8cff0e95191d7992be27ee4e2bc058fdc003e69e33da6f412c2df108d753a4
+
+Decision:
+1. keep the admitted macro source families unchanged;
+2. correct only first-party Federal Reserve indexing and BEA syntax parsing as frozen in `research/INFORMATION_PARITY_V1_STAGE2_MACRO_RECOVERY_ADDENDUM.md`;
+3. add deterministic regressions before CI;
+4. require exact-runtime deterministic confirmation after the code change;
+5. require one macro-only 2016-2021 network confirmation before another expensive full TRAIN run;
+6. reorder the final full-TRAIN job so macro readiness is checked before market acquisition.
+
+The market/DXY outputs from run 37434856203 are diagnostic partial evidence only and cannot be reused as the final same-snapshot artifact because the accepted Stage 2 build must finish all gates in one run.
+
+No source substitution, economic-outcome inspection or model tuning is authorized.
+2022-2025 XAUUSD remain sealed.
