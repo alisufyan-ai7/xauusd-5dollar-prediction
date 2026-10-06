@@ -2019,3 +2019,31 @@ Immediate next safe work:
 source-only authorship/execution adjudication of the 40 exact-M1 V2 candidates, then compute the first true D-091 `ADEQUATE` / `INSUFFICIENT` result.
 
 D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.
+
+
+## Stage 3 primary-teacher adjudication Batch 01 frozen
+
+Decision record:
+D-093
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_PRIMARY_ADJUDICATION_BATCH01_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3-teacher-primary-adjudication-batch01.csv`
+
+First 10 chronological exact-M1 candidates:
+- all 10 are source-confirmed as Badar-authored;
+- 8 remain `FILL_UNCLEAR` for live/real execution;
+- 1 is `PAPER_OR_SIMULATION`;
+- 1 is `PLAN_OR_SIGNAL_ONLY`;
+- 0 are primary eligible in this batch.
+
+A TradingView position/tool alone is not treated as proof of a live/real broker fill. This directly applies the frozen primary-teacher rule; it is not a new gate.
+
+Overall D-091 adequacy remains unresolved because 30 exact-M1 candidates are still unadjudicated.
+
+Immediate next safe task:
+continue with the next chronological batch beginning `HOidQitTyAc#3`, looking specifically for explicit real-account/broker execution evidence.
+
+D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.

@@ -2624,3 +2624,39 @@ Immediate next safe task:
 perform source-only authorship/execution adjudication on the 40 exact-M1 V2 candidates and compute the first true D-091 `ADEQUATE` / `INSUFFICIENT` result.
 
 D-088 remains controlling. No 2026 XAUUSD market reconstruction or model fitting is authorized.
+
+
+---
+
+## D-093 — Freeze Stage 3 primary-teacher adjudication Batch 01; TradingView-only evidence does not establish live/real execution
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_PRIMARY_ADJUDICATION_BATCH01_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3-teacher-primary-adjudication-batch01.csv`
+
+Scope:
+first 10 chronological exact-M1 V2 candidates.
+
+Result:
+- 10 / 10 `BADAR_CONFIRMED` authorship;
+- 8 `FILL_UNCLEAR`;
+- 1 `PAPER_OR_SIMULATION`;
+- 1 `PLAN_OR_SIGNAL_ONLY`;
+- 0 `LIVE_OR_REAL_CONFIRMED`;
+- 0 primary-eligible rows in this batch.
+
+Decision:
+apply Section 5 conservatively. A TradingView position/long-short tool or first-person trade call does not by itself establish the required live/real execution. Live/real status requires source-layer evidence of actual personal broker/live-account execution.
+
+The July 28 stream explicitly states live-account trading starts the next day, supporting paper/simulation exclusion for `suuicaoUvDQ#1`. Its later limit `suuicaoUvDQ#3` does not confirm Badar's own fill and is plan/signal-only.
+
+No outcome, RR, TP/SL result, later market path or profitability was used in eligibility decisions.
+
+This partial batch does not determine D-091 evidence adequacy.
+
+Immediate next safe work:
+continue source-only execution/authorship adjudication with the next chronological exact-M1 batch starting at `HOidQitTyAc#3`.
+
+D-088 remains controlling; no 2026 market reconstruction, model fitting or CI is authorized.
