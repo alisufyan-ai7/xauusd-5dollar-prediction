@@ -2408,3 +2408,47 @@ freeze the accepted Stage 2 identity in Stage 3 prerequisites and preregister th
 
 See:
 `research/INFORMATION_PARITY_V1_STAGE2_FULL_TRAIN_ACCEPTED_FINDINGS.md`.
+
+
+---
+
+## D-088 — Stage 3 Badar teacher benchmark is blocked by the 2026 time-domain mismatch
+
+After D-087, the admitted Badar source layer was audited before any Stage 3 market acquisition or fitting.
+
+Pinned Badar source:
+- repository: `alisufyan-ai7/unpack-human-trading-strategies-claude`
+- commit: `2df3d588c4b6d82761df2ee0c6f6639e82ce3414`
+- source table: `dataset/live_trades.csv`
+- blob: `ea620cb44937f276be2e65ae7da25ae9503be655`
+
+Source-layer audit:
+- 119 trade rows;
+- 43 streams;
+- date range 2026-07-06 through 2026-10-02;
+- every row is dated 2026;
+- 118 XAUUSD-like rows;
+- 1 non-XAUUSD row;
+- 52 long / 67 short;
+- 110 chart-time strings are approximate;
+- source `confidence` is evidence/readability confidence, not Badar trade confidence;
+- `setup_id` is a researcher-added organizational index, not a Badar-authored class label.
+
+Conflict:
+- accepted Information Parity V1 Stage 2 market state is 2016-2021 TRAIN;
+- 2026 is currently reserved for later forward/shadow comparison;
+- there are zero admitted Badar live-trade teacher rows in 2016-2021.
+
+Decision:
+Do **not** acquire or use 2026 XAUUSD for Stage 3 fitting under the present governance.
+
+Stage 3 empirical fitting is blocked until a separately frozen chronology decision either:
+1. preserves the 2026 reserve and provides a different timestamp-resolvable expert teacher source overlapping TRAIN; or
+2. explicitly repurposes a bounded 2026 teacher window and defines what 2026 data remains reserved.
+
+No shortcut may convert Claude-derived rules/labels into Badar supervision.
+
+See:
+`research/INFORMATION_PARITY_V1_STAGE3_TEACHER_TIME_DOMAIN_FEASIBILITY.md`.
+
+2022-2025 XAUUSD remain sealed. 2026 also remains untouched for Stage 3 until the chronology gate is changed explicitly.
