@@ -1897,3 +1897,36 @@ Therefore Stage 3 empirical Badar-entry recognition is **blocked before market a
 Safe preparatory work may define timestamp-resolution, provenance, grouping, matched-control and evaluation rules using source metadata only.
 
 2022-2025 remain sealed. 2026 remains untouched for Stage 3 market reconstruction under current governance.
+
+
+## Stage 3 protocol frozen; empirical execution still blocked
+
+Decision record:
+D-089
+
+Preregistration:
+`research/INFORMATION_PARITY_V1_STAGE3_PROTOCOL_PREREGISTRATION.md`
+
+Current Stage 3 development branch:
+`research/information-parity-v1-stage3-preregistration`
+
+The source-only teacher/control and evaluation protocol is now frozen before any 2026 market access:
+- primary teacher rows require confirmed Badar-owned live/real XAUUSD entries with exact M1 timestamps;
+- paper/student/signal/unclear-time rows are excluded from the primary benchmark;
+- controls are source-observed no-entry stream minutes only;
+- grouping is by source date with leave-one-date-out evaluation;
+- comparison is GOLD_PRICE_ONLY vs FULL_INFORMATION_PARITY_V1 with one fixed L2 logistic-regression benchmark;
+- advancement requires at least +0.03 mean per-date opportunity ROC-AUC delta, positive paired date-bootstrap lower bound, and no material Brier degradation.
+
+Minimum teacher-evidence gate:
+- >=40 eligible positive minutes;
+- >=20 dates;
+- >=15 LONG;
+- >=15 SHORT.
+
+D-088 still blocks empirical execution because all currently admitted Badar live-trade rows are in reserved 2026.
+
+Immediate next safe work:
+build the source-only teacher adjudication table and stream observation-window metadata from the pinned Badar source commit, without acquiring/querying 2026 XAUUSD. Then report whether the frozen minimum evidence gate is achievable.
+
+2022-2025 remain sealed. 2026 remains untouched for market reconstruction until an explicit chronology decision.
