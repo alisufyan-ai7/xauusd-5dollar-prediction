@@ -250,57 +250,86 @@ def parse_release_time(text: str) -> tuple[int, int] | None:
     return h, minute
 
 
+def fomc_index_urls(year: int) -> list[str]:
+    urls = [
+        f"https://www.federalreserve.gov/monetarypolicy/fomchistorical{year}.htm"
+    ]
+    if year == 2021:
+        urls.append(
+            "https://www.federalreserve.gov/newsevents/pressreleases/"
+            "2021-press-fomc.htm"
+        )
+    return urls
+
+
 def acquire_fomc(fetch: Fetcher, year: int) -> tuple[list[Event], list[str]]:
-    base = f"https://www.federalreserve.gov/monetarypolicy/fomchistorical{year}.htm"
-    events = []
-    errors = []
-    try:
-        html = fetch.get(base, f"fomc-history-{year}")
+    links = []
+    index_errors = []
+
+    for base in fomc_index_urls(year):
+        try:
+            html = fetch.get(base, f"fomc-index-{year}")
+        except Exception as e:
+            index_errors.append(str(e))
+            continue
+
         soup = BeautifulSoup(html, "html.parser")
-        links = []
+        candidate_links = []
         for a in soup.find_all("a", href=True):
             href = urljoin(base, a["href"])
             txt = a.get_text(" ", strip=True).lower()
             if "statement" not in txt:
                 continue
-            m = re.search(r"monetary(\d{8})a\.htm", href, re.I)
-            if m and int(m.group(1)[:4]) == year:
-                links.append((m.group(1), href))
-        seen = set()
-        for ymd, href in sorted(set(links)):
-            try:
-                page = fetch.get(href, f"fomc-statement-{ymd}")
-                text = BeautifulSoup(page, "html.parser").get_text(" ", strip=True)
-                hm = parse_release_time(text)
-                if hm is None:
-                    errors.append(f"FOMC_TIME_PARSE:{href}")
-                    continue
-                d = datetime.strptime(ymd, "%Y%m%d").date()
-                dt = datetime.combine(d, time(hm[0], hm[1]), tzinfo=ET)
-                key = ("FOMC", dt)
-                if key in seen:
-                    continue
-                seen.add(key)
-                events.append(Event(
-                    family="FOMC",
-                    dt_local=dt,
-                    agency="FEDERAL_RESERVE",
-                    source=href,
-                    stage="statement",
-                ))
-            except Exception as e:
-                errors.append(f"FOMC_PAGE:{href}:{e}")
-    except Exception as e:
-        errors.append(str(e))
-    return events, errors
+            match = re.search(r"monetary(\d{8})a\.htm", href, re.I)
+            if match and int(match.group(1)[:4]) == year:
+                candidate_links.append((match.group(1), href))
 
+        if candidate_links:
+            links = sorted(set(candidate_links))
+            break
+
+    if not links:
+        return [], index_errors + [f"FOMC_INDEX_NO_STATEMENTS:{year}"]
+
+    events = []
+    page_errors = []
+    seen = set()
+    for ymd, href in links:
+        try:
+            page = fetch.get(href, f"fomc-statement-{ymd}")
+            text = BeautifulSoup(page, "html.parser").get_text(" ", strip=True)
+            hm = parse_release_time(text)
+            if hm is None:
+                page_errors.append(f"FOMC_TIME_PARSE:{href}")
+                continue
+            d = datetime.strptime(ymd, "%Y%m%d").date()
+            dt = datetime.combine(d, time(hm[0], hm[1]), tzinfo=ET)
+            key = ("FOMC", dt)
+            if key in seen:
+                continue
+            seen.add(key)
+            events.append(Event(
+                family="FOMC",
+                dt_local=dt,
+                agency="FEDERAL_RESERVE",
+                source=href,
+                stage="statement",
+            ))
+        except Exception as e:
+            page_errors.append(f"FOMC_PAGE:{href}:{e}")
+
+    events = sorted(events, key=lambda event: event.dt_local)
+    if len(events) >= FAMILY_FLOORS["FOMC"] and not page_errors:
+        return events, []
+
+    return events, index_errors + page_errors
 
 def parse_bea_embargo(text: str) -> datetime | None:
     # Examples:
     # EMBARGOED UNTIL RELEASE AT 8:30 A.M. EDT, Thursday, April 28, 2016
     m = re.search(
         r"(?:EMBARGOED\s+UNTIL\s+RELEASE\s+AT|RELEASE\s+AT)\s+"
-        r"(\d{1,2}):(\d{2})\s*([AP])\.M\.\s+(?:EDT|EST|ET),?\s+"
+        r"(\d{1,2}):(\d{2})\s*([AP])\.M\.\s*,?\s*(?:EDT|EST|ET)\s*,?\s*"
         r"(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),?\s+"
         r"([A-Za-z]+\s+\d{1,2},\s+\d{4})",
         text,
@@ -317,6 +346,15 @@ def parse_bea_embargo(text: str) -> datetime | None:
         h = 0
     d = datetime.strptime(m.group(4), "%B %d, %Y").date()
     return datetime.combine(d, time(h, minute), tzinfo=ET)
+
+
+def is_national_gdp_title(title: str) -> bool:
+    normalized = " ".join(title.split())
+    prefix = "Gross Domestic Product"
+    if not normalized.lower().startswith(prefix.lower()):
+        return False
+    suffix = normalized[len(prefix):].lstrip()
+    return bool(suffix) and suffix[0] in {",", ":", "("}
 
 
 def gdp_stage(title: str) -> str:
@@ -356,7 +394,7 @@ def acquire_gdp(fetch: Fetcher, year: int) -> tuple[list[Event], list[str]]:
         page_candidates = []
         for a in soup.find_all("a", href=True):
             title = a.get_text(" ", strip=True)
-            if not title.lower().startswith("gross domestic product,"):
+            if not is_national_gdp_title(title):
                 continue
             href = urljoin(url, a["href"])
             if href in seen_urls:
