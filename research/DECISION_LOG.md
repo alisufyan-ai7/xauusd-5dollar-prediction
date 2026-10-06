@@ -2702,3 +2702,46 @@ Immediate next safe work:
 continue source-only primary adjudication with the next chronological batch.
 
 No 2026 market-price lookup, model fitting or CI is authorized.
+
+
+---
+
+## D-095 — Stage 3 primary adjudication Batch 03 adds two live/real rows and excludes one Zain-owned trade
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_PRIMARY_ADJUDICATION_BATCH03_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3-teacher-primary-adjudication-batch03.csv`
+
+Scope:
+third chronological batch of 10 exact-M1 V2 candidates.
+
+Result:
+- 9 `BADAR_CONFIRMED`;
+- 1 `OTHER_PERSON`;
+- 2 `LIVE_OR_REAL_CONFIRMED`;
+- 8 `FILL_UNCLEAR`;
+- 2 primary eligible.
+
+New primary rows:
+1. `B83jlxwuo10#5` — SHORT — 2026-09-04T12:57Z
+   - same Exness-real stream plus contemporaneous personal dashboard/profit evidence during the trade.
+2. `qTSedn6hEp8#2` — LONG — 2026-09-21T13:41Z
+   - Exness real-account position shown at 0.10 lot with dollar SL/P&L.
+
+Explicit non-Badar row:
+- `OpMzvMNNrHM#2` — `OTHER_PERSON`; source says Zain's OANDA chart and `Zain brother has done the trade`.
+
+Cumulative after Batches 01-03:
+- 30 / 40 current exact-M1 candidates adjudicated;
+- 4 primary eligible;
+- 3 LONG;
+- 1 SHORT.
+
+Do not yet declare D-091 `INSUFFICIENT`. The final 10 current V2 exact-M1 rows remain unadjudicated, and interval-only rows have not yet been exhaustively source-reviewed for additional timestamp promotion.
+
+Immediate next safe work:
+adjudicate the final 10 current V2 exact-M1 candidates, then assess whether additional interval-only review is necessary before final evidence adequacy.
+
+No 2026 market-price lookup, model fitting or CI is authorized.

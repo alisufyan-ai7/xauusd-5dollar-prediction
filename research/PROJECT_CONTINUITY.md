@@ -2082,3 +2082,42 @@ Immediate next safe task:
 continue source-only adjudication with the next chronological exact-M1 batch, preserving the per-row live/real provenance rule.
 
 D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.
+
+
+## Stage 3 primary-teacher adjudication Batch 03 frozen
+
+Decision record:
+D-095
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_PRIMARY_ADJUDICATION_BATCH03_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3-teacher-primary-adjudication-batch03.csv`
+
+Batch 03:
+- 9 Badar-confirmed;
+- 1 other-person row;
+- 2 live/real confirmed;
+- 8 fill-unclear;
+- 2 primary eligible.
+
+New primary rows:
+- `B83jlxwuo10#5` — SHORT — 2026-09-04T12:57Z;
+- `qTSedn6hEp8#2` — LONG — 2026-09-21T13:41Z.
+
+`OpMzvMNNrHM#2` is explicitly excluded as Zain-owned rather than Badar-owned.
+
+Cumulative after Batches 01-03:
+- 30 / 40 exact-M1 candidates adjudicated;
+- 4 primary eligible;
+- 3 LONG;
+- 1 SHORT;
+- 10 current exact-M1 candidates remain.
+
+Overall D-091 adequacy remains unresolved.
+
+Immediate next safe task:
+adjudicate the final 10 V2 exact-M1 candidates, then determine whether a targeted interval-only review is still required before final ADEQUATE/INSUFFICIENT status.
+
+D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.
