@@ -41,7 +41,7 @@ The previous parser admitted only the comma form. That excluded legitimate natio
 
 Stage 2 therefore admits a BEA archive candidate only when:
 1. its normalized title starts with exactly `Gross Domestic Product`; and
-2. the immediately following character is one of comma, colon, or opening parenthesis.
+2. after optional whitespace, the next character is one of comma, colon, or opening parenthesis.
 
 This continues to exclude distinct products such as:
 - Gross Domestic Product by State;
