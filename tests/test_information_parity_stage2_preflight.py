@@ -48,6 +48,8 @@ from scripts.build_information_parity_stage2_year import (
 
 from scripts.acquire_macro_schedule_stage2 import (
     acquire_claims,
+    acquire_fomc,
+    is_national_gdp_title,
     load_bls_snapshot,
     parse_bea_embargo,
     parse_date_time_et,
@@ -323,11 +325,62 @@ def assert_macro_parser_and_snapshot_fallback() -> None:
 
     assert parse_release_time("For release at 2:00 p.m. EDT") == (14, 0)
 
+    assert is_national_gdp_title(
+        "Gross Domestic Product, Third Quarter 2018 (Second Estimate)"
+    )
+    assert is_national_gdp_title(
+        "Gross Domestic Product: First Quarter 2018 (Second Estimate)"
+    )
+    assert is_national_gdp_title(
+        "Gross Domestic Product (Third Estimate), GDP by Industry, and Corporate Profits"
+    )
+    assert not is_national_gdp_title(
+        "Gross Domestic Product by State, 1st Quarter 2020"
+    )
+    assert not is_national_gdp_title(
+        "Gross Domestic Product by Industry, 4th quarter 2017"
+    )
+
     bea = parse_bea_embargo(
         "EMBARGOED UNTIL RELEASE AT 8:30 A.M. EDT, Thursday, April 28, 2016"
     )
     assert bea is not None
     assert bea.isoformat() == "2016-04-28T08:30:00-04:00"
+
+    bea_comma = parse_bea_embargo(
+        "EMBARGOED UNTIL RELEASE AT 8:30 A.M., EDT, Thursday, June 24, 2021"
+    )
+    assert bea_comma is not None
+    assert bea_comma.isoformat() == "2021-06-24T08:30:00-04:00"
+
+    fomc_dates = (
+        "20210127", "20210317", "20210428", "20210616",
+        "20210728", "20210922", "20211103", "20211215",
+    )
+
+    class Fomc2021FallbackFixture:
+        def get(self, url: str, label: str) -> str:
+            del label
+            if "fomchistorical2021.htm" in url:
+                raise RuntimeError("FETCH_FAILED:legacy-2021:404")
+            if "2021-press-fomc.htm" in url:
+                links = "".join(
+                    (
+                        '<a href="/newsevents/pressreleases/'
+                        f'monetary{ymd}a.htm">'
+                        "Federal Reserve issues FOMC statement</a>"
+                    )
+                    for ymd in fomc_dates
+                )
+                return f"<html><body>{links}</body></html>"
+            if "/newsevents/pressreleases/monetary2021" in url:
+                return "<html><body>For release at 2:00 p.m. EDT</body></html>"
+            raise AssertionError(f"unexpected FOMC fixture URL: {url}")
+
+    fomc, fomc_errors = acquire_fomc(Fomc2021FallbackFixture(), 2021)
+    assert fomc_errors == []
+    assert len(fomc) == 8
+    assert [e.dt_local.strftime("%Y%m%d") for e in fomc] == list(fomc_dates)
 
     claims, claim_errors = acquire_claims(2016)
     assert claim_errors == []
