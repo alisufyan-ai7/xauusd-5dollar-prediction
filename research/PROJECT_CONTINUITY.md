@@ -2201,3 +2201,52 @@ Immediate next research decision must be separately preregistered:
 Do not post-hoc weaken the existing primary-teacher rules or sample floors.
 
 2022-2025 remain sealed. 2026 remains untouched for Stage 3 market reconstruction.
+
+
+## Badar full source-corpus rescan complete
+
+Decision record:
+D-098
+
+Findings:
+`research/BADAR_FULL_SOURCE_CORPUS_RESCAN_FINDINGS.md`
+
+Current Badar source pin:
+`19ae93aa5ee9f78766f58415fb03a8a91d86b65c`
+
+The rescan included the complete current source corpus at the repository/index/consolidation level:
+- 143 long videos;
+- 114 Shorts;
+- 45 live streams;
+- current 121-row live trade table;
+- stream/video/Short source notes and transcripts;
+- representative raw visual frame verification.
+
+Everything under Badar `derived/` remained excluded.
+
+D-097 is unchanged:
+the exact-live-broker-entry recognition benchmark is `INSUFFICIENT / NOT TESTED`.
+
+New strategic finding:
+the full corpus should not be reduced to fixed setup rules or only exact broker timestamps.
+
+Badar's observed process is hierarchical and stateful:
+context -> POI/liquidity map -> wait for event -> entry mode -> risk tier -> adaptive management.
+
+High+medium XAUUSD live source decisions:
+- 82 rows;
+- 37 dates;
+- 37 LONG;
+- 45 SHORT.
+
+Most timing evidence is interval/approximate, so a future teacher construct should represent temporal uncertainty rather than manufacture exact M1 labels.
+
+Explicit rejected/declined setups are preferred hard negatives over arbitrary non-trade stream minutes.
+
+Immediate next safe task:
+preregister **Stage 3B — Badar Decision-Process Supervision**, with trust-tiered and interval-censored labels, while keeping intent, broker execution and outcome separate.
+
+D-088 remains fully in force:
+- no 2026 provider XAUUSD join;
+- no Stage 3B fitting yet;
+- 2022-2025 remain sealed.

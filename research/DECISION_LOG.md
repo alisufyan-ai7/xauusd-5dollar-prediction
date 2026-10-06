@@ -2839,3 +2839,71 @@ Do not run the frozen FULL-vs-GOLD Stage 3 benchmark on the current pinned teach
 D-088 remains controlling. Opening 2026 market data would not solve this source-evidence inadequacy and is not authorized.
 
 Any continuation requires a new preregistered teacher-source or teacher-definition decision; do not loosen D-089 post hoc merely to make the benchmark executable.
+
+
+---
+
+## D-098 — Full Badar source-corpus rescan changes the recommended teacher abstraction, not the D-097 result
+
+Findings:
+`research/BADAR_FULL_SOURCE_CORPUS_RESCAN_FINDINGS.md`
+
+Badar source repository:
+`alisufyan-ai7/unpack-human-trading-strategies-claude`
+
+Current source pin for this rescan:
+`19ae93aa5ee9f78766f58415fb03a8a91d86b65c`
+
+Provenance:
+everything under `derived/` was excluded.
+
+Current corpus reviewed through source indexes/consolidations, trade table, individual current notes, Shorts compilations and representative raw frame evidence:
+- 143 long videos;
+- 114 Shorts;
+- 45 live streams;
+- 121 current live trade rows;
+- 120 XAUUSD rows over 38 dates.
+
+D-097 remains valid for its frozen exact-live-broker-entry benchmark:
+`INSUFFICIENT / NOT TESTED`.
+
+New finding:
+that exact-live-broker definition is too narrow to serve as the sole supervision source for learning Badar's broader decision process.
+
+The corpus supports a different abstraction:
+
+**Badar is a hierarchical, stateful, risk-conditioned decision policy.**
+
+Recurring stages:
+1. build HTF/session/news context;
+2. map liquidity and POIs;
+3. wait for sweep/close/structure event;
+4. choose entry mode;
+5. choose risk tier;
+6. manage dynamically.
+
+High+medium source-confidence XAUUSD live decisions alone provide:
+- 82 rows;
+- 37 dates;
+- 37 LONG;
+- 45 SHORT;
+
+but most source timing is interval/approximate rather than one exact minute.
+
+Decision:
+the next teacher experiment should be separately preregistered and should use:
+- source trust tiers;
+- interval-censored decision windows;
+- separate intent / execution / outcome labels;
+- explicit considered-but-rejected setups as hard negatives;
+- management actions as part of the teacher policy;
+- instructional/replay evidence as lower-trust auxiliary supervision.
+
+Do not retroactively weaken D-089 or relabel D-097.
+
+Do not access 2026 provider XAUUSD yet.
+
+Immediate next safe research action:
+draft a new Stage 3B preregistration for Badar decision-process supervision, while keeping D-088 chronology restrictions intact.
+
+No CI is required for that design work.
