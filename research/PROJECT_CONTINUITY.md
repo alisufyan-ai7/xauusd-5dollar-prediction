@@ -2047,3 +2047,38 @@ Immediate next safe task:
 continue with the next chronological batch beginning `HOidQitTyAc#3`, looking specifically for explicit real-account/broker execution evidence.
 
 D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.
+
+
+## Stage 3 primary-teacher adjudication Batch 02 frozen
+
+Decision record:
+D-094
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_PRIMARY_ADJUDICATION_BATCH02_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3-teacher-primary-adjudication-batch02.csv`
+
+Batch 02 result:
+- 10 Badar-confirmed rows;
+- 2 live/real confirmed;
+- 8 fill-unclear;
+- 2 primary eligible.
+
+First primary-eligible teacher rows:
+- `NIDMLJuBPwk#1` — 2026-08-07T12:34Z — LONG — Exness/second-account/mobile-close evidence;
+- `B83jlxwuo10#1` — 2026-09-04T12:30Z — LONG — Exness real account / placed limit / slippage evidence.
+
+Cumulative after Batches 01-02:
+- 20 exact-M1 candidates adjudicated;
+- 2 primary eligible;
+- 2 LONG;
+- 0 SHORT.
+
+Overall D-091 adequacy remains unresolved. Twenty V2 exact-M1 candidates remain, and currently interval-only rows have not been exhaustively frame-reviewed for additional exact timestamps.
+
+Immediate next safe task:
+continue source-only adjudication with the next chronological exact-M1 batch, preserving the per-row live/real provenance rule.
+
+D-088 still blocks 2026 XAUUSD market access and Stage 3 fitting. 2022-2025 remain sealed.

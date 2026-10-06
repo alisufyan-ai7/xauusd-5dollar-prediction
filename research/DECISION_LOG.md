@@ -2660,3 +2660,45 @@ Immediate next safe work:
 continue source-only execution/authorship adjudication with the next chronological exact-M1 batch starting at `HOidQitTyAc#3`.
 
 D-088 remains controlling; no 2026 market reconstruction, model fitting or CI is authorized.
+
+
+---
+
+## D-094 — Stage 3 primary adjudication Batch 02 finds the first two live/real primary teacher rows
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3_PRIMARY_ADJUDICATION_BATCH02_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3-teacher-primary-adjudication-batch02.csv`
+
+Scope:
+next 10 chronological exact-M1 V2 candidates after Batch 01.
+
+Result:
+- 10 / 10 `BADAR_CONFIRMED`;
+- 2 `LIVE_OR_REAL_CONFIRMED`;
+- 8 `FILL_UNCLEAR`;
+- 2 primary-eligible rows.
+
+Confirmed primary rows:
+1. `NIDMLJuBPwk#1` — LONG — 2026-08-07T12:34Z
+   - Exness terminal / second account / mobile close source evidence.
+2. `B83jlxwuo10#1` — LONG — 2026-09-04T12:30Z
+   - explicitly shown on an Exness real account with placed buy limit, visible account/risk values and news slippage.
+
+Decision:
+execution provenance is evaluated per trade. General evidence that Badar owns or has shown live accounts does not upgrade an otherwise TradingView-only row to live/real.
+
+Cumulative after two batches:
+- 20 exact-M1 candidates adjudicated;
+- 2 primary eligible;
+- 2 LONG;
+- 0 SHORT.
+
+Do not yet declare D-091 evidence `INSUFFICIENT`: 20 V2 exact-M1 candidates remain unadjudicated and interval-only rows have not been exhaustively source-frame-reviewed for additional exact-M1 promotions.
+
+Immediate next safe work:
+continue source-only primary adjudication with the next chronological batch.
+
+No 2026 market-price lookup, model fitting or CI is authorized.
