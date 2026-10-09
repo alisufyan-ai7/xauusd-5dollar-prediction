@@ -2250,3 +2250,55 @@ D-088 remains fully in force:
 - no 2026 provider XAUUSD join;
 - no Stage 3B fitting yet;
 - 2022-2025 remain sealed.
+
+
+## Stage 3B decision-process protocol frozen
+
+Decision record:
+D-099
+
+Preregistration:
+`research/INFORMATION_PARITY_V1_STAGE3B_DECISION_PROCESS_PREREGISTRATION.md`
+
+Badar Stage 3B V1 source pin:
+`cc94077c953efa0d048e61d6ba4fbcdd0e3ca79a`
+
+Pinned live-trade table blob:
+`24939bf5ad141d38f2aad08c30ab6a077ab10086`
+
+The Badar source repository moved after D-098. The new pin includes:
+- 46 live streams;
+- 123 trade rows;
+- 122 XAUUSD rows across 39 dates;
+- 1,331 full-resolution single-frame evidence files covering all 46 streams.
+
+High+medium XAUUSD trade-table evidence remains:
+- 82 rows;
+- 37 dates;
+- 37 LONG;
+- 45 SHORT.
+
+Stage 3B is a new teacher construct, not a relaxation of D-089 and not a rewrite of D-097.
+
+Primary positives are current live Badar action commitments, with confirmed live-real execution retained as a provenance tier rather than a universal eligibility prerequisite.
+
+Primary negatives are explicit Badar hard rejections/waits at concrete opportunities, not arbitrary non-trade minutes.
+
+Primary timing supports exact M1 and source intervals up to 5 minutes, with interval uncertainty preserved and event-normalized weighting.
+
+Primary tasks:
+1. ACT vs explicit REJECT/WAIT;
+2. LONG vs SHORT conditional on ACT.
+
+Risk tier, entry mode and management actions are diagnostic/source-policy labels.
+
+D-088 remains controlling:
+- no 2026 provider XAUUSD;
+- no 2026 market join;
+- no Stage 3B fitting;
+- 2022-2025 remain sealed.
+
+Immediate next safe task:
+build the source-only `research/reference/information-parity-v1/stage3b-source-events-v1.csv`, use source notes/transcripts/full-resolution frames to adjudicate action and hard-negative events, then compute the frozen source adequacy gate.
+
+No CI is required for this source-only construction unless a later implementation dependency specifically warrants it.

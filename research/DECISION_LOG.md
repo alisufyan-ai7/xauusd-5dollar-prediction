@@ -2907,3 +2907,76 @@ Immediate next safe research action:
 draft a new Stage 3B preregistration for Badar decision-process supervision, while keeping D-088 chronology restrictions intact.
 
 No CI is required for that design work.
+
+
+---
+
+## D-099 — Freeze Stage 3B Badar Decision-Process Supervision protocol
+
+Preregistration:
+`research/INFORMATION_PARITY_V1_STAGE3B_DECISION_PROCESS_PREREGISTRATION.md`
+
+Stage 3B is a new experiment design motivated by D-098.
+
+It does not revise D-097.
+
+Badar Stage 3B V1 source pin:
+- repository `alisufyan-ai7/unpack-human-trading-strategies-claude`;
+- commit `cc94077c953efa0d048e61d6ba4fbcdd0e3ca79a`;
+- `dataset/live_trades.csv` blob `24939bf5ad141d38f2aad08c30ab6a077ab10086`.
+
+The Badar repository advanced after D-098:
+- a 46th live stream was added;
+- the current trade table is 123 rows / 122 XAUUSD rows / 39 XAUUSD dates;
+- the high+medium XAUUSD subset remains 82 rows across 37 dates, 37 LONG / 45 SHORT;
+- full-resolution single-frame source evidence now covers all 46 streams (1,331 files).
+
+Stage 3B changes the teacher target from exact confirmed broker fills to a source-provenance-aware decision process.
+
+Primary source classes:
+- P1 LIVE_REAL_EXECUTION;
+- P2 LIVE_BADAR_COMMITMENT;
+- P3 LIVE_BADAR_REJECTION.
+
+Replay/backtest and instructional examples remain auxiliary semantic evidence only.
+
+Primary timing:
+- exact M1 or source interval up to 5 M1 minutes;
+- no midpoint imputation;
+- each event has total training weight 1 regardless of interval width.
+
+Primary hard negatives:
+only explicit Badar REJECT/WAIT events tied to a concrete current opportunity.
+
+Primary tasks:
+- Task A ACT vs explicit REJECT/WAIT;
+- Task B LONG vs SHORT conditional on ACT.
+
+Diagnostics:
+- risk tier;
+- entry mode;
+- management-event extraction.
+
+Primary source adequacy floors:
+- Task A: >=40 ACT, >=40 REJECT/WAIT, >=20 paired dates;
+- Task B: >=40 ACT, >=20 ACT dates, >=15 LONG, >=15 SHORT.
+
+Primary comparison remains:
+`GOLD_PRICE_ONLY` vs `FULL_INFORMATION_PARITY_V1`
+
+with fixed L2 logistic regression, leave-one-source-date-out evaluation and event-level interval pooling.
+
+Stage 3B PASS requires:
+- source adequacy;
+- Task A FULL-GOLD mean per-date ROC-AUC delta >= +0.03;
+- paired date-bootstrap lower 95% bound >0;
+- Task A Brier degradation <=0.01;
+- Task B balanced-accuracy degradation no worse than -0.02 and Brier degradation <=0.01.
+
+No outcome/profitability information may determine source inclusion.
+
+D-088 remains closed:
+this decision does not authorize 2026 market acquisition, joining, model fitting or provider-data CI.
+
+Immediate next action:
+construct the source-only `stage3b-source-events-v1.csv` and report the frozen Stage 3B source-evidence adequacy status before any market join.
