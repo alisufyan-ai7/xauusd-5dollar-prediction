@@ -2302,3 +2302,37 @@ Immediate next safe task:
 build the source-only `research/reference/information-parity-v1/stage3b-source-events-v1.csv`, use source notes/transcripts/full-resolution frames to adjudicate action and hard-negative events, then compute the frozen source adequacy gate.
 
 No CI is required for this source-only construction unless a later implementation dependency specifically warrants it.
+
+
+## Stage 3B source-event construction Batch 01 complete
+
+Decision record:
+D-100
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH01_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch01.csv`
+
+Current partial Stage 3B ACT corpus:
+- 11 eligible action events;
+- 8 LONG;
+- 3 SHORT;
+- 8 source dates.
+
+One split/add-on pair was collapsed, so 12 underlying trade rows produce 11 independent decision events.
+
+All primary timing intervals are <=5 M1 minutes; no midpoint imputation was used.
+
+The current result is construction progress only:
+`UNRESOLVED — SOURCE EVENT CONSTRUCTION IN PROGRESS`.
+
+Immediate next safe task:
+continue ACT construction with later July source rows, then build P3 explicit REJECT/WAIT events from the live notes/transcripts/full-resolution frames.
+
+D-088 remains controlling:
+- no 2026 provider XAUUSD;
+- no Stage 3B market join or fitting;
+- 2022-2025 remain sealed;
+- no CI is needed for this source-only batch.

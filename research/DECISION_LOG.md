@@ -2980,3 +2980,48 @@ this decision does not authorize 2026 market acquisition, joining, model fitting
 
 Immediate next action:
 construct the source-only `stage3b-source-events-v1.csv` and report the frozen Stage 3B source-evidence adequacy status before any market join.
+
+
+---
+
+## D-100 — Freeze Stage 3B source-event construction Batch 01
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH01_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch01.csv`
+
+Pinned Badar source:
+- commit `cc94077c953efa0d048e61d6ba4fbcdd0e3ca79a`;
+- trade-table blob `24939bf5ad141d38f2aad08c30ab6a077ab10086`.
+
+Batch 01 represents 12 source trade rows as 11 action events after one same-plan collapse.
+
+Primary ACT events:
+- total 11;
+- 8 LONG;
+- 3 SHORT;
+- 8 source dates.
+
+Timing:
+- 5 EXACT_M1;
+- 4 INTERVAL_2M;
+- 2 INTERVAL_3_TO_5M.
+
+Provenance:
+- 1 P1 live-real event;
+- 10 P2 live Badar commitment events.
+
+`m0l1wj9IZ2o#1/#2` are one split/add-on teacher event, not two independent opportunities.
+
+Pre-stream Exness-history rows `E2Vu2bndWRc#1/#2` are deliberately not admitted because the source does not expose their contemporaneous decision process.
+
+The source-table confidence field was used only to order this first review batch; it is not an eligibility criterion.
+
+Stage 3B adequacy remains unresolved because construction is incomplete and P3 hard negatives have not yet been extracted.
+
+Immediate next safe work:
+continue source-only ACT construction through the remaining July rows, then begin explicit REJECT/WAIT extraction.
+
+D-088 remains closed. No provider market data, model fitting or CI is authorized.
