@@ -3067,3 +3067,43 @@ Immediate next safe work:
 continue ACT + P3 source construction into August, with no provider market join.
 
 D-088 remains closed. No model fitting or CI is authorized.
+
+
+---
+
+## D-102 — Freeze Stage 3B source-event Batch 03 for Aug 3-5
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH03_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch03.csv`
+
+Scope:
+all 17 pinned XAUUSD trade-table rows from 2026-08-03 through 2026-08-05.
+
+Disposition:
+- 16 eligible ACT events;
+- 1 exclusion (`aEw6393GE1c#1`) because the trade was already active before the stream and the contemporaneous commitment moment is not observed.
+
+Batch additions:
+- 5 LONG;
+- 11 SHORT;
+- 3 explicit P3 hard negatives on 3 new dates.
+
+Cumulative:
+- 44 ACT;
+- 21 LONG;
+- 23 SHORT;
+- 15 ACT dates;
+- 15 REJECT/WAIT;
+- 15 paired ACT+REJECT dates.
+
+Task B now meets the frozen total-ACT and direction floors, but still misses the 20-date floor.
+
+Task A remains below its reject-count and paired-date floors.
+
+Immediate next safe work:
+adjudicate Aug 6-7 source events plus paired P3 negatives.
+
+D-088 remains closed. No provider market join, fitting or CI is authorized.

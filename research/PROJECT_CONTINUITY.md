@@ -2372,3 +2372,45 @@ D-088 remains controlling:
 - no market join/fitting;
 - 2022-2025 remain sealed;
 - no CI needed for source-only construction.
+
+
+## Stage 3B Aug 3-5 source-event sub-batch complete
+
+Decision record:
+D-102
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH03_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch03.csv`
+
+All 17 XAUUSD trade-table rows dated Aug 3-5 are reviewed:
+- 16 Stage 3B ACT events;
+- 1 pre-stream decision-process exclusion.
+
+Cumulative primary source state:
+- ACT: 44;
+- LONG: 21;
+- SHORT: 23;
+- ACT dates: 15;
+- explicit REJECT/WAIT: 15;
+- paired ACT+REJECT dates: 15.
+
+Task B has now reached:
+- >=40 ACT;
+- >=15 LONG;
+- >=15 SHORT.
+
+It still requires >=20 ACT dates.
+
+Task A still requires additional explicit hard negatives and paired dates.
+
+Immediate next safe task:
+source-only adjudication of Aug 6-7 (8 trade-table rows) plus explicit P3 events on those dates.
+
+D-088 remains controlling:
+- no 2026 provider XAUUSD;
+- no market join/fitting;
+- 2022-2025 remain sealed;
+- no CI needed for this source-only work.
