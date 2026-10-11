@@ -3235,3 +3235,45 @@ Immediate next safe work:
 Sep 2 + Sep 4 source-only ACT/P3 adjudication.
 
 No provider market data, fitting or CI is authorized.
+
+
+---
+
+## D-106 — Freeze Stage 3B source-event Batch 07 for Sep 2 + Sep 4
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH07_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch07.csv`
+
+Scope:
+all eight pinned XAUUSD trade-table rows on Sep 2 and Sep 4 plus all distinct explicit P3 decisions retained in this bounded review.
+
+Result:
+- 8 source rows -> 7 independent ACT events;
+- 4 LONG / 3 SHORT;
+- 5 P1 / 2 P2;
+- 12 new P3 events.
+
+`B83jlxwuo10#2/#3` are collapsed as one short decision because the latter is the retained small piece of the same original entry.
+
+Cumulative:
+- 69 ACT;
+- 33 LONG;
+- 36 SHORT;
+- 23 ACT dates;
+- 53 REJECT/WAIT;
+- 23 paired ACT+REJECT dates.
+
+Both numerical D-099 adequacy gates remain met.
+
+A required final-QA backfill is now explicit:
+D-099 permits committed unfilled resting orders as ACT events, while the live-trade table can omit them.
+
+Therefore after the chronological table-row review is complete, scan all pinned live streams for non-table ACT commitments before final merge/hash.
+
+Immediate next safe work:
+Sep 14 + Sep 15 source-only adjudication.
+
+D-088 remains closed. No provider market join, fitting or CI is authorized.
