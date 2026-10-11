@@ -3025,3 +3025,45 @@ Immediate next safe work:
 continue source-only ACT construction through the remaining July rows, then begin explicit REJECT/WAIT extraction.
 
 D-088 remains closed. No provider market data, model fitting or CI is authorized.
+
+
+---
+
+## D-101 — Complete July Stage 3B ACT review and freeze first paired hard-negative set
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH02_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch02.csv`
+
+At the frozen Badar source pin, all 31 July XAUUSD trade-table rows are now reviewed.
+
+Disposition:
+- 29 rows represented by 28 independent ACT events;
+- one same-plan add-on pair remains collapsed;
+- 2 pre-stream Exness-history fills remain excluded because contemporaneous decision evidence is absent.
+
+Batch 02 adds:
+- 17 ACT events;
+- 8 LONG / 9 SHORT;
+- 12 explicit P3 REJECT/WAIT events.
+
+Cumulative:
+- 28 ACT;
+- 16 LONG;
+- 12 SHORT;
+- 12 ACT dates;
+- 12 REJECT/WAIT;
+- 12 paired ACT+REJECT dates.
+
+The July 28 TradingView/paper decisions remain eligible P2 decision commitments but explicitly carry PAPER_OR_SIMULATION broker status.
+
+Legacy source-table confidence is not an eligibility rule; direct/corroborated Stage 3B source evidence controls.
+
+Stage 3B source adequacy remains unresolved.
+
+Immediate next safe work:
+continue ACT + P3 source construction into August, with no provider market join.
+
+D-088 remains closed. No model fitting or CI is authorized.

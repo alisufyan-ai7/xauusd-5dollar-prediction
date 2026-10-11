@@ -2336,3 +2336,39 @@ D-088 remains controlling:
 - no Stage 3B market join or fitting;
 - 2022-2025 remain sealed;
 - no CI is needed for this source-only batch.
+
+
+## Stage 3B July source-event construction complete
+
+Decision record:
+D-101
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH02_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch02.csv`
+
+All July XAUUSD trade-table rows at the frozen Stage 3B source pin are now reviewed.
+
+Cumulative Stage 3B primary source state:
+- ACT: 28;
+- LONG: 16;
+- SHORT: 12;
+- ACT dates: 12;
+- explicit REJECT/WAIT: 12;
+- paired ACT+REJECT dates: 12.
+
+The first paired hard-negative set contains one explicit source rejection/wait on each July ACT date.
+
+Adequacy remains:
+`UNRESOLVED — SOURCE EVENT CONSTRUCTION IN PROGRESS`.
+
+Immediate next safe task:
+continue the same ACT + P3 adjudication into August, using the pinned Badar source only.
+
+D-088 remains controlling:
+- no 2026 provider XAUUSD;
+- no market join/fitting;
+- 2022-2025 remain sealed;
+- no CI needed for source-only construction.
