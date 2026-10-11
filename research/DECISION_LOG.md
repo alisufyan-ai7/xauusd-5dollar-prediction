@@ -3146,3 +3146,47 @@ Immediate next safe work:
 adjudicate Aug 13 and Aug 17, and begin collecting multiple valid P3 events per date rather than only one paired negative.
 
 D-088 remains closed. No provider market join, fitting or CI is authorized.
+
+
+---
+
+## D-104 — Freeze Stage 3B source-event Batch 05 for Aug 13 + 17
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH05_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch05.csv`
+
+Scope:
+all six pinned XAUUSD trade-table rows on Aug 13 and Aug 17 plus all distinct source-supported P3 decisions reviewed in this bounded chunk.
+
+ACT disposition:
+- 4 primary-eligible ACT;
+- 2 London chart-box rows excluded because Badar personal commitment is not established at E1/E2 confidence.
+
+New P3 events:
+- 11 total;
+- 6 on Aug 13;
+- 5 on Aug 17.
+
+Cumulative:
+- 56 ACT;
+- 27 LONG;
+- 29 SHORT;
+- 19 ACT dates;
+- 28 REJECT/WAIT;
+- 19 paired ACT+REJECT dates.
+
+Task B now needs only 1 additional ACT date.
+
+Task A needs:
+- 12 additional explicit P3 events;
+- 1 additional paired date.
+
+Multiple P3 events on one date are retained only when they represent materially distinct later decision states; arbitrary no-trade minutes remain prohibited.
+
+Immediate next safe work:
+adjudicate Aug 28 + Aug 31, prioritizing at least one paired P3 on the next ACT date and continuing the explicit reject-event count.
+
+D-088 remains closed. No provider market join, fitting or CI is authorized.
