@@ -3190,3 +3190,48 @@ Immediate next safe work:
 adjudicate Aug 28 + Aug 31, prioritizing at least one paired P3 on the next ACT date and continuing the explicit reject-event count.
 
 D-088 remains closed. No provider market join, fitting or CI is authorized.
+
+
+---
+
+## D-105 — Freeze Stage 3B source-event Batch 06; minimum numerical adequacy floors are now reached
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH06_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch06.csv`
+
+Scope:
+all six pinned XAUUSD trade-table rows on Aug 28 and Aug 31 plus every distinct explicit P3 decision found in the bounded source review.
+
+Batch:
+- 6 ACT;
+- 2 LONG / 4 SHORT;
+- 4 P1 live-real;
+- 2 P2 live Badar commitments;
+- 13 explicit P3 REJECT/WAIT events.
+
+Cumulative through August:
+- 62 ACT;
+- 29 LONG;
+- 33 SHORT;
+- 21 ACT dates;
+- 41 REJECT/WAIT;
+- 21 paired ACT+REJECT dates.
+
+The minimum D-099 numerical source floors are now met for both Task A and Task B.
+
+This does **not** authorize stopping construction at the threshold.
+
+The pinned corpus still contains September/October source dates. Stage 3B V1 must continue chronologically and freeze the complete source-derived event table before any market join.
+
+Therefore:
+- minimum adequacy = numerically reached;
+- final source adequacy certification = pending complete source construction + QA;
+- D-088 remains closed.
+
+Immediate next safe work:
+Sep 2 + Sep 4 source-only ACT/P3 adjudication.
+
+No provider market data, fitting or CI is authorized.
