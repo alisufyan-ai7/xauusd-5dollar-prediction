@@ -3398,3 +3398,42 @@ Immediate next safe work:
 Sep 22 + Sep 23 source-only adjudication.
 
 D-088 remains closed. No provider market join, fitting or CI is authorized.
+
+
+---
+
+## D-110 — Freeze Stage 3B source-event Batch 11 for Sep 22 + Sep 23
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH11_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch11.csv`
+
+Sep 22 has no pinned XAUUSD trade-table row and no indexed source hit.
+
+Sep 23:
+- 3 source trade rows reviewed;
+- 1 primary Badar ACT event;
+- 2 rows excluded as OTHER_PERSON because they are Zain's trades on Zain's OANDA chart;
+- 1 SHORT / P2 / E1;
+- 7 new P3 events.
+
+`OpMzvMNNrHM#3` is retained because the stream returns to Badar's own chart and he directly commits: `It is not completely closed inside. But let's do it.`
+
+Cumulative:
+- 83 ACT;
+- 41 LONG;
+- 42 SHORT;
+- 30 ACT dates;
+- 101 REJECT/WAIT;
+- 30 paired ACT+REJECT dates.
+
+All D-099 numerical adequacy floors remain exceeded.
+
+Final QA must explicitly account for every source row, including other-person exclusions, rather than assuming every trade-table row maps to a Badar event.
+
+Immediate next safe work:
+Sep 24 + Sep 25 source-only adjudication.
+
+D-088 remains closed. No provider market join, fitting or CI is authorized.
