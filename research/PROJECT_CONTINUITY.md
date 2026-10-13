@@ -2630,3 +2630,49 @@ D-088 remains controlling:
 - no Stage 3B market join/fitting;
 - 2022-2025 remain sealed;
 - no CI needed for source-only construction.
+
+
+## Stage 3B Sep 16 + Sep 17 source-event sub-batch complete
+
+Decision record:
+D-108
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH09_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch09.csv`
+
+Batch:
+- 6 source trade rows;
+- 4 independent Badar ACT events;
+- 3 LONG;
+- 1 SHORT;
+- 12 new P3 events.
+
+One ambiguous source row was excluded:
+`y2Oun9g9abk#2`.
+
+One scaled pair was collapsed:
+`6trb-6A2t6Q#1/#2`.
+
+Cumulative:
+- ACT: 79;
+- LONG: 39;
+- SHORT: 40;
+- ACT dates: 27;
+- REJECT/WAIT: 81;
+- paired ACT+REJECT dates: 27.
+
+All frozen numerical adequacy floors remain met.
+
+The final non-table ACT backfill remains mandatory; Sep 17 contains another explicit placed limit that never appears as a filled trade-table row.
+
+Immediate next safe task:
+Sep 18 + Sep 21 chronological source review under unchanged rules.
+
+D-088 remains controlling:
+- no 2026 provider XAUUSD;
+- no Stage 3B market join/fitting;
+- 2022-2025 remain sealed;
+- no CI needed for source-only construction.
