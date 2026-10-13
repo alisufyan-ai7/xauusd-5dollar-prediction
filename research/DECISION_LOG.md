@@ -3361,3 +3361,40 @@ Immediate next safe work:
 Sep 18 + Sep 21 source-only adjudication.
 
 D-088 remains closed. No provider market join, fitting or CI is authorized.
+
+
+---
+
+## D-109 — Freeze Stage 3B source-event Batch 10 for Sep 18 + Sep 21
+
+Findings:
+`research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH10_FINDINGS.md`
+
+Artifact:
+`research/reference/information-parity-v1/stage3b-source-events-v1-batch10.csv`
+
+Scope:
+all four pinned XAUUSD trade-table rows on Sep 18 and Sep 21 plus all distinct explicit Badar P3 decisions retained in this bounded review.
+
+Disposition:
+- 4 source rows -> 3 primary Badar ACT events;
+- 2 LONG / 1 SHORT;
+- 2 P1 / 1 P2;
+- 13 new P3 events.
+
+`qTSedn6hEp8#3` is conservatively excluded because the source documents the trade plan/result but does not establish Badar's own current commitment strongly enough for E1/E2 personal ACT ownership.
+
+Cumulative:
+- 82 ACT;
+- 41 LONG;
+- 41 SHORT;
+- 29 ACT dates;
+- 94 REJECT/WAIT;
+- 29 paired ACT+REJECT dates.
+
+All D-099 numerical adequacy floors remain exceeded.
+
+Immediate next safe work:
+Sep 22 + Sep 23 source-only adjudication.
+
+D-088 remains closed. No provider market join, fitting or CI is authorized.
