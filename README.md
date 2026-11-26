@@ -6,8 +6,9 @@ Clean-room research project for testing whether XAU/USD contains identifiable ma
 
 - Repository initialized from scratch.
 - Clean-room context policy established on `main`.
-- Active research branch: `research/exp001-foundation`.
-- EXP-001 is specification-only at this stage.
+- Active Stage 3B source-construction branch: `research/information-parity-v1-stage3-preregistration`.
+- Latest frozen decision: D-113 / Stage 3B Batch 14 (Sep 30 + Oct 1). See `research/PROJECT_CONTINUITY.md` and `research/DECISION_LOG.md` for authoritative state.
+- Information Parity V1 Stage 2 is accepted on 2016-2021 TRAIN; Stage 3B empirical market join and fitting remain blocked by D-088.
 - No trading or broker mutation is enabled.
 
 ## Initial research question

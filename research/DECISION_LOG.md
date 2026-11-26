@@ -3515,3 +3515,17 @@ Sep 30 + Oct 1 source-only adjudication.
 The mandatory non-table ACT backfill and source-row coverage audit remain required before final source certification.
 
 D-088 remains closed. No provider market join, fitting or CI is authorized.
+
+
+---
+
+## D-113 — Freeze Stage 3B source-event Batch 14 for Sep 30 + Oct 1
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH14_FINDINGS.md`
+Artifact: `research/reference/information-parity-v1/stage3b-source-events-v1-batch14.csv`
+
+Four pinned XAUUSD source trade rows resolved into two Badar-owned P2/E1 SHORT ACT decisions. Sep 30 #1 excluded: team/VIP trade, Badar explicitly did not take it. Sep 30 #2/#3 collapsed to one current sell thesis with a smaller follow-on entry. Oct 1 #1 is a separate M15-close short. Seven distinct explicit Badar P3 REJECT/WAIT decisions retained (Sep 30 three; Oct 1 four), avoiding generic teaching and repeated same-plan conditions.
+
+Cumulative: 95 ACT / 43 LONG / 52 SHORT / 36 ACT dates / 137 P3 REJECT-WAIT / 36 paired dates. Numerical D-099 floors exceeded; final source QA outstanding.
+
+Immediate next source-only work: Oct 2, Oct 6 and Oct 8, then non-table ACT backfill and complete source-row/temporal/timezone audit and final merged CSV/hash. D-088 closed, no market joins/fitting/CI.
