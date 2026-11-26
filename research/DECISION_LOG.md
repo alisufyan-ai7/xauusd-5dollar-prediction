@@ -3669,3 +3669,10 @@ Still prohibited: 2022–2025, Oct9–Nov30 2026, December shadow, 2027, new sym
 ## D-125 — Admit exact D-124 SHA and trigger one no-provider exact-runtime preflight
 
 D-124 commit `c99ad84e4b7254d074b96df7a5f4c371ccbe01c2` is the sole approved final-decision SHA in the Stage 3B execution guard and machine-readable plan. The plan changes to FINAL_APPROVED for that exact scope. Added a CPython 3.12.14/full-lock environment checker and a path-isolated workflow triggered only by `.github/stage3b-2026-exact-preflight-trigger`. The triggered job downloads **no provider market data** and fits **no model**; it is justified because the current local Python 3.13.5 environment cannot certify the frozen runtime. Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D125_FINDINGS.md`.
+
+
+---
+
+## D-126 — Exact Stage 3B runtime preflight PASS
+
+GitHub Actions run **45896702785** / job **140172268991** on D-125 head `15b408dbffbf43e9eee0e124ff506ade119f7fc5` succeeded. Verified CPython3.12.14 and the complete frozen Stage3B package lock; **22/22** guard tests passed and D-124 authorization/source hashes were verified. No market data or fitting. Exact-runtime blocker is resolved; proceed to the single authorized bounded provider/build/benchmark implementation and one-attempt execution after static guard review.

@@ -2959,3 +2959,8 @@ Not permitted: 2022–2025, Oct9–Nov30, December shadow, 2027, extra providers
 ## D-125 — D-124 execution token admitted; exact-runtime preflight triggered
 
 Exact owner authorization SHA `c99ad84e4b7254d074b96df7a5f4c371ccbe01c2` is admitted in the execution guard and machine-readable plan, which is now FINAL_APPROVED for the bounded D-124 package. A path-isolated GitHub Actions preflight was added and triggered solely to reproduce CPython 3.12.14 plus the frozen dependency lock and deterministic guard tests. **This D-125 job performs no provider market acquisition and no fitting.** If PASS, next work is final static review/implementation of the one bounded provider+benchmark run, then execution under D-124. D-088 remains superseded only for the exact bounded exception.
+
+
+## D-126 — Exact pinned Stage 3B runtime PASS
+
+Run **45896702785**, job **140172268991**, head `15b408dbffbf43e9eee0e124ff506ade119f7fc5`: exact CPython3.12.14 + frozen lock verified and **22/22** Stage3B deterministic tests passed. No provider data or model fitting. Exact-runtime prerequisite is closed. Next authorized step under D-124: implement/review the single bounded provider acquisition + causal build + frozen benchmark workflow, then execute one attempt only if guards pass.

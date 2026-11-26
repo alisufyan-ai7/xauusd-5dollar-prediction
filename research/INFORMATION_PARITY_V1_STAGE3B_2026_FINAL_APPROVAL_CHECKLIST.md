@@ -77,4 +77,4 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] D-124 SHA admitted as the sole execution token.
 - [x] Machine-readable plan changed to FINAL_APPROVED for the exact bounded package; broker remains false.
 - [x] Path-isolated exact-runtime no-provider workflow created/triggered.
-- [ ] Record the exact-runtime CI result before any provider call.
+- [x] D-126 exact-runtime CI PASS: run 45896702785 / job 140172268991; CPython3.12.14 frozen lock verified, 22/22 tests pass, no provider data/model fit.

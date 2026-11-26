@@ -53,9 +53,9 @@ Still forbidden:
 D-088 is **partially superseded only for this exact D-124 exception**.
 
 ### Immediate execution order
-1. inspect the D-125 exact-runtime no-provider CI result; D-124 SHA is already the sole admitted execution token;
-2. if PASS, finish static review/implementation of the single bounded provider/build/benchmark workflow;
-3. execute the authorized one-attempt provider acquisition and frozen benchmark;
+1. D-126 exact-runtime preflight already PASSED (run 45896702785); finish static review/implementation of the single bounded provider/build/benchmark workflow;
+2. execute the authorized one-attempt provider acquisition only after fail-closed wrapper review;
+3. validate manifests/date-symbol-budget/causality, then run the frozen Stage 3B benchmark;
 4. execute only one bounded provider acquisition/build after preflight PASS;
 5. validate raw/normalized manifests, date/symbol/budget/sealed-year/missingness/causality;
 6. build Stage 3B dataset using frozen source intervals/features;
