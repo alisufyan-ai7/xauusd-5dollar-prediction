@@ -78,3 +78,15 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Machine-readable plan changed to FINAL_APPROVED for the exact bounded package; broker remains false.
 - [x] Path-isolated exact-runtime no-provider workflow created/triggered.
 - [x] D-126 exact-runtime CI PASS: run 45896702785 / job 140172268991; CPython3.12.14 frozen lock verified, 22/22 tests pass, no provider data/model fit.
+
+
+## D-127 pipeline implementation gate
+
+- [x] Strict bounded provider/date/symbol/raw-size validator implemented.
+- [x] Bounded cold-start causal information-layer builder implemented.
+- [x] Frozen D-116 teacher-to-market join implemented for 250 eligible events / expected 343 candidate minutes.
+- [x] Frozen GOLD/FULL 39-date LODO logistic benchmark, bootstrap and advancement rule implemented.
+- [x] One-attempt production provider workflow implemented **without its trigger file**.
+- [x] Synthetic exact-runtime end-to-end rehearsal workflow and trigger committed.
+- [ ] D-127 synthetic rehearsal must PASS before the single real provider attempt is triggered.
+- [ ] Real provider attempt remains unspent at D-127 commit time.

@@ -2964,3 +2964,12 @@ Exact owner authorization SHA `c99ad84e4b7254d074b96df7a5f4c371ccbe01c2` is admi
 ## D-126 — Exact pinned Stage 3B runtime PASS
 
 Run **45896702785**, job **140172268991**, head `15b408dbffbf43e9eee0e124ff506ade119f7fc5`: exact CPython3.12.14 + frozen lock verified and **22/22** Stage3B deterministic tests passed. No provider data or model fitting. Exact-runtime prerequisite is closed. Next authorized step under D-124: implement/review the single bounded provider acquisition + causal build + frozen benchmark workflow, then execute one attempt only if guards pass.
+
+
+## D-127 — Production bounded Stage 3B pipeline implemented; synthetic end-to-end rehearsal only
+
+The exact D-124 production surface is now implemented but the **one real provider attempt is deliberately not yet spent**. New scripts cover strict provider file/date/size validation, bounded June1 cold-start Information Parity construction, D-116 event-to-market joining, and the frozen GOLD/FULL L2-logistic 39-date LODO benchmark with paired 10,000-date bootstrap. The production acquisition wrapper deletes raw provider payloads after compact identities are frozen and keeps the 350 MiB raw / 750 MiB normalized caps.
+
+A separate exact-runtime synthetic workflow uses the **real frozen 250-event teacher corpus and exact 155-feature schema with deterministic fake market prices** to exercise the complete join/preprocessing/model/reporting surface before real data. D-127 adds the production provider workflow but **does not add its one-time trigger file**. Therefore this commit can trigger only the no-provider synthetic rehearsal.
+
+Immediate next step: inspect/poll the D-127 synthetic workflow. If PASS, record that result and only then commit the one-time authorized provider trigger. If FAIL, repair deterministically without consuming the provider attempt. D-124 authorization remains active; 2022–2025, quarantine/shadow, extra sources/models and broker actions remain forbidden.

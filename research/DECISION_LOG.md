@@ -3676,3 +3676,20 @@ D-124 commit `c99ad84e4b7254d074b96df7a5f4c371ccbe01c2` is the sole approved fin
 ## D-126 — Exact Stage 3B runtime preflight PASS
 
 GitHub Actions run **45896702785** / job **140172268991** on D-125 head `15b408dbffbf43e9eee0e124ff506ade119f7fc5` succeeded. Verified CPython3.12.14 and the complete frozen Stage3B package lock; **22/22** guard tests passed and D-124 authorization/source hashes were verified. No market data or fitting. Exact-runtime blocker is resolved; proceed to the single authorized bounded provider/build/benchmark implementation and one-attempt execution after static guard review.
+
+
+---
+
+## D-127 — Implement bounded provider/build/benchmark pipeline; rehearse end-to-end with fake market data first
+
+Implemented the production D-124 pipeline before spending the single provider attempt:
+- strict eight-series Jun1–Oct9 provider validator and raw-byte cap;
+- bounded June1 cold-start layer builder reusing accepted Stage2 causal transforms;
+- exact D-116 teacher join: 250 eligible events / expected 343 source candidate minutes;
+- frozen GOLD/FULL L2 logistic, 39 source-date LODO, event/class weighting, event mean pooling, Task A/Task B metrics, 10,000 paired-date bootstrap and frozen advancement rule;
+- one-attempt acquisition wrapper with raw provider deletion before artifact upload;
+- production provider workflow guarded by a **separate trigger path that is not yet present**.
+
+D-127 itself triggers only `.github/workflows/stage3b-2026-pipeline-preflight.yml`, which generates deterministic fake market state around the real frozen teacher times and runs the entire pipeline under the exact runtime. This rehearsal makes no provider market call. The one real D-124 attempt may be triggered only after this synthetic workflow passes and its result is recorded.
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D127_FINDINGS.md`.
