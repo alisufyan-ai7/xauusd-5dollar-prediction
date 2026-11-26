@@ -1,6 +1,6 @@
 {
   "schema": "IPV1_STAGE3B_2026_ACQUISITION_AND_MACRO_PREFLIGHT_V1",
-  "status": "RECOVERY_READY_ONE_ATTEMPT",
+  "status": "RECOVERY_ATTEMPT_CONSUMED_HTTP_403_ACCESS_DENIED",
   "owner_provider_rights": "OWNER_ATTESTED_EXISTING_LICENSE",
   "owner_final_execution_approval_commit": "c99ad84e4b7254d074b96df7a5f4c371ccbe01c2",
   "source_dataset_sha256": "8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd",
@@ -35,10 +35,10 @@
   "max_attempts": 1,
   "raw_bytes_cap": 367001600,
   "normalized_bytes_cap": 786432000,
-  "provider_download_enabled": true,
-  "model_fit_enabled": true,
+  "provider_download_enabled": false,
+  "model_fit_enabled": false,
   "broker_enabled": false,
-  "ci_provider_job_enabled": true,
+  "ci_provider_job_enabled": false,
   "source_memory_bootstrap": {
     "mode": "EXPLICIT_BOUNDED_COLD_START",
     "start": "2026-06-01T00:00:00Z",
@@ -72,17 +72,15 @@
     "raw_size_limit_enforced": true
   },
   "must_reverify_before_any_future_provider_call": [
-    "new explicit transport-recovery authorization after D-132 attempt consumption",
-    "new pinned provider transport identity and no-network regression tests",
-    "same D-124 date and symbol fence unless separately changed",
-    "same payload/cost caps unless separately changed",
-    "all source/feature/fold identities unchanged",
+    "new explicit owner authorization for a different provider-access strategy after D-136 recovery consumption",
+    "new pinned access/transport identity and deterministic no-provider tests",
+    "same D-124 scientific scope unless separately changed",
     "no sealed-year, quarantine or shadow access",
     "no raw GitHub upload"
   ],
   "authorization_scope": "D-124 exact bounded exception only; broker/shadow/sealed years remain forbidden",
   "authorization_record": "research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md",
-  "explanation": "D-134 authorizes one transport-only recovery attempt. D-135 exact-runtime/no-market-provider preflight passed (run 45901246019, job 140187267884), so D-136 enables exactly one recovery provider attempt using dukascopy-node 1.51.1. No rerun.",
+  "explanation": "D-136 consumed the one D-134 transport-recovery attempt. The 1.51.1 XAUUSD BID sanity endpoint returned plain HTTP 403 with no WAF token used; no market file was saved, full acquisition/model fitting never started, and Stage 3B remains NOT TESTED. All provider/model recovery execution is disabled; any future provider-access strategy requires a new decision.",
   "attempt_consumed": true,
   "attempt_record": {
     "decision": "D-132",
@@ -116,11 +114,11 @@
       "end": "2026-06-02T00:00:00Z"
     },
     "max_recovery_attempts": 1,
-    "recovery_attempts_consumed": 0,
+    "recovery_attempts_consumed": 1,
     "rerun_allowed": false,
-    "provider_enabled": true,
-    "model_fit_enabled": true,
-    "current_gate": "D135_EXACT_RUNTIME_PREFLIGHT_PASS_RECOVERY_READY",
+    "provider_enabled": false,
+    "model_fit_enabled": false,
+    "current_gate": "RECOVERY_CONSUMED_FAIL_CLOSED",
     "preflight": {
       "status": "PASS",
       "workflow_run_id": 45901246019,
@@ -131,6 +129,37 @@
       "python": "3.12.14",
       "tests_passed": 30,
       "chromium": "Chrome for Testing 156.0.8078.4 / playwright chromium v1248"
+    },
+    "execution_record": {
+      "decision": "D-136",
+      "commit": "c20e987e559f9ed4a1c7d8d5674e017baeb211b9",
+      "workflow_run_id": 45901570026,
+      "workflow_job_id": 140188341343,
+      "workflow_attempt": 1,
+      "transport_package": "dukascopy-node",
+      "transport_version": "1.51.1",
+      "sanity_symbol": "XAUUSD_BID",
+      "sanity_url": "https://jetta.dukascopy.com/v1/candles/minute/XAU-USD/BID/2026/6/1",
+      "sanity_bounds_utc_half_open": {
+        "start": "2026-06-01T00:00:00Z",
+        "end": "2026-06-02T00:00:00Z"
+      },
+      "observed_http_status": 403,
+      "waf_token_used": false,
+      "classification": "HTTP_403_ACCESS_DENIED",
+      "file_saved": false,
+      "usable_provider_rows": 0,
+      "full_eight_series_acquisition_started": false,
+      "dataset_built": false,
+      "model_fit": false,
+      "scientific_result": "NOT_TESTED",
+      "compact_artifact_id": 15156486347,
+      "compact_artifact_digest": "sha256:3c12148febd6ae8f624510541440750064a52b5a301d42a5e6b62888eb119742",
+      "compact_artifact_files": [
+        "reports/transport-sanity-xauusd-bid.json",
+        "reports/compact-evidence-sha256.txt",
+        "reports/transport-sanity-xauusd-bid.log"
+      ]
     }
   }
 }

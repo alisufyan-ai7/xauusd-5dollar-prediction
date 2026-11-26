@@ -1,6 +1,6 @@
 # Stage 3B 2026 — Provider Transport Recovery Proposal
 
-**STATUS: D-134 OWNER AUTHORIZED — IMPLEMENTATION PREFLIGHT REQUIRED BEFORE THE SINGLE RECOVERY ATTEMPT**
+**STATUS: CONSUMED — D-136 RECOVERY ATTEMPT FAILED WITH PLAIN HTTP 403; NO RERUN**
 
 Parent decisions: D-124 and D-133.
 
@@ -55,3 +55,10 @@ The sanity request is part of the one recovery attempt, not an extra attempt.
 The owner explicitly authorized **one transport-recovery attempt** under this proposal using pinned `dukascopy-node 1.51.1`, with all D-124 scientific scope unchanged. No licence paperwork is requested; the existing owner-attested Dukascopy permission remains accepted.
 
 Execution remains provider-disabled until the exact D-134 authorization commit SHA is admitted into the recovery guard, 1.51.1 diagnostics are implemented, and the no-provider exact-runtime regression passes. No further owner approval is required after those prerequisites; no rerun is authorized.
+
+
+## D-137 closure
+
+The D-134-authorized one recovery attempt was consumed by D-136. Pinned `dukascopy-node 1.51.1` requested the fixed XAUUSD BID Jun1→Jun2 sanity endpoint and received a plain HTTP 403 with `WAF token: no`. The library correctly did not treat a plain 403 as a WAF challenge. No file was saved, the full eight-series acquisition did not start, and no model was fitted.
+
+This recovery proposal is therefore **closed/consumed**. It is not permission for another attempt. Any future access strategy must be separately proposed and authorized.

@@ -181,5 +181,18 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Exact D-134 SHA remains required.
 - [x] Separate recovery workflow requires exact trigger + commit marker + GITHUB_RUN_ATTEMPT=1.
 - [x] Same-attempt sanity request precedes any full acquisition.
-- [ ] Monitor D-136 recovery workflow and compact evidence; never rerun it.
-- [ ] Record Stage3B result only if all eight files validate and frozen models actually fit.
+- [x] D-136 recovery workflow inspected: run 45901570026 / job 140188341343; sanity request returned plain HTTP 403 with WAF token=no; **never rerun**.
+- [x] No scientific result recorded because all-eight validation/model fit never occurred; Stage3B remains **NOT TESTED**.
+
+
+## D-137 recovery closure
+
+- [x] D-134 one recovery attempt consumed.
+- [x] Direct observed response = HTTP 403 on XAUUSD BID sanity endpoint; WAF token not used.
+- [x] No sanity/full provider CSV saved; usable rows = 0.
+- [x] Full eight-series acquisition did not start.
+- [x] No candidate dataset and no model fit.
+- [x] Compact artifact 15156486347 verified; exactly three sanitized evidence files, no market/model payload.
+- [x] Recovery plan and executable guard disabled/fail-closed; authorization allowlist empty.
+- [x] Stage3B scientific state = NOT TESTED.
+- [ ] Any future provider attempt requires a **new explicit provider-access strategy authorization**; do not rerun D-134/D-136.

@@ -3044,3 +3044,12 @@ Provider/model execution remains **disabled** at D-135. The triggered exact-runt
 D-135 run **45901246019** / job **140187267884** succeeded: Node22.23.3, npm10.9.9, Python3.12.14, exact Python lock, 1.51.1 WAF CLI surface, matching Chromium install, **30/30** deterministic tests and full synthetic pipeline all PASS with no market-provider request.
 
 D-136 enables the D-134 recovery guard for exactly one attempt and commits a separate one-time recovery workflow/trigger. It requires the exact D134 SHA, exact trigger contents, D135 run identity and `GITHUB_RUN_ATTEMPT=1`. The first market action is the Jun1→Jun2 XAUUSD BID sanity request; only a valid sanity result allows the same job to continue to the unchanged eight-series acquisition/build/benchmark. **Never rerun this recovery workflow.**
+
+
+## D-137 — D-134 recovery consumed on direct HTTP 403; Stage3B remains NOT TESTED
+
+D-136 run **45901570026** / job **140188341343** passed the exact trigger/runtime/browser/no-provider guards, then the single 1.51.1 XAUUSD BID Jun1→Jun2 sanity request hit the generated daily endpoint and received **plain HTTP 403 (WAF token: no)**. 1.51.1 correctly stopped rather than treating a plain 403 as a WAF challenge. No market file was saved, full eight-series acquisition did not start, and no dataset/model fit occurred.
+
+Artifact **15156486347**, digest `sha256:3c12148febd6ae8f624510541440750064a52b5a301d42a5e6b62888eb119742`, contains exactly the sanitized sanity JSON/log/hash list and no market/model payload. The D-134 recovery attempt is consumed; provider/model/CI-provider execution is disabled and recovery allowlist emptied. Stage3B remains **NOT TESTED**.
+
+Immediate owner-independent work may research provider/upstream access options and design a new access strategy without making any market request. Any future live provider attempt requires a new explicit owner decision; it cannot be treated as a rerun of D-134.

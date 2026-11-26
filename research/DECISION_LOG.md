@@ -3797,3 +3797,16 @@ D-135 exact-runtime/no-market-provider run **45901246019** / job **140187267884*
 D-136 changes recovery state to `RECOVERY_READY_ONE_ATTEMPT`, enables provider/model execution only for the D134 recovery scope, and adds the one-time `stage3b-2026-transport-recovery` workflow. The workflow is fail-closed on exact trigger, preflight identity and run_attempt=1. No rerun is authorized.
 
 Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D136_RECOVERY_TRIGGER_FINDINGS.md`.
+
+
+---
+
+## D-137 — D-136 recovery attempt consumed by direct provider HTTP 403; no scientific test occurred
+
+D-136 run **45901570026** / job **140188341343** used pinned `dukascopy-node 1.51.1`. Its fixed XAUUSD BID Jun1→Jun2 sanity endpoint returned **HTTP 403** with **WAF token: no**. The library reported that WAF recovery does not apply to a plain 403 and stopped. No market file was saved, no full acquisition occurred, and no model fit occurred.
+
+Compact artifact **15156486347** (digest `sha256:3c12148febd6ae8f624510541440750064a52b5a301d42a5e6b62888eb119742`) contains only three sanitized evidence files. Stage3B remains `NOT TESTED`.
+
+D-134 authorization is now consumed. Machine status `RECOVERY_ATTEMPT_CONSUMED_HTTP_403_ACCESS_DENIED`; provider/model/CI-provider flags false; recovery allowlist empty. No rerun. A future provider attempt requires a newly preregistered/authorized provider-access strategy, not another transport retry.
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D137_RECOVERY_FAILURE_FINDINGS.md`.
