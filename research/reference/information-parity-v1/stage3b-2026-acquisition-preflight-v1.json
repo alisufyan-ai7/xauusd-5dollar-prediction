@@ -1,6 +1,6 @@
 {
   "schema": "IPV1_STAGE3B_2026_ACQUISITION_AND_MACRO_PREFLIGHT_V1",
-  "status": "FINAL_APPROVED",
+  "status": "ATTEMPT_CONSUMED_PROVIDER_TRANSPORT_FAILURE",
   "owner_provider_rights": "OWNER_ATTESTED_EXISTING_LICENSE",
   "owner_final_execution_approval_commit": "c99ad84e4b7254d074b96df7a5f4c371ccbe01c2",
   "source_dataset_sha256": "8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd",
@@ -35,10 +35,10 @@
   "max_attempts": 1,
   "raw_bytes_cap": 367001600,
   "normalized_bytes_cap": 786432000,
-  "provider_download_enabled": true,
-  "model_fit_enabled": true,
+  "provider_download_enabled": false,
+  "model_fit_enabled": false,
   "broker_enabled": false,
-  "ci_provider_job_enabled": true,
+  "ci_provider_job_enabled": false,
   "source_memory_bootstrap": {
     "mode": "EXPLICIT_BOUNDED_COLD_START",
     "start": "2026-06-01T00:00:00Z",
@@ -72,17 +72,34 @@
     "raw_size_limit_enforced": true
   },
   "must_reverify_before_any_future_provider_call": [
-    "commit-exact final owner approval",
-    "authorized download method and data entitlement",
-    "date and symbol fence",
-    "payload/cost cap",
-    "runtime exact pins",
-    "all source manifests hashes",
-    "macro year completeness or predefined failclosed absence",
-    "no sealed-year access",
+    "new explicit transport-recovery authorization after D-132 attempt consumption",
+    "new pinned provider transport identity and no-network regression tests",
+    "same D-124 date and symbol fence unless separately changed",
+    "same payload/cost caps unless separately changed",
+    "all source/feature/fold identities unchanged",
+    "no sealed-year, quarantine or shadow access",
     "no raw GitHub upload"
   ],
   "authorization_scope": "D-124 exact bounded exception only; broker/shadow/sealed years remain forbidden",
   "authorization_record": "research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md",
-  "explanation": "D-124 final owner authorization recorded. Provider/model actions may proceed only after exact-runtime preflight passes and only within this manifest."
+  "explanation": "D-132 spent the single D-124 provider attempt. First XAUUSD BID M1 download returned a zero-byte file; fail-closed validation stopped all later acquisition/build/model steps. Further provider execution requires a new separately recorded transport-recovery authorization.",
+  "attempt_consumed": true,
+  "attempt_record": {
+    "decision": "D-132",
+    "commit": "707bdf424b4a810c93dc9ae7d30a07aff245582c",
+    "workflow_run_id": 45898796339,
+    "workflow_job_id": 140179219355,
+    "workflow_attempt": 1,
+    "first_provider_symbol": "XAUUSD_BID",
+    "provider_request_started": true,
+    "provider_file_bytes": 0,
+    "usable_provider_rows": 0,
+    "result": "ZERO_BYTE_FILE",
+    "later_provider_symbols_requested": false,
+    "dataset_built": false,
+    "model_fit": false,
+    "scientific_result": "NOT_TESTED",
+    "compact_artifact_id": 15155230246,
+    "compact_artifact_digest": "sha256:1ffaac4dc19f6b4edaf8075ef197a53cd0b182fabf57bf7d7dfe0ace92cf8e14"
+  }
 }

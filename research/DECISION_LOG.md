@@ -3748,3 +3748,19 @@ D-131 exact-runtime no-provider regression run **45898582347** succeeded. D-132 
 D-132 is the single real acquisition attempt. No rerun is allowed. The run is restricted to the D-124 date/symbol/budget/cold-start/macro/model scope; outputs are compact evidence only after raw/derived payload removal.
 
 Findings/trigger record: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D132_FINDINGS.md`.
+
+
+---
+
+## D-133 — Consume D-124 attempt on zero-byte provider transport failure; Stage 3B NOT TESTED
+
+D-132 run **45898796339** / job **140179219355** reached the first XAUUSD BID provider request and received a zero-byte output. The local non-empty-file guard stopped execution. No subsequent provider series, normalized layer, candidate dataset or model fit occurred.
+
+The single D-124 provider attempt is therefore **consumed**. Stage 3B is `NOT TESTED`, not negative. Compact artifact **15155230246** (digest `sha256:1ffaac4dc19f6b4edaf8075ef197a53cd0b182fabf57bf7d7dfe0ace92cf8e14`) contains only failure bookkeeping.
+
+The frozen transport was dukascopy-node 1.50.0. Upstream issue #261 documents WAF-202 empty-result behavior in older JSON-API transport; #264 documents current WAF 202/403 failures; 1.51.1 later added export-widget headers/tighter 403 handling. This supports a transport-failure diagnosis but does not prove D132's exact HTTP code.
+
+Execution is now fail-closed: machine plan status `ATTEMPT_CONSUMED_PROVIDER_TRANSPORT_FAILURE`, provider/model/CI flags false, authorization allowlist empty. A proposed transport-only recovery using pinned 1.51.1 preserves all scientific scope but requires one new explicit owner authorization for one new provider attempt.
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D133_PROVIDER_FAILURE_FINDINGS.md`.
+Recovery proposal: `research/INFORMATION_PARITY_V1_STAGE3B_2026_PROVIDER_TRANSPORT_RECOVERY_PROPOSAL.md`.

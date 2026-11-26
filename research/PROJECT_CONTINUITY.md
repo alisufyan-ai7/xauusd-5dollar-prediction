@@ -3014,3 +3014,12 @@ Next: poll D-131 synthetic regression. If PASS, issue D-132 exact provider trigg
 D-131 no-provider regression **45898582347** passed the corrected checkout-before-trigger ordering and complete synthetic pipeline. D-132 now writes the exact production trigger payload and required D-124 execution marker.
 
 This is the **one real provider acquisition attempt**. Do not rerun or create another provider trigger. Poll the workflow continuously, inspect compact artifact evidence, and record the frozen Stage3B scientific result or execution failure exactly as observed. No rescue tuning and no Stage4/5 automatic progression.
+
+
+## D-133 — D-132 provider transport failure; D-124 attempt consumed
+
+D-132 run **45898796339** / job **140179219355** passed all exact-runtime and no-provider guards, then made the first real provider request: XAUUSD BID M1 for the frozen Jun1–Oct9-exclusive window. The downloader returned a **0-byte file** after ~12.2s and fail-closed validation stopped immediately. No ASK/FX requests, no usable market rows, no layer/dataset, and **no model fit**.
+
+Stage3B empirical recognition remains **NOT TESTED**. Artifact **15155230246**, digest `sha256:1ffaac4dc19f6b4edaf8075ef197a53cd0b182fabf57bf7d7dfe0ace92cf8e14`, contains only a 115-byte compact-hash file and no provider/model output. The one D-124 provider attempt is consumed.
+
+Upstream dukascopy-node issues #261/#264 and the 1.51.1 changelog document October-2026 WAF/transport changes consistent with this failure class, though D132 did not log the exact HTTP code. Current execution plan is disabled/fail-closed. A transport-only recovery proposal at `research/INFORMATION_PARITY_V1_STAGE3B_2026_PROVIDER_TRANSPORT_RECOVERY_PROPOSAL.md` preserves all scientific scope but proposes pinning 1.51.1 and one new recovery attempt. **Do not execute it without the one new explicit recovery authorization.**

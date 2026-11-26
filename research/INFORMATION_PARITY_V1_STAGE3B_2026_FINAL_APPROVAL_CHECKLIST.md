@@ -136,5 +136,17 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] All exact-runtime, parser, trigger-order and synthetic end-to-end gates passed.
 - [x] Exact D-132 trigger payload committed with D-124 authorization SHA.
 - [x] Commit message contains required execution marker.
-- [ ] Monitor the **single real provider attempt**; no rerun under any outcome.
-- [ ] Verify compact artifact/raw deletion and record frozen Stage3B result.
+- [x] D-132 single real provider attempt completed with provider transport failure: first XAUUSD BID request returned 0-byte file; no rerun.
+- [x] Compact artifact 15155230246 verified: only 115-byte compact-hash file; raw/derived cleanup ran; Stage3B scientific result = **NOT TESTED** (no model fit).
+
+
+## D-133 provider-failure closure
+
+- [x] One D-124 provider attempt is consumed.
+- [x] First and only requested series was XAUUSD BID; returned zero-byte file; usable rows = 0.
+- [x] Later provider symbols, layer build, candidate join and model fitting did not occur.
+- [x] Current machine plan disabled: ATTEMPT_CONSUMED_PROVIDER_TRANSPORT_FAILURE; provider/model/CI flags false.
+- [x] Execution authorization allowlist emptied; current code fails closed.
+- [x] Upstream WAF/transport evidence documented without claiming unobserved HTTP status.
+- [x] Transport-only 1.51.1 recovery proposal written.
+- [ ] **New explicit owner authorization required** before one transport-recovery provider attempt.

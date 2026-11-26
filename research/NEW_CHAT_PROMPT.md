@@ -1,68 +1,48 @@
 # Ready-to-Use New Chat Prompt — Chat 05
 
-Copy/paste this into Chat 05 when Chat 04 is near its practical context limit.
-
----
-
-You are continuing **XAUUSD 5dollar Prediction** from GitHub. This is **Chat 05**.
+You are continuing the GitHub-backed project **XAUUSD 5dollar Prediction**. This is **Chat 05**.
 
 Repository: `alisufyan-ai7/xauusd-5dollar-prediction`  
 Active branch: `research/information-parity-v1-stage3-preregistration`
 
-GitHub is the source of truth. First fetch the branch HEAD fresh, then read:
+GitHub is the source of truth. First fetch branch HEAD fresh, then read:
 1. `research/PROJECT_CONTINUITY.md`
 2. latest `research/DECISION_LOG.md`
 3. `research/NEW_CHAT_HANDOFF.md`
 4. `research/PROJECT_DOCUMENTATION_PROTOCOL.md`
-5. `research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md`
-6. bounded-2026 protocol, latest D-12x findings, final-approval checklist, machine-readable manifests, actual scripts/tests/workflow files.
+5. `research/INFORMATION_PARITY_V1_STAGE3B_2026_D133_PROVIDER_FAILURE_FINDINGS.md`
+6. `research/INFORMATION_PARITY_V1_STAGE3B_2026_PROVIDER_TRANSPORT_RECOVERY_PROPOSAL.md`
+7. bounded-2026 protocol/checklist/manifests/scripts/tests relevant to current state.
 
-Do not rely on this prompt when GitHub has newer state.
+### Frozen project state
 
-### Core frozen state
-- Stage 2 accepted: 2016–2021 TRAIN.
-- D-116 teacher: 107 ACT / 143 P3 / 39 paired dates / 47 LONG / 60 SHORT.
-- teacher SHA: `8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd`.
-- feature allowlist: 92 GOLD / 155 FULL, SHA `44a73f70a51f3c364ef53c5dc6353443e348e0a86bc9142fa6b8919fbe986104`.
-- fold manifest: 39 LODO folds, SHA `56a1c301cfebc78373793db10d7099aab9391b33e1470c869b714261ba677ec5`.
-- D-120 bounded June1 cold start is explicit; do not claim full-history-equivalent structural state.
-- D-121 macro policy is source-versioned point-in-time or fail closed/unavailable.
-- owner has written Dukascopy automation permission; do not ask for paperwork.
+- Stage2 accepted 2016–2021 TRAIN.
+- D116 teacher: 107 ACT / 143 P3 / 39 paired dates / 47 LONG / 60 SHORT.
+- teacher SHA `8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd`.
+- features: 92 GOLD / 155 FULL; SHA `44a73f70a51f3c364ef53c5dc6353443e348e0a86bc9142fa6b8919fbe986104`.
+- folds: 39 LODO dates; SHA `56a1c301cfebc78373793db10d7099aab9391b33e1470c869b714261ba677ec5`.
+- owner has written Dukascopy automated-data permission; do not ask for paperwork.
+- D124 authorized one bounded provider attempt and model fit.
+- D132 spent that provider attempt: run 45898796339 / job 140179219355.
+- First XAUUSD BID M1 request returned a 0-byte file; no later symbol requested.
+- usable market rows = 0; no dataset/model; Stage3B = **NOT TESTED**.
+- artifact 15155230246 digest `sha256:1ffaac4dc19f6b4edaf8075ef197a53cd0b182fabf57bf7d7dfe0ace92cf8e14`, contains failure bookkeeping only.
+- D133 current plan is disabled/fail-closed; no provider/model/CI execution authorized under D124.
+- likely transport cause is compatible with upstream Oct-2026 WAF changes; frozen 1.50.0 transport predates 1.51.1 fixes, but D132's exact HTTP code was not observed.
 
-### D-124 final owner authorization
-The owner explicitly authorizes the frozen bounded 2026 market acquisition and preregistered Stage 3B model fitting/evaluation **without any further approval request**. D-125 has already admitted the exact D-124 commit SHA and triggered a no-provider exact-runtime preflight.
+### Current action boundary
 
-Authorized:
-- `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z`;
-- XAUUSD BID/ASK and six frozen FX BID M1 series;
-- one capped provider attempt;
-- exact-runtime validation and targeted CI/provider workflow when technically required;
-- D-116 event join;
-- frozen GOLD/FULL L2 logistic Task A/Task B;
-- 39-date LODO, bootstrap and frozen advancement rule.
+Do **not** rerun D132 or issue any provider request under D124.
 
-Still forbidden:
-- 2022–2025;
-- Oct9–Nov30 and December shadow;
-- 2027;
-- extra providers/symbols/features/models/hyperparameter search;
-- Stage4/5 automatic execution;
-- macro actual/forecast/previous/surprise;
-- broker/order mutation.
+A transport-only recovery proposal preserves all science and proposes pinned `dukascopy-node 1.51.1` plus exactly one new recovery attempt. It is **proposal only** until owner explicitly authorizes it.
 
-D-088 is **partially superseded only for this exact D-124 exception**.
+If owner authorizes the transport recovery:
+1. record a new GitHub decision;
+2. pin the new transport and add WAF/HTTP diagnostics;
+3. run only no-provider/static tests first;
+4. execute exactly one new recovery provider attempt inside the same dates/symbols/science;
+5. never rescue-tune teacher/features/model/gates;
+6. keep 2022–2025, quarantine/shadow, Stage4/5 and broker actions blocked;
+7. update all project docs after every material step.
 
-### Immediate execution order
-1. D-131 no-provider regression passed; D-132 exact trigger is committed and the single real provider attempt is active;
-2. poll/inspect the D-132 workflow and compact evidence; **never rerun provider acquisition**;
-3. record the frozen Stage3B scientific result or execution failure exactly, with no rescue tuning and no Stage4/5 automatic progression;
-4. execute only one bounded provider acquisition/build after preflight PASS;
-5. validate raw/normalized manifests, date/symbol/budget/sealed-year/missingness/causality;
-6. build Stage 3B dataset using frozen source intervals/features;
-7. fit/evaluate frozen GOLD and FULL models only;
-8. report preregistered metrics/bootstrap/gate without rescue tuning;
-9. update GitHub docs/handoff after every material step.
-
-Do not blindly trigger CI and do not ask the owner again for an approval already granted.
-
----
+Do not re-ask already-settled licence or general model authorization questions. The only currently needed owner decision is whether to authorize the specifically proposed **one transport-recovery attempt**.
