@@ -3611,3 +3611,14 @@ Owner affirmatively states possession of written permission or licence for autom
 New `research/INFORMATION_PARITY_V1_STAGE3B_2026_D120_FINDINGS.md`, `research/reference/information-parity-v1/stage3b-2026-macro-asof-evidence-v1.json`, `scripts/stage3b_2026_addendum.py`, `tests/test_stage3b_2026_addendum.py`. Calendar review records FOMC's 2024 advance publication and BLS 2026 monthly modification dates, distinguishing reliable earlier schedule from post-release hindsight; unverified future schedules remain missing. Stage 2's indefinite FVG/swing carry requires a **disclosed June1 bounded cold-start** as an initialization addendum for owner final approval, *not* a scope expansion or false 2016–2021 full-history-equivalence claim.
 
 Combined no-provider local standard-library tests **17/17 PASS**, compileall PASS; no CI, provider acquisition or fitting. Exact CPython3.12 environment and full event-calendar coverage remain implementation verification, not a new user permission request. **D-088 CLOSED** until the separately required final approval.
+
+
+---
+
+## D-121 — Commit source-only bounded 2026 acquisition manifest and final-approval guards
+
+Owner-confirmed data access was recorded under D-120. D-121 adds **no provider or market data**. New immutable design manifest `research/reference/information-parity-v1/stage3b-2026-acquisition-preflight-v1.json` (source bounds, eight symbols, one-attempt 350 MiB raw / 750 MiB normalized limits, separate shadow/quarantine, `owner_final_execution_approval_commit=null`). The additional `scripts/stage3b_2026_execution_preflight.py` / `tests/test_stage3b_2026_execution_preflight.py` check manifest identities/approval and inspect package versions without training or network activity.
+
+Combined local standard-library synthetic tests: **21/21 PASS**, CPython 3.13.5 (exact pinned 3.12.14 runtime and pandas/numpy versions **NOT** reproduced). Macro schedule unknowns fail closed to an explicitly unavailable year instead of hindsight. Proposed June1 bounded state initialization is a recognized limitation, **not** claimed full-history Stage2 equivalence. Technical disclosure in `research/INFORMATION_PARITY_V1_STAGE3B_2026_D121_FINDINGS.md`.
+
+D-088 CLOSED; no CI/provider job, training, broker use, shadow data or sealed evaluation years. Final approval is still withheld by the owner and must be expressly requested only when exact-runtime/implementation checks are ready.

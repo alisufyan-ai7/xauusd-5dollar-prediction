@@ -151,3 +151,14 @@ Next: complete **source-only / code-only preflight artifacts and tests**; no mar
 **Guard implementation:** `scripts/stage3b_2026_addendum.py` and `tests/test_stage3b_2026_addendum.py`, 6 new synthetic local tests; combined standard-library preflight 17/17 passes on Python 3.13.5. Exact Python 3.12.14 with pinned Stage 2 numeric packages remains a reproducibility test, not owner input.
 
 D-088 and D-118 final-approval gate remain in full force.
+
+
+---
+
+## D-121 Machine-readable execution scope (still unapproved)
+
+The bounded data-acquisition / macro-missingness plan is frozen as a proposal at `research/reference/information-parity-v1/stage3b-2026-acquisition-preflight-v1.json` with `status=DESIGN_ONLY_NOT_APPROVED` and `owner_final_execution_approval_commit=null`. No provider rows were fetched, and the plan contains no downloader.
+
+Proposed default if a fully source-versioned 2026 six-family calendar remains infeasible: the macro calendar channel is disabled for **all 2026 teacher rows**, `macro_schedule_available=0`, every dependent macro schedule field explicitly unavailable, no retrofilled pseudo-events. Reporting must call this **bounded-source reduced-macro FULL diagnostic**, not an exact recreation of the accepted 2016–2021 full macro calendar. This default is a scientific design choice to be included in the later explicit final owner approval; it is made **before model scores**.
+
+The D-120 bounded June1 structural cold-start remains unchanged. D-088 restrictions continue until an explicit later authorizing decision. No alternative provider/year or additional experiment may be inferred.

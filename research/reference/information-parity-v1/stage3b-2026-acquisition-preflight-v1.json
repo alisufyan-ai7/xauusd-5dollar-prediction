@@ -1,0 +1,86 @@
+{
+  "schema": "IPV1_STAGE3B_2026_ACQUISITION_AND_MACRO_PREFLIGHT_V1",
+  "status": "DESIGN_ONLY_NOT_APPROVED",
+  "owner_provider_rights": "OWNER_ATTESTED_EXISTING_LICENSE",
+  "owner_final_execution_approval_commit": null,
+  "source_dataset_sha256": "8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd",
+  "feature_allowlist_sha256": "44a73f70a51f3c364ef53c5dc6353443e348e0a86bc9142fa6b8919fbe986104",
+  "source_fold_manifest_sha256": "56a1c301cfebc78373793db10d7099aab9391b33e1470c869b714261ba677ec5",
+  "market_bounds_utc_half_open": {
+    "start": "2026-06-01T00:00:00Z",
+    "end": "2026-10-09T00:00:00Z"
+  },
+  "teacher_bounds_utc_half_open": {
+    "start": "2026-07-06T00:00:00Z",
+    "end": "2026-10-09T00:00:00Z"
+  },
+  "quarantine_bounds_utc_half_open": {
+    "start": "2026-10-09T00:00:00Z",
+    "end": "2026-12-01T00:00:00Z"
+  },
+  "future_shadow_bounds_utc_half_open": {
+    "start": "2026-12-01T00:00:00Z",
+    "end": "2027-01-01T00:00:00Z"
+  },
+  "allowed_instruments": [
+    "XAUUSD_BID",
+    "XAUUSD_ASK",
+    "EURUSD_BID",
+    "USDJPY_BID",
+    "GBPUSD_BID",
+    "USDCAD_BID",
+    "USDSEK_BID",
+    "USDCHF_BID"
+  ],
+  "max_attempts": 1,
+  "raw_bytes_cap": 367001600,
+  "normalized_bytes_cap": 786432000,
+  "provider_download_enabled": false,
+  "model_fit_enabled": false,
+  "broker_enabled": false,
+  "ci_provider_job_enabled": false,
+  "source_memory_bootstrap": {
+    "mode": "EXPLICIT_BOUNDED_COLD_START",
+    "start": "2026-06-01T00:00:00Z",
+    "pre_start_swing_fvg": "UNKNOWN_NOT_IMPUTED",
+    "reuse_stage2_causal_transforms": true,
+    "full_stage2_continuity_equivalence_claimed": false,
+    "same_gold_full_source_history": true
+  },
+  "macro_policy": {
+    "mode": "SOURCE_VERSIONED_POINT_IN_TIME_OR_FAIL_CLOSED",
+    "required_families": [
+      "CLAIMS",
+      "CPI",
+      "FOMC",
+      "GDP",
+      "JOLTS",
+      "NFP"
+    ],
+    "date_range": "2026-06-01/2026-10-08",
+    "if_full_yearly_event_coverage_not_certified": "MACRO_SCHEDULE_AVAILABLE_FALSE_AND_OTHER_SCHEDULE_FIELDS_EXPLICITLY_UNAVAILABLE",
+    "do_not_backfill_from_post_release": true,
+    "macro_surprise_and_actuals_forbidden": true,
+    "unknown_snapshot_timestamp_rule": "NOT_ADMITTED",
+    "score_based_admission_forbidden": true
+  },
+  "raw_data_storage": {
+    "github_commit": false,
+    "credentials_in_logs": false,
+    "retention": "EPHEMERAL_LOCAL_OR_AUTHORIZED_RUNNER_ONLY",
+    "post_attempt": "DELETE_RAW_AFTER_HASH_AND_REPORT",
+    "raw_size_limit_enforced": true
+  },
+  "must_reverify_before_any_future_provider_call": [
+    "commit-exact final owner approval",
+    "authorized download method and data entitlement",
+    "date and symbol fence",
+    "payload/cost cap",
+    "runtime exact pins",
+    "all source manifests hashes",
+    "macro year completeness or predefined failclosed absence",
+    "no sealed-year access",
+    "no raw GitHub upload"
+  ],
+  "explanation": "This is intentionally a design-only machine-readable plan. No downloader is included; final owner approval must be separately recorded."
+}
