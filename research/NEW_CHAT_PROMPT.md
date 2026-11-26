@@ -53,9 +53,9 @@ Still forbidden:
 D-088 is **partially superseded only for this exact D-124 exception**.
 
 ### Immediate execution order
-1. inspect D-129 production-workflow parse validation; its trigger is explicitly non-authorizing and the provider job must be skipped;
-2. if D-129 validation is clean, replace the placeholder with the exact D-130 execution trigger and required commit marker;
-3. poll the single real provider/build/benchmark run; do not rerun it;
+1. D-129 parse validation passed/skipped; D-130 exact real-provider trigger is committed and the single D-124 attempt is active;
+2. poll/inspect the D-130 provider/build/benchmark workflow and compact artifact; **never rerun it**;
+3. record the frozen scientific result exactly as preregistered and keep Stage4/5 blocked;
 4. execute only one bounded provider acquisition/build after preflight PASS;
 5. validate raw/normalized manifests, date/symbol/budget/sealed-year/missingness/causality;
 6. build Stage 3B dataset using frozen source intervals/features;

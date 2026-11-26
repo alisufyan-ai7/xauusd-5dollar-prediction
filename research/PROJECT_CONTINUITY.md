@@ -2989,3 +2989,12 @@ Next: commit D-129 one-time trigger with the exact marker/content, then poll the
 D-128 synthetic run **45897995539** / job **140176557797** also passed. The production zero-job failure was traced to an unindented heredoc in the workflow YAML; no provider job ever existed, so the D-124 real attempt remains unspent.
 
 D-129 replaces the invalid block with an indentation-safe exact trigger comparison. It creates a **validation-only** trigger file while the commit message deliberately omits the execution marker, so a valid production workflow can parse but its provider job must be skipped. The true execution payload is reserved for D-130. If this validation is clean, the next action is the one real bounded provider/build/benchmark trigger under D-124.
+
+
+## D-130 — Single real bounded provider/benchmark attempt triggered
+
+D-129 workflow validation run **45898223471** concluded **skipped** exactly as designed: YAML parsed, execution marker absent, no provider job. D-130 now replaces the placeholder trigger with the exact frozen payload and uses commit marker `[STAGE3B_PROVIDER_EXECUTE_D124]`.
+
+The single authorized D-124 provider attempt is now active. Do **not rerun** it. The workflow must first pass exact authorization/runtime/tests, then acquire only the eight frozen M1 series for Jun1–Oct9 exclusive, build the bounded layer/dataset, run the frozen GOLD/FULL Stage3B benchmark, remove raw/derived payloads, and upload compact evidence only.
+
+Immediate action: poll the D-130 workflow, inspect exact job/log/artifact result, and record the scientific result without rescue tuning. No Stage4/5 automatic execution.

@@ -7,7 +7,7 @@ Clean-room research project for testing whether XAU/USD contains identifiable ma
 - Repository initialized from scratch.
 - Clean-room context policy established on `main`.
 - Active Stage 3B source-construction branch: `research/information-parity-v1-stage3-preregistration`.
-- Latest decision: D-129 repairs the production workflow YAML and validates it using a non-authorizing placeholder trigger; the real D-124 provider attempt remains unspent pending D-130 exact execution trigger.
+- Latest decision: D-130 triggers the **single authorized real bounded 2026 provider/build/Stage 3B benchmark attempt** after D-129 workflow validation passed/skipped. Do not rerun; Stage4/5 remain unauthorized.
 - Information Parity V1 Stage 2 is accepted on 2016-2021 TRAIN. Final Stage 3B source teacher: 107 ACT, 143 eligible P3, 39 paired dates; exact dataset/hash in `research/reference/information-parity-v1/stage3b-source-freeze-manifest-v1.json`.
 - D-088 chronology gate remains closed. D-118 proposal, D-119 preflight findings, source rights and final-approval checklist are in `research/`; Stage 3B market join, fitting and Stage 4/5 execution are not authorized.
 - No trading or broker mutation is enabled.

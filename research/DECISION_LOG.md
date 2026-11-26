@@ -3715,3 +3715,14 @@ D-128 no-provider synthetic run **45897995539** succeeded. Production workflow r
 D-129 fixes the YAML with an indentation-safe `printf` trigger comparison. A placeholder `.github/stage3b-2026-authorized-trigger` is committed with explicit validation-only content; the commit message contains no execution marker, so the provider job must be skipped even though the workflow path matches. This validates workflow parsing without market access.
 
 Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D129_FINDINGS.md`.
+
+
+---
+
+## D-130 — Trigger the one authorized real provider/build/Stage 3B benchmark run
+
+D-129 production parse validation **45898223471** was skipped as intended and confirms the repaired workflow parses without executing provider code. D-130 replaces the validation-only trigger with the exact D-124 payload and commit marker `[STAGE3B_PROVIDER_EXECUTE_D124]`.
+
+This is the **single** real provider attempt authorized by D-124. Rerun is forbidden; `GITHUB_RUN_ATTEMPT=1` is enforced before download. Scope is unchanged: Jun1–Oct9 exclusive, eight frozen M1 series, cold-start/fail-closed macro, frozen teacher/features/folds/model/gate, compact evidence only.
+
+Findings/trigger record: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D130_FINDINGS.md`.

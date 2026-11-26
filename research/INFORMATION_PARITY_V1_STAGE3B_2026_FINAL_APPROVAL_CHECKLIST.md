@@ -106,5 +106,15 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Root cause of zero-job production records identified: malformed unindented heredoc in workflow YAML; zero provider jobs/requests.
 - [x] Production workflow repaired with indentation-safe exact trigger comparison.
 - [x] Validation-only trigger content prepared; D-129 commit intentionally lacks execution marker so provider job must skip.
-- [ ] Confirm GitHub parses D-129 production workflow cleanly and provider job is skipped.
-- [ ] Replace placeholder only once with exact D-130 provider trigger after parse validation.
+- [x] D-129 production workflow parsed cleanly: run 45898223471 concluded skipped, no provider job.
+- [x] D-130 replaces placeholder once with exact frozen provider trigger and required execution marker; single real attempt is now triggered.
+
+
+## D-130 real execution
+
+- [x] D-129 parser validation clean/skipped.
+- [x] Exact D-130 trigger payload committed with D-124 authorization SHA and bounded scope.
+- [x] Commit message contains required `[STAGE3B_PROVIDER_EXECUTE_D124]` marker.
+- [ ] Poll and record the single real provider/build/benchmark workflow. **No rerun.**
+- [ ] Verify compact artifact contains reports/manifests only and raw/derived provider payloads were removed.
+- [ ] Record frozen scientific result and keep Stage4/5 blocked unless separately authorized.
