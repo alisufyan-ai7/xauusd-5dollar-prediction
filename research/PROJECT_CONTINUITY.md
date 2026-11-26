@@ -2877,3 +2877,12 @@ Provisional cumulative **102 ACT / 47 LONG / 55 SHORT / 39 ACT dates / 144 P3 / 
 D-115. Five new primary P2 source-supported resting-limit SHORT commitments (Jul 7, Jul 23, Sep 2, Sep 14, Sep 17). Artifact `research/reference/information-parity-v1/stage3b-source-events-v1-backfill.csv`; evidence and exclusions `research/INFORMATION_PARITY_V1_STAGE3B_NON_TABLE_BACKFILL_FINDINGS.md`. All 46 notes screened; E3/conditional/same-plan candidates excluded. Cumulative **107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 144 P3 / 39 paired dates**.
 
 **Immediate next:** Final source-row disposition and cross-batch integrity audit. Six Batch01 rows have an extra empty CSV field that must be corrected deterministically in canonical merged output, without silently overwriting frozen batches. Then freeze canonical CSV plus SHA-256 and D-088 chronology review; no market join or CI.
+
+
+## Stage 3B final source-only QA and adequacy certification
+
+**D-116**. Canonical dataset `research/reference/information-parity-v1/stage3b-source-events-v1.csv` SHA-256 `8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd`; source-row disposition register `research/reference/information-parity-v1/stage3b-source-row-dispositions-v1.csv` SHA-256 `bf9fed8d952b9a0195ef1bfa3b036ba1e5489daec1169c7075ac36968a722604`; freeze manifest `research/reference/information-parity-v1/stage3b-source-freeze-manifest-v1.json`.
+
+Final **107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 143 primary P3 / 39 paired dates**; all D-099 source-adequacy floors met. 251 canonical events, one P3 source statement retained as ineligible. Every one of 123 original trade rows dispositioned, 107 attached to 102 table-derived ACT (five same-plan pieces), 16 excluded; five non-table ACT. Six Batch01 CSV extra-field defects repaired only in canonical output, original batches untouched. See `research/INFORMATION_PARITY_V1_STAGE3B_FINAL_SOURCE_QA_FINDINGS.md`.
+
+**Immediate next step:** separate D-088 chronology/reserve-boundary review. **No provider market join, 2026 XAUUSD, model fitting, CI or sealed-year access**. Source adequacy does not imply statistical recognition result or profitability.

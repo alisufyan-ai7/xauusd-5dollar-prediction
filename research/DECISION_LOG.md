@@ -3553,3 +3553,16 @@ Findings: `research/INFORMATION_PARITY_V1_STAGE3B_NON_TABLE_BACKFILL_FINDINGS.md
 All 46 pinned stream notes screened for unfilled and missing-table commitments, with targeted transcript/source note checks. Five independent Badar P2 unfilled SHORT resting-limit commitments retained (Jul 7, Jul 23, Sep 2, Sep 14, Sep 17). Competing conditional, tutorial, ambiguous, unconfirmed or same-plan duplicate candidates excluded/documented. No broker P1 status assigned to unfilled orders.
 
 Cumulative now 107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 144 P3 / 39 paired dates. Final QA and schema correction still required before source certification. D-088 closed; no market join/CI/fitting.
+
+
+---
+
+## D-116 — Freeze final Stage 3B source-only event table and row-by-row QA
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_FINAL_SOURCE_QA_FINDINGS.md`.
+Canonical event CSV: `research/reference/information-parity-v1/stage3b-source-events-v1.csv` (SHA-256 `8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd`).
+One-row-per-pinned-trade disposition CSV: `research/reference/information-parity-v1/stage3b-source-row-dispositions-v1.csv` (SHA-256 `bf9fed8d952b9a0195ef1bfa3b036ba1e5489daec1169c7075ac36968a722604`). Freeze manifest: `research/reference/information-parity-v1/stage3b-source-freeze-manifest-v1.json`.
+
+**251 canonical events, 250 primary eligible: 107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 143 eligible P3 / 39 paired dates**. Source evidence passes all D-099 numeric floors. Original 123 trade-table rows all dispositioned: 107 source keys attached to 102 ACT after five same-plan collapses, 16 excluded (including one BTC), no unresolved row; plus five non-table ACT backfilled under D-115.
+
+Canonical-only deterministic changes: fix six Batch01 rows with a surplus blank CSV field; retain but exclude `S3B-REJ-0141` as a primary session-stop negative because `S3B-ACT-0100` follows on the same stream minutes later. Prior frozen batches untouched. No provider XAUUSD, fitting, CI, broker or sealed-year access. This is **source adequacy**, not statistical recognition success; D-088 chronology stays CLOSED. D-097 remains INSUFFICIENT/NOT TESTED.
