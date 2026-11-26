@@ -3633,3 +3633,19 @@ The D-121 code accepted any manually supplied 40-hex commit SHA when `status=FIN
 Updated `tests/test_stage3b_2026_execution_preflight.py` tests forged SHA rejection plus the empty allowlist. Combined synthetic local standard-library suite **22/22 PASS**, no CI or provider data. Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D122_FINDINGS.md`.
 
 The owner's existing Dukascopy licence affirmation stands, no further paperwork requested. D-088 **CLOSED**; final scientific owner approval withheld. Exact pinned Python 3.12.14 environment remains unverified in current offline runtime and future no-provider integration preflight remains technical work.
+
+
+---
+
+## D-123 — Make GitHub-enforced chat continuity/documentation discipline mandatory
+
+Owner states that this is **Chat 04** and GitHub is the project source of truth. Before chat rollover, a ready new-chat prompt must exist so a successor chat can reconstruct all current progress from GitHub rather than conversation memory. Owner also requires project documentation to remain maintained after each execution.
+
+Added:
+- `research/PROJECT_DOCUMENTATION_PROTOCOL.md` — mandatory post-execution documentation/verification checklist and owner-escalation rules;
+- `research/NEW_CHAT_PROMPT.md` — ready-to-copy **Chat 05** bootstrap prompt with branch, authoritative reading order, frozen identities, current scientific restrictions and immediate owner-independent work;
+- refreshed `research/NEW_CHAT_HANDOFF.md` for **Chat 04 -> Chat 05**.
+
+Operating rule: after each material execution, update decision/continuity/handoff/prompt as applicable, update README when high-level state changes, commit on the active branch, and verify branch HEAD before reporting completion. Never rely on chats as the only repository of project state. Already-recorded owner inputs must not be repeatedly requested.
+
+This decision changes documentation/process only. D-088 remains CLOSED and D-122 scientific/data restrictions remain unchanged.

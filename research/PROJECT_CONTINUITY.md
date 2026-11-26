@@ -2936,3 +2936,12 @@ Owner's Dukascopy permission attestation remains accepted; do not request paperw
 `scripts/stage3b_2026_execution_preflight.py` now has a deliberately empty `AUTHORIZED_FINAL_DECISION_SHAS`; a forged 40-hex SHA and an edited JSON plan cannot enable execution. Later final owner approval must be separately recorded and a reviewed code change must admit its exact SHA. No downloader/fit code in this guard.
 
 `tests/test_stage3b_2026_execution_preflight.py` adds a bypass-negative test. All three local stdlib suites now **22/22 PASS** on Python 3.13.5; **no CI, data acquisition, fitting, broker use or sealed 2022–2025 access**. Documentation: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D122_FINDINGS.md`. Remaining owner-independent checks: exact pinned CPython3.12.14/pandas3.0.6/numpy2.5.3 environment, future acquisition wrapper and no-hindsight macro mask. Current offline runner differs; do not report exact-runtime pass or trigger provider jobs. Dukascopy rights are owner-attested, **do not ask for paperwork**. D-088 CLOSED; seek owner approval only when a final bounded execution package is actually ready.
+
+
+## D-123 — Chat 04 continuity and GitHub documentation maintenance formalized
+
+Owner designates this conversation **Chat 04** and requires GitHub to remain the durable project source of truth. New mandatory process file: `research/PROJECT_DOCUMENTATION_PROTOCOL.md`. Ready new-chat prompt: `research/NEW_CHAT_PROMPT.md` for **Chat 05**. `research/NEW_CHAT_HANDOFF.md` refreshed accordingly.
+
+**Post-execution rule:** after every material execution, maintain decision log, continuity, handoff, new-chat prompt and relevant experiment documents; update README when high-level status changes; commit and verify the active branch HEAD before claiming completion. New chats must bootstrap by reading GitHub fresh and may not depend on chat memory.
+
+Scientific state unchanged from D-122: owner-attested Dukascopy permission, 22/22 synthetic no-provider tests, bounded cold-start/macro fail-closed design, exact Python3.12 runtime still pending, acquisition plan unapproved, `AUTHORIZED_FINAL_DECISION_SHAS` empty, **D-088 CLOSED**. No market acquisition/model fitting/provider CI/sealed years/shadow/broker actions.
