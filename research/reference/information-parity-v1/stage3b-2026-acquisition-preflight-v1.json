@@ -1,6 +1,6 @@
 {
   "schema": "IPV1_STAGE3B_2026_ACQUISITION_AND_MACRO_PREFLIGHT_V1",
-  "status": "RECOVERY_AUTHORIZED_PREFLIGHT_PENDING",
+  "status": "RECOVERY_READY_ONE_ATTEMPT",
   "owner_provider_rights": "OWNER_ATTESTED_EXISTING_LICENSE",
   "owner_final_execution_approval_commit": "c99ad84e4b7254d074b96df7a5f4c371ccbe01c2",
   "source_dataset_sha256": "8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd",
@@ -35,10 +35,10 @@
   "max_attempts": 1,
   "raw_bytes_cap": 367001600,
   "normalized_bytes_cap": 786432000,
-  "provider_download_enabled": false,
-  "model_fit_enabled": false,
+  "provider_download_enabled": true,
+  "model_fit_enabled": true,
   "broker_enabled": false,
-  "ci_provider_job_enabled": false,
+  "ci_provider_job_enabled": true,
   "source_memory_bootstrap": {
     "mode": "EXPLICIT_BOUNDED_COLD_START",
     "start": "2026-06-01T00:00:00Z",
@@ -82,7 +82,7 @@
   ],
   "authorization_scope": "D-124 exact bounded exception only; broker/shadow/sealed years remain forbidden",
   "authorization_record": "research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md",
-  "explanation": "D-134 authorizes exactly one transport-only recovery attempt using dukascopy-node 1.51.1 with all D-124 scientific scope unchanged. D-135 implementation keeps provider/model execution disabled until exact-runtime no-provider recovery preflight passes.",
+  "explanation": "D-134 authorizes one transport-only recovery attempt. D-135 exact-runtime/no-market-provider preflight passed (run 45901246019, job 140187267884), so D-136 enables exactly one recovery provider attempt using dukascopy-node 1.51.1. No rerun.",
   "attempt_consumed": true,
   "attempt_record": {
     "decision": "D-132",
@@ -118,8 +118,19 @@
     "max_recovery_attempts": 1,
     "recovery_attempts_consumed": 0,
     "rerun_allowed": false,
-    "provider_enabled": false,
-    "model_fit_enabled": false,
-    "current_gate": "EXACT_RUNTIME_NO_PROVIDER_RECOVERY_PREFLIGHT_REQUIRED"
+    "provider_enabled": true,
+    "model_fit_enabled": true,
+    "current_gate": "D135_EXACT_RUNTIME_PREFLIGHT_PASS_RECOVERY_READY",
+    "preflight": {
+      "status": "PASS",
+      "workflow_run_id": 45901246019,
+      "workflow_job_id": 140187267884,
+      "head_commit": "dc869b2b4ca1fae4b9ec5d516243a3a6a1bbb52a",
+      "node": "22.23.3",
+      "npm": "10.9.9",
+      "python": "3.12.14",
+      "tests_passed": 30,
+      "chromium": "Chrome for Testing 156.0.8078.4 / playwright chromium v1248"
+    }
   }
 }

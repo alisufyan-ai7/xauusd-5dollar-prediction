@@ -3786,3 +3786,14 @@ D-134 SHA `8cdd4edf222b88ac1d7ce15e3d3ac8639a2be155` is admitted by a new recove
 Machine plan status becomes `RECOVERY_AUTHORIZED_PREFLIGHT_PENDING`; provider/model/CI-provider flags stay false. D-135 triggers only the exact-runtime synthetic/no-market-provider preflight, including exact 1.51.1 CLI flag checks and matching Chromium installation. No Dukascopy market request occurs in this commit.
 
 Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D135_RECOVERY_IMPLEMENTATION_FINDINGS.md`.
+
+
+---
+
+## D-136 — Record D-135 PASS and trigger the one D-134 transport-recovery attempt
+
+D-135 exact-runtime/no-market-provider run **45901246019** / job **140187267884** PASSED with Node22.23.3, npm10.9.9, Python3.12.14, matching 1.51.1 Chromium and 30/30 deterministic tests. Synthetic end-to-end teacher/model plumbing also passed.
+
+D-136 changes recovery state to `RECOVERY_READY_ONE_ATTEMPT`, enables provider/model execution only for the D134 recovery scope, and adds the one-time `stage3b-2026-transport-recovery` workflow. The workflow is fail-closed on exact trigger, preflight identity and run_attempt=1. No rerun is authorized.
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D136_RECOVERY_TRIGGER_FINDINGS.md`.

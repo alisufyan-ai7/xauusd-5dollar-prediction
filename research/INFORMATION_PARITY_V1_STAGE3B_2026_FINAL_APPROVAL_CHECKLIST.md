@@ -160,8 +160,8 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] No scientific labels/features/folds/models/thresholds/sealed periods changed.
 - [x] D-135 commits exact D-134 SHA `8cdd4edf222b88ac1d7ce15e3d3ac8639a2be155` into the recovery guard and machine-readable plan.
 - [x] D-135 pins dukascopy-node 1.51.1 and implements WAF/HTTP diagnostics, classification/redaction, ephemeral token handling and fail-closed transport checks.
-- [ ] D-135 exact-runtime no-provider recovery regression triggered; must PASS before any recovery provider call.
-- [ ] Execute exactly one recovery provider attempt; no rerun.
+- [x] D-135 exact-runtime no-provider recovery regression PASS: run 45901246019 / job 140187267884; 30/30 tests, exact 1.51.1 CLI/browser surface verified.
+- [x] D-136 enables and triggers exactly one D-134 recovery provider attempt; **no rerun**.
 
 
 ## D-135 recovery implementation details
@@ -172,3 +172,14 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Full recovery remains exactly eight frozen series and same byte caps.
 - [x] Raw budget includes sanity file; raw data and WAF token cache are deleted before artifact upload.
 - [x] Provider/model execution remains disabled pending D-135 PASS.
+
+
+## D-136 single recovery execution
+
+- [x] Recovery plan state = RECOVERY_READY_ONE_ATTEMPT.
+- [x] D-135 preflight identity frozen in code and manifest.
+- [x] Exact D-134 SHA remains required.
+- [x] Separate recovery workflow requires exact trigger + commit marker + GITHUB_RUN_ATTEMPT=1.
+- [x] Same-attempt sanity request precedes any full acquisition.
+- [ ] Monitor D-136 recovery workflow and compact evidence; never rerun it.
+- [ ] Record Stage3B result only if all eight files validate and frozen models actually fit.

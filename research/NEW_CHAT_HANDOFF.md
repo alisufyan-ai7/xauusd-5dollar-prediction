@@ -1,12 +1,9 @@
 # New Chat Handoff — Chat 04 -> Chat 05
 
-Repository: `alisufyan-ai7/xauusd-5dollar-prediction`  
-Branch: `research/information-parity-v1-stage3-preregistration`
+D134 owner authorization: exactly one transport-only recovery using pinned dukascopy-node 1.51.1; all D-124 science unchanged, no rerun.
 
-D132: original D-124 provider attempt failed on a 0-byte first XAUUSD BID file; no usable rows/model, Stage3B NOT TESTED. D133 closed it.
+D135 preflight PASS: run **45901246019**, job **140187267884**; exact runtime/package/browser verified, 30/30 deterministic tests and synthetic pipeline PASS, no market-provider request.
 
-D134: owner explicitly authorized exactly one transport-only recovery attempt using pinned `dukascopy-node 1.51.1`, preserving all D-124 science and sealed-period restrictions, no rerun.
+D136: one-time recovery workflow/trigger is active. It is bound to exact D134 SHA, D135 preflight identity, exact trigger contents and GITHUB_RUN_ATTEMPT=1. It first requests XAUUSD BID Jun1→Jun2 sanity; only success allows full frozen eight-series acquisition and benchmark in the same attempt.
 
-D135: recovery implementation is committed but provider/model execution is still disabled pending exact-runtime no-market-provider preflight. Added exact D134 SHA guard, 1.51.1 identity, WAF/HTTP diagnostics/classification, token redaction, ephemeral WAF cache, Jun1→Jun2 XAUUSD BID sanity request, and unchanged eight-series full pipeline.
-
-Immediate next action: inspect D-135 CI. If PASS, record it and owner-independently enable/trigger the single D-134 recovery attempt. Do not ask the owner again. Never rerun that recovery attempt. Keep 2022–2025, Oct9–Nov30, December shadow, 2027, Stage4/5 and broker actions blocked.
+Immediate work: poll D136; never rerun it. Record transport diagnostics on failure or frozen scientific result only if all eight inputs validate and model fitting completes. Stage4/5 and sealed periods remain blocked.

@@ -1,10 +1,12 @@
-"""D-135 no-provider guard for the D-134 transport-recovery authorization."""
+"""D-136 execution guard for the single D-134 transport-recovery attempt."""
 from __future__ import annotations
 import json
 
 D134_RECOVERY_AUTH="8cdd4edf222b88ac1d7ce15e3d3ac8639a2be155"
 D124_AUTH="c99ad84e4b7254d074b96df7a5f4c371ccbe01c2"
 D132_EXECUTION="707bdf424b4a810c93dc9ae7d30a07aff245582c"
+D135_PREFLIGHT_RUN=45901246019
+D135_PREFLIGHT_JOB=140187267884
 TRANSPORT_VERSION="1.51.1"
 TRANSPORT_UPSTREAM_COMMIT="068bf57b67e3cae3f5c952653ef20157d3852699"
 START="2026-06-01T00:00:00Z"
@@ -13,14 +15,15 @@ SANITY_START="2026-06-01T00:00:00Z"
 SANITY_END="2026-06-02T00:00:00Z"
 SYMBOLS=("XAUUSD_BID","XAUUSD_ASK","EURUSD_BID","USDJPY_BID","GBPUSD_BID","USDCAD_BID","USDSEK_BID","USDCHF_BID")
 AUTHORIZED_RECOVERY_DECISION_SHAS=frozenset({D134_RECOVERY_AUTH})
-RECOVERY_PROVIDER_ENABLED=False
+RECOVERY_PROVIDER_ENABLED=True
 
 def proposed_recovery_plan() -> dict:
     return {
-        "status":"RECOVERY_AUTHORIZED_PREFLIGHT_PENDING",
+        "status":"RECOVERY_READY_ONE_ATTEMPT",
         "recovery_authorization_commit":D134_RECOVERY_AUTH,
         "parent_authorization_commit":D124_AUTH,
         "consumed_parent_execution_commit":D132_EXECUTION,
+        "preflight":{"passed":True,"workflow_run_id":D135_PREFLIGHT_RUN,"workflow_job_id":D135_PREFLIGHT_JOB},
         "transport":{"package":"dukascopy-node","version":TRANSPORT_VERSION,"upstream_commit":TRANSPORT_UPSTREAM_COMMIT},
         "window":[START,END],
         "sanity_window":[SANITY_START,SANITY_END],
@@ -47,10 +50,15 @@ def require_recovery_authorized(plan: dict) -> None:
 
 def require_recovery_execution_ready(plan: dict) -> None:
     require_recovery_authorized(plan)
+    pf=plan.get("preflight",{})
     if not RECOVERY_PROVIDER_ENABLED or not plan.get("provider_enabled"):
-        raise PermissionError("D134 recovery is authorized but provider execution remains gated on D135 exact-runtime preflight")
+        raise PermissionError("recovery provider execution is disabled")
+    if pf.get("passed") is not True or pf.get("workflow_run_id") != D135_PREFLIGHT_RUN or pf.get("workflow_job_id") != D135_PREFLIGHT_JOB:
+        raise PermissionError("D135 exact-runtime recovery preflight identity missing")
+    if plan.get("recovery_attempts_consumed") != 0:
+        raise PermissionError("recovery attempt already consumed")
 
 if __name__=="__main__":
     plan=proposed_recovery_plan()
-    require_recovery_authorized(plan)
+    require_recovery_execution_ready(plan)
     print(json.dumps(plan,indent=2,sort_keys=True))

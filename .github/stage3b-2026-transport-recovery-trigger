@@ -1,0 +1,6 @@
+D-136 authorized D-134 transport recovery execution
+authorization=8cdd4edf222b88ac1d7ce15e3d3ac8639a2be155
+transport=dukascopy-node@1.51.1
+scope=2026-06-01T00:00:00Z/2026-10-09T00:00:00Z
+preflight_run=45901246019
+attempt=1

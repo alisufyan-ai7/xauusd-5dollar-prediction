@@ -3037,3 +3037,10 @@ This does **not** immediately re-enable provider access. First admit the exact D
 The exact D-134 authorization SHA is admitted into a new recovery guard, pinned to `dukascopy-node 1.51.1` / upstream release commit `068bf57b67e3cae3f5c952653ef20157d3852699`. Recovery transport is separate from the consumed 1.50.0 D-124 path. Added selective WAF/HTTP diagnostics + classifier, token redaction, ephemeral shared WAF cache deletion, a Jun1→Jun2 XAUUSD BID sanity request, and a recovery acquisition wrapper that keeps the exact D-124 eight-series science and refuses to fit until all inputs validate.
 
 Provider/model execution remains **disabled** at D-135. The triggered exact-runtime workflow verifies the 1.51.1 CLI/WAF flags, installs its matching Chromium from package infrastructure, runs deterministic recovery tests and the existing synthetic full pipeline, but makes **no market-provider request**. If PASS, next step is to record the run and enable/trigger the single D-134 recovery attempt without asking the owner again.
+
+
+## D-136 — D-135 PASS; single D-134 recovery attempt triggered
+
+D-135 run **45901246019** / job **140187267884** succeeded: Node22.23.3, npm10.9.9, Python3.12.14, exact Python lock, 1.51.1 WAF CLI surface, matching Chromium install, **30/30** deterministic tests and full synthetic pipeline all PASS with no market-provider request.
+
+D-136 enables the D-134 recovery guard for exactly one attempt and commits a separate one-time recovery workflow/trigger. It requires the exact D134 SHA, exact trigger contents, D135 run identity and `GITHUB_RUN_ATTEMPT=1`. The first market action is the Jun1→Jun2 XAUUSD BID sanity request; only a valid sanity result allows the same job to continue to the unchanged eight-series acquisition/build/benchmark. **Never rerun this recovery workflow.**
