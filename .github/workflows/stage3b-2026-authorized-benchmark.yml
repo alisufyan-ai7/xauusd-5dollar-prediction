@@ -20,15 +20,12 @@ jobs:
           set -euo pipefail
           test "$GITHUB_RUN_ATTEMPT" = "1"
           test -f .github/stage3b-2026-authorized-trigger
-          EXPECTED=$(cat <<'EOF'
-D-129 authorized bounded provider execution
-authorization=c99ad84e4b7254d074b96df7a5f4c371ccbe01c2
-scope=2026-06-01T00:00:00Z/2026-10-09T00:00:00Z
-attempt=1
-EOF
-)
-          ACTUAL=$(cat .github/stage3b-2026-authorized-trigger)
-          test "$ACTUAL" = "$EXPECTED"
+          printf '%s\n' \
+            'D-130 authorized bounded provider execution' \
+            'authorization=c99ad84e4b7254d074b96df7a5f4c371ccbe01c2' \
+            'scope=2026-06-01T00:00:00Z/2026-10-09T00:00:00Z' \
+            'attempt=1' > expected-trigger.txt
+          cmp --silent expected-trigger.txt .github/stage3b-2026-authorized-trigger
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Setup exact Node

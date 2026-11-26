@@ -2982,3 +2982,10 @@ D-127 synthetic run **45897637362** / job **140175383322** succeeded under the e
 A separate production-workflow Actions record **45897634530** had **zero jobs**, so no runner/provider/model action occurred and the one D-124 provider attempt remains unspent. D-128 repairs the workflow parser/trigger surface: fixed workspace path, no run-number dependency, exact execution commit marker + exact trigger-file contents + run_attempt=1 required before provider access. **The provider trigger file is still absent.**
 
 Next: commit D-129 one-time trigger with the exact marker/content, then poll the single bounded provider/build/benchmark run. No further owner approval is required under D-124.
+
+
+## D-129 — Production workflow YAML repaired; non-authorizing parse validation
+
+D-128 synthetic run **45897995539** / job **140176557797** also passed. The production zero-job failure was traced to an unindented heredoc in the workflow YAML; no provider job ever existed, so the D-124 real attempt remains unspent.
+
+D-129 replaces the invalid block with an indentation-safe exact trigger comparison. It creates a **validation-only** trigger file while the commit message deliberately omits the execution marker, so a valid production workflow can parse but its provider job must be skipped. The true execution payload is reserved for D-130. If this validation is clean, the next action is the one real bounded provider/build/benchmark trigger under D-124.

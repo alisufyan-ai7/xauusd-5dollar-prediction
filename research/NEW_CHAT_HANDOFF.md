@@ -17,6 +17,6 @@ Authorized window: `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z`; eight fro
 
 **D-088 is partially superseded only for D-124.** Still sealed/forbidden: 2022–2025, Oct9–Nov30, December shadow, 2027, new provider/symbol/feature/model searches, Stage4/5 automatic execution, broker actions.
 
-Immediate work: D-128 records D-127 synthetic PASS (run 45897637362) and repairs the production trigger guard. **The real provider attempt remains unspent and the trigger file remains absent.** Next commit the exact D-129 one-time trigger with the execution marker, then poll the single authorized provider/build/benchmark run. Never rerun it.
+Immediate work: D-129 repairs the production YAML and uses a **non-authorizing validation-only trigger**; the commit lacks the execution marker so provider work must skip. The real provider attempt remains unspent. Verify D-129 parses cleanly, then replace the placeholder once with the exact D-130 trigger + execution marker and poll the single authorized run. Never rerun it.
 
 Always inspect branch HEAD fresh before acting.

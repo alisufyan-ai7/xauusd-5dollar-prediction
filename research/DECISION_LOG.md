@@ -3704,3 +3704,14 @@ Synthetic exact-runtime run **45897637362** (job **140175383322**) PASSED the wh
 GitHub production run record **45897634530** contained zero jobs and therefore did not execute provider/model code. It is classified as a workflow-validation/trigger-surface failure, **not** the single provider attempt. D-128 replaces the invalid/brittle surface with a fixed workspace and requires the exact D-124 execution commit marker, exact trigger-file contents and `GITHUB_RUN_ATTEMPT=1` before acquisition. The real trigger remains absent in this commit.
 
 Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D128_FINDINGS.md`.
+
+
+---
+
+## D-129 — Fix production workflow YAML and validate parser with a non-authorizing trigger
+
+D-128 no-provider synthetic run **45897995539** succeeded. Production workflow records 45897634530 and 45897993636 had zero jobs: the YAML parser rejected an unindented heredoc block before any runner existed. They are not provider attempts.
+
+D-129 fixes the YAML with an indentation-safe `printf` trigger comparison. A placeholder `.github/stage3b-2026-authorized-trigger` is committed with explicit validation-only content; the commit message contains no execution marker, so the provider job must be skipped even though the workflow path matches. This validates workflow parsing without market access.
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D129_FINDINGS.md`.

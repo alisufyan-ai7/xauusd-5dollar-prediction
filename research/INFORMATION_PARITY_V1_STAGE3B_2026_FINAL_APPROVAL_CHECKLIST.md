@@ -98,3 +98,13 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Production workflow requires D-124 execution commit marker + exact one-time trigger contents + GITHUB_RUN_ATTEMPT=1 before provider step.
 - [x] Fixed workflow workspace context so YAML does not depend on runner context at job-level env.
 - [ ] Actual one-time provider trigger file remains absent until D-129.
+
+
+## D-129 production-workflow parse validation
+
+- [x] D-128 synthetic revalidation PASS: run 45897995539 / job 140176557797.
+- [x] Root cause of zero-job production records identified: malformed unindented heredoc in workflow YAML; zero provider jobs/requests.
+- [x] Production workflow repaired with indentation-safe exact trigger comparison.
+- [x] Validation-only trigger content prepared; D-129 commit intentionally lacks execution marker so provider job must skip.
+- [ ] Confirm GitHub parses D-129 production workflow cleanly and provider job is skipped.
+- [ ] Replace placeholder only once with exact D-130 provider trigger after parse validation.
