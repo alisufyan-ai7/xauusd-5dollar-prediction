@@ -1,6 +1,6 @@
 # D-118 — Second Owner Approval / Bounded 2026 Execution Checklist
 
-**CURRENT STATUS: D-122 GUARDED DESIGN-ONLY EXECUTION PACKAGE / 22 SYNTHETIC TESTS PASS; EXACT RUNTIME AND FINAL OWNER APPROVAL PENDING. D-088 CLOSED.**
+**CURRENT STATUS: D-124 FINAL OWNER AUTHORIZATION GRANTED; EXACT RUNTIME/IMPLEMENTATION PREFLIGHT MUST PASS BEFORE PROVIDER EXECUTION. D-088 PARTIALLY SUPERSEDED ONLY FOR THIS BOUNDED EXCEPTION.**
 
 Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL.md`.
 
@@ -25,7 +25,7 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [ ] D-121 adds machine-readable no-network acquisition plan and strict final-owner-decision SHA gate; full future acquisition wrapper integration and exact runtime checks must pass before any provider calls (do not run CI/provider now).
 - [x] No-provider off-CI Python stdlib tests: **22/22 pass**, including D-120 and four D-121 plan/approval/hash/runtime-inspection checks. No model was fitted. Exact pinned-runtime tests remain separate.
 - [x] D-121 consolidated owner-access attestation, calendar absence fallback, bounded cold-start, source hashes, 21 fixture tests and no-provider acquisition design. Remaining technical reproducibility checks are explicit, not new owner-input requests.
-- [ ] Obtain **new explicit owner approval for completed, versioned execution plan** and record the separate chronology authorization decision.
+- [x] **D-124 final owner authorization granted** for the exact bounded acquisition/model package; no further owner approval required for that package. Exact D-124 commit SHA must be admitted in the executable guard before provider access.
 
 ## Not part of this approval
 
@@ -62,3 +62,11 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - `scripts/stage3b_2026_execution_preflight.py` and `tests/test_stage3b_2026_execution_preflight.py` (4 more tests, 22/22 overall).
 - `research/INFORMATION_PARITY_V1_STAGE3B_2026_D121_FINDINGS.md`.
 - Outstanding: exact CPython3.12.14 environment verification and complete acquisition-wrapper integration; final owner approval is a distinct future decision. No provider acquisition, fitting or CI.
+
+
+## D-124 final authorization
+
+- [x] Owner authorizes bounded 2026 market acquisition and frozen Stage 3B fitting/evaluation without further approval requests.
+- [x] Scope remains Jun1–Oct9 half-open UTC, eight frozen M1 series, one capped attempt, D-120 cold start, D-121 macro fail-closed semantics.
+- [x] Targeted exact-runtime/provider CI is allowed when technically necessary for this bounded package.
+- [ ] Commit the resulting D-124 authorization commit SHA into the machine-readable plan and `AUTHORIZED_FINAL_DECISION_SHAS`, then verify fail-closed tests before any provider call.

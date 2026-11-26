@@ -2945,3 +2945,12 @@ Owner designates this conversation **Chat 04** and requires GitHub to remain the
 **Post-execution rule:** after every material execution, maintain decision log, continuity, handoff, new-chat prompt and relevant experiment documents; update README when high-level status changes; commit and verify the active branch HEAD before claiming completion. New chats must bootstrap by reading GitHub fresh and may not depend on chat memory.
 
 Scientific state unchanged from D-122: owner-attested Dukascopy permission, 22/22 synthetic no-provider tests, bounded cold-start/macro fail-closed design, exact Python3.12 runtime still pending, acquisition plan unapproved, `AUTHORIZED_FINAL_DECISION_SHAS` empty, **D-088 CLOSED**. No market acquisition/model fitting/provider CI/sealed years/shadow/broker actions.
+
+
+## D-124 — Final bounded Stage 3B execution authorization granted
+
+Owner now explicitly authorizes the exact frozen 2026 acquisition/model package and instructs the project to proceed without further approval requests. Authorization file: `research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md`.
+
+Permitted: exact-runtime validation; one capped acquisition for Jun1–Oct8 2026 UTC only; eight frozen market series; bounded cold-start reconstruction; fail-closed macro availability; D-116 source-event join; frozen GOLD/FULL logistic Task A/Task B with 39-date LODO and preregistered bootstrap/gates. Targeted CI/provider execution is authorized only as necessary for this package.
+
+Not permitted: 2022–2025, Oct9–Nov30, December shadow, 2027, extra providers/symbols/features/models/tuning, Stage4/5 automatic progression, or broker/order actions. **D-088 partially superseded only for the bounded D-124 exception.** Immediate next owner-independent work: commit D-124 SHA into the execution allowlist/manifest, run exact no-provider runtime preflight, then execute the single bounded provider build and frozen benchmark if preflight passes. Keep docs/handoff current after each step.

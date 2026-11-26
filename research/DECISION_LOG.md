@@ -3649,3 +3649,16 @@ Added:
 Operating rule: after each material execution, update decision/continuity/handoff/prompt as applicable, update README when high-level state changes, commit on the active branch, and verify branch HEAD before reporting completion. Never rely on chats as the only repository of project state. Already-recorded owner inputs must not be repeatedly requested.
 
 This decision changes documentation/process only. D-088 remains CLOSED and D-122 scientific/data restrictions remain unchanged.
+
+
+---
+
+## D-124 — Owner grants final bounded 2026 Stage 3B acquisition/model authorization
+
+Owner explicitly grants the final approval reserved by D-118–D-123: proceed with the frozen bounded 2026 provider acquisition and preregistered Stage 3B model fitting/evaluation **without any further approval request**. Detailed authorization: `research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md`.
+
+Authorized only: `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z`; XAUUSD BID/ASK plus six FX BID series for synthetic DXY; one capped provider attempt; D-120 bounded June1 cold start; D-121 macro fail-closed policy; D-116 teacher corpus; frozen L2 logistic Task A/Task B, 39-date LODO, bootstrap and advancement rule. A narrowly targeted exact-runtime/provider CI job is permitted when needed to execute this package.
+
+Still prohibited: 2022–2025, Oct9–Nov30 2026, December shadow, 2027, new symbols/providers/features/models/hyperparameters, Stage4/5 automatic execution, macro outcome values, broker/order mutation.
+
+**D-088 is partially superseded only for this exact D-124 bounded exception.** Next implementation must admit the exact D-124 commit SHA into the final-approval allowlist and machine-readable plan before any provider call. No further owner approval is needed for the authorized package.

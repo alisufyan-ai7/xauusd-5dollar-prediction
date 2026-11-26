@@ -83,15 +83,15 @@ Ask the owner only when an explicit owner decision is genuinely required, such a
 Already-recorded owner decisions must not be re-asked. In particular:
 - owner confirmed possession of written Dukascopy automated-data permission/licence;
 - **do not request that licence paperwork again**;
-- owner approved Option B **in principle only**;
-- final 2026 market acquisition/model-fitting approval has **not** been granted.
+- owner approved Option B in principle and, under **D-124, granted final authorization** for the exact bounded 2026 acquisition/model-fitting package;
+- do not re-ask authorization for that frozen package.
 
 ## 6. Current protection boundary
 
-As of D-123:
-- D-088 remains **CLOSED**;
-- no 2026 market acquisition or model fitting has been authorized;
-- no provider CI run is authorized;
+As of D-124:
+- D-088 is **partially superseded only for the exact bounded D-124 exception**;
+- bounded 2026 acquisition/model fitting is authorized after the executable guard records the D-124 commit SHA and technical preflight passes;
+- narrowly targeted exact-runtime/provider CI is authorized when technically required for that frozen package;
 - 2022–2025 remain sealed;
 - December shadow remains separately unauthorized;
 - no broker/order mutations.

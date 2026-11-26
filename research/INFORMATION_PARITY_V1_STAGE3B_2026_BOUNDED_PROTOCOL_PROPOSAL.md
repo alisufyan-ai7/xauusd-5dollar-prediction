@@ -162,3 +162,12 @@ The bounded data-acquisition / macro-missingness plan is frozen as a proposal at
 Proposed default if a fully source-versioned 2026 six-family calendar remains infeasible: the macro calendar channel is disabled for **all 2026 teacher rows**, `macro_schedule_available=0`, every dependent macro schedule field explicitly unavailable, no retrofilled pseudo-events. Reporting must call this **bounded-source reduced-macro FULL diagnostic**, not an exact recreation of the accepted 2016–2021 full macro calendar. This default is a scientific design choice to be included in the later explicit final owner approval; it is made **before model scores**.
 
 The D-120 bounded June1 structural cold-start remains unchanged. D-088 restrictions continue until an explicit later authorizing decision. No alternative provider/year or additional experiment may be inferred.
+
+
+---
+
+## D-124 Final authorization
+
+The owner now provides the explicit second approval reserved by this protocol and authorizes the exact bounded 2026 acquisition plus frozen Stage 3B model fitting/evaluation without another approval request. The bounded cold-start and macro fail-closed limitations are accepted as part of the authorized scientific design. D-088 is partially superseded solely for `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z` and the frozen eight market series. All sealed-year, quarantine, shadow, model-family, feature, and broker prohibitions remain.
+
+Implementation must first commit the **exact D-124 authorization commit SHA** into the execution allowlist/manifest, validate the pinned runtime, and pass fail-closed tests. Only then may the one controlled provider attempt begin. The owner need not be asked again for this package.
