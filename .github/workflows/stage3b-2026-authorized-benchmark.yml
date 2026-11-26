@@ -9,16 +9,26 @@ permissions:
   contents: read
 jobs:
   bounded-provider-and-benchmark:
+    if: ${{ contains(github.event.head_commit.message, '[STAGE3B_PROVIDER_EXECUTE_D124]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 180
     env:
-      STAGE3B_WORK: ${{ runner.temp }}/stage3b-2026
+      STAGE3B_WORK: stage3b-work
     steps:
       - name: One-attempt immutable trigger guard
         run: |
           set -euo pipefail
-          test "$GITHUB_RUN_NUMBER" = "1"
           test "$GITHUB_RUN_ATTEMPT" = "1"
+          test -f .github/stage3b-2026-authorized-trigger
+          EXPECTED=$(cat <<'EOF'
+D-129 authorized bounded provider execution
+authorization=c99ad84e4b7254d074b96df7a5f4c371ccbe01c2
+scope=2026-06-01T00:00:00Z/2026-10-09T00:00:00Z
+attempt=1
+EOF
+)
+          ACTUAL=$(cat .github/stage3b-2026-authorized-trigger)
+          test "$ACTUAL" = "$EXPECTED"
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Setup exact Node
@@ -61,7 +71,7 @@ jobs:
         with:
           name: stage3b-2026-bounded-benchmark
           path: |
-            ${{ runner.temp }}/stage3b-2026/reports/**
-            ${{ runner.temp }}/stage3b-2026/manifests/**
+            stage3b-work/reports/**
+            stage3b-work/manifests/**
           if-no-files-found: warn
           retention-days: 90

@@ -3693,3 +3693,14 @@ Implemented the production D-124 pipeline before spending the single provider at
 D-127 itself triggers only `.github/workflows/stage3b-2026-pipeline-preflight.yml`, which generates deterministic fake market state around the real frozen teacher times and runs the entire pipeline under the exact runtime. This rehearsal makes no provider market call. The one real D-124 attempt may be triggered only after this synthetic workflow passes and its result is recorded.
 
 Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D127_FINDINGS.md`.
+
+
+---
+
+## D-128 — D-127 synthetic pipeline PASS; real-attempt workflow gate repaired before provider access
+
+Synthetic exact-runtime run **45897637362** (job **140175383322**) PASSED the whole fake-market rehearsal using the real frozen teacher/features/folds. The printed fake-market scientific classification is ignored.
+
+GitHub production run record **45897634530** contained zero jobs and therefore did not execute provider/model code. It is classified as a workflow-validation/trigger-surface failure, **not** the single provider attempt. D-128 replaces the invalid/brittle surface with a fixed workspace and requires the exact D-124 execution commit marker, exact trigger-file contents and `GITHUB_RUN_ATTEMPT=1` before acquisition. The real trigger remains absent in this commit.
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D128_FINDINGS.md`.

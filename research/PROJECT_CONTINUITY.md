@@ -2973,3 +2973,12 @@ The exact D-124 production surface is now implemented but the **one real provide
 A separate exact-runtime synthetic workflow uses the **real frozen 250-event teacher corpus and exact 155-feature schema with deterministic fake market prices** to exercise the complete join/preprocessing/model/reporting surface before real data. D-127 adds the production provider workflow but **does not add its one-time trigger file**. Therefore this commit can trigger only the no-provider synthetic rehearsal.
 
 Immediate next step: inspect/poll the D-127 synthetic workflow. If PASS, record that result and only then commit the one-time authorized provider trigger. If FAIL, repair deterministically without consuming the provider attempt. D-124 authorization remains active; 2022–2025, quarantine/shadow, extra sources/models and broker actions remain forbidden.
+
+
+## D-128 — Synthetic end-to-end PASS; production execution gate hardened
+
+D-127 synthetic run **45897637362** / job **140175383322** succeeded under the exact pinned runtime. It exercised the real frozen 250-event teacher / 343 candidate-minute / 155-feature / 39-fold code path with deterministic fake market data. The synthetic benchmark's NEGATIVE classification is not scientific evidence.
+
+A separate production-workflow Actions record **45897634530** had **zero jobs**, so no runner/provider/model action occurred and the one D-124 provider attempt remains unspent. D-128 repairs the workflow parser/trigger surface: fixed workspace path, no run-number dependency, exact execution commit marker + exact trigger-file contents + run_attempt=1 required before provider access. **The provider trigger file is still absent.**
+
+Next: commit D-129 one-time trigger with the exact marker/content, then poll the single bounded provider/build/benchmark run. No further owner approval is required under D-124.

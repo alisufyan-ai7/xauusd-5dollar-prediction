@@ -17,6 +17,6 @@ Authorized window: `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z`; eight fro
 
 **D-088 is partially superseded only for D-124.** Still sealed/forbidden: 2022–2025, Oct9–Nov30, December shadow, 2027, new provider/symbol/feature/model searches, Stage4/5 automatic execution, broker actions.
 
-Immediate work: D-127 has implemented the production bounded pipeline and triggers only a synthetic exact-runtime end-to-end rehearsal. **The one real provider attempt is not yet spent and its trigger file is intentionally absent.** Inspect/poll D-127; if PASS, record it, then commit the one-time provider trigger and inspect the authorized benchmark run. Update GitHub documentation after each material action.
+Immediate work: D-128 records D-127 synthetic PASS (run 45897637362) and repairs the production trigger guard. **The real provider attempt remains unspent and the trigger file remains absent.** Next commit the exact D-129 one-time trigger with the execution marker, then poll the single authorized provider/build/benchmark run. Never rerun it.
 
 Always inspect branch HEAD fresh before acting.

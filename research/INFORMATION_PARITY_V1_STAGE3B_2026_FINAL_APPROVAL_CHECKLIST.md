@@ -88,5 +88,13 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Frozen GOLD/FULL 39-date LODO logistic benchmark, bootstrap and advancement rule implemented.
 - [x] One-attempt production provider workflow implemented **without its trigger file**.
 - [x] Synthetic exact-runtime end-to-end rehearsal workflow and trigger committed.
-- [ ] D-127 synthetic rehearsal must PASS before the single real provider attempt is triggered.
-- [ ] Real provider attempt remains unspent at D-127 commit time.
+- [x] D-127 synthetic rehearsal PASS: run 45897637362 / job 140175383322; complete real-teacher/fake-market pipeline exercised successfully.
+- [x] Real provider attempt remains unspent through D-128; unexpected production Actions record 45897634530 had zero jobs/no runner/no provider command.
+
+
+## D-128 production trigger hardening
+
+- [x] Removed brittle GITHUB_RUN_NUMBER guard after zero-job workflow record consumed run number 1.
+- [x] Production workflow requires D-124 execution commit marker + exact one-time trigger contents + GITHUB_RUN_ATTEMPT=1 before provider step.
+- [x] Fixed workflow workspace context so YAML does not depend on runner context at job-level env.
+- [ ] Actual one-time provider trigger file remains absent until D-129.

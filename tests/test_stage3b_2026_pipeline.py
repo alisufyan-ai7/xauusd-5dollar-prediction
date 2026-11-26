@@ -46,8 +46,11 @@ class TestStage3BPipeline(unittest.TestCase):
     def test_provider_workflow_one_attempt_and_no_raw_upload(self):
         text=(ROOT/".github/workflows/stage3b-2026-authorized-benchmark.yml").read_text()
         self.assertIn('".github/stage3b-2026-authorized-trigger"',text)
-        self.assertIn('test "$GITHUB_RUN_NUMBER" = "1"',text)
+        self.assertNotIn('test "$GITHUB_RUN_NUMBER" = "1"',text)
         self.assertIn('test "$GITHUB_RUN_ATTEMPT" = "1"',text)
+        self.assertIn("[STAGE3B_PROVIDER_EXECUTE_D124]",text)
+        self.assertIn("D-129 authorized bounded provider execution",text)
+        self.assertIn("test -f .github/stage3b-2026-authorized-trigger",text)
         self.assertNotIn("/raw/**",text)
         self.assertNotIn("data/raw",text)
         self.assertIn("Remove provider payloads before artifact upload",text)

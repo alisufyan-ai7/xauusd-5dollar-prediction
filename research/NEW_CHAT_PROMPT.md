@@ -53,9 +53,9 @@ Still forbidden:
 D-088 is **partially superseded only for this exact D-124 exception**.
 
 ### Immediate execution order
-1. inspect the D-127 synthetic end-to-end pipeline preflight; production code exists but the real provider trigger is intentionally absent;
-2. if D-127 PASS, record it and then create the one-time authorized provider trigger;
-3. inspect/poll the single real provider/build/benchmark run and never rerun it blindly;
+1. D-128 records D-127 synthetic end-to-end PASS and hardens the production trigger; the real provider attempt is still unspent;
+2. create/verify the exact D-129 one-time provider trigger with the required execution commit marker;
+3. poll the single real provider/build/benchmark run; do not rerun it;
 4. execute only one bounded provider acquisition/build after preflight PASS;
 5. validate raw/normalized manifests, date/symbol/budget/sealed-year/missingness/causality;
 6. build Stage 3B dataset using frozen source intervals/features;
