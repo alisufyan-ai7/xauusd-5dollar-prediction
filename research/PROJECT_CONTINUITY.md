@@ -3007,3 +3007,10 @@ D-130 run **45898387479** / job **140177881034** failed at the trigger-file exis
 D-131 moves checkout before the immutable trigger guard and adds a static regression assertion for that ordering. The future exact execution payload is now D-132. D-131 changes only the no-provider synthetic trigger, so it will revalidate the exact runtime/pipeline without touching provider data.
 
 Next: poll D-131 synthetic regression. If PASS, issue D-132 exact provider trigger and monitor the single real attempt. No rerun of D-130.
+
+
+## D-132 — Corrected single real provider attempt triggered
+
+D-131 no-provider regression **45898582347** passed the corrected checkout-before-trigger ordering and complete synthetic pipeline. D-132 now writes the exact production trigger payload and required D-124 execution marker.
+
+This is the **one real provider acquisition attempt**. Do not rerun or create another provider trigger. Poll the workflow continuously, inspect compact artifact evidence, and record the frozen Stage3B scientific result or execution failure exactly as observed. No rescue tuning and no Stage4/5 automatic progression.

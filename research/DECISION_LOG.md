@@ -3737,3 +3737,14 @@ D-130 run **45898387479** reached a runner but failed before repository checkout
 D-131 moves checkout ahead of the trigger guard, changes the future exact trigger payload to D-132, and adds a regression assertion that Checkout precedes the immutable-trigger guard. The D-131 commit updates only the synthetic preflight trigger for one no-provider revalidation. It does not change the production trigger file, so real acquisition cannot start from D-131.
 
 Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D131_FINDINGS.md`.
+
+
+---
+
+## D-132 — Spend the single D-124 provider acquisition attempt after all preflight gates pass
+
+D-131 exact-runtime no-provider regression run **45898582347** succeeded. D-132 now replaces the prior trigger contents with the exact payload accepted by the hardened production workflow and includes `[STAGE3B_PROVIDER_EXECUTE_D124]` in the commit message.
+
+D-132 is the single real acquisition attempt. No rerun is allowed. The run is restricted to the D-124 date/symbol/budget/cold-start/macro/model scope; outputs are compact evidence only after raw/derived payload removal.
+
+Findings/trigger record: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D132_FINDINGS.md`.

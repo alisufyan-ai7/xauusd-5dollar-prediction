@@ -128,4 +128,13 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Checkout moved before immutable trigger-file guard.
 - [x] Pipeline test now asserts checkout precedes trigger guard.
 - [x] Future exact execution payload versioned to D-132.
-- [ ] D-131 no-provider regression rehearsal must PASS before D-132 trigger.
+- [x] D-131 no-provider regression rehearsal PASS: run 45898582347.
+
+
+## D-132 corrected real execution
+
+- [x] All exact-runtime, parser, trigger-order and synthetic end-to-end gates passed.
+- [x] Exact D-132 trigger payload committed with D-124 authorization SHA.
+- [x] Commit message contains required execution marker.
+- [ ] Monitor the **single real provider attempt**; no rerun under any outcome.
+- [ ] Verify compact artifact/raw deletion and record frozen Stage3B result.
