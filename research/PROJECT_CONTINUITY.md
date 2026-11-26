@@ -2893,3 +2893,12 @@ Final **107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 143 primary P3 / 39 paired
 Review: `research/INFORMATION_PARITY_V1_STAGE3B_CHRONOLOGY_GATE_REVIEW.md`. Frozen D-116 source is numerically adequate, but 2026 teacher dates still lack admitted provider market state because accepted Stage 2 covers 2016–2021 and 2026 is reserved. D-117 documents Option A preserve 2026 and seek overlapping teacher, Option B require separately preregistered explicitly owner-approved bounded 2026 exception with disjoint shadow holdout, Option C stop this teacher-market join.
 
 **No market-data exception authorized. D-088 remains CLOSED.** Stage 3B recognition NOT TESTED; Stages 4 and 5 blocked. 2022–2025 sealed, no provider/CI/fitting/broker actions. **Next action requires explicit owner chronology choice; do not run another stage automatically.**
+
+
+## D-118 — Option B bounded-2026 proposal drafted under in-principle owner approval
+
+Owner explicitly accepted design work **only**, not 2026 market acquisition or model fitting. Proposal: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL.md`. Pending approval evidence: `research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_APPROVAL_CHECKLIST.md`.
+
+Proposed UTC half-open research fence June 1–Oct 9 (warm-up June 1–July 5; frozen Badar teacher dates July 6–Oct 8); quarantine Oct 9–Nov 30; separately authorized prospective shadow Dec 1–Dec 31. 39 exact teacher dates; 107 eligible ACT / 143 explicit P3. Provider proposal limited to Dukascopy XAUUSD BID/ASK M1, six FX BID M1 synthetic DXY constituents and point-in-time first-party macro schedule, maximum single capped attempt after a **separate explicit owner approval**. Full exact feature allowlists, environment lock, historic macro point-in-time audit, budget/license proof and deterministic off-CI no-provider tests are still needed before that final approval may be requested.
+
+**D-088 REMAINS CLOSED; NO 2026 MARKET DATA, JOIN, FITTING, CI, BROKER, SHADOW COLLECTION, OR SEALED 2022–2025 ACCESS.** Latest decision D-118 is proposal-only. Immediate next safe work is code/source-only preflight and documentation, not provider execution.

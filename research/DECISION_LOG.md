@@ -3575,3 +3575,17 @@ Canonical-only deterministic changes: fix six Batch01 rows with a surplus blank 
 Review: `research/INFORMATION_PARITY_V1_STAGE3B_CHRONOLOGY_GATE_REVIEW.md`.
 
 D-116 has certified source-only Stage 3B evidence adequacy but accepted information states exist only for 2016–2021 TRAIN while the pinned Badar teacher cohort is from reserved 2026. Three legitimate routes are documented: (A) maintain 2026 reserve and seek TRAIN-overlapping expert source; (B) an expressly owner-approved separately preregistered bounded 2026 teacher-window repurpose with disjoint shadow holdout and no hindsight; (C) stop this teacher-market join without false inference. **No new 2026 exception was selected or authorized. D-088 remains CLOSED** pending explicit owner decision; 2022–2025 sealed, no provider join/fitting/CI/Stage4-5/live execution. This is governance review, not a completed recognition benchmark.
+
+
+---
+
+## D-118 — Owner accepts Option B in principle; bounded 2026 protocol proposed, no data authorization
+
+The owner expressly approves **design of a bounded 2026 Badar teacher–market protocol in principle**, and expressly forbids provider acquisition or fitting until a **second explicit final approval**.
+
+Proposal: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL.md`.
+Final-approval checklist: `research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_APPROVAL_CHECKLIST.md`.
+
+Proposed warm-up `2026-06-01T00:00:00Z` to `2026-07-06T00:00:00Z`; retrospective teacher period `2026-07-06T00:00:00Z` to `2026-10-09T00:00:00Z` (39 frozen source dates), disjoint zero-use embargo `2026-10-09T00:00:00Z` to `2026-12-01T00:00:00Z`, separate prospective shadow `2026-12-01T00:00:00Z` to `2027-01-01T00:00:00Z`. Proposed restricted source set: Dukascopy XAUUSD BID/ASK + six FX BID M1 for synthetic DXY + first-party macro schedule. Proposed one-run/350MiB raw/750MiB normalized ceilings; **no actual acquisition approved**. The complete exact feature allowlist, runtime and no-provider deterministic preflights are still prerequisites to requesting execution authorization.
+
+D-088 **CLOSED**; Stage 3B model **NOT TESTED**, Stage 4/5 blocked, 2022–2025 sealed. Owner's in-principle approval may not be used as an execution token.
