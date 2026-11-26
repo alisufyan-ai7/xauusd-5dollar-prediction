@@ -17,6 +17,6 @@ Authorized window: `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z`; eight fro
 
 **D-088 is partially superseded only for D-124.** Still sealed/forbidden: 2022–2025, Oct9–Nov30, December shadow, 2027, new provider/symbol/feature/model searches, Stage4/5 automatic execution, broker actions.
 
-Immediate work: record the D-124 commit SHA into the execution allowlist and machine-readable plan; run exact pinned-runtime no-provider preflight; if PASS, execute the single bounded provider acquisition/build and frozen benchmark; update GitHub documentation after each material action.
+Immediate work: inspect D-125 exact-runtime no-provider CI; D-124 SHA is already admitted. If PASS, finish static review/implementation and execute the single bounded provider acquisition/build and frozen benchmark; update GitHub documentation after each material action.
 
 Always inspect branch HEAD fresh before acting.

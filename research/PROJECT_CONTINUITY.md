@@ -2954,3 +2954,8 @@ Owner now explicitly authorizes the exact frozen 2026 acquisition/model package 
 Permitted: exact-runtime validation; one capped acquisition for Jun1–Oct8 2026 UTC only; eight frozen market series; bounded cold-start reconstruction; fail-closed macro availability; D-116 source-event join; frozen GOLD/FULL logistic Task A/Task B with 39-date LODO and preregistered bootstrap/gates. Targeted CI/provider execution is authorized only as necessary for this package.
 
 Not permitted: 2022–2025, Oct9–Nov30, December shadow, 2027, extra providers/symbols/features/models/tuning, Stage4/5 automatic progression, or broker/order actions. **D-088 partially superseded only for the bounded D-124 exception.** Immediate next owner-independent work: commit D-124 SHA into the execution allowlist/manifest, run exact no-provider runtime preflight, then execute the single bounded provider build and frozen benchmark if preflight passes. Keep docs/handoff current after each step.
+
+
+## D-125 — D-124 execution token admitted; exact-runtime preflight triggered
+
+Exact owner authorization SHA `c99ad84e4b7254d074b96df7a5f4c371ccbe01c2` is admitted in the execution guard and machine-readable plan, which is now FINAL_APPROVED for the bounded D-124 package. A path-isolated GitHub Actions preflight was added and triggered solely to reproduce CPython 3.12.14 plus the frozen dependency lock and deterministic guard tests. **This D-125 job performs no provider market acquisition and no fitting.** If PASS, next work is final static review/implementation of the one bounded provider+benchmark run, then execution under D-124. D-088 remains superseded only for the exact bounded exception.

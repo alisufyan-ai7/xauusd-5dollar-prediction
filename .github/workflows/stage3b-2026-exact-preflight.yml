@@ -1,0 +1,53 @@
+name: stage3b-2026-exact-preflight
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - research/information-parity-v1-stage3-preregistration
+    paths:
+      - ".github/stage3b-2026-exact-preflight-trigger"
+permissions:
+  contents: read
+jobs:
+  exact-runtime-no-provider:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Setup exact Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: "22.23.3"
+      - name: Setup exact Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12.14"
+      - name: Install exact Stage 3B lock
+        run: python -m pip install --disable-pip-version-check --no-cache-dir -r requirements/information-parity-stage3b-2026.lock.txt
+      - name: Verify exact runtime
+        run: |
+          set -euo pipefail
+          test "$(node --version)" = "v22.23.3"
+          python scripts/check_information_parity_stage3b_2026_environment.py
+          python scripts/stage3b_2026_execution_preflight.py
+      - name: Compile authorized code surface
+        run: |
+          python -m py_compile scripts/stage3b_2026_preflight.py scripts/stage3b_2026_addendum.py scripts/stage3b_2026_execution_preflight.py scripts/check_information_parity_stage3b_2026_environment.py
+      - name: Run deterministic no-provider Stage 3B tests
+        run: python -m unittest -v tests.test_stage3b_2026_preflight tests.test_stage3b_2026_addendum tests.test_stage3b_2026_execution_preflight
+      - name: Verify authorized manifest and frozen source hashes
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          auth="c99ad84e4b7254d074b96df7a5f4c371ccbe01c2"
+          o=json.loads(pathlib.Path("research/reference/information-parity-v1/stage3b-2026-acquisition-preflight-v1.json").read_text())
+          assert o["status"]=="FINAL_APPROVED" and o["owner_final_execution_approval_commit"]==auth
+          assert o["provider_download_enabled"] and o["model_fit_enabled"] and not o["broker_enabled"]
+          assert o["market_bounds_utc_half_open"]=={"start":"2026-06-01T00:00:00Z","end":"2026-10-09T00:00:00Z"}
+          expected={"research/reference/information-parity-v1/stage3b-source-events-v1.csv":"8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd","research/reference/information-parity-v1/stage3b-2026-feature-allowlists-v1.json":"44a73f70a51f3c364ef53c5dc6353443e348e0a86bc9142fa6b8919fbe986104","research/reference/information-parity-v1/stage3b-2026-teacher-folds-v1.json":"56a1c301cfebc78373793db10d7099aab9391b33e1470c869b714261ba677ec5"}
+          for path,want in expected.items():
+              got=hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
+              if got!=want: raise SystemExit(f"HASH_MISMATCH:{path}:{got}")
+          print("STAGE3B_D124_AUTHORIZED_PREFLIGHT_PASS")
+          PY

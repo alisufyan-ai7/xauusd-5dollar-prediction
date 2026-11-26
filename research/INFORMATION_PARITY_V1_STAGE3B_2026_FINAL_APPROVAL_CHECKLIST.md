@@ -69,4 +69,12 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Owner authorizes bounded 2026 market acquisition and frozen Stage 3B fitting/evaluation without further approval requests.
 - [x] Scope remains Jun1–Oct9 half-open UTC, eight frozen M1 series, one capped attempt, D-120 cold start, D-121 macro fail-closed semantics.
 - [x] Targeted exact-runtime/provider CI is allowed when technically necessary for this bounded package.
-- [ ] Commit the resulting D-124 authorization commit SHA into the machine-readable plan and `AUTHORIZED_FINAL_DECISION_SHAS`, then verify fail-closed tests before any provider call.
+- [x] D-125 admits exact D-124 authorization SHA `c99ad84e4b7254d074b96df7a5f4c371ccbe01c2` into the machine-readable plan and `AUTHORIZED_FINAL_DECISION_SHAS`; exact-runtime no-provider preflight triggered.
+
+
+## D-125 exact-runtime gate
+
+- [x] D-124 SHA admitted as the sole execution token.
+- [x] Machine-readable plan changed to FINAL_APPROVED for the exact bounded package; broker remains false.
+- [x] Path-isolated exact-runtime no-provider workflow created/triggered.
+- [ ] Record the exact-runtime CI result before any provider call.

@@ -3662,3 +3662,10 @@ Authorized only: `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z`; XAUUSD BID/
 Still prohibited: 2022–2025, Oct9–Nov30 2026, December shadow, 2027, new symbols/providers/features/models/hyperparameters, Stage4/5 automatic execution, macro outcome values, broker/order mutation.
 
 **D-088 is partially superseded only for this exact D-124 bounded exception.** Next implementation must admit the exact D-124 commit SHA into the final-approval allowlist and machine-readable plan before any provider call. No further owner approval is needed for the authorized package.
+
+
+---
+
+## D-125 — Admit exact D-124 SHA and trigger one no-provider exact-runtime preflight
+
+D-124 commit `c99ad84e4b7254d074b96df7a5f4c371ccbe01c2` is the sole approved final-decision SHA in the Stage 3B execution guard and machine-readable plan. The plan changes to FINAL_APPROVED for that exact scope. Added a CPython 3.12.14/full-lock environment checker and a path-isolated workflow triggered only by `.github/stage3b-2026-exact-preflight-trigger`. The triggered job downloads **no provider market data** and fits **no model**; it is justified because the current local Python 3.13.5 environment cannot certify the frozen runtime. Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D125_FINDINGS.md`.

@@ -1,8 +1,8 @@
 {
   "schema": "IPV1_STAGE3B_2026_ACQUISITION_AND_MACRO_PREFLIGHT_V1",
-  "status": "DESIGN_ONLY_NOT_APPROVED",
+  "status": "FINAL_APPROVED",
   "owner_provider_rights": "OWNER_ATTESTED_EXISTING_LICENSE",
-  "owner_final_execution_approval_commit": null,
+  "owner_final_execution_approval_commit": "c99ad84e4b7254d074b96df7a5f4c371ccbe01c2",
   "source_dataset_sha256": "8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd",
   "feature_allowlist_sha256": "44a73f70a51f3c364ef53c5dc6353443e348e0a86bc9142fa6b8919fbe986104",
   "source_fold_manifest_sha256": "56a1c301cfebc78373793db10d7099aab9391b33e1470c869b714261ba677ec5",
@@ -35,10 +35,10 @@
   "max_attempts": 1,
   "raw_bytes_cap": 367001600,
   "normalized_bytes_cap": 786432000,
-  "provider_download_enabled": false,
-  "model_fit_enabled": false,
+  "provider_download_enabled": true,
+  "model_fit_enabled": true,
   "broker_enabled": false,
-  "ci_provider_job_enabled": false,
+  "ci_provider_job_enabled": true,
   "source_memory_bootstrap": {
     "mode": "EXPLICIT_BOUNDED_COLD_START",
     "start": "2026-06-01T00:00:00Z",
@@ -82,5 +82,7 @@
     "no sealed-year access",
     "no raw GitHub upload"
   ],
-  "explanation": "This is intentionally a design-only machine-readable plan. No downloader is included; final owner approval must be separately recorded."
+  "authorization_scope": "D-124 exact bounded exception only; broker/shadow/sealed years remain forbidden",
+  "authorization_record": "research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md",
+  "explanation": "D-124 final owner authorization recorded. Provider/model actions may proceed only after exact-runtime preflight passes and only within this manifest."
 }

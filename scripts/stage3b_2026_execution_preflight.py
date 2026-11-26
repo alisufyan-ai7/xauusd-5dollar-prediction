@@ -1,8 +1,7 @@
-"""D-121 zero-network, zero-model preflight. NOT a downloader or model runner.
+"""D-125 zero-network execution preflight for the D-124 bounded authorization.
 
-The module intentionally has no data acquisition implementation. It permits
-creation/audit of an acquisition plan, and refuses permission without an
-independent final owner authorization recorded as a SHA-referenced decision.
+This module is not a downloader or model runner. It admits only the exact
+owner-authorization commit and rejects scope/budget mutations.
 """
 from __future__ import annotations
 import hashlib
@@ -18,33 +17,30 @@ START, END = "2026-06-01T00:00:00Z", "2026-10-09T00:00:00Z"
 SYMBOLS = ("XAUUSD_BID", "XAUUSD_ASK", "EURUSD_BID", "USDJPY_BID", "GBPUSD_BID", "USDCAD_BID", "USDSEK_BID", "USDCHF_BID")
 CAP_RAW = 350 * 1024 * 1024
 CAP_NORMALIZED = 750 * 1024 * 1024
-AUTHORIZED_FINAL_DECISION_SHAS = frozenset()  # intentionally empty until separate user-approved GitHub decision
+AUTHORIZED_FINAL_DECISION_SHAS = frozenset({"c99ad84e4b7254d074b96df7a5f4c371ccbe01c2"})
 REQUIRED = {"scikit-learn": "1.8.0", "scipy": "1.17.0", "numpy": "2.5.3", "pandas": "3.0.6", "joblib": "1.5.3", "threadpoolctl": "3.6.0"}
-
 
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
-
 
 def verify_local_assets(teacher: Path, features: Path, folds: Path):
     for path, expected in ((teacher, SOURCE_SHA), (features, FEATURE_SHA), (folds, FOLDS_SHA)):
         if sha256_file(path) != expected:
             raise ValueError("asset SHA-256 mismatch: " + str(path))
 
-
 def inspect_environment() -> dict:
     actual = {}
     for name in REQUIRED:
-        try: actual[name] = metadata.version(name)
-        except metadata.PackageNotFoundError: actual[name] = None
+        try:
+            actual[name] = metadata.version(name)
+        except metadata.PackageNotFoundError:
+            actual[name] = None
     py = platform.python_version()
     exact = py == "3.12.14" and actual == REQUIRED
     return {"python": py, "packages": actual, "expected_python": "3.12.14", "expected_packages": REQUIRED, "exact_runtime_pass": exact}
 
-
 def proposed_acquisition_plan() -> dict:
-    return {"status": "DESIGN_ONLY_NOT_APPROVED", "source": "owner-attested Dukascopy licence", "window": [START, END], "symbols": list(SYMBOLS), "max_raw_bytes": CAP_RAW, "max_normalized_bytes": CAP_NORMALIZED, "max_attempts": 1, "owner_final_approval_decision_sha": None, "provider_requests_performed": 0, "raw_artifact_github_upload_allowed": False}
-
+    return {"status": "FINAL_APPROVED", "source": "owner-attested Dukascopy licence", "window": [START, END], "symbols": list(SYMBOLS), "max_raw_bytes": CAP_RAW, "max_normalized_bytes": CAP_NORMALIZED, "max_attempts": 1, "owner_final_approval_decision_sha": "c99ad84e4b7254d074b96df7a5f4c371ccbe01c2", "provider_requests_performed": 0, "raw_artifact_github_upload_allowed": False}
 
 def require_owner_final_approval(plan: dict) -> None:
     sha = plan.get("owner_final_approval_decision_sha")
@@ -56,12 +52,9 @@ def require_owner_final_approval(plan: dict) -> None:
         raise PermissionError("approved plan must match the exact frozen design")
     if plan.get("max_raw_bytes") != CAP_RAW or plan.get("max_normalized_bytes") != CAP_NORMALIZED or plan.get("max_attempts") != 1:
         raise PermissionError("budget differs from approved proposal")
-    # Passing this check alone still does not download: this module has no network API.
-
 
 def save_plan(path: Path) -> None:
     path.write_text(json.dumps(proposed_acquisition_plan(), indent=2, sort_keys=True)+"\n", encoding="utf-8")
 
-
 if __name__ == "__main__":
-    print(json.dumps({"status": "SOURCE_ONLY_NO_PROVIDER", "runtime": inspect_environment(), "plan": proposed_acquisition_plan()}, indent=2, sort_keys=True))
+    print(json.dumps({"status": "D124_FINAL_APPROVED_NO_PROVIDER_PREFLIGHT", "runtime": inspect_environment(), "plan": proposed_acquisition_plan()}, indent=2, sort_keys=True))

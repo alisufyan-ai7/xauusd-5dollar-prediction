@@ -30,7 +30,7 @@ Do not rely on this prompt when GitHub has newer state.
 - owner has written Dukascopy automation permission; do not ask for paperwork.
 
 ### D-124 final owner authorization
-The owner explicitly authorizes the frozen bounded 2026 market acquisition and preregistered Stage 3B model fitting/evaluation **without any further approval request**.
+The owner explicitly authorizes the frozen bounded 2026 market acquisition and preregistered Stage 3B model fitting/evaluation **without any further approval request**. D-125 has already admitted the exact D-124 commit SHA and triggered a no-provider exact-runtime preflight.
 
 Authorized:
 - `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z`;
@@ -53,9 +53,9 @@ Still forbidden:
 D-088 is **partially superseded only for this exact D-124 exception**.
 
 ### Immediate execution order
-1. record the exact D-124 authorization commit SHA in `AUTHORIZED_FINAL_DECISION_SHAS` and the machine-readable plan;
-2. run deterministic/off-provider guards;
-3. verify exact pinned CPython 3.12.14 environment (targeted CI is justified if required);
+1. inspect the D-125 exact-runtime no-provider CI result; D-124 SHA is already the sole admitted execution token;
+2. if PASS, finish static review/implementation of the single bounded provider/build/benchmark workflow;
+3. execute the authorized one-attempt provider acquisition and frozen benchmark;
 4. execute only one bounded provider acquisition/build after preflight PASS;
 5. validate raw/normalized manifests, date/symbol/budget/sealed-year/missingness/causality;
 6. build Stage 3B dataset using frozen source intervals/features;
