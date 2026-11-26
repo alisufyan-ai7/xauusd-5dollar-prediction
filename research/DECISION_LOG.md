@@ -3566,3 +3566,12 @@ One-row-per-pinned-trade disposition CSV: `research/reference/information-parity
 **251 canonical events, 250 primary eligible: 107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 143 eligible P3 / 39 paired dates**. Source evidence passes all D-099 numeric floors. Original 123 trade-table rows all dispositioned: 107 source keys attached to 102 ACT after five same-plan collapses, 16 excluded (including one BTC), no unresolved row; plus five non-table ACT backfilled under D-115.
 
 Canonical-only deterministic changes: fix six Batch01 rows with a surplus blank CSV field; retain but exclude `S3B-REJ-0141` as a primary session-stop negative because `S3B-ACT-0100` follows on the same stream minutes later. Prior frozen batches untouched. No provider XAUUSD, fitting, CI, broker or sealed-year access. This is **source adequacy**, not statistical recognition success; D-088 chronology stays CLOSED. D-097 remains INSUFFICIENT/NOT TESTED.
+
+
+---
+
+## D-117 — Review the D-088 chronology/reserve boundary without opening it
+
+Review: `research/INFORMATION_PARITY_V1_STAGE3B_CHRONOLOGY_GATE_REVIEW.md`.
+
+D-116 has certified source-only Stage 3B evidence adequacy but accepted information states exist only for 2016–2021 TRAIN while the pinned Badar teacher cohort is from reserved 2026. Three legitimate routes are documented: (A) maintain 2026 reserve and seek TRAIN-overlapping expert source; (B) an expressly owner-approved separately preregistered bounded 2026 teacher-window repurpose with disjoint shadow holdout and no hindsight; (C) stop this teacher-market join without false inference. **No new 2026 exception was selected or authorized. D-088 remains CLOSED** pending explicit owner decision; 2022–2025 sealed, no provider join/fitting/CI/Stage4-5/live execution. This is governance review, not a completed recognition benchmark.

@@ -2886,3 +2886,10 @@ D-115. Five new primary P2 source-supported resting-limit SHORT commitments (Jul
 Final **107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 143 primary P3 / 39 paired dates**; all D-099 source-adequacy floors met. 251 canonical events, one P3 source statement retained as ineligible. Every one of 123 original trade rows dispositioned, 107 attached to 102 table-derived ACT (five same-plan pieces), 16 excluded; five non-table ACT. Six Batch01 CSV extra-field defects repaired only in canonical output, original batches untouched. See `research/INFORMATION_PARITY_V1_STAGE3B_FINAL_SOURCE_QA_FINDINGS.md`.
 
 **Immediate next step:** separate D-088 chronology/reserve-boundary review. **No provider market join, 2026 XAUUSD, model fitting, CI or sealed-year access**. Source adequacy does not imply statistical recognition result or profitability.
+
+
+## Chronology and reserve boundary reviewed — D-117
+
+Review: `research/INFORMATION_PARITY_V1_STAGE3B_CHRONOLOGY_GATE_REVIEW.md`. Frozen D-116 source is numerically adequate, but 2026 teacher dates still lack admitted provider market state because accepted Stage 2 covers 2016–2021 and 2026 is reserved. D-117 documents Option A preserve 2026 and seek overlapping teacher, Option B require separately preregistered explicitly owner-approved bounded 2026 exception with disjoint shadow holdout, Option C stop this teacher-market join.
+
+**No market-data exception authorized. D-088 remains CLOSED.** Stage 3B recognition NOT TESTED; Stages 4 and 5 blocked. 2022–2025 sealed, no provider/CI/fitting/broker actions. **Next action requires explicit owner chronology choice; do not run another stage automatically.**
