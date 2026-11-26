@@ -1,4 +1,5 @@
-D-131 checkout-before-guard regression validation
-authorization=c99ad84e4b7254d074b96df7a5f4c371ccbe01c2
-provider_market_access=false
-reason=prove-checkout-precedes-trigger-guard-before-corrected-real-attempt
+D-135 exact-runtime no-provider transport-recovery preflight
+authorization=8cdd4edf222b88ac1d7ce15e3d3ac8639a2be155
+transport=dukascopy-node@1.51.1
+market_provider_access=false
+browser_install_only=true

@@ -158,7 +158,17 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Exact transport change limited to dukascopy-node 1.50.0 -> 1.51.1.
 - [x] Same-attempt XAUUSD BID sanity request authorized inside existing D-124 date fence.
 - [x] No scientific labels/features/folds/models/thresholds/sealed periods changed.
-- [ ] Commit exact D-134 SHA into recovery guard and machine-readable plan.
-- [ ] Pin 1.51.1 and implement WAF/HTTP diagnostics/fail-closed transport checks.
-- [ ] Pass exact-runtime no-provider recovery regression before any provider call.
+- [x] D-135 commits exact D-134 SHA `8cdd4edf222b88ac1d7ce15e3d3ac8639a2be155` into the recovery guard and machine-readable plan.
+- [x] D-135 pins dukascopy-node 1.51.1 and implements WAF/HTTP diagnostics, classification/redaction, ephemeral token handling and fail-closed transport checks.
+- [ ] D-135 exact-runtime no-provider recovery regression triggered; must PASS before any recovery provider call.
 - [ ] Execute exactly one recovery provider attempt; no rerun.
+
+
+## D-135 recovery implementation details
+
+- [x] Recovery downloader is separate from consumed D-124 1.50.0 downloader.
+- [x] Sanity request fixed to XAUUSD BID Jun1→Jun2 inside D-124 fence and same recovery attempt.
+- [x] Sanity uses retry-on-empty so valid HTTP-200 empty data is distinguishable from WAF/HTTP failure.
+- [x] Full recovery remains exactly eight frozen series and same byte caps.
+- [x] Raw budget includes sanity file; raw data and WAF token cache are deleted before artifact upload.
+- [x] Provider/model execution remains disabled pending D-135 PASS.

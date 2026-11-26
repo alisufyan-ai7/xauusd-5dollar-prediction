@@ -3775,3 +3775,14 @@ The owner explicitly authorizes the D-133 recovery proposal: exactly one new pro
 Provider access remains disabled until implementation: the exact D-134 commit SHA must be admitted into the recovery guard/manifest, 1.51.1 must be pinned, WAF/HTTP diagnostics added, and no-provider exact-runtime regression must pass. After that, no further owner approval is required. Recovery failure may not be rerun.
 
 Authorization record: `research/INFORMATION_PARITY_V1_STAGE3B_2026_TRANSPORT_RECOVERY_AUTHORIZATION.md`.
+
+
+---
+
+## D-135 — Implement pinned 1.51.1 recovery transport and run no-provider regression
+
+D-134 SHA `8cdd4edf222b88ac1d7ce15e3d3ac8639a2be155` is admitted by a new recovery guard. Added separate 1.51.1 downloader, WAF/HTTP diagnostics/classification, ephemeral token-cache handling, Jun1→Jun2 XAUUSD BID sanity identity, and recovery acquisition wrapper. Scientific dates/symbols/teacher/features/folds/models/thresholds remain unchanged.
+
+Machine plan status becomes `RECOVERY_AUTHORIZED_PREFLIGHT_PENDING`; provider/model/CI-provider flags stay false. D-135 triggers only the exact-runtime synthetic/no-market-provider preflight, including exact 1.51.1 CLI flag checks and matching Chromium installation. No Dukascopy market request occurs in this commit.
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D135_RECOVERY_IMPLEMENTATION_FINDINGS.md`.

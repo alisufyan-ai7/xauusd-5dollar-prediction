@@ -3030,3 +3030,10 @@ Upstream dukascopy-node issues #261/#264 and the 1.51.1 changelog document Octob
 Owner explicitly authorizes the D-133 provider-transport recovery proposal: pin `dukascopy-node 1.51.1` and allow exactly one new recovery provider attempt, while keeping every D-124 scientific date/symbol/teacher/feature/fold/model/threshold/sealed-period restriction unchanged. The XAUUSD BID sanity request may occur inside that same one recovery attempt; if valid, the job may continue to the full frozen eight-series build/benchmark.
 
 This does **not** immediately re-enable provider access. First admit the exact D-134 commit SHA into the recovery guard/manifest, pin 1.51.1, add WAF/HTTP diagnostics and fail-closed tests, then pass exact-runtime no-provider regression. After those prerequisites, no further owner approval is needed for the one recovery attempt. No rerun is authorized.
+
+
+## D-135 — D-134 recovery implementation complete; exact-runtime no-provider gate triggered
+
+The exact D-134 authorization SHA is admitted into a new recovery guard, pinned to `dukascopy-node 1.51.1` / upstream release commit `068bf57b67e3cae3f5c952653ef20157d3852699`. Recovery transport is separate from the consumed 1.50.0 D-124 path. Added selective WAF/HTTP diagnostics + classifier, token redaction, ephemeral shared WAF cache deletion, a Jun1→Jun2 XAUUSD BID sanity request, and a recovery acquisition wrapper that keeps the exact D-124 eight-series science and refuses to fit until all inputs validate.
+
+Provider/model execution remains **disabled** at D-135. The triggered exact-runtime workflow verifies the 1.51.1 CLI/WAF flags, installs its matching Chromium from package infrastructure, runs deterministic recovery tests and the existing synthetic full pipeline, but makes **no market-provider request**. If PASS, next step is to record the run and enable/trigger the single D-134 recovery attempt without asking the owner again.

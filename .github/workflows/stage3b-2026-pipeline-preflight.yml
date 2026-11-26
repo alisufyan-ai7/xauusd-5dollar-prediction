@@ -25,13 +25,26 @@ jobs:
           python-version: "3.12.14"
       - name: Install exact Stage 3B lock
         run: python -m pip install --disable-pip-version-check --no-cache-dir -r requirements/information-parity-stage3b-2026.lock.txt
+      - name: Verify pinned recovery transport package without market-provider access
+        run: |
+          set -euo pipefail
+          node --version
+          npm --version
+          npx -y dukascopy-node@1.51.1 --help > "$RUNNER_TEMP/dukascopy-1.51.1-help.txt"
+          grep -q -- "--waf-mode" "$RUNNER_TEMP/dukascopy-1.51.1-help.txt"
+          grep -q -- "--waf-token-cache-path" "$RUNNER_TEMP/dukascopy-1.51.1-help.txt"
+          grep -q -- "--retry-on-empty" "$RUNNER_TEMP/dukascopy-1.51.1-help.txt"
+          npx -y dukascopy-node@1.51.1 --install-browser
+
       - name: Static and unit checks
         run: |
           set -euo pipefail
           python scripts/check_information_parity_stage3b_2026_environment.py
-          python -m py_compile scripts/validate_stage3b_2026_provider_files.py scripts/build_information_parity_stage3b_2026.py scripts/build_stage3b_2026_dataset.py scripts/run_stage3b_2026_benchmark.py scripts/generate_stage3b_2026_synthetic_market.py
+          python -m py_compile scripts/validate_stage3b_2026_provider_files.py scripts/build_information_parity_stage3b_2026.py scripts/build_stage3b_2026_dataset.py scripts/run_stage3b_2026_benchmark.py scripts/generate_stage3b_2026_synthetic_market.py scripts/stage3b_2026_transport_recovery_preflight.py scripts/classify_stage3b_transport_log.py scripts/record_stage3b_recovery_sanity.py
           bash -n scripts/acquire_information_parity_stage3b_2026.sh
-          python -m unittest -v tests.test_stage3b_2026_preflight tests.test_stage3b_2026_addendum tests.test_stage3b_2026_execution_preflight tests.test_stage3b_2026_pipeline
+          bash -n scripts/acquire_information_parity_stage3b_2026_recovery.sh
+          bash -n scripts/download_dukascopy_m1_recovery.sh
+          python -m unittest -v tests.test_stage3b_2026_preflight tests.test_stage3b_2026_addendum tests.test_stage3b_2026_execution_preflight tests.test_stage3b_2026_pipeline tests.test_stage3b_2026_transport_recovery
       - name: Generate synthetic market around real frozen source events
         run: |
           WORK="$RUNNER_TEMP/stage3b-synthetic"

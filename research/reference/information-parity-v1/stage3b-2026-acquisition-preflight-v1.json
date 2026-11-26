@@ -1,6 +1,6 @@
 {
   "schema": "IPV1_STAGE3B_2026_ACQUISITION_AND_MACRO_PREFLIGHT_V1",
-  "status": "ATTEMPT_CONSUMED_PROVIDER_TRANSPORT_FAILURE",
+  "status": "RECOVERY_AUTHORIZED_PREFLIGHT_PENDING",
   "owner_provider_rights": "OWNER_ATTESTED_EXISTING_LICENSE",
   "owner_final_execution_approval_commit": "c99ad84e4b7254d074b96df7a5f4c371ccbe01c2",
   "source_dataset_sha256": "8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd",
@@ -82,7 +82,7 @@
   ],
   "authorization_scope": "D-124 exact bounded exception only; broker/shadow/sealed years remain forbidden",
   "authorization_record": "research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md",
-  "explanation": "D-132 spent the single D-124 provider attempt. First XAUUSD BID M1 download returned a zero-byte file; fail-closed validation stopped all later acquisition/build/model steps. Further provider execution requires a new separately recorded transport-recovery authorization.",
+  "explanation": "D-134 authorizes exactly one transport-only recovery attempt using dukascopy-node 1.51.1 with all D-124 scientific scope unchanged. D-135 implementation keeps provider/model execution disabled until exact-runtime no-provider recovery preflight passes.",
   "attempt_consumed": true,
   "attempt_record": {
     "decision": "D-132",
@@ -101,5 +101,25 @@
     "scientific_result": "NOT_TESTED",
     "compact_artifact_id": 15155230246,
     "compact_artifact_digest": "sha256:1ffaac4dc19f6b4edaf8075ef197a53cd0b182fabf57bf7d7dfe0ace92cf8e14"
+  },
+  "recovery": {
+    "authorization_decision": "D-134",
+    "authorization_commit": "8cdd4edf222b88ac1d7ce15e3d3ac8639a2be155",
+    "proposal": "research/INFORMATION_PARITY_V1_STAGE3B_2026_PROVIDER_TRANSPORT_RECOVERY_PROPOSAL.md",
+    "transport_package": "dukascopy-node",
+    "transport_version": "1.51.1",
+    "upstream_release_commit": "068bf57b67e3cae3f5c952653ef20157d3852699",
+    "upstream_annotated_tag_object": "fffda56b04e68a1fa9b6ccbb0404ac33c6a6f516",
+    "sanity_symbol": "XAUUSD_BID",
+    "sanity_bounds_utc_half_open": {
+      "start": "2026-06-01T00:00:00Z",
+      "end": "2026-06-02T00:00:00Z"
+    },
+    "max_recovery_attempts": 1,
+    "recovery_attempts_consumed": 0,
+    "rerun_allowed": false,
+    "provider_enabled": false,
+    "model_fit_enabled": false,
+    "current_gate": "EXACT_RUNTIME_NO_PROVIDER_RECOVERY_PREFLIGHT_REQUIRED"
   }
 }
