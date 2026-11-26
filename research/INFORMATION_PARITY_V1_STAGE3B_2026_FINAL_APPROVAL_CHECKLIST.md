@@ -118,3 +118,14 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [ ] Poll and record the single real provider/build/benchmark workflow. **No rerun.**
 - [ ] Verify compact artifact contains reports/manifests only and raw/derived provider payloads were removed.
 - [ ] Record frozen scientific result and keep Stage4/5 blocked unless separately authorized.
+
+
+## D-131 pre-provider ordering repair
+
+- [x] D-130 failure inspected: run 45898387479 / job 140177881034 failed before checkout.
+- [x] Confirmed all provider acquisition, dataset build and model fitting steps skipped.
+- [x] Single D-124 provider acquisition attempt remains unspent.
+- [x] Checkout moved before immutable trigger-file guard.
+- [x] Pipeline test now asserts checkout precedes trigger guard.
+- [x] Future exact execution payload versioned to D-132.
+- [ ] D-131 no-provider regression rehearsal must PASS before D-132 trigger.

@@ -1,4 +1,4 @@
-D-128 production workflow hardening synthetic revalidation
+D-131 checkout-before-guard regression validation
 authorization=c99ad84e4b7254d074b96df7a5f4c371ccbe01c2
 provider_market_access=false
-reason=validate-hardened-trigger-and-pipeline-tests-before-real-attempt
+reason=prove-checkout-precedes-trigger-guard-before-corrected-real-attempt

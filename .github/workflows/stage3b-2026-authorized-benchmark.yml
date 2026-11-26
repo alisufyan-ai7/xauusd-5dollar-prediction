@@ -15,19 +15,19 @@ jobs:
     env:
       STAGE3B_WORK: stage3b-work
     steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: One-attempt immutable trigger guard
         run: |
           set -euo pipefail
           test "$GITHUB_RUN_ATTEMPT" = "1"
           test -f .github/stage3b-2026-authorized-trigger
           printf '%s\n' \
-            'D-130 authorized bounded provider execution' \
+            'D-132 authorized bounded provider execution' \
             'authorization=c99ad84e4b7254d074b96df7a5f4c371ccbe01c2' \
             'scope=2026-06-01T00:00:00Z/2026-10-09T00:00:00Z' \
             'attempt=1' > expected-trigger.txt
           cmp --silent expected-trigger.txt .github/stage3b-2026-authorized-trigger
-      - name: Checkout
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Setup exact Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:

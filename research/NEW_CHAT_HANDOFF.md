@@ -17,6 +17,6 @@ Authorized window: `2026-06-01T00:00:00Z <= t < 2026-10-09T00:00:00Z`; eight fro
 
 **D-088 is partially superseded only for D-124.** Still sealed/forbidden: 2022–2025, Oct9–Nov30, December shadow, 2027, new provider/symbol/feature/model searches, Stage4/5 automatic execution, broker actions.
 
-Immediate work: D-129 validation run 45898223471 skipped cleanly. D-130 commits the exact provider trigger and execution marker; the **single real D-124 attempt is active and must never be rerun**. Poll/inspect the run and compact artifact, record the frozen Stage3B result, update all docs, and keep Stage4/5 blocked.
+Immediate work: D-130 run 45898387479 failed before checkout at the trigger-file check; every provider/model step was skipped, so the single D-124 provider acquisition attempt remains unspent. D-131 moves checkout before the guard and runs one no-provider regression rehearsal. If PASS, issue D-132 exact provider trigger, poll the single real attempt, and never rerun provider acquisition.
 
 Always inspect branch HEAD fresh before acting.

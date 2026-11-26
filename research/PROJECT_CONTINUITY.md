@@ -2998,3 +2998,12 @@ D-129 workflow validation run **45898223471** concluded **skipped** exactly as d
 The single authorized D-124 provider attempt is now active. Do **not rerun** it. The workflow must first pass exact authorization/runtime/tests, then acquire only the eight frozen M1 series for Jun1–Oct9 exclusive, build the bounded layer/dataset, run the frozen GOLD/FULL Stage3B benchmark, remove raw/derived payloads, and upload compact evidence only.
 
 Immediate action: poll the D-130 workflow, inspect exact job/log/artifact result, and record the scientific result without rescue tuning. No Stage4/5 automatic execution.
+
+
+## D-131 — D-130 stopped pre-provider; checkout/guard ordering corrected
+
+D-130 run **45898387479** / job **140177881034** failed at the trigger-file existence check because the guard ran before checkout. Every provider/build/model step was skipped. The tiny failure artifact (ID 15154104349) contains no market data. **The real D-124 acquisition attempt remains unspent.**
+
+D-131 moves checkout before the immutable trigger guard and adds a static regression assertion for that ordering. The future exact execution payload is now D-132. D-131 changes only the no-provider synthetic trigger, so it will revalidate the exact runtime/pipeline without touching provider data.
+
+Next: poll D-131 synthetic regression. If PASS, issue D-132 exact provider trigger and monitor the single real attempt. No rerun of D-130.

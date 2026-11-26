@@ -3726,3 +3726,14 @@ D-129 production parse validation **45898223471** was skipped as intended and co
 This is the **single** real provider attempt authorized by D-124. Rerun is forbidden; `GITHUB_RUN_ATTEMPT=1` is enforced before download. Scope is unchanged: Jun1–Oct9 exclusive, eight frozen M1 series, cold-start/fail-closed macro, frozen teacher/features/folds/model/gate, compact evidence only.
 
 Findings/trigger record: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D130_FINDINGS.md`.
+
+
+---
+
+## D-131 — Correct D-130 pre-checkout guard failure; provider attempt remains unspent
+
+D-130 run **45898387479** reached a runner but failed before repository checkout at `test -f .github/stage3b-2026-authorized-trigger`. Checkout, runtime setup, provider acquisition, dataset construction and model fitting were all skipped. This is an orchestration defect, not a provider attempt.
+
+D-131 moves checkout ahead of the trigger guard, changes the future exact trigger payload to D-132, and adds a regression assertion that Checkout precedes the immutable-trigger guard. The D-131 commit updates only the synthetic preflight trigger for one no-provider revalidation. It does not change the production trigger file, so real acquisition cannot start from D-131.
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D131_FINDINGS.md`.
