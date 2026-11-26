@@ -7,14 +7,17 @@
 
 Read `research/NEW_CHAT_PROMPT.md` and `research/PROJECT_DOCUMENTATION_PROTOCOL.md`.
 
-## Current state after D-133
+## Current state after D-134
 
-D124 authorized one bounded 2026 provider attempt. D132 actually reached Dukascopy on run **45898796339** / job **140179219355**. The first XAUUSD BID M1 request for Jun1–Oct9 exclusive returned a **0-byte file** after ~12.2 seconds. Fail-closed validation stopped immediately: zero usable rows, no XAUUSD ASK/FX requests, no information layer/dataset, **no model fit**. Stage3B = **NOT TESTED**.
+D132 spent the original D-124 provider attempt: first XAUUSD BID M1 request returned a zero-byte file, no usable market rows, no dataset/model, Stage3B **NOT TESTED**. D133 closed that path fail-closed.
 
-Compact artifact **15155230246**, digest `sha256:1ffaac4dc19f6b4edaf8075ef197a53cd0b182fabf57bf7d7dfe0ace92cf8e14`, contains only failure bookkeeping. D124's single provider attempt is consumed. D133 disables further provider/model/CI execution and empties the execution allowlist.
+The owner has now explicitly authorized **one transport-only recovery attempt** under D-133:
+- pin `dukascopy-node 1.51.1`;
+- keep the exact D-124 dates, eight symbols, D116 teacher, GOLD/FULL features, 39 LODO folds, L2 logistic models, metrics/thresholds and sealed periods unchanged;
+- same-attempt XAUUSD BID sanity request is permitted;
+- if sanity succeeds, continue in that same attempt to the full frozen bounded acquisition/build/benchmark;
+- no rerun.
 
-Upstream issues #261/#264 plus 1.51.1 changelog support a likely WAF/transport incompatibility with frozen dukascopy-node 1.50.0, but D132 did not log the exact HTTP code.
+Provider access is still disabled until the exact D-134 commit SHA is admitted to the recovery guard/manifest, WAF/HTTP diagnostics and fail-closed tests are implemented, and exact-runtime no-provider regression passes. Once those prerequisites pass, do **not** ask the owner again for this recovery attempt.
 
-A **transport-only recovery proposal** preserves the exact teacher/date/symbol/features/folds/model/gates and proposes pinned dukascopy-node 1.51.1 plus exactly one new provider attempt. It is NOT authorized yet.
-
-**Only current owner decision needed:** authorize or decline that one transport-recovery attempt. Do not ask for licence paperwork again. Do not rerun D132. 2022–2025, quarantine/shadow, Stage4/5 and broker actions remain blocked.
+2022–2025, Oct9–Nov30, December shadow, 2027, extra providers/symbols/features/models, Stage4/5 and broker actions remain blocked.

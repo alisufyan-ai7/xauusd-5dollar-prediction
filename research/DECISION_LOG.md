@@ -3764,3 +3764,14 @@ Execution is now fail-closed: machine plan status `ATTEMPT_CONSUMED_PROVIDER_TRA
 
 Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D133_PROVIDER_FAILURE_FINDINGS.md`.
 Recovery proposal: `research/INFORMATION_PARITY_V1_STAGE3B_2026_PROVIDER_TRANSPORT_RECOVERY_PROPOSAL.md`.
+
+
+---
+
+## D-134 — Owner authorizes one pinned 1.51.1 transport-recovery attempt
+
+The owner explicitly authorizes the D-133 recovery proposal: exactly one new provider-recovery attempt using `dukascopy-node 1.51.1`, while preserving the complete D-124 scientific scope and sealed-period/broker restrictions. The same-attempt XAUUSD BID sanity request is authorized as proposed.
+
+Provider access remains disabled until implementation: the exact D-134 commit SHA must be admitted into the recovery guard/manifest, 1.51.1 must be pinned, WAF/HTTP diagnostics added, and no-provider exact-runtime regression must pass. After that, no further owner approval is required. Recovery failure may not be rerun.
+
+Authorization record: `research/INFORMATION_PARITY_V1_STAGE3B_2026_TRANSPORT_RECOVERY_AUTHORIZATION.md`.

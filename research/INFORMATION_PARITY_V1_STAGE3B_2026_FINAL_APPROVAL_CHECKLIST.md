@@ -149,4 +149,16 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Execution authorization allowlist emptied; current code fails closed.
 - [x] Upstream WAF/transport evidence documented without claiming unobserved HTTP status.
 - [x] Transport-only 1.51.1 recovery proposal written.
-- [ ] **New explicit owner authorization required** before one transport-recovery provider attempt.
+- [x] **D-134 explicit owner authorization granted** for exactly one transport-recovery attempt using pinned dukascopy-node 1.51.1, with all D-124 scientific scope unchanged.
+
+
+## D-134 recovery authorization gate
+
+- [x] One transport-only recovery attempt authorized.
+- [x] Exact transport change limited to dukascopy-node 1.50.0 -> 1.51.1.
+- [x] Same-attempt XAUUSD BID sanity request authorized inside existing D-124 date fence.
+- [x] No scientific labels/features/folds/models/thresholds/sealed periods changed.
+- [ ] Commit exact D-134 SHA into recovery guard and machine-readable plan.
+- [ ] Pin 1.51.1 and implement WAF/HTTP diagnostics/fail-closed transport checks.
+- [ ] Pass exact-runtime no-provider recovery regression before any provider call.
+- [ ] Execute exactly one recovery provider attempt; no rerun.

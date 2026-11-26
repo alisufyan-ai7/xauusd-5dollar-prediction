@@ -1,6 +1,6 @@
 # Stage 3B 2026 — Provider Transport Recovery Proposal
 
-**STATUS: PROPOSAL ONLY — NOT AUTHORIZED TO EXECUTE**
+**STATUS: D-134 OWNER AUTHORIZED — IMPLEMENTATION PREFLIGHT REQUIRED BEFORE THE SINGLE RECOVERY ATTEMPT**
 
 Parent decisions: D-124 and D-133.
 
@@ -50,6 +50,8 @@ Inside one newly authorized attempt:
 
 The sanity request is part of the one recovery attempt, not an extra attempt.
 
-## Required new owner decision
+## D-134 owner decision
 
-Execution remains disabled until the owner explicitly authorizes **one transport-recovery attempt** under this proposal. No licence paperwork is requested; the existing owner-attested Dukascopy permission remains accepted.
+The owner explicitly authorized **one transport-recovery attempt** under this proposal using pinned `dukascopy-node 1.51.1`, with all D-124 scientific scope unchanged. No licence paperwork is requested; the existing owner-attested Dukascopy permission remains accepted.
+
+Execution remains provider-disabled until the exact D-134 authorization commit SHA is admitted into the recovery guard, 1.51.1 diagnostics are implemented, and the no-provider exact-runtime regression passes. No further owner approval is required after those prerequisites; no rerun is authorized.
