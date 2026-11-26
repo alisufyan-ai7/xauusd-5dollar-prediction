@@ -3529,3 +3529,15 @@ Four pinned XAUUSD source trade rows resolved into two Badar-owned P2/E1 SHORT A
 Cumulative: 95 ACT / 43 LONG / 52 SHORT / 36 ACT dates / 137 P3 REJECT-WAIT / 36 paired dates. Numerical D-099 floors exceeded; final source QA outstanding.
 
 Immediate next source-only work: Oct 2, Oct 6 and Oct 8, then non-table ACT backfill and complete source-row/temporal/timezone audit and final merged CSV/hash. D-088 closed, no market joins/fitting/CI.
+
+
+---
+
+## D-114 — Freeze Stage 3B source-event Batch 15 for Oct 2 + Oct 6 + Oct 8
+
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH15_FINDINGS.md`.
+Artifact: `research/reference/information-parity-v1/stage3b-source-events-v1-batch15.csv`.
+
+Nine remaining pinned XAUUSD table rows reviewed; seven Badar ACT (four LONG, three SHORT). Oct 2 five decisions (four P2 longs and an independently verified P1 Exness real short), Oct 6 one P2 short, Oct 8 one P2/E2 short. Oct 6 #1 excluded as pre-stream/co-host-owned or unclear Badar commitment; Oct 8 #2 excluded as position-tool only. Seven distinct explicit P3 events added (Oct 2 four, Oct 6 two, Oct 8 one).
+
+Provisional cumulative: **102 ACT / 47 LONG / 55 SHORT / 39 ACT dates / 144 P3 / 39 paired dates**. Numerical D-099 adequacy exceeded; backfill and comprehensive QA pending. Next: mandatory non-table ACT search and full original source-row disposition audit. D-088 closed; no provider join, fitting, CI.

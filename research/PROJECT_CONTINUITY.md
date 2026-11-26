@@ -2863,3 +2863,10 @@ Decision D-113. Findings: `research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_
 Four source rows -> two independent Badar P2 E1 SHORT ACT decisions; Sep 30 team-group short excluded; Sep 30 two personal short rows collapsed as one scaled decision. Seven explicit P3 events added (3 + 4). Cumulative: **95 ACT / 43 LONG / 52 SHORT / 36 ACT dates / 137 P3 / 36 paired dates**.
 
 **Immediate next:** Oct 2 + Oct 6 + Oct 8 chronological source-only review, then mandatory non-table ACT backfill, full source-row disposition reconciliation, duplicate/temporal/timing/timezone QA, final canonical CSV/SHA-256 and source certification. D-088 stays closed. No CI/provider XAUUSD/fitting or sealed year access.
+
+
+## Stage 3B final pinned trade-table dates Oct 2 + Oct 6 + Oct 8 reviewed
+
+D-114 / Batch 15. Seven source-backed Badar ACT, seven explicit P3; source-row dispositions and ambiguity details in `research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH15_FINDINGS.md`. Artifact `research/reference/information-parity-v1/stage3b-source-events-v1-batch15.csv`.
+
+Provisional cumulative **102 ACT / 47 LONG / 55 SHORT / 39 ACT dates / 144 P3 / 39 paired dates**. All pinned trade-table dates have chronological batch review. Next: **mandatory non-table ACT backfill, complete source-row dispositions/coverage, duplicate/collapse/temporal/timezone QA and final canonical CSV/hash**. The initial D-097 result remains unchanged. D-088 blocks market joins and fitting, sealed years untouched, CI not required.
