@@ -1,0 +1,140 @@
+{
+  "schema": "STAGE3B_2026_MACRO_ASOF_EVIDENCE_V1",
+  "status": "SOURCE_DOCUMENTATION_ONLY_NO_MARKET_DATA",
+  "as_of": "2026-11-27",
+  "timezone": "America/New_York (ET with DST); release_at_utc normalized",
+  "conservative_publication_rule": "For date-only BLS Last Modified metadata, use 05:00Z the next day; for same-day or post-release modified snapshots, set null and fail closed.",
+  "accepted_families": [
+    "CLAIMS",
+    "CPI",
+    "FOMC",
+    "GDP",
+    "JOLTS",
+    "NFP"
+  ],
+  "full_calendar_ready": false,
+  "verified_subset_only": true,
+  "events": [
+    {
+      "family": "NFP",
+      "release_at_utc": "2026-07-02T12:30:00Z",
+      "published_at_utc": "2026-02-19T05:00:00Z",
+      "provenance_basis": "BLS_JULY_LAST_MODIFIED_2026-02-18",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": true,
+      "provenance_status": "DOCUMENTED_PRE_RELEASE_SCHEDULE_TIME_CANDIDATE",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "CPI",
+      "release_at_utc": "2026-07-14T12:30:00Z",
+      "published_at_utc": "2026-02-19T05:00:00Z",
+      "provenance_basis": "BLS_JULY_LAST_MODIFIED_2026-02-18",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": true,
+      "provenance_status": "DOCUMENTED_PRE_RELEASE_SCHEDULE_TIME_CANDIDATE",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "JOLTS",
+      "release_at_utc": "2026-08-04T14:00:00Z",
+      "published_at_utc": null,
+      "provenance_basis": "BLS_AUGUST_PAGE_LAST_MODIFIED_2026-08-12_AFTER_RELEASE",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": false,
+      "provenance_status": "NOT_PROVEN_AS_OF_EVENT",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "NFP",
+      "release_at_utc": "2026-08-07T12:30:00Z",
+      "published_at_utc": null,
+      "provenance_basis": "BLS_AUGUST_PAGE_LAST_MODIFIED_2026-08-12_AFTER_RELEASE",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": false,
+      "provenance_status": "NOT_PROVEN_AS_OF_EVENT",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "CPI",
+      "release_at_utc": "2026-08-12T12:30:00Z",
+      "published_at_utc": null,
+      "provenance_basis": "BLS_AUGUST_PAGE_LAST_MODIFIED_2026-08-12_SAME_DAY_TIME_UNKNOWN",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": false,
+      "provenance_status": "NOT_PROVEN_AS_OF_EVENT",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "NFP",
+      "release_at_utc": "2026-09-04T12:30:00Z",
+      "published_at_utc": "2026-02-19T05:00:00Z",
+      "provenance_basis": "BLS_SEPTEMBER_LAST_MODIFIED_2026-02-18",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": true,
+      "provenance_status": "DOCUMENTED_PRE_RELEASE_SCHEDULE_TIME_CANDIDATE",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "CPI",
+      "release_at_utc": "2026-09-11T12:30:00Z",
+      "published_at_utc": "2026-02-19T05:00:00Z",
+      "provenance_basis": "BLS_SEPTEMBER_LAST_MODIFIED_2026-02-18",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": true,
+      "provenance_status": "DOCUMENTED_PRE_RELEASE_SCHEDULE_TIME_CANDIDATE",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "JOLTS",
+      "release_at_utc": "2026-09-29T14:00:00Z",
+      "published_at_utc": "2026-02-19T05:00:00Z",
+      "provenance_basis": "BLS_SEPTEMBER_LAST_MODIFIED_2026-02-18",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": true,
+      "provenance_status": "DOCUMENTED_PRE_RELEASE_SCHEDULE_TIME_CANDIDATE",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "NFP",
+      "release_at_utc": "2026-10-02T12:30:00Z",
+      "published_at_utc": "2026-02-19T05:00:00Z",
+      "provenance_basis": "BLS_OCTOBER_LAST_MODIFIED_2026-02-18",
+      "source_url": "https://www.bls.gov/schedule/2026/",
+      "pre_release_schedule_evidence": true,
+      "provenance_status": "DOCUMENTED_PRE_RELEASE_SCHEDULE_TIME_CANDIDATE",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "FOMC",
+      "release_at_utc": "2026-07-29T18:00:00Z",
+      "published_at_utc": "2024-08-09T17:30:00Z",
+      "provenance_basis": "FED_2024-08-09_PRESS_RELEASE_14_ET_SECOND_DAY",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240809a.htm",
+      "pre_release_schedule_evidence": true,
+      "provenance_status": "DOCUMENTED_PRE_RELEASE_SCHEDULE_TIME_CANDIDATE",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    },
+    {
+      "family": "FOMC",
+      "release_at_utc": "2026-09-16T18:00:00Z",
+      "published_at_utc": "2024-08-09T17:30:00Z",
+      "provenance_basis": "FED_2024-08-09_PRESS_RELEASE_14_ET_SECOND_DAY",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240809a.htm",
+      "pre_release_schedule_evidence": true,
+      "provenance_status": "DOCUMENTED_PRE_RELEASE_SCHEDULE_TIME_CANDIDATE",
+      "audit_note": "Official release schedule and source page last-modified/press timestamp. This is not proof that every later revision was known before decision time; verify publication versions and exceptions before empirical features."
+    }
+  ],
+  "unresolved_families": [
+    "GDP historical release-specific publication provenance",
+    "CLAIMS holiday/release-week exceptions"
+  ],
+  "sources": [
+    "https://www.bls.gov/schedule/2026/",
+    "https://www.federalreserve.gov/newsevents/pressreleases/monetary20240809a.htm",
+    "https://www.bea.gov/news/schedule/full",
+    "https://www.dol.gov/newsroom/economicdata"
+  ],
+  "no_outcome_values": true
+}

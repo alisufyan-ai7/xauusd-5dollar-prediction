@@ -51,3 +51,12 @@ One controlled 2026 acquisition, **up to eight logical series** (XAUUSD BID/ASK 
 ## Outcome
 
 Provider docs exist; point-in-time calendar source families have legitimate primary archives; code-level warm-up limitation is confirmed. **Neither entitlement, point-in-time completeness nor warm-up equivalence is certified.** Execution remains blocked by these independent gates and by D-088/final owner approval.
+
+
+---
+
+## D-120 owner-confirmed access clarification (2026-11-27)
+
+The owner states they already possess **written permission or a data licence allowing automated Dukascopy historical-data acquisition for this project**. This statement supersedes D-119's *unverified owner entitlement* as an owner-input blocker. Do not repeatedly request licence documents or represent its absence as grounds to halt documentation/testing. **This is an owner assertion; exact licence wording/coverage was not independently examined here and is not disclosed.** Future authorized acquisition must still respect vendor terms, budgets, security and the agreed method. This confirmation is **not** the separately required final scientific/execution approval.
+
+Calendar evidence inventory: `research/reference/information-parity-v1/stage3b-2026-macro-asof-evidence-v1.json`. FOMC 2026 meetings were published by the Fed in August 2024; BLS monthly modified dates differ, and some August release times cannot be certified from the current month's last-modified metadata. Unknown future-schedule rows remain unknown and may not be retroactively filled.

@@ -3600,3 +3600,14 @@ Exact static feature allowlist: `research/reference/information-parity-v1/stage3
 Public primary agency macro pages and official Dukascopy access documentation/terms reviewed. **Critical external gate:** Bank terms restrict automated access without prior express written consent, and the project's requested usage has not been independently licensed. **Scientific state gate:** accepted Stage2 FVG/last-confirmed-swing can persist unboundedly so proposed June1 warm-up cannot be certified equivalent from fixed windows alone. Macro future schedule as-of versions remain partly unverified. All remain explicit pending blockers; no provider rows or fitted models.
 
 D-118 design-only approval remains in force; **D-088 CLOSED**, sealed 2022–2025 intact, no 2026 market acquisition, CI, fitting, Stage4/5 or broker. A separate execution approval **cannot** be requested as ready until rights, warm-up, macro and exact runtime blockers are resolved.
+
+
+---
+
+## D-120 — Record owner-confirmed provider permission; advance bounded 2026 no-provider preflight
+
+Owner affirmatively states possession of written permission or licence for automated Dukascopy historical-data acquisition. This **closes the repeated licence-evidence owner-input question** on an owner-attestation basis; no licence contents or credentials added to GitHub. It does not grant D-118 final scientific execution approval or waive the data budget.
+
+New `research/INFORMATION_PARITY_V1_STAGE3B_2026_D120_FINDINGS.md`, `research/reference/information-parity-v1/stage3b-2026-macro-asof-evidence-v1.json`, `scripts/stage3b_2026_addendum.py`, `tests/test_stage3b_2026_addendum.py`. Calendar review records FOMC's 2024 advance publication and BLS 2026 monthly modification dates, distinguishing reliable earlier schedule from post-release hindsight; unverified future schedules remain missing. Stage 2's indefinite FVG/swing carry requires a **disclosed June1 bounded cold-start** as an initialization addendum for owner final approval, *not* a scope expansion or false 2016–2021 full-history-equivalence claim.
+
+Combined no-provider local standard-library tests **17/17 PASS**, compileall PASS; no CI, provider acquisition or fitting. Exact CPython3.12 environment and full event-calendar coverage remain implementation verification, not a new user permission request. **D-088 CLOSED** until the separately required final approval.

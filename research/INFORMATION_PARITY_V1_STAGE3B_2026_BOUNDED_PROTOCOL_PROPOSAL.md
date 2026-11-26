@@ -136,3 +136,18 @@ Do **not** request that approval until the outstanding preflight manifests and t
 **OPTION_B_DESIGN_APPROVED_IN_PRINCIPLE / EXECUTION_NOT_AUTHORIZED / D-088_CLOSED**.
 
 Next: complete **source-only / code-only preflight artifacts and tests**; no market data, model fitting, CI or broker actions.
+
+
+---
+
+## D-120 Addendum — Owner-confirmed provider permission; calendar and cold-start policy before execution
+
+**Owner testimony:** The owner has confirmed possession of the required written Dukascopy permission/licence. No further licence paperwork is required for this *design* phase; their confirmation does **not** constitute the separately requested final approval to execute. Data custody/secrets and cost limits remain unchanged.
+
+**Bounded cold start proposed:** Apply accepted Stage 2 transforms but initialize their source history at `2026-06-01T00:00:00Z`. Pre-start active swing/FVG state is **unknown**, never synthesized and never looked up outside the bounded fence. Both GOLD and FULL use identically initialized XAUUSD price history; missingness is explicit. This is a prospective change in *initialization* from continuous full-history Stage 2; report it prominently and include it in the final-approval version. Do not claim full continuity equivalence or silently widen the range. The fixed 92 GOLD/155 FULL column sets and Stage 3B evaluation/advancement thresholds remain unchanged.
+
+**Point-in-time macro fallback:** Admit a future scheduled event only when its specific schedule version's publication timestamp is evidenced before the current minute. If unknown, encode missing/unavailable schedule state and report coverage; do not use retroactive release knowledge, outcome values or release-dated documents as proof of earlier forecasts. If macro coverage fails a frozen minimum, stop or ask for a separately versioned source addendum, not opportunistically change model arms. Public agency evidence subset recorded in `research/reference/information-parity-v1/stage3b-2026-macro-asof-evidence-v1.json`.
+
+**Guard implementation:** `scripts/stage3b_2026_addendum.py` and `tests/test_stage3b_2026_addendum.py`, 6 new synthetic local tests; combined standard-library preflight 17/17 passes on Python 3.13.5. Exact Python 3.12.14 with pinned Stage 2 numeric packages remains a reproducibility test, not owner input.
+
+D-088 and D-118 final-approval gate remain in full force.

@@ -1,6 +1,6 @@
 # D-118 — Second Owner Approval / Bounded 2026 Execution Checklist
 
-**CURRENT STATUS: D-119 CODE-ONLY PREFLIGHT COMPLETE; NOT READY FOR EXECUTION APPROVAL. D-088 CLOSED.**
+**CURRENT STATUS: D-120 OWNER ACCESS CONFIRMED / 17 SYNTHETIC TESTS PASS; FINAL EXECUTION APPROVAL STILL PENDING. D-088 CLOSED.**
 
 Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL.md`.
 
@@ -17,14 +17,14 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 ## Must finish *before presenting final execution approval*
 
 - [x] Freeze static GOLD (92) and FULL (155) column allowlists, types/provenance/availability and SHA-256; forbid teacher/outcome/leakage columns. Runtime table-column matching still must pass before provider execution.
-- [ ] Exact pins/model solver documented in Stage 3B lock; **pending** installation and reproducibility checks under CPython 3.12.14 (local tests used Python 3.13.5 stdlib only).
+- [ ] Exact Stage 3B CPython 3.12.14/pandas 3.0.6/numpy 2.5.3 environment still requires isolated runner validation; Python 3.13.5 locally imports pinned sklearn 1.8.0, scipy 1.17.0, joblib 1.5.3 and threadpoolctl 3.6.0 without fitting.
 - [x] Commit exact source-only 39-date fold manifest, hash and synthetic candidate-minute/weight/event-pooling fixtures; 11 local no-provider tests pass.
-- [ ] Resolve June 1 warm-up: Stage 2 has unbounded last-swing/FVG memory; **cannot certify** 35-day warm-up as exact continuous-state parity without new state/cold-start/authorized-history decision.
-- [ ] Obtain explicit rights/terms clearance for automated Dukascopy acquisition (Bank TCU restrict bots without prior express written consent), verify quota/entitlement; only a coarse TRAIN-derived 2026 size estimate exists.
-- [ ] Complete event-by-event point-in-time macro calendar publication/revision proof; primary 2026 BLS/Fed/BEA/DOL archive pages reviewed but historical as-of versions not certified.
-- [ ] Expand code-only date/symbol/budget guards into a future acquisition wrapper with mandatory independent authorization token, retention/deletion and secrets handling; no provider work permitted.
-- [x] Run deterministic **off-CI no-provider** guard tests: 11/11 pass, covering date fences, folds, 1/k, parity, missingness-related manifest guards, causal availability and calendar/DST. Full runtime/provider-row tests remain separate.
-- [ ] D-119 report is committed; resolve independently recorded provider rights, calendar as-of, infinite-state warm-up, exact runtime and acquisition wrapper blockers before final review. Never quietly widen.
+- [x] Design resolution D-120: bounded June 1 source-history cold start, unknown pre-window swing/FVG state, causal accumulation only; discloses that this differs from full-history Stage 2 continuity and must be included in final owner approval. No source-range expansion.
+- [x] Owner explicitly confirms holding written Dukascopy automation permission/licence; **no recurring paperwork request**. The future acquisition still must respect the existing licence scope, quota and capped budget (not independently checked here).
+- [ ] D-120 documents dated Federal Reserve 2024 prior notice, BLS monthly modified dates and 11 examples (8 prior-schedule candidates, 3 unknown); complete provider-free event-by-event macro provenance or freeze fail-closed missingness coverage/stop rule.
+- [ ] D-120 adds fail-closed authorization, cold-start, calendar/version and window tests; integrate into a complete future acquisition wrapper, with separate final approval token and retained no-data/secret policies before any provider call.
+- [x] No-provider off-CI Python standard-library tests: **17/17 pass**, including six new D-120 tests for owner-final-execution rejection, calendar as-of, bounded cold start and feature leakage. Exact full-runtime/provider-row tests remain separate.
+- [ ] D-120 report/owner-access attestation committed. Continue calendar coverage, exact runtime and acquisition-wrapper checks independently. Rights attestation and bounded cold-start design are recorded; never silently widen.
 - [ ] Obtain **new explicit owner approval for completed, versioned execution plan** and record the separate chronology authorization decision.
 
 ## Not part of this approval
@@ -45,3 +45,12 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - Runtime lock proposal `requirements/information-parity-stage3b-2026.lock.txt`.
 - Local no-provider guard tests: `scripts/stage3b_2026_preflight.py`, `tests/test_stage3b_2026_preflight.py`; 11/11 passed on Python 3.13.5 standard library.
 - Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_PREFLIGHT_QA_FINDINGS.md` and provider/calendar rights `research/INFORMATION_PARITY_V1_STAGE3B_2026_PROVIDER_CALENDAR_RIGHTS_REVIEW.md`.
+
+
+## D-120 evidence
+
+- Owner attested the existing provider permission; do **not** request licence documents again.
+- `research/INFORMATION_PARITY_V1_STAGE3B_2026_D120_FINDINGS.md`.
+- `research/reference/information-parity-v1/stage3b-2026-macro-asof-evidence-v1.json` (11 example events; not full calendar).
+- `scripts/stage3b_2026_addendum.py` and `tests/test_stage3b_2026_addendum.py` (6 additional tests, 17/17 total).
+- Proposed June1 bounded cold-start explicitly disclosed for the final scientific sign-off; **no extension to dates before June1**.
