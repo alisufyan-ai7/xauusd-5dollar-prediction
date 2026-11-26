@@ -1,0 +1,27 @@
+# Stage 3B bounded 2026 recognition diagnostic — proposed exact pinned runtime
+# Status: PINNED SPECIFICATION, NOT YET REPRODUCED IN AN EXACT PYTHON 3.12.14 RUNNER.
+# Keep Stage 2 base packages identical to accepted D-087 build.
+# Interpreter: CPython==3.12.14
+# Node runtime (if authorized later): Node==22.23.3, npm==10.9.9, dukascopy-node==1.50.0
+beautifulsoup4==4.15.0
+certifi==2026.7.22
+charset-normalizer==3.5.2
+idna==3.20
+numpy==2.5.3
+pandas==3.0.6
+python-dateutil==2.9.0.post0
+requests==2.34.2
+six==1.17.0
+soupsieve==2.10
+typing-extensions==4.16.0
+urllib3==2.8.0
+scikit-learn==1.8.0
+scipy==1.17.0
+joblib==1.5.3
+threadpoolctl==3.6.0
+# Model: LogisticRegression(penalty="l2", C=1.0, solver="lbfgs",
+# fit_intercept=True, class_weight=None, max_iter=1000, tol=0.0001)
+# Event-level 1/k + class weights supplied as sample_weight manually.
+# Do not use class_weight="balanced" after interval expansion.
+# Timezones: IANA Europe/London/America/New_York; exact OS tzdata version
+# MUST be recorded and tested in the eventual full runtime preflight.

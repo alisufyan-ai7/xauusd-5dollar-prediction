@@ -3589,3 +3589,14 @@ Final-approval checklist: `research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_APP
 Proposed warm-up `2026-06-01T00:00:00Z` to `2026-07-06T00:00:00Z`; retrospective teacher period `2026-07-06T00:00:00Z` to `2026-10-09T00:00:00Z` (39 frozen source dates), disjoint zero-use embargo `2026-10-09T00:00:00Z` to `2026-12-01T00:00:00Z`, separate prospective shadow `2026-12-01T00:00:00Z` to `2027-01-01T00:00:00Z`. Proposed restricted source set: Dukascopy XAUUSD BID/ASK + six FX BID M1 for synthetic DXY + first-party macro schedule. Proposed one-run/350MiB raw/750MiB normalized ceilings; **no actual acquisition approved**. The complete exact feature allowlist, runtime and no-provider deterministic preflights are still prerequisites to requesting execution authorization.
 
 D-088 **CLOSED**; Stage 3B model **NOT TESTED**, Stage 4/5 blocked, 2022–2025 sealed. Owner's in-principle approval may not be used as an execution token.
+
+
+---
+
+## D-119 — Freeze owner-independent Stage 3B bounded-2026 code/source preflight; retain execution blocks
+
+Exact static feature allowlist: `research/reference/information-parity-v1/stage3b-2026-feature-allowlists-v1.json` SHA-256 `44a73f70a51f3c364ef53c5dc6353443e348e0a86bc9142fa6b8919fbe986104` (92 GOLD, 63 extra FULL = 155 FULL). Frozen source-date LODO: `research/reference/information-parity-v1/stage3b-2026-teacher-folds-v1.json` SHA-256 `56a1c301cfebc78373793db10d7099aab9391b33e1470c869b714261ba677ec5` (39 folds, 250 eligible events, 343 candidate-minute expansions, weight mass 250). Provider-free deterministic module/tests in `scripts/stage3b_2026_preflight.py` and `tests/test_stage3b_2026_preflight.py`, byte identities recorded in `research/INFORMATION_PARITY_V1_STAGE3B_2026_PREFLIGHT_QA_FINDINGS.md`. 11/11 local Python 3.13.5 stdlib tests passed; exact Stage 3B solver runtime only **specified**, not installed/reproduced. No CI.
+
+Public primary agency macro pages and official Dukascopy access documentation/terms reviewed. **Critical external gate:** Bank terms restrict automated access without prior express written consent, and the project's requested usage has not been independently licensed. **Scientific state gate:** accepted Stage2 FVG/last-confirmed-swing can persist unboundedly so proposed June1 warm-up cannot be certified equivalent from fixed windows alone. Macro future schedule as-of versions remain partly unverified. All remain explicit pending blockers; no provider rows or fitted models.
+
+D-118 design-only approval remains in force; **D-088 CLOSED**, sealed 2022–2025 intact, no 2026 market acquisition, CI, fitting, Stage4/5 or broker. A separate execution approval **cannot** be requested as ready until rights, warm-up, macro and exact runtime blockers are resolved.

@@ -1,0 +1,1562 @@
+{
+  "schema": "STAGE3B_2026_FEATURES_V1",
+  "status": "PREFLIGHT_DESIGN_NO_PROVIDER",
+  "source_code": "scripts/build_information_parity_stage2_year.py + scripts/build_synthetic_dxy_stage2.py + research/INFORMATION_PARITY_V1_STAGE2_SCHEMA.json",
+  "features": [
+    {
+      "name": "xauusd_m1_market_state.bid_open",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "bid_open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.bid_high",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "bid_high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.bid_low",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "bid_low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.bid_close",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m3.open",
+      "source_table": "xauusd_timeframes",
+      "source_field": "open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m3.high",
+      "source_table": "xauusd_timeframes",
+      "source_field": "high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m3.low",
+      "source_table": "xauusd_timeframes",
+      "source_field": "low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m3.close",
+      "source_table": "xauusd_timeframes",
+      "source_field": "close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m5.open",
+      "source_table": "xauusd_timeframes",
+      "source_field": "open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m5.high",
+      "source_table": "xauusd_timeframes",
+      "source_field": "high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m5.low",
+      "source_table": "xauusd_timeframes",
+      "source_field": "low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m5.close",
+      "source_table": "xauusd_timeframes",
+      "source_field": "close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m15.open",
+      "source_table": "xauusd_timeframes",
+      "source_field": "open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m15.high",
+      "source_table": "xauusd_timeframes",
+      "source_field": "high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m15.low",
+      "source_table": "xauusd_timeframes",
+      "source_field": "low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m15.close",
+      "source_table": "xauusd_timeframes",
+      "source_field": "close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m30.open",
+      "source_table": "xauusd_timeframes",
+      "source_field": "open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m30.high",
+      "source_table": "xauusd_timeframes",
+      "source_field": "high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m30.low",
+      "source_table": "xauusd_timeframes",
+      "source_field": "low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m30.close",
+      "source_table": "xauusd_timeframes",
+      "source_field": "close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h1.open",
+      "source_table": "xauusd_timeframes",
+      "source_field": "open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h1.high",
+      "source_table": "xauusd_timeframes",
+      "source_field": "high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h1.low",
+      "source_table": "xauusd_timeframes",
+      "source_field": "low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h1.close",
+      "source_table": "xauusd_timeframes",
+      "source_field": "close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h4.open",
+      "source_table": "xauusd_timeframes",
+      "source_field": "open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h4.high",
+      "source_table": "xauusd_timeframes",
+      "source_field": "high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h4.low",
+      "source_table": "xauusd_timeframes",
+      "source_field": "low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h4.close",
+      "source_table": "xauusd_timeframes",
+      "source_field": "close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_d1.open",
+      "source_table": "xauusd_timeframes",
+      "source_field": "open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_d1.high",
+      "source_table": "xauusd_timeframes",
+      "source_field": "high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_d1.low",
+      "source_table": "xauusd_timeframes",
+      "source_field": "low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_d1.close",
+      "source_table": "xauusd_timeframes",
+      "source_field": "close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_w1.open",
+      "source_table": "xauusd_timeframes",
+      "source_field": "open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_w1.high",
+      "source_table": "xauusd_timeframes",
+      "source_field": "high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_w1.low",
+      "source_table": "xauusd_timeframes",
+      "source_field": "low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_w1.close",
+      "source_table": "xauusd_timeframes",
+      "source_field": "close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_high_m5_level",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_high_m5_level",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_high_m5_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_high_m5_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_low_m5_level",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_low_m5_level",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_low_m5_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_low_m5_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_m5_lower",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_m5_lower",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_m5_upper",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_m5_upper",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_m5_signed_distance",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_m5_signed_distance",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_m5_age_minutes",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_m5_age_minutes",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_m5_lower",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_m5_lower",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_m5_upper",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_m5_upper",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_m5_signed_distance",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_m5_signed_distance",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_m5_age_minutes",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_m5_age_minutes",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_high_m15_level",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_high_m15_level",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_high_m15_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_high_m15_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_low_m15_level",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_low_m15_level",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_low_m15_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_low_m15_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_m15_lower",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_m15_lower",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_m15_upper",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_m15_upper",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_m15_signed_distance",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_m15_signed_distance",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_m15_age_minutes",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_m15_age_minutes",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_m15_lower",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_m15_lower",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_m15_upper",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_m15_upper",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_m15_signed_distance",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_m15_signed_distance",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_m15_age_minutes",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_m15_age_minutes",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_high_h1_level",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_high_h1_level",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_high_h1_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_high_h1_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_low_h1_level",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_low_h1_level",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_low_h1_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_low_h1_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_h1_lower",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_h1_lower",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_h1_upper",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_h1_upper",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_h1_signed_distance",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_h1_signed_distance",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_h1_age_minutes",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_h1_age_minutes",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_h1_lower",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_h1_lower",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_h1_upper",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_h1_upper",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_h1_signed_distance",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_h1_signed_distance",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_h1_age_minutes",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_h1_age_minutes",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_high_h4_level",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_high_h4_level",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_high_h4_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_high_h4_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_low_h4_level",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_low_h4_level",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.last_confirmed_swing_low_h4_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "last_confirmed_swing_low_h4_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_h4_lower",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_h4_lower",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_h4_upper",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_h4_upper",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_h4_signed_distance",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_h4_signed_distance",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bull_fvg_h4_age_minutes",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bull_fvg_h4_age_minutes",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_h4_lower",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_h4_lower",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_h4_upper",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_h4_upper",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_h4_signed_distance",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_h4_signed_distance",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.nearest_active_bear_fvg_h4_age_minutes",
+      "source_table": "xauusd_structural_state",
+      "source_field": "nearest_active_bear_fvg_h4_age_minutes",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.previous_day_open",
+      "source_table": "xauusd_structural_state",
+      "source_field": "previous_day_open",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.previous_day_open_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "previous_day_open_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.previous_day_high",
+      "source_table": "xauusd_structural_state",
+      "source_field": "previous_day_high",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.previous_day_high_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "previous_day_high_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.previous_day_low",
+      "source_table": "xauusd_structural_state",
+      "source_field": "previous_day_low",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.previous_day_low_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "previous_day_low_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.previous_day_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "previous_day_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.previous_day_close_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "previous_day_close_distance_from_bid_close",
+      "arm": "GOLD",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.ask_open",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "ask_open",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.ask_high",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "ask_high",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.ask_low",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "ask_low",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.ask_close",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "ask_close",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.bid_volume",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "bid_volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.ask_volume",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "ask_volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.bid_flat_fill",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "bid_flat_fill",
+      "arm": "FULL_ONLY",
+      "dtype": "binary",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.ask_flat_fill",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "ask_flat_fill",
+      "arm": "FULL_ONLY",
+      "dtype": "binary",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.volume_sum_proxy",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "volume_sum_proxy",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.volume_ratio_1m_to_60m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "volume_ratio_1m_to_60m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.spread_open",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "spread_open",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.spread_close",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "spread_close",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.spread_ratio_1m_to_60m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "spread_ratio_1m_to_60m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.volume_mean_5m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "volume_mean_5m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.volume_mean_15m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "volume_mean_15m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.volume_mean_60m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "volume_mean_60m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.volume_mean_240m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "volume_mean_240m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.spread_mean_5m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "spread_mean_5m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.spread_mean_15m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "spread_mean_15m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.spread_mean_60m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "spread_mean_60m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.spread_max_15m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "spread_max_15m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m1_market_state.spread_max_60m",
+      "source_table": "xauusd_m1_market_state",
+      "source_field": "spread_max_60m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "M1 UTC bar start + 60000 ms = decision_time_ms <= candidate minute start; only completed M1",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m3.volume",
+      "source_table": "xauusd_timeframes",
+      "source_field": "volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m5.volume",
+      "source_table": "xauusd_timeframes",
+      "source_field": "volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m15.volume",
+      "source_table": "xauusd_timeframes",
+      "source_field": "volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_m30.volume",
+      "source_table": "xauusd_timeframes",
+      "source_field": "volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h1.volume",
+      "source_table": "xauusd_timeframes",
+      "source_field": "volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_h4.volume",
+      "source_table": "xauusd_timeframes",
+      "source_field": "volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_d1.volume",
+      "source_table": "xauusd_timeframes",
+      "source_field": "volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_w1.volume",
+      "source_table": "xauusd_timeframes",
+      "source_field": "volume",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "completed M3/M5/M15/M30/H1/H4/D1/W1 bar available_time_ms <= candidate minute start",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.session_label",
+      "source_table": "xauusd_structural_state",
+      "source_field": "session_label",
+      "arm": "FULL_ONLY",
+      "dtype": "categorical",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.minutes_since_session_boundary",
+      "source_table": "xauusd_structural_state",
+      "source_field": "minutes_since_session_boundary",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.asia_high_known",
+      "source_table": "xauusd_structural_state",
+      "source_field": "asia_high_known",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.asia_low_known",
+      "source_table": "xauusd_structural_state",
+      "source_field": "asia_low_known",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.london_high_known",
+      "source_table": "xauusd_structural_state",
+      "source_field": "london_high_known",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.london_low_known",
+      "source_table": "xauusd_structural_state",
+      "source_field": "london_low_known",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.asia_high_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "asia_high_distance_from_bid_close",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.asia_low_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "asia_low_distance_from_bid_close",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.london_high_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "london_high_distance_from_bid_close",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "xauusd_structural_state.london_low_distance_from_bid_close",
+      "source_table": "xauusd_structural_state",
+      "source_field": "london_low_distance_from_bid_close",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "structural decision_time_ms <= candidate minute start; swings require 2 right bars, FVG after 3rd complete bar, previous D1 availability <= decision time",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_level",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_level",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_change_1m",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_change_1m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_change_5m",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_change_5m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_change_15m",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_change_15m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_change_60m",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_change_60m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_change_240m",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_change_240m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_rv_15m",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_rv_15m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_rv_60m",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_rv_60m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "synthetic_dxy_m1.dxy_rv_240m",
+      "source_table": "synthetic_dxy_m1",
+      "source_field": "dxy_rv_240m",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "dxy_available_time_ms <= candidate minute start and age <= 5 minutes; never forward-fill from future",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "decision_index.dxy_available",
+      "source_table": "decision_index",
+      "source_field": "dxy_available",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "decision_time_ms <= candidate minute start; forward-only provenance/readiness",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "decision_index.dxy_age_minutes",
+      "source_table": "decision_index",
+      "source_field": "dxy_age_minutes",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "decision_time_ms <= candidate minute start; forward-only provenance/readiness",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.previous_event_families",
+      "source_table": "macro_event_state",
+      "source_field": "previous_event_families",
+      "arm": "FULL_ONLY",
+      "dtype": "categorical",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.next_event_families",
+      "source_table": "macro_event_state",
+      "source_field": "next_event_families",
+      "arm": "FULL_ONLY",
+      "dtype": "categorical",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.minutes_since_previous_event",
+      "source_table": "macro_event_state",
+      "source_field": "minutes_since_previous_event",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.minutes_to_next_event",
+      "source_table": "macro_event_state",
+      "source_field": "minutes_to_next_event",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.events_prior_120m_count",
+      "source_table": "macro_event_state",
+      "source_field": "events_prior_120m_count",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.events_next_120m_count",
+      "source_table": "macro_event_state",
+      "source_field": "events_next_120m_count",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.event_0_15m_before",
+      "source_table": "macro_event_state",
+      "source_field": "event_0_15m_before",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.event_15_60m_before",
+      "source_table": "macro_event_state",
+      "source_field": "event_15_60m_before",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.event_0_15m_after",
+      "source_table": "macro_event_state",
+      "source_field": "event_0_15m_after",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.event_15_60m_after",
+      "source_table": "macro_event_state",
+      "source_field": "event_15_60m_after",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.event_60_120m_after",
+      "source_table": "macro_event_state",
+      "source_field": "event_60_120m_after",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    },
+    {
+      "name": "macro_event_state.macro_schedule_available",
+      "source_table": "macro_event_state",
+      "source_field": "macro_schedule_available",
+      "arm": "FULL_ONLY",
+      "dtype": "numeric",
+      "availability": "macro decision_time_ms <= candidate minute start; each scheduled event source publication must be proven <= candidate minute; no future calendar revisions",
+      "transform": "identity or Stage2-frozen transform; training-fold-only impute/scale"
+    }
+  ],
+  "exclusions": [
+    "absolute UTC timestamps",
+    "bar availability/pivot/creation/confirmation timestamps",
+    "DXY raw constituent prices",
+    "teacher IDs/text",
+    "position/risk/template",
+    "outcome/TP/SL",
+    "macro actual/forecast/surprise",
+    "rates/yields",
+    "incomplete candles"
+  ],
+  "constraints": {
+    "join": "for candidate minute m, use latest state with available_time <= start_of_minute(m)",
+    "dxy_staleness_minutes": 5,
+    "category_vocabulary": "schema-fixed + UNKNOWN",
+    "training_fold_stats_only": true
+  },
+  "categorical_vocabularies": {
+    "xauusd_structural_state.session_label": [
+      "ASIA",
+      "LONDON",
+      "NEW_YORK",
+      "UNKNOWN"
+    ],
+    "macro_event_state.previous_event_families": [
+      "",
+      "CLAIMS",
+      "CPI",
+      "CLAIMS|CPI",
+      "FOMC",
+      "CLAIMS|FOMC",
+      "CPI|FOMC",
+      "CLAIMS|CPI|FOMC",
+      "GDP",
+      "CLAIMS|GDP",
+      "CPI|GDP",
+      "CLAIMS|CPI|GDP",
+      "FOMC|GDP",
+      "CLAIMS|FOMC|GDP",
+      "CPI|FOMC|GDP",
+      "CLAIMS|CPI|FOMC|GDP",
+      "JOLTS",
+      "CLAIMS|JOLTS",
+      "CPI|JOLTS",
+      "CLAIMS|CPI|JOLTS",
+      "FOMC|JOLTS",
+      "CLAIMS|FOMC|JOLTS",
+      "CPI|FOMC|JOLTS",
+      "CLAIMS|CPI|FOMC|JOLTS",
+      "GDP|JOLTS",
+      "CLAIMS|GDP|JOLTS",
+      "CPI|GDP|JOLTS",
+      "CLAIMS|CPI|GDP|JOLTS",
+      "FOMC|GDP|JOLTS",
+      "CLAIMS|FOMC|GDP|JOLTS",
+      "CPI|FOMC|GDP|JOLTS",
+      "CLAIMS|CPI|FOMC|GDP|JOLTS",
+      "NFP",
+      "CLAIMS|NFP",
+      "CPI|NFP",
+      "CLAIMS|CPI|NFP",
+      "FOMC|NFP",
+      "CLAIMS|FOMC|NFP",
+      "CPI|FOMC|NFP",
+      "CLAIMS|CPI|FOMC|NFP",
+      "GDP|NFP",
+      "CLAIMS|GDP|NFP",
+      "CPI|GDP|NFP",
+      "CLAIMS|CPI|GDP|NFP",
+      "FOMC|GDP|NFP",
+      "CLAIMS|FOMC|GDP|NFP",
+      "CPI|FOMC|GDP|NFP",
+      "CLAIMS|CPI|FOMC|GDP|NFP",
+      "JOLTS|NFP",
+      "CLAIMS|JOLTS|NFP",
+      "CPI|JOLTS|NFP",
+      "CLAIMS|CPI|JOLTS|NFP",
+      "FOMC|JOLTS|NFP",
+      "CLAIMS|FOMC|JOLTS|NFP",
+      "CPI|FOMC|JOLTS|NFP",
+      "CLAIMS|CPI|FOMC|JOLTS|NFP",
+      "GDP|JOLTS|NFP",
+      "CLAIMS|GDP|JOLTS|NFP",
+      "CPI|GDP|JOLTS|NFP",
+      "CLAIMS|CPI|GDP|JOLTS|NFP",
+      "FOMC|GDP|JOLTS|NFP",
+      "CLAIMS|FOMC|GDP|JOLTS|NFP",
+      "CPI|FOMC|GDP|JOLTS|NFP",
+      "CLAIMS|CPI|FOMC|GDP|JOLTS|NFP",
+      "UNKNOWN"
+    ],
+    "macro_event_state.next_event_families": [
+      "",
+      "CLAIMS",
+      "CPI",
+      "CLAIMS|CPI",
+      "FOMC",
+      "CLAIMS|FOMC",
+      "CPI|FOMC",
+      "CLAIMS|CPI|FOMC",
+      "GDP",
+      "CLAIMS|GDP",
+      "CPI|GDP",
+      "CLAIMS|CPI|GDP",
+      "FOMC|GDP",
+      "CLAIMS|FOMC|GDP",
+      "CPI|FOMC|GDP",
+      "CLAIMS|CPI|FOMC|GDP",
+      "JOLTS",
+      "CLAIMS|JOLTS",
+      "CPI|JOLTS",
+      "CLAIMS|CPI|JOLTS",
+      "FOMC|JOLTS",
+      "CLAIMS|FOMC|JOLTS",
+      "CPI|FOMC|JOLTS",
+      "CLAIMS|CPI|FOMC|JOLTS",
+      "GDP|JOLTS",
+      "CLAIMS|GDP|JOLTS",
+      "CPI|GDP|JOLTS",
+      "CLAIMS|CPI|GDP|JOLTS",
+      "FOMC|GDP|JOLTS",
+      "CLAIMS|FOMC|GDP|JOLTS",
+      "CPI|FOMC|GDP|JOLTS",
+      "CLAIMS|CPI|FOMC|GDP|JOLTS",
+      "NFP",
+      "CLAIMS|NFP",
+      "CPI|NFP",
+      "CLAIMS|CPI|NFP",
+      "FOMC|NFP",
+      "CLAIMS|FOMC|NFP",
+      "CPI|FOMC|NFP",
+      "CLAIMS|CPI|FOMC|NFP",
+      "GDP|NFP",
+      "CLAIMS|GDP|NFP",
+      "CPI|GDP|NFP",
+      "CLAIMS|CPI|GDP|NFP",
+      "FOMC|GDP|NFP",
+      "CLAIMS|FOMC|GDP|NFP",
+      "CPI|FOMC|GDP|NFP",
+      "CLAIMS|CPI|FOMC|GDP|NFP",
+      "JOLTS|NFP",
+      "CLAIMS|JOLTS|NFP",
+      "CPI|JOLTS|NFP",
+      "CLAIMS|CPI|JOLTS|NFP",
+      "FOMC|JOLTS|NFP",
+      "CLAIMS|FOMC|JOLTS|NFP",
+      "CPI|FOMC|JOLTS|NFP",
+      "CLAIMS|CPI|FOMC|JOLTS|NFP",
+      "GDP|JOLTS|NFP",
+      "CLAIMS|GDP|JOLTS|NFP",
+      "CPI|GDP|JOLTS|NFP",
+      "CLAIMS|CPI|GDP|JOLTS|NFP",
+      "FOMC|GDP|JOLTS|NFP",
+      "CLAIMS|FOMC|GDP|JOLTS|NFP",
+      "CPI|FOMC|GDP|JOLTS|NFP",
+      "CLAIMS|CPI|FOMC|GDP|JOLTS|NFP",
+      "UNKNOWN"
+    ]
+  },
+  "scope_note": "Derives exact selected columns from frozen Stage 2 builder outputs; any column absent at runtime fails closed. Structural warmup availability requires independent state-continuity proof; no assumption June 1 suffices."
+}
