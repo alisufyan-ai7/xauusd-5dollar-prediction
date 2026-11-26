@@ -2870,3 +2870,10 @@ Four source rows -> two independent Badar P2 E1 SHORT ACT decisions; Sep 30 team
 D-114 / Batch 15. Seven source-backed Badar ACT, seven explicit P3; source-row dispositions and ambiguity details in `research/INFORMATION_PARITY_V1_STAGE3B_SOURCE_EVENTS_BATCH15_FINDINGS.md`. Artifact `research/reference/information-parity-v1/stage3b-source-events-v1-batch15.csv`.
 
 Provisional cumulative **102 ACT / 47 LONG / 55 SHORT / 39 ACT dates / 144 P3 / 39 paired dates**. All pinned trade-table dates have chronological batch review. Next: **mandatory non-table ACT backfill, complete source-row dispositions/coverage, duplicate/collapse/temporal/timezone QA and final canonical CSV/hash**. The initial D-097 result remains unchanged. D-088 blocks market joins and fitting, sealed years untouched, CI not required.
+
+
+## Mandatory Stage 3B non-table ACT backfill frozen
+
+D-115. Five new primary P2 source-supported resting-limit SHORT commitments (Jul 7, Jul 23, Sep 2, Sep 14, Sep 17). Artifact `research/reference/information-parity-v1/stage3b-source-events-v1-backfill.csv`; evidence and exclusions `research/INFORMATION_PARITY_V1_STAGE3B_NON_TABLE_BACKFILL_FINDINGS.md`. All 46 notes screened; E3/conditional/same-plan candidates excluded. Cumulative **107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 144 P3 / 39 paired dates**.
+
+**Immediate next:** Final source-row disposition and cross-batch integrity audit. Six Batch01 rows have an extra empty CSV field that must be corrected deterministically in canonical merged output, without silently overwriting frozen batches. Then freeze canonical CSV plus SHA-256 and D-088 chronology review; no market join or CI.

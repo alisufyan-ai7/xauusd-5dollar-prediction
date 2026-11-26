@@ -3541,3 +3541,15 @@ Artifact: `research/reference/information-parity-v1/stage3b-source-events-v1-bat
 Nine remaining pinned XAUUSD table rows reviewed; seven Badar ACT (four LONG, three SHORT). Oct 2 five decisions (four P2 longs and an independently verified P1 Exness real short), Oct 6 one P2 short, Oct 8 one P2/E2 short. Oct 6 #1 excluded as pre-stream/co-host-owned or unclear Badar commitment; Oct 8 #2 excluded as position-tool only. Seven distinct explicit P3 events added (Oct 2 four, Oct 6 two, Oct 8 one).
 
 Provisional cumulative: **102 ACT / 47 LONG / 55 SHORT / 39 ACT dates / 144 P3 / 39 paired dates**. Numerical D-099 adequacy exceeded; backfill and comprehensive QA pending. Next: mandatory non-table ACT search and full original source-row disposition audit. D-088 closed; no provider join, fitting, CI.
+
+
+---
+
+## D-115 — Freeze mandatory Stage 3B non-table ACT backfill
+
+Artifact: `research/reference/information-parity-v1/stage3b-source-events-v1-backfill.csv`.
+Findings: `research/INFORMATION_PARITY_V1_STAGE3B_NON_TABLE_BACKFILL_FINDINGS.md`.
+
+All 46 pinned stream notes screened for unfilled and missing-table commitments, with targeted transcript/source note checks. Five independent Badar P2 unfilled SHORT resting-limit commitments retained (Jul 7, Jul 23, Sep 2, Sep 14, Sep 17). Competing conditional, tutorial, ambiguous, unconfirmed or same-plan duplicate candidates excluded/documented. No broker P1 status assigned to unfilled orders.
+
+Cumulative now 107 ACT / 47 LONG / 60 SHORT / 39 ACT dates / 144 P3 / 39 paired dates. Final QA and schema correction still required before source certification. D-088 closed; no market join/CI/fitting.
