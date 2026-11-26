@@ -19,9 +19,12 @@ class TestExecutionPlan(unittest.TestCase):
         plan["owner_final_approval_decision_sha"]="a"*40
         with self.assertRaises(PermissionError): p.require_owner_final_approval(plan)
         plan["status"]="FINAL_APPROVED"
-        p.require_owner_final_approval(plan)
+        with self.assertRaises(PermissionError): p.require_owner_final_approval(plan)
         plan["window"]=["2026-05-01T00:00:00Z", p.END]
         with self.assertRaises(PermissionError): p.require_owner_final_approval(plan)
+
+    def test_empty_authorization_allowlist(self):
+        self.assertEqual(len(p.AUTHORIZED_FINAL_DECISION_SHAS), 0)
 
     def test_no_upload_right(self):
         self.assertFalse(p.proposed_acquisition_plan()["raw_artifact_github_upload_allowed"])

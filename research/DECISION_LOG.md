@@ -3622,3 +3622,14 @@ Owner-confirmed data access was recorded under D-120. D-121 adds **no provider o
 Combined local standard-library synthetic tests: **21/21 PASS**, CPython 3.13.5 (exact pinned 3.12.14 runtime and pandas/numpy versions **NOT** reproduced). Macro schedule unknowns fail closed to an explicitly unavailable year instead of hindsight. Proposed June1 bounded state initialization is a recognized limitation, **not** claimed full-history Stage2 equivalence. Technical disclosure in `research/INFORMATION_PARITY_V1_STAGE3B_2026_D121_FINDINGS.md`.
 
 D-088 CLOSED; no CI/provider job, training, broker use, shadow data or sealed evaluation years. Final approval is still withheld by the owner and must be expressly requested only when exact-runtime/implementation checks are ready.
+
+
+---
+
+## D-122 — Harden D-121 execution approval check; synthetic suite 22/22 PASS
+
+The D-121 code accepted any manually supplied 40-hex commit SHA when `status=FINAL_APPROVED` was set, despite no actual owner approval. Corrected `scripts/stage3b_2026_execution_preflight.py` to require membership in `AUTHORIZED_FINAL_DECISION_SHAS`, deliberately **empty** until a later reviewed owner-approved code change. The manifest alone can never enable provider execution; still no downloader/model in this module.
+
+Updated `tests/test_stage3b_2026_execution_preflight.py` tests forged SHA rejection plus the empty allowlist. Combined synthetic local standard-library suite **22/22 PASS**, no CI or provider data. Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D122_FINDINGS.md`.
+
+The owner's existing Dukascopy licence affirmation stands, no further paperwork requested. D-088 **CLOSED**; final scientific owner approval withheld. Exact pinned Python 3.12.14 environment remains unverified in current offline runtime and future no-provider integration preflight remains technical work.

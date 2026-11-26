@@ -7,7 +7,7 @@ Clean-room research project for testing whether XAU/USD contains identifiable ma
 - Repository initialized from scratch.
 - Clean-room context policy established on `main`.
 - Active Stage 3B source-construction branch: `research/information-parity-v1-stage3-preregistration`.
-- Latest decision: D-121 bounded-2026 no-provider execution-plan freeze (owner licence confirmed, 21/21 local synthetic tests; final market approval NOT granted) (D-118 Option B remains **design-only approval**) (D-088 remains CLOSED); D-116 certified the source-only teacher dataset. See `research/PROJECT_CONTINUITY.md` and `research/DECISION_LOG.md` for authoritative state.
+- Latest decision: D-122 hardened no-provider final-approval guard (owner licence confirmed, 22/22 local synthetic tests; final market approval NOT granted) (D-118 Option B remains **design-only approval**) (D-088 remains CLOSED); D-116 certified the source-only teacher dataset. See `research/PROJECT_CONTINUITY.md` and `research/DECISION_LOG.md` for authoritative state.
 - Information Parity V1 Stage 2 is accepted on 2016-2021 TRAIN. Final Stage 3B source teacher: 107 ACT, 143 eligible P3, 39 paired dates; exact dataset/hash in `research/reference/information-parity-v1/stage3b-source-freeze-manifest-v1.json`.
 - D-088 chronology gate remains closed. D-118 proposal, D-119 preflight findings, source rights and final-approval checklist are in `research/`; Stage 3B market join, fitting and Stage 4/5 execution are not authorized.
 - No trading or broker mutation is enabled.

@@ -18,6 +18,7 @@ START, END = "2026-06-01T00:00:00Z", "2026-10-09T00:00:00Z"
 SYMBOLS = ("XAUUSD_BID", "XAUUSD_ASK", "EURUSD_BID", "USDJPY_BID", "GBPUSD_BID", "USDCAD_BID", "USDSEK_BID", "USDCHF_BID")
 CAP_RAW = 350 * 1024 * 1024
 CAP_NORMALIZED = 750 * 1024 * 1024
+AUTHORIZED_FINAL_DECISION_SHAS = frozenset()  # intentionally empty until separate user-approved GitHub decision
 REQUIRED = {"scikit-learn": "1.8.0", "scipy": "1.17.0", "numpy": "2.5.3", "pandas": "3.0.6", "joblib": "1.5.3", "threadpoolctl": "3.6.0"}
 
 
@@ -49,6 +50,8 @@ def require_owner_final_approval(plan: dict) -> None:
     sha = plan.get("owner_final_approval_decision_sha")
     if not isinstance(sha, str) or len(sha) != 40 or any(c not in "0123456789abcdef" for c in sha):
         raise PermissionError("no separately committed final owner approval decision")
+    if sha not in AUTHORIZED_FINAL_DECISION_SHAS:
+        raise PermissionError("final decision SHA not separately admitted in pinned code")
     if plan.get("status") != "FINAL_APPROVED" or plan.get("window") != [START, END] or plan.get("symbols") != list(SYMBOLS):
         raise PermissionError("approved plan must match the exact frozen design")
     if plan.get("max_raw_bytes") != CAP_RAW or plan.get("max_normalized_bytes") != CAP_NORMALIZED or plan.get("max_attempts") != 1:

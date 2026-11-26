@@ -2929,3 +2929,10 @@ Owner's Dukascopy permission attestation remains accepted; do not request paperw
 **Important scientific disclosure for future owner final approval:** bounded June1 cold start omits unknown older active swings/FVGs; macro schedule stays entirely unavailable if point-in-time proof for 2026 cannot be completed. Both are predeclared *limited-source* semantics; never mislabel as exact full-history Stage2 parity or fill from future releases. Exact pinned Python3.12.14/scipy/numpy/pandas runtime cannot be reproduced in currently available offline runner and future full acquisition wrapper not executed. Do not infer permission for external CI from this status.
 
 **Immediate safe next step:** exact no-provider runtime/preflight in an eligible local environment, formal calendar coverage rule and wrapper review. No owner input is needed for ordinary engineering work; request owner approval only for finished **specific** market acquisition/model test after verification. **D-088 CLOSED; no 2026 prices, fitted models, CI or 2022–2025 sealed access.**
+
+
+## D-122 — Explicit final approval SHA allowlist closed; 22 tests PASS
+
+`scripts/stage3b_2026_execution_preflight.py` now has a deliberately empty `AUTHORIZED_FINAL_DECISION_SHAS`; a forged 40-hex SHA and an edited JSON plan cannot enable execution. Later final owner approval must be separately recorded and a reviewed code change must admit its exact SHA. No downloader/fit code in this guard.
+
+`tests/test_stage3b_2026_execution_preflight.py` adds a bypass-negative test. All three local stdlib suites now **22/22 PASS** on Python 3.13.5; **no CI, data acquisition, fitting, broker use or sealed 2022–2025 access**. Documentation: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D122_FINDINGS.md`. Remaining owner-independent checks: exact pinned CPython3.12.14/pandas3.0.6/numpy2.5.3 environment, future acquisition wrapper and no-hindsight macro mask. Current offline runner differs; do not report exact-runtime pass or trigger provider jobs. Dukascopy rights are owner-attested, **do not ask for paperwork**. D-088 CLOSED; seek owner approval only when a final bounded execution package is actually ready.
