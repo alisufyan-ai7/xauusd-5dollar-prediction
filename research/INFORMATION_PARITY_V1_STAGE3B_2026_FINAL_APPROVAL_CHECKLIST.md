@@ -196,3 +196,17 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Recovery plan and executable guard disabled/fail-closed; authorization allowlist empty.
 - [x] Stage3B scientific state = NOT TESTED.
 - [ ] Any future provider attempt requires a **new explicit provider-access strategy authorization**; do not rerun D-134/D-136.
+
+
+## D-138 provider-access strategy proposal
+
+- [x] Confirmed current dukascopy-node package remains 1.51.1; no newer package retry preregistered.
+- [x] Identified official Dukascopy Requester-Pays S3 historical-data path.
+- [x] Frozen seven underlying instruments for the eight Stage3B series.
+- [x] Frozen point-scale metadata from Dukascopy 2026-07-13 metadata: XAUUSD/USDJPY scale3; remaining five FX scale5.
+- [x] Preregistered deterministic tick->M1 OHLC and side-volume aggregation.
+- [x] Explicitly labeled S3 M1 as a new source representation, not Stage2 byte-parity.
+- [x] Proposed hard ceilings: <=50 LIST, <=1000 GET, <=350MiB raw, <=750MiB normalized, <=USD1.00 requester-pays, one attempt/no rerun.
+- [x] Credentials must be configured outside chat; preferred GitHub OIDC/least privilege.
+- [ ] **New owner authorization required** before any S3 LIST/GET and before accepting the S3 reconstructed-M1 representation.
+- [ ] Owner/AWS authentication setup required outside chat before implementation can execute.

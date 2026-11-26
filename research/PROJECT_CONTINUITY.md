@@ -3053,3 +3053,12 @@ D-136 run **45901570026** / job **140188341343** passed the exact trigger/runtim
 Artifact **15156486347**, digest `sha256:3c12148febd6ae8f624510541440750064a52b5a301d42a5e6b62888eb119742`, contains exactly the sanitized sanity JSON/log/hash list and no market/model payload. The D-134 recovery attempt is consumed; provider/model/CI-provider execution is disabled and recovery allowlist emptied. Stage3B remains **NOT TESTED**.
 
 Immediate owner-independent work may research provider/upstream access options and design a new access strategy without making any market request. Any future live provider attempt requires a new explicit owner decision; it cannot be treated as a rerun of D-134.
+
+
+## D-138 — New provider-access strategy proposal: official Dukascopy Requester-Pays S3
+
+Owner-independent research after D-137 found no newer `dukascopy-node` package beyond 1.51.1. Dukascopy's current official Wiki documents a separate Requester-Pays S3 historical-price bucket (`cfg-public-proper-wallaby`, `eu-west-1`) serving daily `.bi5` ticks with both ask/bid prices and volumes. D-138 proposes this as a **new access/data representation**, not another JETTA retry.
+
+Proposed source identity: `DUKASCOPY_S3_TICK_RECONSTRUCTED_M1_V1`. Seven underlying instruments reconstruct the frozen eight Stage3B M1 series. Price scales are frozen from pinned Dukascopy metadata (XAUUSD/USDJPY scale3; other five FX scale5); M1 aggregation is deterministic first/max/min/last + side-volume sum. The proposal explicitly does **not** claim byte identity with old Stage2 JETTA M1 because Stage2 retained compact evidence only, not raw M1 payloads.
+
+Future attempt caps: <=50 LIST, <=1000 GET, <=350MiB raw, <=750MiB normalized, <=USD1.00 Requester-Pays cost ceiling, one attempt/no rerun. Preferred AWS auth is temporary least-privilege GitHub OIDC; credentials must never be pasted into chat. No S3 operation is authorized by D-138. New owner approval plus AWS setup is required.

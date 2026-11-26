@@ -3810,3 +3810,16 @@ Compact artifact **15156486347** (digest `sha256:3c12148febd6ae8f624510541440750
 D-134 authorization is now consumed. Machine status `RECOVERY_ATTEMPT_CONSUMED_HTTP_403_ACCESS_DENIED`; provider/model/CI-provider flags false; recovery allowlist empty. No rerun. A future provider attempt requires a newly preregistered/authorized provider-access strategy, not another transport retry.
 
 Findings: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D137_RECOVERY_FAILURE_FINDINGS.md`.
+
+
+---
+
+## D-138 — Propose official Dukascopy S3 as the next provider-access strategy; no access authorized
+
+Post-D137 research confirms current upstream `dukascopy-node` is still 1.51.1, so another package retry is not justified. Dukascopy now documents official Historical Price Data in Requester-Pays S3 bucket `cfg-public-proper-wallaby` in `eu-west-1`, daily `.bi5` ticks containing ask/bid price and volume.
+
+D-138 preregisters a new source representation `DUKASCOPY_S3_TICK_RECONSTRUCTED_M1_V1`: seven S3 instruments -> frozen eight M1 series, deterministic point scaling from pinned Dukascopy metadata and deterministic UTC-minute OHLC/side-volume aggregation. This is not claimed byte-identical to Stage2 JETTA M1.
+
+Proposed one-attempt caps: <=50 LIST, <=1000 GET, <=350MiB raw, <=750MiB normalized, <=USD1 requester-pays ceiling. AWS credentials must be configured outside chat, preferably via branch-scoped GitHub OIDC. No S3 LIST/GET is authorized yet.
+
+Proposal: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D138_S3_ACCESS_STRATEGY_PROPOSAL.md`.

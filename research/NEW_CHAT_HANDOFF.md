@@ -1,9 +1,9 @@
 # New Chat Handoff — Chat 04 -> Chat 05
 
-D136 consumed the single D134 transport recovery. Pinned dukascopy-node 1.51.1 made the fixed XAUUSD BID Jun1→Jun2 sanity request and directly received **HTTP 403 with WAF token=no**. No provider file was saved; full acquisition, dataset join and model fit never started. Stage3B remains **NOT TESTED**.
+D137: D134/D136 recovery consumed by direct HTTP 403; Stage3B NOT TESTED; provider/model execution disabled; no rerun.
 
-D136 run **45901570026**, job **140188341343**. Compact artifact **15156486347**, digest `sha256:3c12148febd6ae8f624510541440750064a52b5a301d42a5e6b62888eb119742`, contains exactly sanitized sanity JSON/log/hash list and no market/model payload.
+D138: owner-independent proposal for a new official Dukascopy access path: Requester-Pays S3 `cfg-public-proper-wallaby` / eu-west-1. Proposed source identity `DUKASCOPY_S3_TICK_RECONSTRUCTED_M1_V1`; seven underlying .bi5 tick instruments reconstruct the frozen eight M1 series using pinned priceScale metadata and deterministic minute OHLC/volume aggregation.
 
-D137 closes recovery fail-closed: no provider/model/CI-provider execution, no recovery authorization SHA, no rerun.
+This is explicitly a new representation, not claimed byte-identical to Stage2 JETTA M1. All downstream science remains frozen. Proposed one-attempt caps: 50 LIST / 1000 GET / 350MiB raw / 750MiB normalized / USD1 requester-pays / no rerun.
 
-Next owner-independent work may research upstream/provider access alternatives and preregister a new access strategy **without making market requests**. Any future provider attempt needs a new explicit owner authorization. All frozen science/sealed periods/Stage4/5/broker restrictions remain.
+No S3 access is authorized yet. Next owner action: approve or decline D138 and, if approved, configure temporary least-privilege AWS auth outside chat (prefer GitHub OIDC). Never paste AWS keys into chat.
