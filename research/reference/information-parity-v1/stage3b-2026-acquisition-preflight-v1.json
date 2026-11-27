@@ -1,6 +1,6 @@
 {
   "schema": "IPV1_STAGE3B_2026_ACQUISITION_AND_MACRO_PREFLIGHT_V1",
-  "status": "D140_ATTEMPT_CONSUMED_TLS_CONNECTION_RESET_BEFORE_HTTP_NO_DATA",
+  "status": "D148_D152_ATTEMPT_CONSUMED_SOURCE_ADEQUATE_FROZEN_STAGE3B_NEGATIVE",
   "owner_provider_rights": "OWNER_ATTESTED_EXISTING_LICENSE",
   "owner_final_execution_approval_commit": "c99ad84e4b7254d074b96df7a5f4c371ccbe01c2",
   "source_dataset_sha256": "8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd",
@@ -72,15 +72,15 @@
     "raw_size_limit_enforced": true
   },
   "must_reverify_before_any_future_provider_call": [
-    "new explicit owner authorization for a separately preregistered provider-access strategy after D-146 consumed D-144",
-    "new pinned access/transport identity and deterministic no-provider tests",
-    "same D-124 scientific scope unless separately changed",
+    "D-155 one-time D-152 attempt consumed; no rerun or retry",
+    "new separately preregistered research hypothesis and explicit owner authorization for any future provider access",
+    "no rescue tuning of frozen negative Stage 3B experiment",
     "no sealed-year, quarantine or shadow access",
-    "no raw GitHub upload"
+    "no broker/order mutation or raw GitHub upload"
   ],
   "authorization_scope": "D-124 exact bounded exception only; broker/shadow/sealed years remain forbidden",
   "authorization_record": "research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md",
-  "explanation": "D-146 consumed the single D-144 D-140 direct-datafeed attempt. The first XAUUSD BID 2026-06-01 sanity connection to datafeed.dukascopy.com was reset by the peer during TLS before any HTTP response. No retry was made, no valid sanity object or usable market row was received, remaining sanity/full acquisition did not run, and no dataset/model was built. Stage 3B remains NOT TESTED.",
+  "explanation": "D-152 authorized one D-148 FREESERV attempt, executed once in D-155 (run 45975512932). Eight sanity requests passed, 40 full GETs completed, data source adequate, frozen 39-fold benchmark completed. Task A failed preregistered FULL-vs-GOLD improvement; Task B nonregression passed; overall result NEGATIVE FOR FROZEN STAGE 3B HYPOTHESIS. D-156 sealed execution; no rerun, provider disabled and allowlist empty.",
   "attempt_consumed": true,
   "attempt_record": {
     "decision": "D-132",
@@ -274,7 +274,7 @@
     }
   },
   "d148_candidate_access_strategy": {
-    "status": "EXACT_RUNTIME_FULL_DISABLED_PREFLIGHT_PASS_AWAITING_OWNER_AUTHORIZATION",
+    "status": "D152_ONE_ATTEMPT_CONSUMED_FINAL_FROZEN_STAGE3B_NEGATIVE",
     "source_representation": "DUKASCOPY_FREESERV_CHART_JSON3_M1_V1",
     "provider_enabled": false,
     "authorized_decision_shas": [],
@@ -325,10 +325,79 @@
       "unit_tests": "16/16 PASS",
       "provider_requests": 0,
       "provider_enabled": false,
-      "authorization_allowlist": "EMPTY",
+      "authorization_allowlist": "EMPTY_POST_D156",
       "conclusion": "SUCCESS"
     },
-    "scientific_state": "NOT_TESTED",
-    "authorization_required": "NEW_EXPLICIT_OWNER_D148_ONE_ATTEMPT_AUTHORIZATION"
+    "scientific_state": "NEGATIVE_FOR_FROZEN_STAGE3B_HYPOTHESIS",
+    "authorization_required": "NEW_SEPARATELY_PREREGISTERED_STRATEGY_AND_EXPLICIT_OWNER_AUTHORIZATION_FOR_ANY_NEW_MARKET_REQUEST",
+    "d152_authorization": {
+      "decision": "D-152",
+      "commit": "ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71",
+      "max_attempts": 1,
+      "consumed_attempts": 1,
+      "rerun_allowed": false
+    },
+    "d153_preflight": {
+      "decision": "D-153",
+      "workflow_run_id": 45975306543,
+      "workflow_job_id": 140425441301,
+      "head_commit": "419db1e5aab0fa171be29e04c585daa43326afeb",
+      "python": "3.12.14",
+      "deterministic_tests": "18/18 PASS",
+      "provider_requests": 0,
+      "conclusion": "SUCCESS"
+    },
+    "execution_record": {
+      "decision": "D-155",
+      "commit": "910184e82d82da26774795e6608da84a2dbca3c9",
+      "workflow_run_id": 45975512932,
+      "workflow_job_id": 140426128757,
+      "workflow_attempt": 1,
+      "conclusion": "SUCCESS",
+      "provider_representation": "DUKASCOPY_FREESERV_CHART_JSON3_M1_V1",
+      "total_requests": 48,
+      "sanity_requests": 8,
+      "sanity_http_200": 8,
+      "sanity_rows_each": 2,
+      "full_requests": 40,
+      "full_requests_per_logical_series": 5,
+      "raw_response_bytes": 79268154,
+      "raw_response_cap": 367001600,
+      "normalized_provider_csv_bytes": 56516253,
+      "final_derived_normalized_bytes": 68047560,
+      "normalized_cap": 786432000,
+      "logical_series": 8,
+      "source_adequacy": "ADEQUATE",
+      "retries": 0,
+      "alternate_host_or_source_used": false,
+      "stage3b_candidates": 343,
+      "evaluated_events": 250,
+      "act_events": 107,
+      "p3_events": 143,
+      "paired_dates": 39,
+      "dataset_sha256": "f6efeebfb98e1cb41d2d444a09cd4ea1aa76aa34f617f2c8d13db2f0258b880b",
+      "task_a_full_minus_gold_mean_per_date_auc": -0.03178210678210678,
+      "task_a_paired_date_bootstrap_95_ci": [
+        -0.10661655474155475,
+        0.032477799977799926
+      ],
+      "task_a_gate_pass": false,
+      "task_b_nonregression_pass": true,
+      "scientific_result": "NEGATIVE FOR FROZEN STAGE 3B HYPOTHESIS",
+      "artifact_id": 15187346284,
+      "artifact_digest": "sha256:0d2a502c4a2b0842fb88c241315d32eb7741b6c2b53094c32b0d1a45224f06e0",
+      "artifact_retention_days": 90,
+      "compact_files_valid_hashes": 14,
+      "compact_files_total": 15,
+      "compact_self_hash_issue": "sha256 file includes its own self-reference; 14 other entries verified; ZIP outer digest matches",
+      "raw_and_derived_deleted": true
+    },
+    "d156_seal": {
+      "decision": "D-156",
+      "commit": "a29d3a1c538c942400532d7391c18a06de7818a0",
+      "provider_enabled": false,
+      "authorization_allowlist": [],
+      "one_time_trigger_removed": true
+    }
   }
 }
