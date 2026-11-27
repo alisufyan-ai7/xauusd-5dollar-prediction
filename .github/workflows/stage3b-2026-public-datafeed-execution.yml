@@ -1,0 +1,88 @@
+name: stage3b-2026-public-datafeed-execution
+on:
+  push:
+    branches:
+      - research/information-parity-v1-stage3-preregistration
+    paths:
+      - ".github/stage3b-2026-public-datafeed-execution-trigger"
+permissions:
+  contents: read
+jobs:
+  d140-one-attempt-provider-and-benchmark:
+    if: ${{ contains(github.event.head_commit.message, '[STAGE3B_PROVIDER_EXECUTE_D140_D144]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      STAGE3B_WORK: stage3b-d140-work
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Immutable D-144 one-attempt trigger guard
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = "1"
+          test -f .github/stage3b-2026-public-datafeed-execution-trigger
+          printf '%s\n' \
+            'D-146 execute single D-140 provider attempt under D-144' \
+            'authorization=eb05ac27af18f68232d86a9148597aa565688709' \
+            'representation=DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1' \
+            'scope=2026-06-01T00:00:00Z/2026-10-09T00:00:00Z' \
+            'sanity_gets=8' \
+            'hard_get_cap=1050' \
+            'attempt=1' > expected-trigger.txt
+          cmp --silent expected-trigger.txt .github/stage3b-2026-public-datafeed-execution-trigger
+      - name: Setup exact Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12.14"
+      - name: Install exact Stage 3B lock
+        run: python -m pip install --disable-pip-version-check --no-cache-dir -r requirements/information-parity-stage3b-2026.lock.txt
+      - name: Final deterministic guards before spending D-144 attempt
+        run: |
+          set -euo pipefail
+          python scripts/check_information_parity_stage3b_2026_environment.py
+          python -m py_compile scripts/decode_dukascopy_datafeed_m1.py scripts/stage3b_2026_public_datafeed_preflight.py scripts/acquire_dukascopy_public_datafeed_stage3b_2026.py tests/test_stage3b_2026_public_datafeed.py tests/test_stage3b_2026_public_datafeed_execution.py
+          python -m unittest -v tests.test_stage3b_2026_public_datafeed tests.test_stage3b_2026_public_datafeed_execution tests.test_stage3b_2026_pipeline
+          bash -n scripts/acquire_information_parity_stage3b_2026_public_datafeed.sh
+          python - <<'PY'
+          import sys
+          sys.path.insert(0,'scripts')
+          import acquire_dukascopy_public_datafeed_stage3b_2026 as a
+          assert a.PROVIDER_EXECUTION_ENABLED is True
+          assert a.D144_AUTHORIZATION_SHA == 'eb05ac27af18f68232d86a9148597aa565688709'
+          assert len(a.AUTHORIZED_D140_DECISION_SHAS) == 1
+          print('D144_EXECUTION_GUARD_PASS')
+          PY
+      - name: Record execution identity
+        run: |
+          mkdir -p "$STAGE3B_WORK/reports" "$STAGE3B_WORK/manifests"
+          printf '{"authorization":"eb05ac27af18f68232d86a9148597aa565688709","source_representation":"DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1","head_sha":"%s","run_id":"%s","run_attempt":"%s"}\n' "$GITHUB_SHA" "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" > "$STAGE3B_WORK/reports/execution-identity.json"
+      - name: Single D-140 bounded provider acquisition and causal layer build
+        run: |
+          set -euo pipefail
+          bash scripts/acquire_information_parity_stage3b_2026_public_datafeed.sh "$STAGE3B_WORK" 2>&1 | tee "$STAGE3B_WORK/reports/public-datafeed-execution.log"
+      - name: Build frozen Stage 3B candidate dataset
+        run: |
+          python scripts/build_stage3b_2026_dataset.py "$STAGE3B_WORK/derived/layer" "$STAGE3B_WORK/derived/synthetic-dxy.csv" research/reference/information-parity-v1/stage3b-source-events-v1.csv research/reference/information-parity-v1/stage3b-2026-feature-allowlists-v1.json "$STAGE3B_WORK/derived/candidates.csv.gz" "$STAGE3B_WORK/reports/dataset.json"
+      - name: Run frozen GOLD versus FULL Stage 3B benchmark
+        run: |
+          python scripts/run_stage3b_2026_benchmark.py "$STAGE3B_WORK/derived/candidates.csv.gz" research/reference/information-parity-v1/stage3b-2026-feature-allowlists-v1.json "$STAGE3B_WORK/reports/benchmark.json" "$STAGE3B_WORK/reports/predictions.csv"
+      - name: Hash compact evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p "$STAGE3B_WORK/reports" "$STAGE3B_WORK/manifests"
+          find "$STAGE3B_WORK/reports" "$STAGE3B_WORK/manifests" -type f -print | sort | xargs -r sha256sum > "$STAGE3B_WORK/reports/compact-evidence-sha256.txt"
+      - name: Remove provider and derived payloads before artifact upload
+        if: always()
+        run: rm -rf "$STAGE3B_WORK/raw" "$STAGE3B_WORK/derived"
+      - name: Upload compact D-144 evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: stage3b-2026-d140-d144-attempt
+          path: |
+            stage3b-d140-work/reports/**
+            stage3b-d140-work/manifests/**
+          if-no-files-found: warn
+          retention-days: 90

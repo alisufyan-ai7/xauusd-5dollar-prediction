@@ -22,19 +22,24 @@ jobs:
         run: |
           set -euo pipefail
           test "$(python -c 'import platform; print(platform.python_version())')" = "3.12.14"
-          python -m py_compile scripts/decode_dukascopy_datafeed_m1.py scripts/stage3b_2026_public_datafeed_preflight.py tests/test_stage3b_2026_public_datafeed.py
-      - name: D-140 deterministic no-provider suite
+          python -m py_compile scripts/decode_dukascopy_datafeed_m1.py scripts/stage3b_2026_public_datafeed_preflight.py scripts/acquire_dukascopy_public_datafeed_stage3b_2026.py tests/test_stage3b_2026_public_datafeed.py tests/test_stage3b_2026_public_datafeed_execution.py
+          bash -n scripts/acquire_information_parity_stage3b_2026_public_datafeed.sh
+      - name: D-144 deterministic no-provider suite
         run: |
           set -euo pipefail
-          python -m unittest -v tests.test_stage3b_2026_public_datafeed
+          python -m unittest -v tests.test_stage3b_2026_public_datafeed tests.test_stage3b_2026_public_datafeed_execution
           python - <<'PY'
           import sys
           sys.path.insert(0, 'scripts')
-          import stage3b_2026_public_datafeed_preflight as m
-          plan=m.static_plan()
+          import stage3b_2026_public_datafeed_preflight as p
+          import acquire_dukascopy_public_datafeed_stage3b_2026 as a
+          plan=p.static_plan()
           assert plan['provider_enabled'] is False
           assert plan['logical_series']==8
           assert plan['calendar_days']==130
           assert plan['hard_get_cap']==1050
-          print('D140_EXACT_RUNTIME_NO_PROVIDER_PASS', plan)
+          assert a.PROVIDER_EXECUTION_ENABLED is False
+          assert a.D144_AUTHORIZATION_SHA=='eb05ac27af18f68232d86a9148597aa565688709'
+          assert 8+p.full_request_count()==1048
+          print('D144_EXACT_RUNTIME_NO_PROVIDER_PASS', plan)
           PY

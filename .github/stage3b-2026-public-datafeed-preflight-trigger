@@ -1,11 +1,9 @@
-D-142 exact-runtime no-provider D-140 preflight harness fix
-previous_run=45953090143
-previous_job=140353234366
-previous_tests=8/8_PASS
-failure=harness_import_only
+D-145 exact-runtime no-provider D-144 execution implementation preflight
+authorization=eb05ac27af18f68232d86a9148597aa565688709
 source=DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1
 python=3.12.14
 provider_access=false
-decoder_blob=310c5d2cb0fbc9e4f5407eb1f6b43b947ea94ef2
-guard_blob=02fd41dca1622a5eb5d8535a870052ed59ed246a
-tests_blob=d60644a17e3ef5cae472ce75371b5599d5bbee7e
+sanity_gets=8
+full_gets=1040
+hard_get_cap=1050
+retries=0
