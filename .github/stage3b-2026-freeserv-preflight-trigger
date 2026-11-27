@@ -1,7 +1,11 @@
-D-149 exact-runtime no-provider D-148 FREESERV preflight
+D-150 exact-runtime full disabled D-148 FREESERV surface
 representation=DUKASCOPY_FREESERV_CHART_JSON3_M1_V1
 python=3.12.14
 provider_access=false
+authorization_allowlist=empty
 sanity_requests=8
-proposed_max_total_requests=96
+sanity_limit=2
+full_page_limit=30000
+max_full_requests_per_series=11
+max_total_requests=96
 retries=0
