@@ -1,23 +1,9 @@
-# Ready-to-Use New Chat Prompt — Chat 06
+# Ready-to-Use Prompt — Chat 06
 
-Continue XAUUSD 5dollar Prediction from GitHub; fetch branch `research/information-parity-v1-stage3-preregistration` HEAD fresh and treat GitHub as source of truth.
+Continue XAUUSD 5dollar Prediction using GitHub as source of truth. Fetch HEAD of `research/information-parity-v1-stage3-preregistration`, then read `research/PROJECT_CONTINUITY.md`, `research/DECISION_LOG.md`, `research/NEW_CHAT_HANDOFF.md`, `research/INFORMATION_PARITY_V1_STAGE3B_2026_D157_FREESERV_BENCHMARK_FINAL_CLOSURE.md`, and the machine manifest.
 
-D139 standing constraint: owner will not configure AWS/accounts/credentials/infrastructure. Assistant-operated routes only.
+The new confirmed state is **D-157: Stage 3B completed NEGATIVE with ADEQUATE data**, not NOT TESTED. D-152 authorized one D-148 FREESERV attempt. D-155 executed exactly once, commit `910184e82d82da26774795e6608da84a2dbca3c9`, run `45975512932`, job `140426128757`, full workflow SUCCESS: 8 sanity GETs +40 full GETs, 48/96 cap, zero retries, 343 candidate rows, 250 evaluated events (107 ACT/143 P3), 39 folds. Task A FULL-minus-GOLD mean per-date ROC-AUC -0.0317821 (95% CI [-0.1066166, +0.0324778]), failing preregistered +0.03/positive-lower-CI gate. Task B nonregression PASS. No automatic advancement. Artifact `15187346284`, ZIP digest `sha256:0d2a502c4a2b0842fb88c241315d32eb7741b6c2b53094c32b0d1a45224f06e0` (hash-manifest self-reference defect documented).
 
-D137: prior JETTA recovery consumed on HTTP403; never rerun D132/D136.
-D144: owner authorized exactly one D140 credential-free `DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1` attempt.
-D145: exact-runtime no-provider implementation preflight PASS, run 45962942690 / job 140384800318, Python3.12.14, 14/14 tests PASS, zero provider requests.
-D146: single D144 attempt consumed, run 45963138729 / job 140385418030. First XAUUSD BID Jun1 direct-datafeed sanity connection reset by peer during TLS before any HTTP response. No retry, no valid market object, later sanity/full requests not made, dataset/model not built. Artifact 15181796258 digest sha256:28979e29c96c0f6682ec7f4be1aecf41de63b087e9fb6b292a54430f3cd1df05.
-D147: fail-closed; D140 provider disabled, executable allowlist empty, execution trigger removed.
+D-156 seal commit `a29d3a1c538c942400532d7391c18a06de7818a0` disabled provider, emptied allowlist and removed one-time trigger. D-132, D-136, D-146 and D-155 are all permanently consumed—**never rerun**. D-139 prohibits asking the owner for external AWS/account/infrastructure setup. All D-124/D-116 teacher data, 92/155 features, 39 folds, fixed science, 2022-2025 seals, Oct9-Nov30 quarantine, December shadow and broker restrictions remain unchanged.
 
-Scientific state remains Stage3B NOT TESTED. Do not call it negative. Do not rerun consumed attempts.
-
-All D124 teacher data, 92/155 features, 39 LODO folds, models, thresholds, dates, sealed 2022-2025, Oct9-Nov30 quarantine, December shadow and broker restrictions remain unchanged.
-
-Immediate task: continue owner-independent research for a new assistant-operable read-only provider-access strategy without issuing a market-data request. Any future provider execution needs new explicit owner authorization.
-
-
-D148 is preregistered source-only: candidate representation `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1`, pinned to `Eghosa-Osayande/dukascopy` head `2e48b12cb3f5d81426a08886e9427af81d10f002`. Public source resolves M1=`1MIN`, BID/ASK=`B`/`A`, forward JSONP paging and <=30000 page limit. No FREESERV market request is authorized yet. Continue deterministic no-provider implementation/tests only, then exact-runtime no-provider validation if local tests pass. A new owner authorization is mandatory before any market request.
-
-
-D151 accepted the complete disabled D148 FREESERV surface: run 45965177800 / job 140392035933, Python3.12.14, compile PASS, shell syntax PASS, 16/16 tests PASS, provider=false, executable authorization allowlist empty, zero provider requests. Candidate limits: 8 sanity x limit2, full page limit30000, max11 full requests/series, hard total96, 350MiB raw, 750MiB normalized, one attempt/zero retry/no rerun. All owner-independent preflight is complete. Before any FREESERV market request obtain a new explicit owner D148 one-attempt authorization; no AWS/account setup.
+Proceed only with owner-independent static result audit/governance and/or a separately preregistered next research proposal. Do not reacquire, refit, retune, unseal, advance Stage 4/5, shadow trade or mutate broker unless the owner separately authorizes it. Update GitHub after material work; keep Chat 06->07 handoff ready.
