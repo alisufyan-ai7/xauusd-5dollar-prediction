@@ -2,8 +2,8 @@
 """D-144 one-attempt credential-free Dukascopy direct-M1 acquisition.
 
 Transport only. Scientific scope is frozen by D-124/D-140. No retries, no
-alternate host/source, and provider access is disabled until exact-runtime
-preflight is accepted in a later commit.
+alternate host/source, and provider access is enabled only by the D-146 immutable one-time trigger after the
+D-145 exact-runtime no-provider preflight passed.
 """
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ import stage3b_2026_public_datafeed_preflight as gate
 D144_AUTHORIZATION_SHA = "eb05ac27af18f68232d86a9148597aa565688709"
 AUTHORIZED_D140_DECISION_SHAS = frozenset({D144_AUTHORIZATION_SHA})
 SOURCE_REPRESENTATION = "DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1"
-PROVIDER_EXECUTION_ENABLED = False
+PROVIDER_EXECUTION_ENABLED = True
 USER_AGENT = "xauusd-stage3b-d140/1.0"
 
 SERIES = (

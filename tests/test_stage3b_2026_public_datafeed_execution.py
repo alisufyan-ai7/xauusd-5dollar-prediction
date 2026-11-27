@@ -24,11 +24,11 @@ class TestD144ExecutionSurface(unittest.TestCase):
         raw=struct.pack(">5if",0,2650123,2650456,2649987,2650789,12.5)
         return lzma.compress(raw,format=lzma.FORMAT_ALONE)
 
-    def test_exact_d144_authorization_is_frozen_and_provider_disabled(self):
+    def test_exact_d144_authorization_is_frozen_and_provider_enabled(self):
         self.assertEqual(acq.D144_AUTHORIZATION_SHA,"eb05ac27af18f68232d86a9148597aa565688709")
         self.assertEqual(acq.AUTHORIZED_D140_DECISION_SHAS,{acq.D144_AUTHORIZATION_SHA})
-        self.assertFalse(acq.PROVIDER_EXECUTION_ENABLED)
-        with self.assertRaises(PermissionError): acq.require_execution_authorized()
+        self.assertTrue(acq.PROVIDER_EXECUTION_ENABLED)
+        acq.require_execution_authorized()
 
     def test_only_frozen_direct_datafeed_host_is_accepted(self):
         with self.assertRaises(PermissionError):

@@ -1,0 +1,7 @@
+D-146 execute single D-140 provider attempt under D-144
+authorization=eb05ac27af18f68232d86a9148597aa565688709
+representation=DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1
+scope=2026-06-01T00:00:00Z/2026-10-09T00:00:00Z
+sanity_gets=8
+hard_get_cap=1050
+attempt=1
