@@ -1,6 +1,6 @@
 {
   "schema": "IPV1_STAGE3B_2026_ACQUISITION_AND_MACRO_PREFLIGHT_V1",
-  "status": "RECOVERY_ATTEMPT_CONSUMED_HTTP_403_ACCESS_DENIED",
+  "status": "D140_ATTEMPT_CONSUMED_TLS_CONNECTION_RESET_BEFORE_HTTP_NO_DATA",
   "owner_provider_rights": "OWNER_ATTESTED_EXISTING_LICENSE",
   "owner_final_execution_approval_commit": "c99ad84e4b7254d074b96df7a5f4c371ccbe01c2",
   "source_dataset_sha256": "8089c9d9d4ade14bf1cd037331d298e787276657a2056daf0bbb2c84325433cd",
@@ -72,7 +72,7 @@
     "raw_size_limit_enforced": true
   },
   "must_reverify_before_any_future_provider_call": [
-    "new explicit owner authorization for a different provider-access strategy after D-136 recovery consumption",
+    "new explicit owner authorization for a separately preregistered provider-access strategy after D-146 consumed D-144",
     "new pinned access/transport identity and deterministic no-provider tests",
     "same D-124 scientific scope unless separately changed",
     "no sealed-year, quarantine or shadow access",
@@ -80,7 +80,7 @@
   ],
   "authorization_scope": "D-124 exact bounded exception only; broker/shadow/sealed years remain forbidden",
   "authorization_record": "research/INFORMATION_PARITY_V1_STAGE3B_2026_FINAL_AUTHORIZATION.md",
-  "explanation": "D-136 consumed the one D-134 transport-recovery attempt. The 1.51.1 XAUUSD BID sanity endpoint returned plain HTTP 403 with no WAF token used; no market file was saved, full acquisition/model fitting never started, and Stage 3B remains NOT TESTED. All provider/model recovery execution is disabled; any future provider-access strategy requires a new decision.",
+  "explanation": "D-146 consumed the single D-144 D-140 direct-datafeed attempt. The first XAUUSD BID 2026-06-01 sanity connection to datafeed.dukascopy.com was reset by the peer during TLS before any HTTP response. No retry was made, no valid sanity object or usable market row was received, remaining sanity/full acquisition did not run, and no dataset/model was built. Stage 3B remains NOT TESTED.",
   "attempt_consumed": true,
   "attempt_record": {
     "decision": "D-132",
@@ -163,7 +163,7 @@
     }
   },
   "d140_candidate_access_strategy": {
-    "status": "EXACT_RUNTIME_NO_PROVIDER_PREFLIGHT_PASS_AWAITING_OWNER_TEXT_AUTHORIZATION",
+    "status": "ATTEMPT_CONSUMED_TLS_CONNECTION_RESET_BEFORE_HTTP_FAIL_CLOSED",
     "source_representation": "DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1",
     "provider_enabled": false,
     "owner_operational_constraint": "D-139_NO_MANUAL_EXTERNAL_SETUP",
@@ -221,6 +221,56 @@
       "static_plan": "PASS",
       "provider_requests": 0,
       "conclusion": "SUCCESS"
+    },
+    "d144_authorization": {
+      "decision": "D-144",
+      "commit": "eb05ac27af18f68232d86a9148597aa565688709",
+      "max_attempts": 1,
+      "rerun_allowed": false
+    },
+    "d145_execution_preflight": {
+      "status": "PASS",
+      "commit": "3c9d524a31956f3b12193689bfbd9acfa983537c",
+      "workflow_run_id": 45962942690,
+      "workflow_job_id": 140384800318,
+      "python": "3.12.14",
+      "tests": "14/14 PASS",
+      "provider_requests": 0,
+      "conclusion": "SUCCESS"
+    },
+    "execution_record": {
+      "decision": "D-146",
+      "commit": "942168a0c46541705f44ca3d0c8630d092800d9e",
+      "workflow_run_id": 45963138729,
+      "workflow_job_id": 140385418030,
+      "workflow_attempt": 1,
+      "first_sanity_symbol": "XAUUSD_BID",
+      "first_sanity_day": "2026-06-01",
+      "first_sanity_url": "https://datafeed.dukascopy.com/datafeed/XAUUSD/2026/05/01/BID_candles_min_1.bi5",
+      "transport_stage": "TLS_HANDSHAKE",
+      "observed_http_status": null,
+      "failure_class": "CONNECTION_RESET_BY_PEER_BEFORE_HTTP",
+      "error": "URLError: <urlopen error [Errno 104] Connection reset by peer>",
+      "retries": 0,
+      "valid_sanity_objects": 0,
+      "later_sanity_requests_started": false,
+      "full_acquisition_started": false,
+      "usable_provider_rows": 0,
+      "dataset_built": false,
+      "model_fit": false,
+      "scientific_result": "NOT_TESTED",
+      "compact_artifact_id": 15181796258,
+      "compact_artifact_digest": "sha256:28979e29c96c0f6682ec7f4be1aecf41de63b087e9fb6b292a54430f3cd1df05",
+      "compact_artifact_files": [
+        "reports/execution-identity.json",
+        "reports/public-datafeed-execution.log",
+        "reports/compact-evidence-sha256.txt"
+      ],
+      "compact_file_sha256": {
+        "reports/execution-identity.json": "a759674abc274911188a9333db5cc0edfd373b9b8f9ce104bbf31689a38e620d",
+        "reports/public-datafeed-execution.log": "da815fbd2de81bde38ecfa73ff9f5167934870a0a4b6a02372c49ec1315f7991",
+        "reports/compact-evidence-sha256.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
     }
   }
 }
