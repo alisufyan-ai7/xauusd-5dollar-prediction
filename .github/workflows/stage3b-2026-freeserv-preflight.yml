@@ -22,7 +22,8 @@ jobs:
         run: |
           set -euo pipefail
           test "$(python -c 'import platform; print(platform.python_version())')" = "3.12.14"
-          python -m py_compile scripts/stage3b_2026_freeserv_preflight.py tests/test_stage3b_2026_freeserv.py
+          python -m py_compile scripts/stage3b_2026_freeserv_preflight.py scripts/acquire_dukascopy_freeserv_stage3b_2026.py tests/test_stage3b_2026_freeserv.py tests/test_stage3b_2026_freeserv_execution.py
+          bash -n scripts/acquire_information_parity_stage3b_2026_freeserv.sh
           ! grep -Eq 'urllib\.request|urlopen\(|requests\.|http\.client' scripts/stage3b_2026_freeserv_preflight.py
       - name: D-148 deterministic no-provider suite
         run: |
