@@ -18,3 +18,6 @@ Immediate task: continue owner-independent research for a new assistant-operable
 
 
 D148 is preregistered source-only: candidate representation `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1`, pinned to `Eghosa-Osayande/dukascopy` head `2e48b12cb3f5d81426a08886e9427af81d10f002`. Public source resolves M1=`1MIN`, BID/ASK=`B`/`A`, forward JSONP paging and <=30000 page limit. No FREESERV market request is authorized yet. Continue deterministic no-provider implementation/tests only, then exact-runtime no-provider validation if local tests pass. A new owner authorization is mandatory before any market request.
+
+
+D151 accepted the complete disabled D148 FREESERV surface: run 45965177800 / job 140392035933, Python3.12.14, compile PASS, shell syntax PASS, 16/16 tests PASS, provider=false, executable authorization allowlist empty, zero provider requests. Candidate limits: 8 sanity x limit2, full page limit30000, max11 full requests/series, hard total96, 350MiB raw, 750MiB normalized, one attempt/zero retry/no rerun. All owner-independent preflight is complete. Before any FREESERV market request obtain a new explicit owner D148 one-attempt authorization; no AWS/account setup.
