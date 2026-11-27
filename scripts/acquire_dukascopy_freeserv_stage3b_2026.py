@@ -16,6 +16,20 @@ AUTHORIZED_D148_DECISION_SHAS = frozenset()
 PROVIDER_EXECUTION_ENABLED = False
 HTTP_TIMEOUT_SECONDS = 45
 
+class NoRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Never follow a redirect to an alternate URL, host, or service."""
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def no_proxy_no_redirect_open(req, timeout: int):
+    """A single direct HTTPS request; ignores proxy environment variables."""
+    opener = urllib.request.build_opener(
+        urllib.request.ProxyHandler({}), NoRedirectHandler()
+    )
+    return opener.open(req, timeout=timeout)
+
+
 OUTPUTS = {
     ("XAU/USD", "B"): "xauusd/xauusd-bid.csv",
     ("XAU/USD", "A"): "xauusd/xauusd-ask.csv",
@@ -46,16 +60,21 @@ def fetch_once(
     spec: gate.RequestSpec,
     *,
     timeout: int = HTTP_TIMEOUT_SECONDS,
-    opener=urllib.request.urlopen,
+    opener=None,
 ) -> tuple[int, bytes]:
     url = gate.build_url(spec)
     req = urllib.request.Request(url, headers=gate.request_headers())
+    selected_opener = opener if opener is not None else no_proxy_no_redirect_open
     try:
-        with opener(req, timeout=timeout) as resp:
+        with selected_opener(req, timeout=timeout) as resp:
             status = int(getattr(resp, "status", resp.getcode()))
-            return status, resp.read()
+            body = resp.read(gate.MAX_RAW_BYTES + 1)
+            _enforce_raw_budget(len(body))
+            return status, body
     except urllib.error.HTTPError as exc:
-        return int(exc.code), exc.read()
+        body = exc.read(gate.MAX_RAW_BYTES + 1)
+        _enforce_raw_budget(len(body))
+        return int(exc.code), body
     except Exception as exc:
         raise AcquisitionFailure(
             f"transport failure without retry for {spec.instrument}/{spec.side} cursor={spec.cursor_ms}: "
@@ -135,6 +154,7 @@ def acquire_series(
     fetcher: Callable[[gate.RequestSpec], tuple[int, bytes]],
     *,
     initial_raw_bytes: int = 0,
+    normalized_root: Path | None = None,
 ) -> tuple[dict, int]:
     if (instrument, side) not in gate.ALLOWED:
         raise PermissionError(f"unapproved series {instrument}/{side}")
@@ -165,6 +185,9 @@ def acquire_series(
             accepted = gate.rows_inside_fence(normalized)
             for row in accepted:
                 writer.writerow(row.as_tuple())
+            fh.flush()
+            if normalized_size(normalized_root if normalized_root is not None else output_path.parent) > gate.MAX_NORMALIZED_BYTES:
+                raise AcquisitionFailure("normalized/intermediate byte cap exceeded during pagination")
             written += len(accepted)
             page_records.append({
                 "request_index": requests,
@@ -224,6 +247,7 @@ def run(
             output_root / rel,
             fetcher,
             initial_raw_bytes=raw_bytes,
+            normalized_root=output_root,
         )
         total_requests += report["requests"]
         if total_requests > gate.PROPOSED_MAX_TOTAL_REQUESTS:
