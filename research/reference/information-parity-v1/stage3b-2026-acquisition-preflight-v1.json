@@ -397,7 +397,9 @@
       "commit": "a29d3a1c538c942400532d7391c18a06de7818a0",
       "provider_enabled": false,
       "authorization_allowlist": [],
-      "one_time_trigger_removed": true
+      "one_time_trigger_removed": true,
+      "trigger_removal_workflow_run_id": 45975899944,
+      "trigger_removal_workflow_conclusion": "SKIPPED_NO_PROVIDER_JOB"
     }
   }
 }
