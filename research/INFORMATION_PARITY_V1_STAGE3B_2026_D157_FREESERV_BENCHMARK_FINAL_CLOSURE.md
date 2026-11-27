@@ -144,3 +144,11 @@ Raw and derived market/model payloads were removed before upload; they were neve
 - Stage 3B is no longer **NOT TESTED**; it is a **completed negative preregistered experiment with adequate data**.
 
 Next allowed owner-independent work: static scientific result audit, documentation, and development of a **separately preregistered** next research hypothesis/proposal that does not alter or rerun D-155. No further fitting/provider access, no unsealing, no Stage 4/5 or trading mutation without distinct owner approval.
+
+## Final branch/run safety cross-check
+
+Verified after closure:
+- D-156 trigger-removal push created workflow record `45975899944` with conclusion **SKIPPED**; it was not a second provider execution.
+- The only executed D-148/D-152 provider workflow remains `45975512932`, conclusion **SUCCESS**, attempt 1.
+- Current branch flags: `PROVIDER_EXECUTION_ENABLED = False` in both request guard and acquisition wrapper; `AUTHORIZED_D148_DECISION_SHAS = frozenset()`.
+- Current branch does not contain `.github/stage3b-2026-freeserv-execution-trigger`.
