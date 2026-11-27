@@ -1,0 +1,43 @@
+name: stage3b-2026-freeserv-preflight
+on:
+  push:
+    branches:
+      - research/information-parity-v1-stage3-preregistration
+    paths:
+      - ".github/stage3b-2026-freeserv-preflight-trigger"
+permissions:
+  contents: read
+jobs:
+  exact-python-no-provider:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Setup exact Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12.14"
+      - name: Verify exact runtime and compile
+        run: |
+          set -euo pipefail
+          test "$(python -c 'import platform; print(platform.python_version())')" = "3.12.14"
+          python -m py_compile scripts/stage3b_2026_freeserv_preflight.py tests/test_stage3b_2026_freeserv.py
+          ! grep -Eq 'urllib\.request|urlopen\(|requests\.|http\.client' scripts/stage3b_2026_freeserv_preflight.py
+      - name: D-148 deterministic no-provider suite
+        run: |
+          set -euo pipefail
+          python -m unittest -v tests.test_stage3b_2026_freeserv
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, 'scripts')
+          import stage3b_2026_freeserv_preflight as m
+          p=m.static_plan()
+          assert p['provider_enabled'] is False
+          assert p['source_representation']=='DUKASCOPY_FREESERV_CHART_JSON3_M1_V1'
+          assert p['logical_series']==8
+          assert p['sanity_requests']==8
+          assert p['proposed_max_total_requests']==96
+          assert p['retries_after_provider_failure']==0
+          print('D148_EXACT_RUNTIME_NO_PROVIDER_PASS', p)
+          PY
