@@ -1,0 +1,7 @@
+D-149 exact-runtime no-provider D-148 FREESERV preflight
+representation=DUKASCOPY_FREESERV_CHART_JSON3_M1_V1
+python=3.12.14
+provider_access=false
+sanity_requests=8
+proposed_max_total_requests=96
+retries=0
