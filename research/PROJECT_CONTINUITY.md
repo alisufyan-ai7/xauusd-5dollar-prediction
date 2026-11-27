@@ -3113,3 +3113,12 @@ Artifact `15181796258`, digest `sha256:28979e29c96c0f6682ec7f4be1aecf41de63b087e
 D-144 is consumed; never rerun D-146. D-140 provider execution is disabled, executable allowlist empty and one-time trigger removed. D-132 and D-136 remain consumed too. 2022-2025 sealed; Oct9-Nov30 quarantined; December shadow separately unauthorized; Stage4/5 and broker actions blocked.
 
 Immediate owner-independent work: research a new assistant-operable read-only access path without issuing a market-data request. Future provider execution requires new explicit owner authorization.
+
+
+## D-148 — FREESERV chart JSON3 candidate preregistered; provider still blocked
+
+Source-only research found a genuinely different Dukascopy-native public chart transport at `freeserv.dukascopy.com/2.0/index.php?path=chart/json3`. Current public `Eghosa-Osayande/dukascopy` head `2e48b12cb3f5d81426a08886e9427af81d10f002` implements DataFeedV1 against this endpoint and pins M1 as `1MIN`, BID/ASK as `B`/`A`, forward paging via `time_direction=N` + millisecond `last_update`, JSONP OHLCV rows and optional limit up to 30,000. All seven underlying slash-form instruments are present in its current registry.
+
+Representation name: `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1`. It is not claimed byte-identical to Stage2 JETTA or D140 direct .bi5.
+
+D-148 authorizes **zero market requests**. Immediate owner-independent work is standard-library query/JSONP/paging/fence code and deterministic mock tests, followed only if justified by an exact-runtime no-provider check. Any actual FREESERV request requires a new owner authorization after that preflight is accepted. Stage3B remains NOT TESTED.
