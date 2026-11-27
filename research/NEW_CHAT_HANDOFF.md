@@ -13,3 +13,6 @@ Artifact 15181796258, digest sha256:28979e29c96c0f6682ec7f4be1aecf41de63b087e9fb
 D-147 fail-closes D140: provider disabled, executable allowlist empty, one-time trigger removed. Never rerun D132, D136 or D146.
 
 Next owner-independent action: research/document another assistant-operable read-only access path without making a market-data request. Any future provider execution requires a new explicit owner authorization. Keep D124 science and all sealed/quarantine/shadow/broker restrictions unchanged.
+
+
+D-148 source-only proposal is now active for the next owner-independent step: `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1` using Dukascopy's public chart JSONP transport. Current public implementation pin: `Eghosa-Osayande/dukascopy` commit `2e48b12cb3f5d81426a08886e9427af81d10f002`; M1=`1MIN`, BID=`B`, ASK=`A`, forward paging, JSONP OHLCV, max documented limit 30000. No market request authorized. Implement/test offline only; new explicit owner authorization required before provider access.
