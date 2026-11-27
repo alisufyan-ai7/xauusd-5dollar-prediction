@@ -259,3 +259,16 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] D-140 provider flag false and executable allowlist empty.
 - [x] One-time execution trigger removed.
 - [ ] Any future provider access requires a new preregistered strategy and explicit owner authorization.
+
+
+## D-148 / D-151 FREESERV candidate
+
+- [x] D-148 preregisters new representation `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1`; no provider request authorized.
+- [x] Current public protocol pin frozen: Eghosa-Osayande/dukascopy commit `2e48b12cb3f5d81426a08886e9427af81d10f002`.
+- [x] Exact semantics frozen: chart/json3, 1MIN, BID=B, ASK=A, forward N, epoch-ms cursor, JSONP OHLCV.
+- [x] Same eight logical series and D124 Jun1-Oct9-exclusive fence.
+- [x] Disabled production wrapper uses empty authorization allowlist and provider=false.
+- [x] Local 16/16 mocked tests PASS; no network.
+- [x] D-151 exact-runtime run 45965177800 / job 140392035933 PASS: Python3.12.14 compile, shell syntax, 16/16 tests, provider=false, allowlist empty, zero provider requests.
+- [x] Candidate ceilings frozen for owner review: 8 sanity requests with limit2; 30,000 full page size; <=11 full requests/series; <=96 total requests; <=350MiB raw; <=750MiB normalized/intermediate; one attempt; zero retry; no alternate host/source; no rerun.
+- [ ] Obtain new explicit owner D-148 authorization before any FREESERV market request.
