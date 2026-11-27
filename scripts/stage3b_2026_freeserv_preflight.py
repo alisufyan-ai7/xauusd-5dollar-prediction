@@ -13,8 +13,18 @@ BASE_URL = "https://freeserv.dukascopy.com/2.0/index.php"
 REFERER = (
     "https://freeserv.dukascopy.com/2.0/?path=chart/index&showUI=true&showTabs=true"
     "&showParameterToolbar=true&showOfferSide=true&allowInstrumentChange=true"
-    "&allowPeriodChange=true&allowOfferSideChange=true&presentationType=candle"
-    "&timezone=0&live=true"
+    "&allowPeriodChange=true&allowOfferSideChange=true&showAdditionalToolbar=true"
+    "&showExportImportWorkspace=true&allowSocialSharing=true&showUndoRedoButtons=true"
+    "&showDetachButton=true&presentationType=candle&axisX=true&axisY=true&legend=true"
+    "&timeline=true&showDateSeparators=true&showZoom=true&showScrollButtons=true"
+    "&showAutoShiftButton=true&crosshair=true&borders=false&freeMode=false"
+    "&theme=Pastelle&uiColor=%23000&availableInstruments=l%3A&instrument=EUR/USD"
+    "&period=5&offerSide=BID&timezone=0&live=true&allowPan=true&width=100%25"
+    "&height=700&adv=popup&lang=en"
+)
+PINNED_USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0"
 )
 START_ISO = "2026-06-01T00:00:00Z"
 END_EXCLUSIVE_ISO = "2026-10-09T00:00:00Z"
@@ -109,7 +119,7 @@ def build_url(spec: RequestSpec) -> str:
 
 def request_headers() -> dict[str, str]:
     return {
-        "User-Agent": "Mozilla/5.0 (D148 deterministic preflight; no-provider until authorized)",
+        "User-Agent": PINNED_USER_AGENT,
         "Host": "freeserv.dukascopy.com",
         "Referer": REFERER,
         "Accept": "*/*",
