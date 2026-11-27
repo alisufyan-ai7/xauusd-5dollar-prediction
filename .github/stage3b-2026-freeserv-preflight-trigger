@@ -1,11 +1,10 @@
-D-150 exact-runtime full disabled D-148 FREESERV surface
+D-151 final exact-runtime disabled D-148 FREESERV surface verification
 representation=DUKASCOPY_FREESERV_CHART_JSON3_M1_V1
 python=3.12.14
 provider_access=false
 authorization_allowlist=empty
-sanity_requests=8
-sanity_limit=2
-full_page_limit=30000
-max_full_requests_per_series=11
-max_total_requests=96
+compile_production_wrapper=true
+shell_syntax_check=true
+tests=16
+max_total_requests_if_later_authorized=96
 retries=0
