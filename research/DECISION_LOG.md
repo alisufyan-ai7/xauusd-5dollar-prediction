@@ -3880,3 +3880,17 @@ Commit `942168a0c46541705f44ca3d0c8630d092800d9e`, run `45963138729`, job `14038
 ## D-147 — Fail-close consumed D-144/D-140 path
 
 D-144 is consumed and D-146 must never be rerun. D-140 provider execution is disabled, its executable authorization allowlist is empty, and the one-time trigger is removed. All scientific/sealed/quarantine/shadow/broker restrictions remain unchanged. Any future provider request requires a separately preregistered access strategy plus new explicit owner authorization. Owner-independent source/access research may continue without issuing a market-data request.
+
+
+---
+
+## D-148 — Preregister Dukascopy FREESERV chart JSON3 access strategy
+
+Decision:
+After D-147 fail-closed the consumed D-144/D-140 attempt, preregister a genuinely different credential-free Dukascopy-native transport: `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1` using `https://freeserv.dukascopy.com/2.0/index.php?path=chart/json3`.
+
+Source-only inspection pins current public `Eghosa-Osayande/dukascopy` head `2e48b12cb3f5d81426a08886e9427af81d10f002`, DataFeedV1 blob `47738a147d42c71312329d76e766afe658f8d575`, and exact semantics `1MIN`, BID `B`, ASK `A`, forward `time_direction=N`, millisecond `last_update`, optional limit <=30000, JSONP OHLCV rows.
+
+The same eight logical series and all D-124 science remain frozen. This is a new representation, not claimed byte-identical to Stage2 or D140.
+
+No market request is authorized by D-148. Next work is deterministic no-provider implementation/testing only. A new explicit owner authorization is required before any FREESERV market request.
