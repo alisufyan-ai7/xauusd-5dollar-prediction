@@ -3861,3 +3861,22 @@ D-141 run 45953090143 / job 140353234366: exact Python3.12.14 compile PASS, D140
 Run 45953279060 / job 140353837712 on head b71f5be55cc34b0d7577b5de0651f9154964acff: Python3.12.14 compile PASS, 8/8 D140 tests PASS, static plan PASS, provider requests 0, workflow SUCCESS. Provider execution remains disabled. D140 is ready for one text-only owner authorization; no manual external setup is required.
 
 Findings: research/INFORMATION_PARITY_V1_STAGE3B_2026_D143_PUBLIC_DATAFEED_PREFLIGHT_ACCEPTANCE.md.
+
+
+---
+
+## D-144 — Authorize one D-140 credential-free public-datafeed attempt
+
+The owner authorized exactly one `DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1` attempt under the frozen eight-series Jun1-Oct9-exclusive scope, with 8 June 1 sanity GETs, <=1,050 total GETs, <=350 MiB raw, <=750 MiB normalized/intermediate, zero provider-failure retries, no alternate host/source and no rerun. Authorization commit: `eb05ac27af18f68232d86a9148597aa565688709`. D-124 science remained unchanged.
+
+## D-145 — Exact-runtime D-144 implementation preflight accepted
+
+Separate direct-datafeed execution code was implemented while provider access remained disabled. Run `45962942690` / job `140384800318` at head `3c9d524a31956f3b12193689bfbd9acfa983537c` used CPython 3.12.14 and passed 14/14 deterministic tests with zero provider requests. Frozen plan: 8 sanity + 1,040 full opportunities = 1,048 planned GETs, within the 1,050 cap.
+
+## D-146 — Single D-144 attempt consumed on first sanity TLS connection reset
+
+Commit `942168a0c46541705f44ca3d0c8630d092800d9e`, run `45963138729`, job `140385418030`, attempt 1. Immutable trigger/runtime/tests passed. The first XAUUSD BID June 1 request to `https://datafeed.dukascopy.com/datafeed/XAUUSD/2026/05/01/BID_candles_min_1.bi5` was reset by the peer during TLS before any HTTP response. Zero retry. No valid sanity object, later sanity requests, full acquisition, candidate dataset or model fit. Stage 3B remains **NOT TESTED**. Artifact `15181796258`, digest `sha256:28979e29c96c0f6682ec7f4be1aecf41de63b087e9fb6b292a54430f3cd1df05`.
+
+## D-147 — Fail-close consumed D-144/D-140 path
+
+D-144 is consumed and D-146 must never be rerun. D-140 provider execution is disabled, its executable authorization allowlist is empty, and the one-time trigger is removed. All scientific/sealed/quarantine/shadow/broker restrictions remain unchanged. Any future provider request requires a separately preregistered access strategy plus new explicit owner authorization. Owner-independent source/access research may continue without issuing a market-data request.
