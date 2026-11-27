@@ -39,8 +39,8 @@ Do not claim an action is committed merely because blobs/trees were created; ver
 
 ## 3. Chat numbering and rollover
 
-Current conversation at D-123: **Chat 04**.
-Next conversation: **Chat 05**.
+Current conversation after D-147: **Chat 05**.
+Next conversation: **Chat 06**.
 
 When a chat approaches practical context limits:
 - do not wait until continuity is lost;
@@ -49,7 +49,7 @@ When a chat approaches practical context limits:
 - give the user the ready-to-copy prompt from `NEW_CHAT_PROMPT.md`;
 - the new chat must read GitHub fresh before taking action.
 
-After rollover, change chat numbers in these files (Chat 05 -> Chat 06, etc.) as part of the first or next material documentation commit.
+After rollover, change chat numbers in these files (Chat 06 -> Chat 07, etc.) as part of the first or next material documentation commit.
 
 ## 4. New-chat bootstrap rule
 
