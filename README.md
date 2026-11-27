@@ -7,7 +7,7 @@ Clean-room research project for testing whether XAU/USD contains identifiable ma
 - Repository initialized from scratch.
 - Clean-room context policy established on `main`.
 - Active Stage 3B source-construction branch: `research/information-parity-v1-stage3-preregistration`.
-- Latest decision: D-151 accepts the complete exact-runtime **disabled** D-148 FREESERV preflight (Python 3.12.14, compile/shell checks PASS, 16/16 tests PASS, zero provider requests). Provider access remains disabled with an empty authorization allowlist pending one explicit owner D-148 authorization; Stage 3B remains **NOT TESTED**.
+- Latest decision: D-157 closes the one authorized D-148/D-152 FREESERV attempt. Source ADEQUATE, 8/8 sanity PASS, 48/96 GETs, dataset/39-fold benchmark PASS as an execution, but the preregistered FULL-vs-GOLD Stage 3B hypothesis is **NEGATIVE** (Task A improvement -0.0318, bootstrap 95% CI [-0.1066, +0.0325]). D-156 fail-closed provider access and removed the one-time trigger; no rerun, sealed-year access, broker action or Stage 4/5 promotion is authorized.
 - Information Parity V1 Stage 2 is accepted on 2016-2021 TRAIN. Final Stage 3B source teacher: 107 ACT, 143 eligible P3, 39 paired dates; exact dataset/hash in `research/reference/information-parity-v1/stage3b-source-freeze-manifest-v1.json`.
 - D-088 remains superseded only for already-consumed bounded 2026 exceptions; no current provider execution, Stage 4/5 progression, shadow collection, sealed-year access, or broker mutation is authorized.
 - No trading or broker mutation is enabled.
