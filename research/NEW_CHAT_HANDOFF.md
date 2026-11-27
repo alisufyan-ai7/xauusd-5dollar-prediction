@@ -16,3 +16,8 @@ Next owner-independent action: research/document another assistant-operable read
 
 
 D-148 source-only proposal is now active for the next owner-independent step: `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1` using Dukascopy's public chart JSONP transport. Current public implementation pin: `Eghosa-Osayande/dukascopy` commit `2e48b12cb3f5d81426a08886e9427af81d10f002`; M1=`1MIN`, BID=`B`, ASK=`A`, forward paging, JSONP OHLCV, max documented limit 30000. No market request authorized. Implement/test offline only; new explicit owner authorization required before provider access.
+
+
+D-151 final FREESERV preflight is ACCEPTED: run 45965177800 / job 140392035933, head 4ccf140e567d9251f834f5c808caf513552a05fd, Python3.12.14, full compile PASS, integration-shell syntax PASS, 16/16 mocked tests PASS, provider=false, authorization allowlist empty, zero provider requests.
+
+Frozen D148 execution proposal: exactly 8 sanity requests (limit 2), 30,000-row full pages, max 11 full requests/series, hard total cap 96, 350 MiB raw, 750 MiB normalized/intermediate, one attempt, zero retry, no alternate host/source, no rerun. All D124 science/protections unchanged. Only remaining prerequisite is explicit owner D148 authorization; no external setup.
