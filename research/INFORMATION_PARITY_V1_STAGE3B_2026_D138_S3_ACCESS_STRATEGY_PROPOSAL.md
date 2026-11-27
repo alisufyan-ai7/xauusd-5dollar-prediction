@@ -1,6 +1,6 @@
 # D-138 — Stage 3B Provider-Access Strategy Proposal: Official Dukascopy Requester-Pays S3
 
-**STATUS: PROPOSAL ONLY — NO S3 LIST/GET OR MARKET-DATA ACCESS AUTHORIZED**
+**STATUS: PREREGISTERED BUT OPERATIONALLY INFEASIBLE UNDER D-139 — NO S3 ACCESS**
 
 Parent decisions: D-124, D-133, D-134, D-137.
 
@@ -235,3 +235,8 @@ The owner must separately:
 3. configure the required AWS authentication outside chat.
 
 Only then may implementation/exact-runtime preflight proceed. No S3 access should occur merely to test credentials before that authorization.
+
+
+## D-139 operational disposition
+
+The owner will not configure AWS or other external credentials/infrastructure, and execution must be assistant-operated end-to-end. Because Requester-Pays S3 inherently requires an AWS identity unavailable to current project tools, D-138 is not executable under D-139. Do not ask the owner to configure AWS and do not attempt S3 access.

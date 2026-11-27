@@ -3823,3 +3823,16 @@ D-138 preregisters a new source representation `DUKASCOPY_S3_TICK_RECONSTRUCTED_
 Proposed one-attempt caps: <=50 LIST, <=1000 GET, <=350MiB raw, <=750MiB normalized, <=USD1 requester-pays ceiling. AWS credentials must be configured outside chat, preferably via branch-scoped GitHub OIDC. No S3 LIST/GET is authorized yet.
 
 Proposal: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D138_S3_ACCESS_STRATEGY_PROPOSAL.md`.
+
+
+---
+
+## D-139 — Owner requires assistant-operated execution; no manual AWS/account setup
+
+The owner will not configure AWS or other external infrastructure/credentials. This is a standing operational constraint. D-138 S3 is operationally infeasible and closed for execution under D-139. Live browser review on 2026-11-27 also found Dukascopy Historical Data Export temporarily unavailable; JForex history requires login.
+
+---
+
+## D-140 — Propose credential-free direct Dukascopy M1 datafeed
+
+Pinned pre-rewrite dukascopy-node v1.46.4 commit 4bb92bcbcd2edf7c7d75783173f1dae40bee7ef4 documents direct daily M1 BID/ASK files on datafeed.dukascopy.com, with 24-byte big-endian candle records and frozen decimal factors. D-140 proposes this as DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1, preserving exact D-124 dates/eight logical series and all downstream science. No provider request is authorized. Immediate next work is deterministic decoder/date/symbol/fence validation against pinned GitHub fixtures only.

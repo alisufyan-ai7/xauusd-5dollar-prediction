@@ -1,11 +1,13 @@
 # Ready-to-Use New Chat Prompt — Chat 05
 
-Continue **XAUUSD 5dollar Prediction** from GitHub; fetch branch HEAD fresh.
+Continue XAUUSD 5dollar Prediction from GitHub; fetch branch HEAD fresh.
 
-D137 is controlling: D136's one authorized 1.51.1 recovery received direct HTTP 403 on the fixed XAUUSD sanity endpoint; no file, no full acquisition, no model. Stage3B = NOT TESTED. All provider/model execution is fail-closed. Never rerun D132/D136.
+D137 controls provider state: D136 one-shot 1.51.1 JETTA recovery hit direct HTTP403, no file/model, Stage3B NOT TESTED; never rerun.
 
-D138 is **proposal only**: use Dukascopy's official Requester-Pays S3 historical-price bucket as a new access representation, `DUKASCOPY_S3_TICK_RECONSTRUCTED_M1_V1`. Seven underlying daily .bi5 tick instruments reconstruct the frozen eight M1 series. Deterministic scale metadata and tick->M1 rules are preregistered; all teacher/features/folds/models/thresholds/sealed periods remain unchanged.
+D139 standing constraint: do not require owner to configure AWS, cloud credentials, broker/demo accounts, CI secrets or external infrastructure. Execution paths must be assistant-operable end-to-end. D138 Requester-Pays S3 is operationally infeasible.
 
-D138 hard caps: <=50 LIST, <=1000 GET, <=350MiB raw, <=750MiB normalized, <=USD1 requester-pays, exactly one attempt/no rerun. Credentials must not go in chat; preferred GitHub Actions OIDC/temporary least privilege.
+Current public Historical Data Export widget is unavailable; JForex requires login.
 
-No S3 operation is authorized. The next owner decision is whether to authorize this exact D138 S3 attempt and reconstructed-M1 representation. If approved, the owner must also configure AWS authentication outside chat. Do not make S3 calls before both conditions are satisfied.
+D140 current proposal: DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1, using credential-free direct daily M1 BID/ASK .bi5 files documented by pinned dukascopy-node v1.46.4 commit 4bb92bcbcd2edf7c7d75783173f1dae40bee7ef4. Exact D124 dates, eight logical series, teacher/features/folds/models/thresholds/sealed periods remain unchanged.
+
+Immediate safe work: implement and test decoder plus URL/date/symbol/side/budget fences against pinned GitHub fixtures only. No provider request and no CI unless genuinely needed. After deterministic PASS, ask only for text authorization for one D140 provider attempt; never ask owner to configure infrastructure.

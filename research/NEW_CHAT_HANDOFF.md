@@ -1,9 +1,9 @@
 # New Chat Handoff — Chat 04 -> Chat 05
 
-D137: D134/D136 recovery consumed by direct HTTP 403; Stage3B NOT TESTED; provider/model execution disabled; no rerun.
+D139: owner will not configure AWS/accounts/credentials/infrastructure. Assistant-operated routes only. D138 S3 is operationally infeasible.
 
-D138: owner-independent proposal for a new official Dukascopy access path: Requester-Pays S3 `cfg-public-proper-wallaby` / eu-west-1. Proposed source identity `DUKASCOPY_S3_TICK_RECONSTRUCTED_M1_V1`; seven underlying .bi5 tick instruments reconstruct the frozen eight M1 series using pinned priceScale metadata and deterministic minute OHLC/volume aggregation.
+Current Dukascopy public widget is temporarily unavailable; JForex history requires login.
 
-This is explicitly a new representation, not claimed byte-identical to Stage2 JETTA M1. All downstream science remains frozen. Proposed one-attempt caps: 50 LIST / 1000 GET / 350MiB raw / 750MiB normalized / USD1 requester-pays / no rerun.
+D140 proposes credential-free datafeed.dukascopy.com direct daily M1 BID/ASK .bi5, pinned to dukascopy-node v1.46.4 protocol/decoder. Same D124 Jun1-Oct9 fence, same eight logical series, all downstream science unchanged. No claim of byte identity to Stage2.
 
-No S3 access is authorized yet. Next owner action: approve or decline D138 and, if approved, configure temporary least-privilege AWS auth outside chat (prefer GitHub OIDC). Never paste AWS keys into chat.
+No provider access authorized yet. Next safe task is off-provider decoder/fence implementation and tests using pinned GitHub fixtures. After PASS, only text owner authorization is needed for one provider attempt; no manual external setup.

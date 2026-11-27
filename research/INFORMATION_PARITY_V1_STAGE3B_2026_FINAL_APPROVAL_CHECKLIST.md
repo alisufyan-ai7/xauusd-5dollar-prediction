@@ -210,3 +210,23 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Credentials must be configured outside chat; preferred GitHub OIDC/least privilege.
 - [ ] **New owner authorization required** before any S3 LIST/GET and before accepting the S3 reconstructed-M1 representation.
 - [ ] Owner/AWS authentication setup required outside chat before implementation can execute.
+
+
+## D-139 operational constraint
+
+- [x] Owner will not configure AWS/cloud/broker/demo infrastructure or credentials.
+- [x] Do not ask owner to paste credentials or create operational accounts.
+- [x] D-138 S3 marked operationally infeasible; no S3 access.
+- [x] Public Historical Data Export widget checked live and currently unavailable.
+- [x] JForex historical route requires login and is not zero-setup.
+
+## D-140 credential-free datafeed proposal
+
+- [x] Pinned v1.46.4 direct M1 URL contract and decoder format.
+- [x] Frozen eight logical series and Jun1-Oct9-exclusive fence unchanged.
+- [x] Frozen decimal factors: XAUUSD/USDJPY=1000; five other FX=100000.
+- [x] No-account/no-AWS/no-secret route selected for preflight.
+- [ ] Implement deterministic direct-M1 decoder using pinned GitHub fixtures only.
+- [ ] Implement hard date/symbol/side/GET/byte fences and zero-retry behavior.
+- [ ] Run off-CI/no-provider deterministic preflight.
+- [ ] Only after PASS, obtain one text-only owner authorization for the versioned D-140 provider attempt; no manual setup required.

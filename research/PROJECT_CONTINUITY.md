@@ -3062,3 +3062,14 @@ Owner-independent research after D-137 found no newer `dukascopy-node` package b
 Proposed source identity: `DUKASCOPY_S3_TICK_RECONSTRUCTED_M1_V1`. Seven underlying instruments reconstruct the frozen eight Stage3B M1 series. Price scales are frozen from pinned Dukascopy metadata (XAUUSD/USDJPY scale3; other five FX scale5); M1 aggregation is deterministic first/max/min/last + side-volume sum. The proposal explicitly does **not** claim byte identity with old Stage2 JETTA M1 because Stage2 retained compact evidence only, not raw M1 payloads.
 
 Future attempt caps: <=50 LIST, <=1000 GET, <=350MiB raw, <=750MiB normalized, <=USD1.00 Requester-Pays cost ceiling, one attempt/no rerun. Preferred AWS auth is temporary least-privilege GitHub OIDC; credentials must never be pasted into chat. No S3 operation is authorized by D-138. New owner approval plus AWS setup is required.
+
+
+## D-139 — No manual external setup by owner
+
+The owner explicitly states that project execution must not depend on them configuring AWS, cloud credentials, broker/demo accounts or operational infrastructure. Treat this as a standing constraint: use assistant-operable paths; do not ask for pasted credentials or manual account setup. D-138 Requester-Pays S3 is therefore preregistered but operationally infeasible.
+
+A live browser inspection found the public Dukascopy Historical Data Export widget currently unavailable. JForex historical access requires a demo/live login.
+
+## D-140 — Credential-free public datafeed proposal
+
+Pinned dukascopy-node v1.46.4 documents direct daily M1 BID/ASK .bi5 objects on datafeed.dukascopy.com, exact 24-byte format, normalization and decimal factors. D-140 proposes DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1 with exact D-124 dates/eight series and all downstream science unchanged. Before any provider request, build and pass deterministic decoder/fence tests using only pinned GitHub fixtures. After that, only text authorization is required; no AWS/account setup.

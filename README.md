@@ -7,7 +7,7 @@ Clean-room research project for testing whether XAU/USD contains identifiable ma
 - Repository initialized from scratch.
 - Clean-room context policy established on `main`.
 - Active Stage 3B source-construction branch: `research/information-parity-v1-stage3-preregistration`.
-- Latest decision: D-138 proposes—without authorizing access—an official Dukascopy Requester-Pays S3 strategy (`DUKASCOPY_S3_TICK_RECONSTRUCTED_M1_V1`) after D-137's direct HTTP 403. Stage 3B remains NOT TESTED and execution stays fail-closed pending new owner approval/AWS setup.
+- Latest decision: D-140 proposes a **credential-free Dukascopy public datafeed direct-M1 route** after D-139 established that the owner will not configure AWS/accounts/infrastructure. D-138 S3 is operationally infeasible; Stage 3B remains NOT TESTED and provider execution stays disabled pending no-provider D-140 preflight and later text authorization.
 - Information Parity V1 Stage 2 is accepted on 2016-2021 TRAIN. Final Stage 3B source teacher: 107 ACT, 143 eligible P3, 39 paired dates; exact dataset/hash in `research/reference/information-parity-v1/stage3b-source-freeze-manifest-v1.json`.
 - D-088 chronology gate remains closed. D-118 proposal, D-119 preflight findings, source rights and final-approval checklist are in `research/`; Stage 3B market join, fitting and Stage 4/5 execution are not authorized.
 - No trading or broker mutation is enabled.
