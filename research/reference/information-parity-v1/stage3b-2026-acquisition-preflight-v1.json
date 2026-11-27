@@ -161,5 +161,44 @@
         "reports/transport-sanity-xauusd-bid.log"
       ]
     }
+  },
+  "d140_candidate_access_strategy": {
+    "status": "STRUCTURAL_NO_PROVIDER_PREFLIGHT_PASS_EXACT_RUNTIME_PENDING",
+    "source_representation": "DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1",
+    "provider_enabled": false,
+    "owner_operational_constraint": "D-139_NO_MANUAL_EXTERNAL_SETUP",
+    "upstream_protocol": {
+      "repo": "Leo4815162342/dukascopy-node",
+      "tag": "v1.46.4",
+      "tag_object": "ce06398059b56a85c2081e5f62f126c2f0e92d5f",
+      "commit": "4bb92bcbcd2edf7c7d75783173f1dae40bee7ef4"
+    },
+    "implementation_blobs": {
+      "decoder": "310c5d2cb0fbc9e4f5407eb1f6b43b947ea94ef2",
+      "guard": "02fd41dca1622a5eb5d8535a870052ed59ed246a",
+      "tests": "d60644a17e3ef5cae472ce75371b5599d5bbee7e"
+    },
+    "local_structural_preflight": {
+      "python": "3.13.5",
+      "provider_requests": 0,
+      "ci_runs": 0,
+      "tests_run": 8,
+      "tests_passed": 8,
+      "result": "PASS",
+      "note": "Exact Python 3.12.14 runtime verification still required before any provider authorization is acted upon."
+    },
+    "window_utc_half_open": [
+      "2026-06-01T00:00:00Z",
+      "2026-10-09T00:00:00Z"
+    ],
+    "logical_series": 8,
+    "sanity_gets": 8,
+    "full_get_opportunities": 1040,
+    "hard_get_cap": 1050,
+    "raw_bytes_cap": 367001600,
+    "normalized_bytes_cap": 786432000,
+    "max_attempts": 1,
+    "retries_after_provider_failure": 0,
+    "exact_runtime_required": "CPython 3.12.14"
   }
 }

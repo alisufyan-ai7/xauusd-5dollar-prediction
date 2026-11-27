@@ -1,0 +1,41 @@
+name: stage3b-2026-public-datafeed-preflight
+on:
+  push:
+    branches:
+      - research/information-parity-v1-stage3-preregistration
+    paths:
+      - ".github/stage3b-2026-public-datafeed-preflight-trigger"
+permissions:
+  contents: read
+jobs:
+  exact-python-no-provider:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Setup exact Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12.14"
+      - name: Verify exact runtime and compile
+        run: |
+          set -euo pipefail
+          test "$(python -c 'import platform; print(platform.python_version())')" = "3.12.14"
+          python -m py_compile scripts/decode_dukascopy_datafeed_m1.py scripts/stage3b_2026_public_datafeed_preflight.py tests/test_stage3b_2026_public_datafeed.py
+      - name: D-140 deterministic no-provider suite
+        run: |
+          set -euo pipefail
+          python -m unittest -v tests.test_stage3b_2026_public_datafeed
+          python - <<'PY'
+          import importlib.util, pathlib
+          p=pathlib.Path('scripts/stage3b_2026_public_datafeed_preflight.py')
+          s=importlib.util.spec_from_file_location('d140',p)
+          m=importlib.util.module_from_spec(s); s.loader.exec_module(m)
+          plan=m.static_plan()
+          assert plan['provider_enabled'] is False
+          assert plan['logical_series']==8
+          assert plan['calendar_days']==130
+          assert plan['hard_get_cap']==1050
+          print('D140_EXACT_RUNTIME_NO_PROVIDER_PASS', plan)
+          PY

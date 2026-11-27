@@ -3073,3 +3073,10 @@ A live browser inspection found the public Dukascopy Historical Data Export widg
 ## D-140 — Credential-free public datafeed proposal
 
 Pinned dukascopy-node v1.46.4 documents direct daily M1 BID/ASK .bi5 objects on datafeed.dukascopy.com, exact 24-byte format, normalization and decimal factors. D-140 proposes DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1 with exact D-124 dates/eight series and all downstream science unchanged. Before any provider request, build and pass deterministic decoder/fence tests using only pinned GitHub fixtures. After that, only text authorization is required; no AWS/account setup.
+
+
+## D-141 — D-140 decoder/fence structural preflight PASS; exact-runtime no-provider check justified
+
+Implemented the credential-free direct-M1 decoder and fail-closed request guard. Exact committed blob identities match the locally tested files. Local Python 3.13.5 deterministic suite passed 8/8 with zero provider requests and zero CI. Covered binary field order, XAUUSD scale, malformed payload/OHLC/timestamp rejection, exact zero-based URL, symbol/side/date fences, exact sanity set, request caps, zero retry and provider-disabled state.
+
+Because local Python 3.12.14 is unavailable, D-141 includes one narrowly scoped exact-runtime GitHub Actions check under Python 3.12.14. It runs only stdlib compile/tests/static-plan assertions and cannot issue a Dukascopy request. No provider execution is enabled.

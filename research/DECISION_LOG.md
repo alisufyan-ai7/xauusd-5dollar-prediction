@@ -3836,3 +3836,12 @@ The owner will not configure AWS or other external infrastructure/credentials. T
 ## D-140 — Propose credential-free direct Dukascopy M1 datafeed
 
 Pinned pre-rewrite dukascopy-node v1.46.4 commit 4bb92bcbcd2edf7c7d75783173f1dae40bee7ef4 documents direct daily M1 BID/ASK files on datafeed.dukascopy.com, with 24-byte big-endian candle records and frozen decimal factors. D-140 proposes this as DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1, preserving exact D-124 dates/eight logical series and all downstream science. No provider request is authorized. Immediate next work is deterministic decoder/date/symbol/fence validation against pinned GitHub fixtures only.
+
+
+---
+
+## D-141 — Implement D-140 no-provider decoder/fence preflight
+
+Local structural suite on Python 3.13.5: 8/8 PASS, provider requests 0, CI runs 0. Tested file Git blob identities are frozen in the findings/manifest. A small purpose-built workflow is triggered solely because local CPython 3.12.14 is unavailable; it performs no provider call and no model fit.
+
+Findings: research/INFORMATION_PARITY_V1_STAGE3B_2026_D141_PUBLIC_DATAFEED_PREFLIGHT_FINDINGS.md.

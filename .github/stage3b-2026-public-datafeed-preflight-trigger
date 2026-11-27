@@ -1,0 +1,7 @@
+D-141 exact-runtime no-provider D-140 preflight
+source=DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1
+python=3.12.14
+provider_access=false
+decoder_blob=310c5d2cb0fbc9e4f5407eb1f6b43b947ea94ef2
+guard_blob=02fd41dca1622a5eb5d8535a870052ed59ed246a
+tests_blob=d60644a17e3ef5cae472ce75371b5599d5bbee7e

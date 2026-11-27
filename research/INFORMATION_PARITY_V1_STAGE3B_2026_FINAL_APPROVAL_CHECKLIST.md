@@ -226,7 +226,9 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Frozen eight logical series and Jun1-Oct9-exclusive fence unchanged.
 - [x] Frozen decimal factors: XAUUSD/USDJPY=1000; five other FX=100000.
 - [x] No-account/no-AWS/no-secret route selected for preflight.
-- [ ] Implement deterministic direct-M1 decoder using pinned GitHub fixtures only.
-- [ ] Implement hard date/symbol/side/GET/byte fences and zero-retry behavior.
-- [ ] Run off-CI/no-provider deterministic preflight.
+- [x] D-141 implements deterministic direct-M1 decoder and validates pinned v1.46.4 fixture semantics without provider access.
+- [x] D-141 implements hard date/symbol/side/GET/byte caps and zero-retry/provider-disabled guard.
+- [x] D-141 local no-provider structural preflight PASS: Python 3.13.5, 8/8 tests, exact tested Git blobs matched.
 - [ ] Only after PASS, obtain one text-only owner authorization for the versioned D-140 provider attempt; no manual setup required.
+
+- [ ] D-141 exact Python 3.12.14 no-provider workflow must PASS before requesting D-140 provider authorization.
