@@ -3122,3 +3122,16 @@ Source-only research found a genuinely different Dukascopy-native public chart t
 Representation name: `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1`. It is not claimed byte-identical to Stage2 JETTA or D140 direct .bi5.
 
 D-148 authorizes **zero market requests**. Immediate owner-independent work is standard-library query/JSONP/paging/fence code and deterministic mock tests, followed only if justified by an exact-runtime no-provider check. Any actual FREESERV request requires a new owner authorization after that preflight is accepted. Stage3B remains NOT TESTED.
+
+
+## D-149 through D-151 — D-148 FREESERV no-provider package complete
+
+D-149 implemented exact FREESERV query/JSONP/fence/paging semantics and passed 8/8 local + exact Python3.12.14 no-provider tests (run 45964639309 / job 140390290104).
+
+D-150 implemented the complete acquisition wrapper and integration shell with provider=false and an empty authorization allowlist. Combined mocked suite 16/16 PASS. D-150 CI also passed, but two intended static harness checks were absent; it was not used as final acceptance.
+
+D-151 corrected that harness. Accepted run **45965177800** / job **140392035933**, head `4ccf140e567d9251f834f5c808caf513552a05fd`: Python3.12.14; production wrapper + guard + tests compile PASS; integration shell `bash -n` PASS; 16/16 tests PASS; provider=false; authorization allowlist empty; zero provider requests; SUCCESS.
+
+Frozen D148 candidate execution limits: exactly 8 sanity requests, sanity limit 2, full page limit 30,000, max 11 full requests/series, hard total cap 96, 350 MiB raw, 750 MiB normalized/intermediate, one attempt, zero retry/no rerun/no alternate host/source.
+
+**All owner-independent technical preflight is complete.** Stage3B remains NOT TESTED. The only remaining prerequisite before any FREESERV market request is a new explicit owner authorization for this exact D148 package. No AWS/account/credential/manual infrastructure setup is required.
