@@ -27,11 +27,12 @@ jobs:
       - name: D-148 deterministic no-provider suite
         run: |
           set -euo pipefail
-          python -m unittest -v tests.test_stage3b_2026_freeserv
+          python -m unittest -v tests.test_stage3b_2026_freeserv tests.test_stage3b_2026_freeserv_execution
           python - <<'PY'
           import sys
           sys.path.insert(0, 'scripts')
           import stage3b_2026_freeserv_preflight as m
+          import acquire_dukascopy_freeserv_stage3b_2026 as a
           p=m.static_plan()
           assert p['provider_enabled'] is False
           assert p['source_representation']=='DUKASCOPY_FREESERV_CHART_JSON3_M1_V1'
@@ -39,5 +40,7 @@ jobs:
           assert p['sanity_requests']==8
           assert p['proposed_max_total_requests']==96
           assert p['retries_after_provider_failure']==0
-          print('D148_EXACT_RUNTIME_NO_PROVIDER_PASS', p)
+          assert a.PROVIDER_EXECUTION_ENABLED is False
+          assert a.AUTHORIZED_D148_DECISION_SHAS == frozenset()
+          print('D150_EXACT_RUNTIME_FULL_DISABLED_SURFACE_PASS', p)
           PY
