@@ -3092,3 +3092,24 @@ Run 45953090143 / job 140353234366 used CPython3.12.14, compiled all D140 files 
 Corrected D142 workflow run 45953279060 / job 140353837712 succeeded under CPython3.12.14: compile PASS, D140 deterministic tests 8/8 PASS, static-plan assertions PASS, provider requests 0. Provider remains disabled. D140 is now implementation/preflight-complete under the owner’s D139 no-manual-setup constraint.
 
 The only remaining step before the single credential-free datafeed attempt is explicit owner text authorization. No AWS, account, credential, secret, payment, browser profile or manual infrastructure setup is required.
+
+
+## D-144 — One D-140 direct-datafeed attempt authorized
+
+Owner authorization commit `eb05ac27af18f68232d86a9148597aa565688709`: one `DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1` attempt, frozen eight M1 series, Jun1-Oct9 exclusive, 8 Jun1 sanity requests, <=1050 total GETs, 350 MiB raw, 750 MiB normalized/intermediate, zero provider-failure retry, no alternate host/source, no rerun. D-124 science unchanged.
+
+## D-145 — Exact-runtime execution preflight PASS
+
+Commit `3c9d524a31956f3b12193689bfbd9acfa983537c`. Run `45962942690` / job `140384800318`: CPython3.12.14, 14/14 deterministic tests PASS, zero provider requests.
+
+## D-146 — D-144 attempt consumed before HTTP response
+
+Commit `942168a0c46541705f44ca3d0c8630d092800d9e`. Run `45963138729` / job `140385418030`. After trigger/runtime/test guards passed, the first XAUUSD BID Jun1 direct-datafeed sanity connection was reset by the peer during TLS. No HTTP status was received and zero retry was performed. No valid sanity object; sanity requests 2-8 and full acquisition were not made; candidate build and benchmark were skipped.
+
+Artifact `15181796258`, digest `sha256:28979e29c96c0f6682ec7f4be1aecf41de63b087e9fb6b292a54430f3cd1df05`, contains only execution identity/log/hash evidence. **Stage 3B remains NOT TESTED.**
+
+## D-147 — Current fail-closed state
+
+D-144 is consumed; never rerun D-146. D-140 provider execution is disabled, executable allowlist empty and one-time trigger removed. D-132 and D-136 remain consumed too. 2022-2025 sealed; Oct9-Nov30 quarantined; December shadow separately unauthorized; Stage4/5 and broker actions blocked.
+
+Immediate owner-independent work: research a new assistant-operable read-only access path without issuing a market-data request. Future provider execution requires new explicit owner authorization.
