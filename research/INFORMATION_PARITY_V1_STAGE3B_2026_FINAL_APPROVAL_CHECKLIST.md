@@ -271,4 +271,20 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] Local 16/16 mocked tests PASS; no network.
 - [x] D-151 exact-runtime run 45965177800 / job 140392035933 PASS: Python3.12.14 compile, shell syntax, 16/16 tests, provider=false, allowlist empty, zero provider requests.
 - [x] Candidate ceilings frozen for owner review: 8 sanity requests with limit2; 30,000 full page size; <=11 full requests/series; <=96 total requests; <=350MiB raw; <=750MiB normalized/intermediate; one attempt; zero retry; no alternate host/source; no rerun.
-- [ ] Obtain new explicit owner D-148 authorization before any FREESERV market request.
+- [x] D-152 owner authorized one FREESERV attempt; D-155 executed it exactly once, so authorization is consumed (no rerun).
+
+## D-155/D-156/D-157 final completed outcome
+
+- [x] D-152 owner authorization commit `ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71`.
+- [x] D-153 hardened no-provider preflight PASS, run `45975306543`, 18/18 tests, zero requests.
+- [x] D-155 single execution run `45975512932`, job `140426128757`, conclusion SUCCESS, attempt 1, no rerun.
+- [x] 8/8 sanity requests PASS; 40 full requests PASS; 48 total under cap 96; 0 retries.
+- [x] 350 MiB raw and 750 MiB normalized/intermediate data caps respected.
+- [x] Data source ADEQUATE; 1,065,824 accepted M1 series observations; 250 scientific events, 39 folds.
+- [x] Task A FULL-minus-GOLD mean per-date AUC -0.0317821, paired-date CI [-0.1066166, +0.0324778] — **FAIL** against +0.03 and CI lower >0.
+- [x] Task B nonregression PASS.
+- [x] Scientific conclusion: **NEGATIVE FOR FROZEN STAGE 3B HYPOTHESIS**; no Stage4/5 advancement.
+- [x] Compact artifact `15187346284` ZIP digest `sha256:0d2a502c4a2b0842fb88c241315d32eb7741b6c2b53094c32b0d1a45224f06e0` verified. Self-hash manifest issue noted separately, no science impact.
+- [x] Raw/derived payload removed; no broker action or sealed-period access.
+- [x] D-156 restored provider=false, empty allowlist and removed trigger.
+- [ ] Any further fitting/provider request or a distinct hypothesis requires new explicit owner authorization and preregistration; no D-155 rerun.
