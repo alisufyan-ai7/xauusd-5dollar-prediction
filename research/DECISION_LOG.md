@@ -3913,3 +3913,34 @@ Run `45965177800` / job `140392035933`, head `4ccf140e567d9251f834f5c808caf51355
 Frozen candidate ceilings for owner review: 8 sanity requests with limit 2; full page limit 30,000; at most 11 full requests per logical series; hard total cap 96; 350 MiB raw; 750 MiB normalized/intermediate; one attempt; zero retry; no alternate host/source/proxy/VPN/mirror; no rerun. Same D124 science and protections.
 
 No FREESERV market request is authorized yet. Only remaining prerequisite is a new explicit owner D148 one-attempt authorization.
+
+
+---
+
+## D-152 — Owner authorizes exactly one D-148 FREESERV attempt
+
+The owner explicitly authorized one bounded `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1` attempt under the frozen D-124 science: exactly eight 2-row sanity requests before any full acquisition; full-page limit 30,000; no more than 11 full requests/series or 96 requests total; raw cap 350 MiB; normalized/intermediate cap 750 MiB; zero retry; no alternate host/source/proxy/VPN/mirror; no rerun. Authorization commit: `ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71`.
+
+## D-153 — Harden direct FREESERV transport and accept final no-provider preflight
+
+Added no-environment-proxy direct HTTPS, redirect refusal, bounded response read and mid-page normalized cap enforcement; no change to scientific scope. Exact-runtime run `45975306543` / job `140425441301`, Python3.12.14, **18/18 PASS**, provider calls 0.
+
+## D-154 — Freeze one-time execution readiness
+
+Created a separate execution workflow with exact D-152 authorization SHA/trigger, attempt-1 guard, final deterministic tests, frozen dataset/model steps and fail-safe raw/derived deletion. Readiness record commit `e9bdd9daf6af2fe94c16db17aa717810ed3142c8`. No provider access from readiness alone.
+
+## D-155 — Execute D-152 once, with adequate source and negative Stage 3B scientific result
+
+Single trigger commit `910184e82d82da26774795e6608da84a2dbca3c9`. Run `45975512932`, job `140426128757`, attempt 1, conclusion SUCCESS. Eight sanity requests HTTP200 (two rows each); forty full requests, five per logical series; 48 total under 96 cap, zero retries; 79,268,154 raw response bytes under 350 MiB; 68,047,560 derived normalized bytes under 750 MiB. 1,065,824 total accepted M1 series rows, source ADEQUATE; 343 candidate rows, 250 evaluated events (107 ACT / 143 P3), 39 dates/folds.
+
+Primary Task A: mean per-date FULL-minus-GOLD ROC-AUC = **−0.0317821068**, paired-date bootstrap 95% CI **[−0.1066165547, +0.0324778000]**; required +0.03 and CI lower bound >0, so **FAIL**. Task B nonregression PASS. Frozen result: **NEGATIVE FOR FROZEN STAGE 3B HYPOTHESIS**. Not a profitability conclusion; no rescue tuning.
+
+Compact artifact ID `15187346284`, SHA-256 `0d2a502c4a2b0842fb88c241315d32eb7741b6c2b53094c32b0d1a45224f06e0`. 14 other per-file hash entries validate; the manifest self-hash entry is non-self-consistent, a non-scientific evidence-harness issue. Full result and exact metrics: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D157_FREESERV_BENCHMARK_FINAL_CLOSURE.md`.
+
+## D-156 — Seal D-152/D-155 one-attempt execution while job is pinned
+
+Commit `a29d3a1c538c942400532d7391c18a06de7818a0` restored provider=false and empty executable SHA allowlist and deleted the one-time trigger. D-155 job remained pinned to its own execution commit; no second provider request sequence.
+
+## D-157 — Accept completed negative experiment and close promotion
+
+Source and 39-fold benchmark executed correctly and are scientifically adequate, but the primary FULL-vs-GOLD improvement gate failed. Mark Stage 3B as **completed negative**, not NOT TESTED. D-155 consumed; never rerun. No automatic Stage 4/5 promotion, sealed-period access, shadow deployment, broker activity or feature/model/threshold rescue. Any new hypothesis/provider fitting requires separate preregistration and explicit owner authorization.
