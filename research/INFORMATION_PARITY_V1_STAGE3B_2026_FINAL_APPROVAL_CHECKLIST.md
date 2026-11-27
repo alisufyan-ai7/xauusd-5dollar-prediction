@@ -234,3 +234,28 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] D-141 exact Python 3.12.14 compile + D-140 unit tests PASS (8/8); workflow failed only in post-test import harness.
 - [x] D-143 exact Python 3.12.14 no-provider workflow PASS: run 45953279060 / job 140353837712; 8/8 tests + static plan PASS, provider requests 0.
 - [ ] Obtain explicit owner text authorization for exactly one D-140 credential-free provider attempt; no external setup required.
+
+
+## D-144 / D-145 direct-datafeed authorization and preflight
+
+- [x] D-144 authorization commit `eb05ac27af18f68232d86a9148597aa565688709`.
+- [x] One D140 attempt only; eight frozen series; Jun1-Oct9 exclusive; 8 sanity GETs; <=1050 total GETs; 350 MiB raw; 750 MiB normalized/intermediate; zero retry; no alternate source; no rerun.
+- [x] D-145 exact-runtime no-provider run 45962942690 / job 140384800318 PASS on Python3.12.14, 14/14 tests, zero provider requests.
+
+## D-146 execution
+
+- [x] Single immutable trigger committed and run once: 45963138729 / job 140385418030.
+- [x] Final runtime/deterministic guards PASS before provider step.
+- [x] First XAUUSD BID Jun1 sanity connection attempted.
+- [x] TLS connection reset by peer before HTTP response; no retry.
+- [x] No valid sanity object; remaining 7 sanity requests not made.
+- [x] Full acquisition, candidate dataset and model benchmark did not occur.
+- [x] Artifact 15181796258 digest `sha256:28979e29c96c0f6682ec7f4be1aecf41de63b087e9fb6b292a54430f3cd1df05`; exactly three compact evidence files.
+- [x] Scientific result = **NOT TESTED**.
+
+## D-147 closure
+
+- [x] D-144 consumed; D-146 no rerun.
+- [x] D-140 provider flag false and executable allowlist empty.
+- [x] One-time execution trigger removed.
+- [ ] Any future provider access requires a new preregistered strategy and explicit owner authorization.
