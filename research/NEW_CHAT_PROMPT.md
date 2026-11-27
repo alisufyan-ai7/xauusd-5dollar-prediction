@@ -15,3 +15,6 @@ Scientific state remains Stage3B NOT TESTED. Do not call it negative. Do not rer
 All D124 teacher data, 92/155 features, 39 LODO folds, models, thresholds, dates, sealed 2022-2025, Oct9-Nov30 quarantine, December shadow and broker restrictions remain unchanged.
 
 Immediate task: continue owner-independent research for a new assistant-operable read-only provider-access strategy without issuing a market-data request. Any future provider execution needs new explicit owner authorization.
+
+
+D148 is preregistered source-only: candidate representation `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1`, pinned to `Eghosa-Osayande/dukascopy` head `2e48b12cb3f5d81426a08886e9427af81d10f002`. Public source resolves M1=`1MIN`, BID/ASK=`B`/`A`, forward JSONP paging and <=30000 page limit. No FREESERV market request is authorized yet. Continue deterministic no-provider implementation/tests only, then exact-runtime no-provider validation if local tests pass. A new owner authorization is mandatory before any market request.
