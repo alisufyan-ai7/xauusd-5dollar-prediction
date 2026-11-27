@@ -3894,3 +3894,22 @@ Source-only inspection pins current public `Eghosa-Osayande/dukascopy` head `2e4
 The same eight logical series and all D-124 science remain frozen. This is a new representation, not claimed byte-identical to Stage2 or D140.
 
 No market request is authorized by D-148. Next work is deterministic no-provider implementation/testing only. A new explicit owner authorization is required before any FREESERV market request.
+
+
+---
+
+## D-149 — FREESERV request/JSONP/fence preflight implemented
+
+Implemented source-only `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1` request construction, strict JSONP/OHLCV decoding, exact eight-series/date/side fencing, forward cursor normalization and bounded request plan. Local no-provider tests 8/8 PASS. Exact-runtime run `45964639309` / job `140390290104` under Python3.12.14 passed 8/8 with provider=false and zero market requests.
+
+## D-150 — Full disabled FREESERV execution wrapper implemented
+
+Implemented a zero-retry standard-library acquisition wrapper, exactly-eight sanity phase, forward paged full-series acquisition, raw/normalized caps and integration shell into the unchanged Stage3B causal build. Provider remained false and authorization allowlist empty. Local combined suite 16/16 PASS. Exact-runtime run `45965048319` passed 16/16, but review found two intended static harness checks (explicit production-wrapper compile and integration-shell bash syntax) were omitted from that run, so it was not used as final acceptance.
+
+## D-151 — Corrected exact-runtime full disabled FREESERV surface accepted
+
+Run `45965177800` / job `140392035933`, head `4ccf140e567d9251f834f5c808caf513552a05fd`: CPython3.12.14; explicit compile of guard, production wrapper and both test modules PASS; integration shell `bash -n` PASS; 16/16 deterministic/mock tests PASS; provider=false; executable authorization allowlist empty; provider requests 0; workflow SUCCESS.
+
+Frozen candidate ceilings for owner review: 8 sanity requests with limit 2; full page limit 30,000; at most 11 full requests per logical series; hard total cap 96; 350 MiB raw; 750 MiB normalized/intermediate; one attempt; zero retry; no alternate host/source/proxy/VPN/mirror; no rerun. Same D124 science and protections.
+
+No FREESERV market request is authorized yet. Only remaining prerequisite is a new explicit owner D148 one-attempt authorization.
