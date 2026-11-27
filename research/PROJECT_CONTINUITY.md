@@ -3135,3 +3135,16 @@ D-151 corrected that harness. Accepted run **45965177800** / job **140392035933*
 Frozen D148 candidate execution limits: exactly 8 sanity requests, sanity limit 2, full page limit 30,000, max 11 full requests/series, hard total cap 96, 350 MiB raw, 750 MiB normalized/intermediate, one attempt, zero retry/no rerun/no alternate host/source.
 
 **All owner-independent technical preflight is complete.** Stage3B remains NOT TESTED. The only remaining prerequisite before any FREESERV market request is a new explicit owner authorization for this exact D148 package. No AWS/account/credential/manual infrastructure setup is required.
+
+
+## CURRENT AS OF D-157 — Completed FREESERV Stage 3B: negative scientific result
+
+D-152 owner authorization `ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71` covered exactly one D-148 FREESERV M1 attempt. D-153 hardened direct HTTPS/no proxies/no redirects/zero retry; exact-runtime no-provider run `45975306543` (18/18 PASS). D-154 staged single-attempt workflow.
+
+D-155 executed **once**: commit `910184e82d82da26774795e6608da84a2dbca3c9`, run `45975512932`, job `140426128757`, conclusion SUCCESS. The 8/8 sanity requests and 40 full requests succeeded (48 total, cap96, zero retries). 1,065,824 accepted M1 source rows across 8 logical series; raw responses 79,268,154 bytes, normalized 68,047,560 bytes. Source adequacy ADEQUATE. Frozen 2026 dataset 343 candidate rows / 250 evaluated events (107 ACT, 143 eligible P3) / 39 dates. Hash `f6efeebfb98e1cb41d2d444a09cd4ea1aa76aa34f617f2c8d13db2f0258b880b`.
+
+Task A FULL-minus-GOLD paired-date mean ROC-AUC **−0.0317821068**, bootstrap 95% CI **[−0.1066165547, +0.0324778000]**: FAIL versus prereg +0.03/positive lower CI. Task B nonregression PASS. **Scientific decision: NEGATIVE FOR FROZEN STAGE 3B HYPOTHESIS**. This does not mean an XAUUSD predictor is impossible or establish execution profitability.
+
+D-156 commit `a29d3a1c538c942400532d7391c18a06de7818a0` restored provider=false, empty SHA allowlist, removed trigger. No rerun. D-157 full evidence `research/INFORMATION_PARITY_V1_STAGE3B_2026_D157_FREESERV_BENCHMARK_FINAL_CLOSURE.md`. Artifact `15187346284`, outer ZIP SHA-256 `0d2a502c4a2b0842fb88c241315d32eb7741b6c2b53094c32b0d1a45224f06e0`, expiry February25 2027. Raw/derived market/model payload deleted. Minor self-hash-manifest defect documented; 14 other file hashes validate.
+
+**Next owner-independent task:** static result/scientific-governance audit and, if useful, a separately preregistered next research proposal. No further provider calls, model refit/rescue, sealed-year opening, shadow collection, broker mutation or Stage4/5 promotion without explicit new owner approval. D-132, D-136, D-146 and D-155 remain consumed. D-124/D-116 teacher data, 92/155 feature allowlists, 39 folds, macro fail-closed, cold start, all seals and broker restrictions unchanged.
