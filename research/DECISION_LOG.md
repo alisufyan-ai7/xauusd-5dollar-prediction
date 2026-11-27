@@ -3845,3 +3845,10 @@ Pinned pre-rewrite dukascopy-node v1.46.4 commit 4bb92bcbcd2edf7c7d75783173f1dae
 Local structural suite on Python 3.13.5: 8/8 PASS, provider requests 0, CI runs 0. Tested file Git blob identities are frozen in the findings/manifest. A small purpose-built workflow is triggered solely because local CPython 3.12.14 is unavailable; it performs no provider call and no model fit.
 
 Findings: research/INFORMATION_PARITY_V1_STAGE3B_2026_D141_PUBLIC_DATAFEED_PREFLIGHT_FINDINGS.md.
+
+
+---
+
+## D-142 — Diagnose D-141 CI failure before rerun
+
+D-141 run 45953090143 / job 140353234366: exact Python3.12.14 compile PASS, D140 tests 8/8 PASS, provider requests 0. Failure was post-test harness-only: importlib loaded a dataclass module without sys.modules registration. D142 changes only the workflow loader to a normal import and triggers one targeted no-provider verification. No product/provider/scientific code changed.

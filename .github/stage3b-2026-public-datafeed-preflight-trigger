@@ -1,4 +1,8 @@
-D-141 exact-runtime no-provider D-140 preflight
+D-142 exact-runtime no-provider D-140 preflight harness fix
+previous_run=45953090143
+previous_job=140353234366
+previous_tests=8/8_PASS
+failure=harness_import_only
 source=DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1
 python=3.12.14
 provider_access=false

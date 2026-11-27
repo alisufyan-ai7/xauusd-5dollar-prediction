@@ -163,7 +163,7 @@
     }
   },
   "d140_candidate_access_strategy": {
-    "status": "STRUCTURAL_NO_PROVIDER_PREFLIGHT_PASS_EXACT_RUNTIME_PENDING",
+    "status": "EXACT_RUNTIME_TESTS_PASS_HARNESS_FIX_PENDING",
     "source_representation": "DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1",
     "provider_enabled": false,
     "owner_operational_constraint": "D-139_NO_MANUAL_EXTERNAL_SETUP",
@@ -199,6 +199,17 @@
     "normalized_bytes_cap": 786432000,
     "max_attempts": 1,
     "retries_after_provider_failure": 0,
-    "exact_runtime_required": "CPython 3.12.14"
+    "exact_runtime_required": "CPython 3.12.14",
+    "exact_runtime_attempt_1": {
+      "workflow_run_id": 45953090143,
+      "workflow_job_id": 140353234366,
+      "python": "3.12.14",
+      "compile": "PASS",
+      "unit_tests": "8/8 PASS",
+      "provider_requests": 0,
+      "workflow_conclusion": "FAILURE",
+      "failure_class": "HARNESS_IMPORT_ONLY",
+      "root_cause": "ad-hoc importlib loader executed dataclass module without registering it in sys.modules; decoder/guard tests themselves passed"
+    }
   }
 }

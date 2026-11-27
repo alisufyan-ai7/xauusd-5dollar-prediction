@@ -3080,3 +3080,8 @@ Pinned dukascopy-node v1.46.4 documents direct daily M1 BID/ASK .bi5 objects on 
 Implemented the credential-free direct-M1 decoder and fail-closed request guard. Exact committed blob identities match the locally tested files. Local Python 3.13.5 deterministic suite passed 8/8 with zero provider requests and zero CI. Covered binary field order, XAUUSD scale, malformed payload/OHLC/timestamp rejection, exact zero-based URL, symbol/side/date fences, exact sanity set, request caps, zero retry and provider-disabled state.
 
 Because local Python 3.12.14 is unavailable, D-141 includes one narrowly scoped exact-runtime GitHub Actions check under Python 3.12.14. It runs only stdlib compile/tests/static-plan assertions and cannot issue a Dukascopy request. No provider execution is enabled.
+
+
+## D-142 — D-141 exact-runtime tests passed; CI failure isolated to harness import
+
+Run 45953090143 / job 140353234366 used CPython3.12.14, compiled all D140 files successfully and passed all 8/8 D140 unit tests. The job then failed only because an ad-hoc importlib static-plan snippet loaded a dataclass module without registering it in sys.modules. D142 patches only that workflow harness to a normal import. Decoder/guard/test blobs and provider-disabled state are unchanged. One follow-up no-provider run is justified to verify the corrected harness.

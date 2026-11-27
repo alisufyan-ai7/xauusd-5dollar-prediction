@@ -28,10 +28,9 @@ jobs:
           set -euo pipefail
           python -m unittest -v tests.test_stage3b_2026_public_datafeed
           python - <<'PY'
-          import importlib.util, pathlib
-          p=pathlib.Path('scripts/stage3b_2026_public_datafeed_preflight.py')
-          s=importlib.util.spec_from_file_location('d140',p)
-          m=importlib.util.module_from_spec(s); s.loader.exec_module(m)
+          import sys
+          sys.path.insert(0, 'scripts')
+          import stage3b_2026_public_datafeed_preflight as m
           plan=m.static_plan()
           assert plan['provider_enabled'] is False
           assert plan['logical_series']==8

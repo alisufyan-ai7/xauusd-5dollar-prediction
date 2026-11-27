@@ -231,4 +231,5 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [x] D-141 local no-provider structural preflight PASS: Python 3.13.5, 8/8 tests, exact tested Git blobs matched.
 - [ ] Only after PASS, obtain one text-only owner authorization for the versioned D-140 provider attempt; no manual setup required.
 
-- [ ] D-141 exact Python 3.12.14 no-provider workflow must PASS before requesting D-140 provider authorization.
+- [x] D-141 exact Python 3.12.14 compile + D-140 unit tests PASS (8/8); workflow failed only in post-test import harness.
+- [ ] D-142 corrected-harness exact-runtime no-provider workflow must PASS before requesting D-140 provider authorization.
