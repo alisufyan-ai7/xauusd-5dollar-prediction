@@ -43,6 +43,36 @@ class TestD148Execution(unittest.TestCase):
         self.assertEqual((status, got), (200, body))
         self.assertEqual(len(calls), 1)
 
+
+    def test_redirect_handler_does_not_follow_off_host_or_same_host_redirects(self):
+        handler = acq.NoRedirectHandler()
+        spec = gate.RequestSpec("XAU/USD", "B", gate.START_MS, 2)
+        from urllib.request import Request
+        req = Request(gate.build_url(spec))
+        for target in ("https://evil.example/market", gate.BASE_URL):
+            self.assertIsNone(handler.redirect_request(req, None, 302, "redirect", {}, target))
+
+    def test_explicit_direct_proxy_free_transport_builds_without_env_proxy(self):
+        import urllib.request
+        orig = urllib.request.build_opener
+        captured = []
+        def fake_build(*handlers):
+            captured.extend(handlers)
+            class Dummy:
+                def open(self, req, timeout):
+                    return FakeResponse(b"x", 200)
+            return Dummy()
+        try:
+            urllib.request.build_opener = fake_build
+            spec = gate.RequestSpec("XAU/USD", "B", gate.START_MS, 2)
+            from urllib.request import Request
+            with acq.no_proxy_no_redirect_open(Request(gate.build_url(spec)), 45) as resp:
+                self.assertEqual(resp.read(), b"x")
+        finally:
+            urllib.request.build_opener = orig
+        self.assertTrue(any(isinstance(h, urllib.request.ProxyHandler) and h.proxies == {} for h in captured))
+        self.assertTrue(any(isinstance(h, acq.NoRedirectHandler) for h in captured))
+
     def test_fetch_once_transport_failure_is_not_retried(self):
         calls = []
         spec = gate.RequestSpec("XAU/USD", "B", gate.START_MS, 2)
