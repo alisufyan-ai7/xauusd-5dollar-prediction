@@ -39,7 +39,7 @@ PROPOSED_MAX_FULL_REQUESTS_PER_SERIES = 11
 MAX_RAW_BYTES = 350 * 1024 * 1024
 MAX_NORMALIZED_BYTES = 750 * 1024 * 1024
 MAX_RETRIES_AFTER_PROVIDER_FAILURE = 0
-PROVIDER_EXECUTION_ENABLED = False
+PROVIDER_EXECUTION_ENABLED = True
 
 SERIES = (
     ("XAU/USD", "B", "XAUUSD_BID"),
@@ -210,7 +210,7 @@ def static_plan() -> dict:
     theoretical_slots_per_series = calendar_days * 1440
     theoretical_full_pages_per_series = (theoretical_slots_per_series + MAX_PAGE_LIMIT - 1) // MAX_PAGE_LIMIT
     return {
-        "status": "D148_PREFLIGHT_ONLY_PROVIDER_DISABLED",
+        "status": "D148_D152_SINGLE_ATTEMPT_EXECUTION_AUTHORIZED",
         "source_representation": SOURCE_REPRESENTATION,
         "endpoint": BASE_URL,
         "interval": INTERVAL,

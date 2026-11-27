@@ -26,9 +26,10 @@ def payload_for(spec, rows):
     return f"{cb}({json.dumps(rows)});".encode()
 
 class TestD148Execution(unittest.TestCase):
-    def test_execution_guard_is_empty_and_disabled(self):
-        self.assertEqual(acq.AUTHORIZED_D148_DECISION_SHAS, frozenset())
-        self.assertFalse(acq.PROVIDER_EXECUTION_ENABLED)
+    def test_execution_guard_allows_only_d152(self):
+        self.assertEqual(acq.AUTHORIZED_D148_DECISION_SHAS, frozenset({"ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71"}))
+        self.assertTrue(acq.PROVIDER_EXECUTION_ENABLED)
+        acq.require_execution_authorized("ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71")
         with self.assertRaises(PermissionError):
             acq.require_execution_authorized("anything")
 

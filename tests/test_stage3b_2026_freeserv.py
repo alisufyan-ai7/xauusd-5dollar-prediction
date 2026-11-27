@@ -9,14 +9,13 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import stage3b_2026_freeserv_preflight as m
 
 class TestD148FreeServ(unittest.TestCase):
-    def test_exact_frozen_series_and_provider_disabled(self):
+    def test_exact_frozen_series_and_provider_authorized_once(self):
         self.assertEqual(len(m.SERIES), 8)
         self.assertEqual(len(m.ALLOWED), 8)
         self.assertIn(("XAU/USD", "B"), m.ALLOWED)
         self.assertIn(("XAU/USD", "A"), m.ALLOWED)
-        self.assertFalse(m.PROVIDER_EXECUTION_ENABLED)
-        with self.assertRaises(PermissionError):
-            m.require_provider_execution_authorized()
+        self.assertTrue(m.PROVIDER_EXECUTION_ENABLED)
+        m.require_provider_execution_authorized()
 
     def test_exact_m1_bid_ask_query_semantics(self):
         bid = m.RequestSpec("XAU/USD", "B", m.START_MS, 2)
@@ -111,7 +110,7 @@ class TestD148FreeServ(unittest.TestCase):
         self.assertEqual(p["proposed_max_full_requests_per_series"], 11)
         self.assertEqual(p["proposed_max_total_requests"], 96)
         self.assertEqual(p["retries_after_provider_failure"], 0)
-        self.assertFalse(p["provider_enabled"])
+        self.assertTrue(p["provider_enabled"])
 
 if __name__ == "__main__":
     unittest.main()
