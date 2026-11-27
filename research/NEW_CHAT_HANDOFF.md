@@ -1,23 +1,21 @@
 # New Chat Handoff — Chat 05 -> Chat 06
 
-GitHub source of truth: branch `research/information-parity-v1-stage3-preregistration`. Fetch HEAD fresh before acting.
+**GitHub remains the durable source of truth.** Fetch current HEAD of branch `research/information-parity-v1-stage3-preregistration` and review README, Decision Log, Project Continuity and D-157 result document before acting.
 
-D-139 no-manual-setup constraint remains active. Do not ask the owner to configure AWS/accounts/credentials/infrastructure.
+## Current completed scientific state
 
-D-144 authorized exactly one D-140 credential-free direct-M1 attempt. D-145 exact-runtime no-provider preflight passed: run 45962942690 / job 140384800318, Python 3.12.14, 14/14 tests PASS, zero provider requests.
+D-152 one-time FREESERV authorization was consumed by D-155. Run `45975512932`, job `140426128757`, commit `910184e82d82da26774795e6608da84a2dbca3c9`: SUCCESS, 8/8 sanity and 40 full calls, 48/96 total requests, zero retries, source ADEQUATE. 343 candidate rows, 250 evaluated events (107 ACT, 143 P3) over 39 folds.
 
-D-146 consumed the single D-144 attempt: run 45963138729 / job 140385418030. The first XAUUSD BID Jun1 sanity connection to datafeed.dukascopy.com was reset by the peer during TLS before any HTTP response. No retry; no valid sanity object; requests 2-8 not made; full acquisition/model benchmark skipped.
+Frozen Task A FULL-minus-GOLD mean per-date ROC-AUC = **−0.0317821068**, paired-date bootstrap 95% CI **[−0.1066165547, +0.0324778000]**. Required improvement +0.03 and CI lower >0; fails. Task B nonregression passes. **Stage 3B completed scientific outcome = NEGATIVE**, not NOT TESTED. Do not rescue/tune the result or call it a general impossibility/real-money profitability finding.
 
-Artifact 15181796258, digest sha256:28979e29c96c0f6682ec7f4be1aecf41de63b087e9fb6b292a54430f3cd1df05. Stage3B remains NOT TESTED.
+Full evidence: `research/INFORMATION_PARITY_V1_STAGE3B_2026_D157_FREESERV_BENCHMARK_FINAL_CLOSURE.md`. Machine execution record: `research/reference/information-parity-v1/stage3b-2026-acquisition-preflight-v1.json`. Artifact `15187346284`, digest sha256:`0d2a502c4a2b0842fb88c241315d32eb7741b6c2b53094c32b0d1a45224f06e0`. Compact evidence self-hash has a documented defect; other 14 files verify. No raw/derived payload in artifact.
 
-D-147 fail-closes D140: provider disabled, executable allowlist empty, one-time trigger removed. Never rerun D132, D136 or D146.
+## Current safety/authorization state
 
-Next owner-independent action: research/document another assistant-operable read-only access path without making a market-data request. Any future provider execution requires a new explicit owner authorization. Keep D124 science and all sealed/quarantine/shadow/broker restrictions unchanged.
+D-156 seal commit `a29d3a1c538c942400532d7391c18a06de7818a0` restores provider=false, empty authorization allowlist and deletes execution trigger. D-132, D-136, D-146, D-155 are consumed and may not be rerun. D-139 no owner AWS/accounts/manual setup remains binding.
 
+D-124/D-116 teacher data, 92 GOLD/155 FULL features, 39 LODO folds, fixed preprocessing/models/thresholds, D-120 cold start, D-121 macro fail-closed, 2022-2025 seals, Oct9-Nov30 quarantine, December shadow, Stage4/5 and all broker restrictions remain intact.
 
-D-148 source-only proposal is now active for the next owner-independent step: `DUKASCOPY_FREESERV_CHART_JSON3_M1_V1` using Dukascopy's public chart JSONP transport. Current public implementation pin: `Eghosa-Osayande/dukascopy` commit `2e48b12cb3f5d81426a08886e9427af81d10f002`; M1=`1MIN`, BID=`B`, ASK=`A`, forward paging, JSONP OHLCV, max documented limit 30000. No market request authorized. Implement/test offline only; new explicit owner authorization required before provider access.
+## Next step
 
-
-D-151 final FREESERV preflight is ACCEPTED: run 45965177800 / job 140392035933, head 4ccf140e567d9251f834f5c808caf513552a05fd, Python3.12.14, full compile PASS, integration-shell syntax PASS, 16/16 mocked tests PASS, provider=false, authorization allowlist empty, zero provider requests.
-
-Frozen D148 execution proposal: exactly 8 sanity requests (limit 2), 30,000-row full pages, max 11 full requests/series, hard total cap 96, 350 MiB raw, 750 MiB normalized/intermediate, one attempt, zero retry, no alternate host/source, no rerun. All D124 science/protections unchanged. Only remaining prerequisite is explicit owner D148 authorization; no external setup.
+Perform owner-independent static result review and governance documentation, or draft a distinctly preregistered hypothesis. **No further market-data acquisition, model fitting, shadow, sealed-year access, Stage4/5 promotion or broker execution without a new explicit owner authorization.** Keep GitHub continuity/handoff refreshed for Chat 06 and later.
