@@ -7,7 +7,7 @@ Clean-room research project for testing whether XAU/USD contains identifiable ma
 - Repository initialized from scratch.
 - Clean-room context policy established on `main`.
 - Active Stage 3B source-construction branch: `research/information-parity-v1-stage3-preregistration`.
-- Latest decision: D-147 closes the single D-144/D-140 credential-free datafeed attempt after the first XAUUSD BID June 1 sanity connection was reset by the peer before any HTTP response. No usable market rows or model fit occurred; Stage 3B remains **NOT TESTED** and all provider execution is fail-closed.
+- Latest decision: D-148 preregisters a new credential-free Dukascopy FREESERV chart-JSON transport after D-147 closed the consumed direct-datafeed attempt. D-148 is source/code-only: no market request is authorized; Stage 3B remains **NOT TESTED**.
 - Information Parity V1 Stage 2 is accepted on 2016-2021 TRAIN. Final Stage 3B source teacher: 107 ACT, 143 eligible P3, 39 paired dates; exact dataset/hash in `research/reference/information-parity-v1/stage3b-source-freeze-manifest-v1.json`.
 - D-088 remains superseded only for already-consumed bounded 2026 exceptions; no current provider execution, Stage 4/5 progression, shadow collection, sealed-year access, or broker mutation is authorized.
 - No trading or broker mutation is enabled.
