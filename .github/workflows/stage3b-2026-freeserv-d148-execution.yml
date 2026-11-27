@@ -1,0 +1,115 @@
+name: stage3b-2026-freeserv-d148-one-attempt-execution
+on:
+  push:
+    branches:
+      - research/information-parity-v1-stage3-preregistration
+    paths:
+      - ".github/stage3b-2026-freeserv-execution-trigger"
+permissions:
+  contents: read
+jobs:
+  d148-d152-one-attempt-provider-and-benchmark:
+    if: ${{ contains(github.event.head_commit.message, '[STAGE3B_D148_D152_ONE_ATTEMPT]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      STAGE3B_WORK: stage3b-d148-work
+      D152_AUTHORIZATION_SHA: ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Immutable D-152 one-attempt trigger guard
+        run: |
+          set -euo pipefail
+          test "$GITHUB_RUN_ATTEMPT" = "1"
+          test -f .github/stage3b-2026-freeserv-execution-trigger
+          printf '%s\n' \
+            'D-155 execute exactly one D-148 FREESERV attempt under D-152' \
+            'authorization=ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71' \
+            'representation=DUKASCOPY_FREESERV_CHART_JSON3_M1_V1' \
+            'scope=2026-06-01T00:00:00Z/2026-10-09T00:00:00Z' \
+            'sanity_requests=8' \
+            'sanity_limit=2' \
+            'full_page_limit=30000' \
+            'max_full_requests_per_series=11' \
+            'hard_total_requests=96' \
+            'raw_cap_mib=350' \
+            'normalized_cap_mib=750' \
+            'retries=0' \
+            'attempt=1' > expected-trigger.txt
+          cmp --silent expected-trigger.txt .github/stage3b-2026-freeserv-execution-trigger
+      - name: Setup exact Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12.14"
+      - name: Install exact Stage 3B lock
+        run: python -m pip install --disable-pip-version-check --no-cache-dir -r requirements/information-parity-stage3b-2026.lock.txt
+      - name: Final zero-market-request deterministic guards
+        run: |
+          set -euo pipefail
+          python scripts/check_information_parity_stage3b_2026_environment.py
+          python -m py_compile scripts/stage3b_2026_freeserv_preflight.py scripts/acquire_dukascopy_freeserv_stage3b_2026.py tests/test_stage3b_2026_freeserv.py tests/test_stage3b_2026_freeserv_execution.py
+          bash -n scripts/acquire_information_parity_stage3b_2026_freeserv.sh
+          python -m unittest -v tests.test_stage3b_2026_freeserv tests.test_stage3b_2026_freeserv_execution tests.test_stage3b_2026_pipeline
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "scripts")
+          import stage3b_2026_freeserv_preflight as p
+          import acquire_dukascopy_freeserv_stage3b_2026 as a
+          assert p.SOURCE_REPRESENTATION == "DUKASCOPY_FREESERV_CHART_JSON3_M1_V1"
+          assert p.INTERVAL == "1MIN"
+          assert p.SANITY_LIMIT == 2
+          assert len(p.SERIES) == 8
+          assert len(p.sanity_specs()) == 8
+          assert p.PROPOSED_MAX_FULL_REQUESTS_PER_SERIES == 11
+          assert p.PROPOSED_MAX_TOTAL_REQUESTS == 96
+          assert p.MAX_RAW_BYTES == 350*1024*1024
+          assert p.MAX_NORMALIZED_BYTES == 750*1024*1024
+          assert p.MAX_RETRIES_AFTER_PROVIDER_FAILURE == 0
+          assert a.PROVIDER_EXECUTION_ENABLED is True
+          assert a.AUTHORIZED_D148_DECISION_SHAS == frozenset({"ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71"})
+          a.require_execution_authorized("ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71")
+          try:
+              a.require_execution_authorized("wrong")
+          except PermissionError:
+              pass
+          else:
+              raise AssertionError("unapproved authorization SHA allowed")
+          print("D152_FREESERV_ONE_ATTEMPT_EXECUTION_GUARD_PASS")
+          PY
+      - name: Record exact execution identity
+        run: |
+          mkdir -p "$STAGE3B_WORK/reports" "$STAGE3B_WORK/manifests"
+          printf '{"authorization_sha":"%s","source_representation":"DUKASCOPY_FREESERV_CHART_JSON3_M1_V1","head_sha":"%s","run_id":"%s","run_attempt":"%s","total_request_cap":96,"retry_cap":0}\n' \
+            "$D152_AUTHORIZATION_SHA" "$GITHUB_SHA" "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT" \
+            > "$STAGE3B_WORK/reports/execution-identity.json"
+      - name: Exactly one bounded FREESERV attempt and causal layer build
+        run: |
+          set -euo pipefail
+          bash scripts/acquire_information_parity_stage3b_2026_freeserv.sh "$STAGE3B_WORK" "$D152_AUTHORIZATION_SHA" \
+            2>&1 | tee "$STAGE3B_WORK/reports/freeserv-execution.log"
+      - name: Build frozen Stage 3B candidate dataset
+        run: |
+          python scripts/build_stage3b_2026_dataset.py "$STAGE3B_WORK/derived/layer" "$STAGE3B_WORK/derived/synthetic-dxy.csv" research/reference/information-parity-v1/stage3b-source-events-v1.csv research/reference/information-parity-v1/stage3b-2026-feature-allowlists-v1.json "$STAGE3B_WORK/derived/candidates.csv.gz" "$STAGE3B_WORK/reports/dataset.json"
+      - name: Run frozen GOLD versus FULL Stage 3B benchmark
+        run: |
+          python scripts/run_stage3b_2026_benchmark.py "$STAGE3B_WORK/derived/candidates.csv.gz" research/reference/information-parity-v1/stage3b-2026-feature-allowlists-v1.json "$STAGE3B_WORK/reports/benchmark.json" "$STAGE3B_WORK/reports/predictions.csv"
+      - name: Hash compact evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p "$STAGE3B_WORK/reports" "$STAGE3B_WORK/manifests"
+          find "$STAGE3B_WORK/reports" "$STAGE3B_WORK/manifests" -type f -print | sort | xargs -r sha256sum > "$STAGE3B_WORK/reports/compact-evidence-sha256.txt"
+      - name: Remove raw and derived market/model payloads before upload
+        if: always()
+        run: rm -rf "$STAGE3B_WORK/raw" "$STAGE3B_WORK/derived"
+      - name: Upload compact D-152 evidence only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: stage3b-2026-d148-d152-single-attempt
+          path: |
+            stage3b-d148-work/reports/**
+            stage3b-d148-work/manifests/**
+          if-no-files-found: warn
+          retention-days: 90
