@@ -12,8 +12,8 @@ from typing import Callable
 
 import stage3b_2026_freeserv_preflight as gate
 
-AUTHORIZED_D148_DECISION_SHAS = frozenset({"ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71"})
-PROVIDER_EXECUTION_ENABLED = True
+AUTHORIZED_D148_DECISION_SHAS = frozenset()
+PROVIDER_EXECUTION_ENABLED = False
 HTTP_TIMEOUT_SECONDS = 45
 
 class NoRedirectHandler(urllib.request.HTTPRedirectHandler):
