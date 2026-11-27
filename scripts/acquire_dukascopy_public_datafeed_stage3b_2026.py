@@ -2,8 +2,7 @@
 """D-144 one-attempt credential-free Dukascopy direct-M1 acquisition.
 
 Transport only. Scientific scope is frozen by D-124/D-140. No retries, no
-alternate host/source, and provider access is enabled only by the D-146 immutable one-time trigger after the
-D-145 exact-runtime no-provider preflight passed.
+alternate host/source, and the D-146 one-time attempt is consumed after a TLS connection reset on the first sanity request; provider execution is now fail-closed.
 """
 from __future__ import annotations
 
@@ -21,9 +20,9 @@ import decode_dukascopy_datafeed_m1 as decoder
 import stage3b_2026_public_datafeed_preflight as gate
 
 D144_AUTHORIZATION_SHA = "eb05ac27af18f68232d86a9148597aa565688709"
-AUTHORIZED_D140_DECISION_SHAS = frozenset({D144_AUTHORIZATION_SHA})
+AUTHORIZED_D140_DECISION_SHAS = frozenset()
 SOURCE_REPRESENTATION = "DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1"
-PROVIDER_EXECUTION_ENABLED = True
+PROVIDER_EXECUTION_ENABLED = False
 USER_AGENT = "xauusd-stage3b-d140/1.0"
 
 SERIES = (
@@ -45,7 +44,7 @@ def require_execution_authorized(auth_sha: str = D144_AUTHORIZATION_SHA) -> None
     if auth_sha not in AUTHORIZED_D140_DECISION_SHAS:
         raise PermissionError("D-140 authorization SHA not allowlisted")
     if not PROVIDER_EXECUTION_ENABLED:
-        raise PermissionError("D-140 provider execution disabled pending exact-runtime implementation preflight")
+        raise PermissionError("D-140/D-144 attempt consumed by D-146; no rerun authorized")
 
 
 def sha256_bytes(data: bytes) -> str:
