@@ -3085,3 +3085,10 @@ Because local Python 3.12.14 is unavailable, D-141 includes one narrowly scoped 
 ## D-142 — D-141 exact-runtime tests passed; CI failure isolated to harness import
 
 Run 45953090143 / job 140353234366 used CPython3.12.14, compiled all D140 files successfully and passed all 8/8 D140 unit tests. The job then failed only because an ad-hoc importlib static-plan snippet loaded a dataclass module without registering it in sys.modules. D142 patches only that workflow harness to a normal import. Decoder/guard/test blobs and provider-disabled state are unchanged. One follow-up no-provider run is justified to verify the corrected harness.
+
+
+## D-143 — D-140 exact-runtime no-provider preflight PASS
+
+Corrected D142 workflow run 45953279060 / job 140353837712 succeeded under CPython3.12.14: compile PASS, D140 deterministic tests 8/8 PASS, static-plan assertions PASS, provider requests 0. Provider remains disabled. D140 is now implementation/preflight-complete under the owner’s D139 no-manual-setup constraint.
+
+The only remaining step before the single credential-free datafeed attempt is explicit owner text authorization. No AWS, account, credential, secret, payment, browser profile or manual infrastructure setup is required.

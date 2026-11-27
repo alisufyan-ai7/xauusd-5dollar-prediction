@@ -3852,3 +3852,12 @@ Findings: research/INFORMATION_PARITY_V1_STAGE3B_2026_D141_PUBLIC_DATAFEED_PREFL
 ## D-142 — Diagnose D-141 CI failure before rerun
 
 D-141 run 45953090143 / job 140353234366: exact Python3.12.14 compile PASS, D140 tests 8/8 PASS, provider requests 0. Failure was post-test harness-only: importlib loaded a dataclass module without sys.modules registration. D142 changes only the workflow loader to a normal import and triggers one targeted no-provider verification. No product/provider/scientific code changed.
+
+
+---
+
+## D-143 — Accept D-140 exact-runtime no-provider preflight
+
+Run 45953279060 / job 140353837712 on head b71f5be55cc34b0d7577b5de0651f9154964acff: Python3.12.14 compile PASS, 8/8 D140 tests PASS, static plan PASS, provider requests 0, workflow SUCCESS. Provider execution remains disabled. D140 is ready for one text-only owner authorization; no manual external setup is required.
+
+Findings: research/INFORMATION_PARITY_V1_STAGE3B_2026_D143_PUBLIC_DATAFEED_PREFLIGHT_ACCEPTANCE.md.

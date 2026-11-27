@@ -2,10 +2,11 @@
 
 Continue XAUUSD 5dollar Prediction from GitHub; fetch branch HEAD fresh.
 
-D137: JETTA recovery consumed on direct HTTP403; Stage3B NOT TESTED; never rerun D132/D136.
-D139: owner will not configure AWS/accounts/credentials/infrastructure. Assistant-operated routes only. D138 S3 infeasible.
-D140: credential-free direct daily M1 BID/ASK datafeed proposal, all D124 science unchanged.
+D139 standing constraint: owner will not configure AWS/accounts/credentials/infrastructure. Assistant-operated routes only. D138 S3 infeasible.
+D137: prior JETTA recovery consumed on direct HTTP403; Stage3B NOT TESTED; never rerun D132/D136.
 
-D141 implements the standard-library M1 decoder and fail-closed URL/date/symbol/side/budget guard. Local Python3.13.5 no-provider tests passed 8/8 and exact locally tested Git blobs match the committed blobs. Provider remains disabled.
+D140 credential-free route: DUKASCOPY_PUBLIC_DATAFEED_DIRECT_M1_V1 using direct daily M1 BID/ASK .bi5; all D124 scientific scope unchanged.
 
-D141 also triggers one purpose-built exact-runtime no-provider workflow because Python3.12.14 is unavailable locally. Immediate action: inspect/poll that workflow. If PASS, record exact-runtime evidence; then the only remaining owner action is a text authorization for one D140 provider attempt. Do not ask for external setup.
+D143 exact-runtime preflight is ACCEPTED: run 45953279060 / job 140353837712, CPython3.12.14, compile PASS, 8/8 tests PASS, static plan PASS, provider requests 0. Provider remains disabled.
+
+Only remaining prerequisite for the single D140 provider attempt is explicit owner text authorization. Do not ask for AWS/account setup. Once authorized, implement the one-attempt downloader around the frozen guard, sanity-check exactly eight Jun1 objects, stop on any failure, and only continue to full Jun1-Oct8 acquisition if all eight pass. No rerun.

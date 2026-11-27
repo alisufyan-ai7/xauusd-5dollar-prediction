@@ -232,4 +232,5 @@ Protocol: `research/INFORMATION_PARITY_V1_STAGE3B_2026_BOUNDED_PROTOCOL_PROPOSAL
 - [ ] Only after PASS, obtain one text-only owner authorization for the versioned D-140 provider attempt; no manual setup required.
 
 - [x] D-141 exact Python 3.12.14 compile + D-140 unit tests PASS (8/8); workflow failed only in post-test import harness.
-- [ ] D-142 corrected-harness exact-runtime no-provider workflow must PASS before requesting D-140 provider authorization.
+- [x] D-143 exact Python 3.12.14 no-provider workflow PASS: run 45953279060 / job 140353837712; 8/8 tests + static plan PASS, provider requests 0.
+- [ ] Obtain explicit owner text authorization for exactly one D-140 credential-free provider attempt; no external setup required.
