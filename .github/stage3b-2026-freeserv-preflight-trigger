@@ -1,10 +1,10 @@
-D-151 final exact-runtime disabled D-148 FREESERV surface verification
+D-153 hardened D-148 FREESERV no-provider exact-runtime
+authorization_commit=ce9e4a1eef48df2e7f1ee8775afe74edc10cbe71
 representation=DUKASCOPY_FREESERV_CHART_JSON3_M1_V1
 python=3.12.14
 provider_access=false
 authorization_allowlist=empty
-compile_production_wrapper=true
-shell_syntax_check=true
-tests=16
-max_total_requests_if_later_authorized=96
-retries=0
+proxy=false
+redirect=false
+normalized_midpage_cap=786432000
+tests=18
